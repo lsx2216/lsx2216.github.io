@@ -1,0 +1,1278 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-5-Redis</title>
+<meta name=description content="Java道经第3卷 - 第5阶 - v3-5-ssm-redis - Redis
+S01. Redis基础入门 E01. 基础概念入门 1. NoSQL基础概念 心法: NoSQL 全称 Not Only SQL，不止于SQL
+NoSQL是一种泛指非关系型数据库的全新理念，如键值对结构的Redis，文档结构 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/JB3-5-Redis/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-5-Redis"><meta property="og:description" content="Java道经第3卷 - 第5阶 - v3-5-ssm-redis - Redis
+S01. Redis基础入门 E01. 基础概念入门 1. NoSQL基础概念 心法: NoSQL 全称 Not Only SQL，不止于SQL
+NoSQL是一种泛指非关系型数据库的全新理念，如键值对结构的Redis，文档结构 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-5-Redis"><meta name=twitter:description content="Java道经第3卷 - 第5阶 - v3-5-ssm-redis - Redis
+S01. Redis基础入门 E01. 基础概念入门 1. NoSQL基础概念 心法: NoSQL 全称 Not Only SQL，不止于SQL
+NoSQL是一种泛指非关系型数据库的全新理念，如键值对结构的Redis，文档结构 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/JB3-5-Redis/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/JB3-5-Redis/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/JB3-5-Redis/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-5-Redis</h1></div><div class=post-content><blockquote><p>Java道经第3卷 - 第5阶 - v3-5-ssm-redis - Redis</p></blockquote><hr><h1 id=s01-redis基础入门>S01. Redis基础入门</h1><h2 id=e01-基础概念入门>E01. 基础概念入门</h2><h3 id=1-nosql基础概念>1. NoSQL基础概念</h3><blockquote><p>心法: NoSQL 全称 <code>Not Only SQL</code>，不止于SQL</p></blockquote><ul><li>NoSQL是一种泛指非关系型数据库的全新理念，如键值对结构的Redis，文档结构的MongoDB，图形结构的Neo4j等。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;NoSQL特点&#34;]
+n1 -.- n2[&#34;高扩展&#34;] -.- n2a[&#34;数据之间无关联，故非常容易进行修改和扩展&#34;]
+n1 -.- n3[&#34;高性能&#34;] -.- n3a[&#34;数据结构简单，在海量数据量场景下具有高读写性能&#34;]
+n1 -.- n4[&#34;更灵活&#34;] -.- n4a[&#34;无需事前建立表结构，更灵活的操作数据，避免繁琐的表，字段的关系操作&#34;]
+n1 -.- n5[&#34;高可用&#34;] -.- n5a[&#34;通常采用分布式架构，可以在多台服务器上部署，实现水平扩展和高可用性&#34;]
+</code></pre><h3 id=2-redis技术特点>2. Redis技术特点</h3><blockquote><p>心法: Redis缓存中间件 - 一款基于C语言开发的免费开源的缓存数据库</p></blockquote><ul><li>Redis目前被github，twitter，stackOverFlow，阿里巴巴，百度，美团，搜狐，新浪微博等项目使用:</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;Redis特点&#34;]
+n1 -.- n2[&#34;原子操作&#34;] -.- n2a[&#34;Redis是单线程的，避免了并发问题和线程切换消耗&#34;]
+n1 -.- n3[&#34;内存存储&#34;] -.- n3a[&#34;数据默认保存在内存，官测50个并发执行10W个请求时，读速11W次/s，写速8.1W次/s&#34;]
+n1 -.- n4[&#34;多种场景&#34;] -.- n4a[&#34;常用于缓存热点数据，高效计数，秒杀限购，分布式锁等场景&#34;]
+n1 -.- n5[&#34;多种结构&#34;] -.- n5a[&#34;包括字符串、哈希、列表、集合、有序集合等结构，足以应付更多复杂的使用场景&#34;]
+</code></pre><h3 id=3-redis配合mysql>3. Redis配合MySQL</h3><blockquote><p>心法: Redis和MySQL配合使用流程</p></blockquote><ul><li>Redis更多被用来实现应用和数据库之间读操作的缓存层，主要目的是减少数据库IO，为DB抵挡伤害。</li></ul><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/image/a15be4a8ce84ccc07fec0f56ce90ce30.png alt=截图></p><h2 id=e02-双写同步方案>E02. 双写同步方案</h2><blockquote><p>心法: 如何保持 Redis 和 MySQL 数据双写一致性</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;同步方案&#34;]
+n1 -.- n2[&#34;延时双删策略&#34;] -.- n2a[&#34;实时一致性&#34;] -.- n2aa[&#34;适用于抢购，秒杀等纯粹的高并发场景&#34;]
+n1 -.- n3[&#34;订阅BinLog&#34;] -.- n3a[&#34;最终一致性&#34;] -.- n3aa[&#34;适用于异地容灾、数据汇总等场景&#34;]
+</code></pre><h3 id=1-延时双删策略>1. 延时双删策略</h3><blockquote><p>心法: 双删策略: 更新数据时先删缓存，再改DB，再通过MQ异步删除一次缓存（失败重试）</p></blockquote><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/image/9f90f3e7c03dc50d8cea20aeb2305bed.png alt=截图></p><h3 id=2-订阅binlog日志>2. 订阅BinLog日志</h3><blockquote><p>心法: BinLog日志文件</p></blockquote><ul><li>BinLog是MySQL中的一种二进制日志文件，用于记录MySQL内部对数据库的所有修改。</li></ul><blockquote><p>心法: 订阅BinLog: 借助监听BinLog的MQ来异步删除缓存（失败重试）</p></blockquote><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/image/3765127411c2e29bcbbb9177c0819366.png alt=截图></p><h2 id=e03-常见并发现象>E03. 常见并发现象</h2><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;Redis常见并发现象&#34;]
+n1 -.- n2[&#34;击穿&lt;br/&gt;缓存突然过期&#34;] 
+	n2 -.- n2bb1[&#34;临时设置缓存永不过期&#34;] &amp; n2bb2[&#34;使用分布式锁&#34;] &amp; n2bb3[&#34;自动续期&#34;]
+n1 -.- n3[&#34;穿透&lt;br/&gt;请求访问不存在的数据&#34;] 
+	n3 -.- n3bb1[&#34;在缓存中存储null值&#34;] &amp; n3bb2[&#34;使用布隆过滤器&#34;]
+n1 -.- n4[&#34;雪崩&lt;br/&gt;大面积的击穿&#34;] 
+	n4 -.- n4bb1[&#34;临时设置缓存永不过期&#34;] &amp; n4bb2[&#34;为过期时间随机盐&#34;] &amp; n4bb3[&#34;多地缓存&#34;]
+</code></pre><h3 id=1-redis缓存击穿>1. Redis缓存击穿</h3><blockquote><p>心法: Redis缓存击穿 - 情景模拟</p></blockquote><ol><li>0.00：小米1号手机做活动，今晚9点开抢。</li><li>8.00：运营人员赵四将该手机数据预热到Redis中。</li><li>9.00：活动开始，大量请求来袭。</li><li>9.30：小米1号手机的缓存突然过期，大量相同请求打到DB身上致其死亡，该缓存被击穿。</li></ol><blockquote><p>心法: Redis缓存击穿 - 解决方案</p></blockquote><ol><li>设置缓存永不过期：需要注意，这样可能会导致缓存空间不足或者数据过时的问题。</li><li>加锁更新缓存：使用分布式锁来保证只有一个线程去查询数据库并更新缓存。</li><li>自动续期：设置该缓存每次被查询时自动续期等。</li></ol><h3 id=2-redis缓存穿透>2. Redis缓存穿透</h3><blockquote><p>心法: Redis缓存穿透 - 情景模拟</p></blockquote><ol><li>0.00：小米1号手机做活动，今晚9点开抢。</li><li>8.00：运营人员广坤将全部手机数据预热到Redis中。</li><li>8.59：某当红主播为小米1号手机做宣传，结果口误说成了小米2号手机，而DB中根本没有这款产品。</li><li>9.00：活动开始，大批量 &ldquo;查询2号手机&rdquo; 的无效请求直接穿透Redis缓存打在DB身上，最终导致DB宕机。</li></ol><blockquote><p>心法: Redis缓存穿透 - 解决方案</p></blockquote><ol><li>即使DB中查无此数据时，也要在Redis中缓存一个null值以拦截后续无效请求。</li><li>使用布隆过滤器拦截无效请求。</li></ol><h3 id=3-redis缓存雪崩>3. Redis缓存雪崩</h3><blockquote><p>心法: Redis缓存雪崩 - 情景模拟</p></blockquote><ol><li>0.00：今日小米全部手机都活动，今晚9点开抢。</li><li>8.00：运营人员刘能将全部手机数据预热到Redis中。</li><li>9.00：活动开始，大量请求来袭。</li><li>9.30：全部小米手机的缓存同时过期，大量不同请求打到DB身上致其死亡，缓存大面积雪崩。</li></ol><blockquote><p>心法: Redis缓存雪崩 - 解决方案</p></blockquote><ol><li>设置缓存永不过期：需要注意，这样可能会导致缓存空间不足或者数据过时的问题。</li><li>添加随机盐：为批量缓存的过期时间添加不同的随机盐。</li><li>分散缓存：将热点数据分布在不同的Redis节点中。</li></ol><h2 id=e04-过期删除策略>E04. 过期删除策略</h2><blockquote><p>心法: Redis对过期key的删除策略</p></blockquote><ul><li>Redis默认对过期的缓存数据采取惰性 + 定期的策略进行清理。</li></ul><h3 id=1-redis过期字典>1. Redis过期字典</h3><blockquote><p>心法: Redis过期字典 <code>expires dict</code></p></blockquote><ul><li>Redis会自动将所有设置了过期时间的缓存数据都统一存入一个Hash结构的过期字典中:<ul><li>过期字典的key: 是一个指针，指向某个缓存数据。</li><li>过期字典的value: 是一个整数，存储缓存数据的过期时间。</li></ul></li><li>当客户端访问某条缓存数据时，Redis会首先检查该缓存数据是否存在于过期字典中:<ul><li>若不存在，则正常读取缓存数据。</li><li>若存在，则比对该缓存数据的过期时间和本地时间，判定该缓存数据是否已经过期。</li></ul></li></ul><h3 id=2-定时删除策略>2. 定时删除策略</h3><blockquote><p>心法: 定时删除策略 <code>Timed Deletion Strategy</code></p></blockquote><ul><li>原理: 为某KEY添加过期时间的同时，为其创建一个定时器，时间一到，立刻删除它。</li><li>优点: KEY一过期就会立刻被删除，即内存可以被尽快地释放。</li><li>缺点: 当过期KEY较多时，CPU可能会将大量时间和资源浪费在删除过期KEY上，影响其他重要操作。</li></ul><h3 id=3-惰性删除策略>3. 惰性删除策略</h3><blockquote><p>心法: 惰性删除策略 <code>Lazy Deletion Strategy</code></p></blockquote><ul><li>原理: 不主动删除过期KEY，每当客户端访问某KEY时，都先检查它是否已过期，若是则立刻删除它，然后返回null。</li><li>优点: 将删除过期KEY的操作延后，从而让出CPU资源到更有用的KEY上。</li><li>缺点: 若一个过期KEY长时间没有被访问到，则会一直占用内存。</li></ul><h3 id=4-定期删除策略>4. 定期删除策略</h3><blockquote><p>心法: 定期删除策略 <code>Regular Deletion Strategy</code></p></blockquote><ul><li>原理: 默认每隔100ms从Redis中随机抽样20条KEY并删除其中全部过期KEY，若删除比例超过1/4，则重复操作。</li><li>优点: 既能缓解一部分定时删除对CPU的压力，又能缓解一部分惰性删除对内存的压力。</li><li>缺点: 内存释放方面比不过定时删除策略，CPU资源方面比不过惰性删除策略。</li></ul><h2 id=e05-单机容器搭建>E05. 单机容器搭建</h2><blockquote><p>武技: 在Docker中搭建单机Redis容器</p></blockquote><h3 id=1-创建相关目录>1. 创建相关目录</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建单机Redis的配置目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/single/conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建单机Redis的数据目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/single/data;
+</span></span><span style=display:flex><span><span style=color:#75715e># 提升目录权限</span>
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/redis/single;
+</span></span></code></pre></div><h3 id=2-编写配置文件>2. 编写配置文件</h3><blockquote><p>心法: Redis配置文件</p></blockquote><ul><li>Redis服务在启动时会读取 <code>redis.conf</code> 中的配置项。</li></ul><table><thead><tr><th>配置项</th><th>描述</th></tr></thead><tbody><tr><td><code>port: 6379</code></td><td>Redis服务端口号</td></tr><tr><td><code>bind: 0.0.0.0</code></td><td>接收来自任意一个网卡的Redis请求</td></tr><tr><td><code>protected-mode: no</code></td><td>关闭保护模式，允许外网远程连接，前提是不设置密码</td></tr><tr><td><code>enable-debug-command: yes</code></td><td>启用debug命令，便于学习和测试命令</td></tr><tr><td><code>dir ./</code></td><td>工作目录，RDB文件和AOF文件都会在这个目录下生成</td></tr></tbody></table><blockquote><p>武技: 编写redis配置文件</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>vim /opt/redis/single/conf/redis.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置内容如下：</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Redis服务端口号</span>
+</span></span><span style=display:flex><span>port <span style=color:#ae81ff>6379</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 接收来自任意一个网卡的Redis请求</span>
+</span></span><span style=display:flex><span>bind 0.0.0.0
+</span></span><span style=display:flex><span><span style=color:#75715e># 关闭保护模式，允许外网远程连接，前提是不设置密码</span>
+</span></span><span style=display:flex><span>protected-mode no
+</span></span><span style=display:flex><span><span style=color:#75715e># 启用debug命令，便于学习和测试命令</span>
+</span></span><span style=display:flex><span>enable-debug-command yes
+</span></span><span style=display:flex><span><span style=color:#75715e># 工作目录，RDB文件和AOF文件都会在这个目录下生成</span>
+</span></span><span style=display:flex><span>dir ./
+</span></span></code></pre></div><h3 id=3-创建运行容器>3. 创建运行容器</h3><ol><li>创建并运行Redis容器：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行Redis容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `redis-server /etc/redis/redis.conf`: 以容器内指定配置文件启动Redis容器</span>
+</span></span><span style=display:flex><span>docker run -itd --name redis --network my-net -p 6379:6379 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/single/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/single/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf
+</span></span></code></pre></div><ol start=2><li>查看Redis容器：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看Redis容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Redis后30条启动日志</span>
+</span></span><span style=display:flex><span>docker logs redis --tail <span style=color:#ae81ff>30</span>
+</span></span></code></pre></div><ol start=3><li>查看Redis版本：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 进入Redis容器内部并查看Redis版本</span>
+</span></span><span style=display:flex><span>docker exec -it redis bash
+</span></span><span style=display:flex><span>redis-server --version
+</span></span></code></pre></div><ol start=4><li>永久开放Redis相关端口：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 永久开发6379端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>6379/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=4-搭建可视界面>4. 搭建可视界面</h3><blockquote><p>武技: 在IDEA中搭建Redis可视化界面</p></blockquote><ol><li>安装 <code>Redis Helper</code> 插件。</li><li>点击右侧 <code>Redis Helper</code> 进入配置页面，填写连接名，虚拟机地址和Redis端口号，密码空着即可。</li></ol><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-5-Redis/image/IDEA%E6%95%B4%E5%90%88Redis.png alt></p><ol start=3><li>点击测试按钮 <code>Test Connection</code>，若通过测试则点击OK完成添加。</li></ol><h2 id=e06-内存淘汰策略>E06. 内存淘汰策略</h2><blockquote><p>心法: 内存淘汰策略 <code>Memory Eviction Strategy</code></p></blockquote><ul><li>当Redis的运行内存已超过Redis设置的最大内存后，会使用合适内存淘汰策略来删除某些KEY，以保障Redis高效运行：<ul><li>最大内存限制可通过配置文件中的 <code>maxmemory</code> 项进行调整，单位字节，默认0，表示无限制。</li><li>内存淘汰策略可通过配置文件中的 <code>maxmemory-policy</code> 项进行调整，默认 <code>noeviction</code>。</li></ul></li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;Redis内存淘汰策略&#34;]
+n1 -.- n2[&#34;noeviction&#34;] -.- n2a[&#34;不淘汰，内存溢出直接OOM&#34;] 
+	-.- n2a1[&#34;Redis3.0之后默认&#34;] 
+n1 -.- n3[&#34;volatile-random&#34;] -.- n3a[&#34;在过期字典中随机淘汰任意KEY&#34;]
+n1 -.- n4[&#34;volatile-ttl&#34;] -.- n4a[&#34;在过期字典中优先淘汰离自然死亡更近的KEY&#34;]
+n1 -.- n5[&#34;volatile-lru&#34;] -.- n5a[&#34;在过期字典中淘汰最久未被使用的KEY&#34;]
+	-.- n5a1[&#34;Redis3.0之前默认&#34;] 
+n1 -.- n6[&#34;volatile-lfu&#34;] -.- n6a[&#34;在过期字典中淘汰最少被使用的KEY&#34;]
+	-.- n6a1[&#34;Redis4.0新增&#34;] 
+n1 -.- n7[&#34;allkeys-random&#34;] -.- n7a[&#34;在所有KEY中随机淘汰任意KEY&#34;]
+n1 -.- n8[&#34;allkeys-ttl&#34;] -.- n8a[&#34;在所有KEY中淘汰最久未被使用的KEY&#34;]
+n1 -.- n9[&#34;allkeys-lru&#34;] -.- n9a[&#34;在所有KEY中淘汰最少被使用的KEY&#34;]
+	-.- n9a1[&#34;Redis4.0新增&#34;] 
+</code></pre><blockquote><p>武技: 查看当前Redis版本所使用的内存淘汰策略</p></blockquote><ol><li>查看当前Redis版本所使用的内存淘汰策略以及最大内存限制</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 进入Redis容器内部</span>
+</span></span><span style=display:flex><span>docker exec -it redis bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看当前Redis版本所使用的内存淘汰策略</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>6379</span> config get maxmemory-policy
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看当前Redis版本所使用的最大内存限制</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>6379</span> config get maxmemory
+</span></span></code></pre></div><h2 id=e07-慢查日志操作>E07. 慢查日志操作</h2><blockquote><p>心法: Redis慢查日志</p></blockquote><ul><li>慢查询用于记录Redis命令的执行时间，但Redis服务端和客户端之间的网络IO时间并不会被记录。</li><li>慢查询记录在内存中的一个FIFO的定长队列中，该队列随Redis服务关闭而销毁，建议对其定期进行持久化操作。</li></ul><table><thead><tr><th></th><th>慢查询日志结构</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td>第一部分</td><td>命令标识</td><td>慢查询日志的唯一标识，自动递增</td><td><code>(integer) 0</code></td></tr><tr><td>第二部分</td><td>命令时间</td><td>命令发生的时间，是一个时间戳</td><td><code>(integer) 1699957754</code></td></tr><tr><td>第三部分</td><td>命令耗时</td><td>命令执行的总耗时，单位微秒，1000微秒是1毫秒</td><td><code>(integer) 1622</code></td></tr><tr><td>第四部分</td><td>命令内容</td><td>该命令本身内容以及组成该命令的参数数组</td><td><code>1) "get"</code><code>2) "money"</code></td></tr></tbody></table><blockquote><p>武技: 在Redis主配中配置慢查询项</p></blockquote><ol><li>修改Redis主配文件:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 修改Redis主配文件</span>
+</span></span><span style=display:flex><span>vim /opt/redis/single/conf/redis.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置内容如下：</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 耗时超过1微秒的命令都会进入队列，-1表示关闭慢查询，默认10000，开发中建议设置1000</span>
+</span></span><span style=display:flex><span>slowlog-log-slower-than <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 慢查询数量超过此值后，先进的记录会被丢弃，默认128，开发中建议设置1000以上</span>
+</span></span><span style=display:flex><span>slowlog-max-len <span style=color:#ae81ff>1024</span>
+</span></span></code></pre></div><ol start=2><li>重启Redis容器以使配置修改生效：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 重启容器，使配置文件生效</span>
+</span></span><span style=display:flex><span>docker restart redis
+</span></span></code></pre></div><ol start=3><li>测试慢查询是否配置成功:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 进入Redis容器内部并登录默认端口6379的Redis服务端</span>
+</span></span><span style=display:flex><span>docker exec -it redis bash
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>6379</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取慢查询队列中的3条数据（倒查）</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; slowlog get <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取慢查询队列中有多少条数据</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; slowlog len
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重置整个慢查询队列</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; slowlog reset
+</span></span></code></pre></div><h1 id=s02-redis数据类型>S02. Redis数据类型</h1><blockquote><p>心法: Redis数据类型</p></blockquote><ul><li>Redis的key仅支持string类型，可使用英文冒号分割目录层级，如 <code>user:01:name</code> 等。</li><li>Redis的value可使用 <code>string/hash/list/set/sorted_set</code> 五种自带本地方法的数据类型。</li><li>返回值 <code>nil</code> 表示无值，任何变量在没有被赋值之前的值都视为无值。</li><li>除string外的容器型数据结构，都可以在添加元素时自动创建，在容器中无元素时自动删除以释放内存。</li><li>当容器型数据结构中的元素很多时，建议按时间或hash等维度进行拆分以避免数据倾斜。</li></ul><h2 id=e01-redis通用命令>E01. Redis通用命令</h2><h3 id=1-重量级命令>1. 重量级命令</h3><blockquote><p>心法：Redis的命令可以大致分为重量级命令和轻量级命令两大类</p></blockquote><ul><li>重量级命令通常涉及较多的数据处理和计算，可能会消耗更多的系统资源和时间：<ul><li>如 <code>keys</code> 等，它们通常需要遍历大量的数据集或执行复杂的计算操作。</li></ul></li><li>轻量级命令通常执行简单的数据读写操作，不涉及复杂的计算或大量的数据处理：<ul><li>如 <code>set、get</code> 等，它们执行单个数据项的读写操作或简单的数据结构操作，消耗的系统资源和时间相对较少。</li></ul></li><li>在使用Redis时，合理选择重量级命令和轻量级命令可以有效提高系统的性能和效率，避免不必要的资源浪费。</li></ul><h3 id=2-通用命令>2. 通用命令</h3><blockquote><p>心法: Redis通用命令</p></blockquote><ul><li>Redis通用命令中包含很多重量级命令，即耗时较长的命令，需要尽量避免在生产环境中使用。</li></ul><blockquote><p>武技: 测试Redis通用命令</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 生成100条测试数据，key值默认为 `key:0` 到 `key:99`</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; debug populate <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 模拟阻塞5秒钟</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; debug sleep <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回总键数，直接获取内部记录，不会遍历所有的键，不是重量级命令</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; dbsize
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回符合RE表达式的所有键，重量级命令</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; keys *<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#66d9ef>?</span><span style=color:#ae81ff>9</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回 `key:0` 的数据类型，键不存在返回none</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; type key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重命名 `key:0` 为 `key01`，键不存在报错</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; rename key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span> key01
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除键 `key:0` 和 `key:1`，删除成功返回影响数，键不存在返回0</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; del key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span> key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 判断 `key:0` 和 `key:1` 是否存在，返回存在的总个数</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; exists key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span> key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置 `key:0` 在10秒后过期，成功返回1，键不存在返回0</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; expire key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回 `key:0` 的当前寿命，单位秒，键不存在返回-2，键永生返回-1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; ttl key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 移除 `key:0` 的过期时间，使其永生</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; persist key<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除当前库中的全部key，慎用</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; flushdb
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除全部库中的全部key，更慎用</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; flushall
+</span></span><span style=display:flex><span><span style=color:#75715e># 优雅退出Redis客户端，等效于 `quit` 命令</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; exit
+</span></span></code></pre></div><h2 id=e02-redis字符类型>E02. Redis字符类型</h2><blockquote><p>心法: 字符型 string</p></blockquote><ul><li>string类型包括字符串，整数和二进制等。</li><li>string类型底层最终都是用字节数组存储数据，一个string最多存储512MB数据。</li><li>string类型常用于缓存，计数器，分布式锁，全局ID，限流，位统计在线用户等场景。</li></ul><h3 id=1-sds字符串优势>1. SDS字符串优势</h3><blockquote><p>心法: Redis简单动态字符串, <code>Simple Dynamic String</code>, 简称SDS</p></blockquote><ul><li>Redis没有直接用C语言的字符串，而是自主实现了SDS数据结构以提升速度和性能。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n1[&#34;SDS优势&#34;] 
+	n1 --&gt; n2[&#34;长度计算更快&#34;] -.- n2a[&#34;SDS在头部存储了字符串的长度信息，因此可以直接获取字符串的长度，
+		                             而不需要像C字符串那样遍历整个字符串。&#34;]
+	n1 --&gt; n3[&#34;空间预分配&#34;] -.- n3a[&#34;SDS在分配空间时会预先分配一定大小的空间，
+		                           以减少频繁的内存分配操作。&#34;]
+	n1 --&gt; n4[&#34;惰性释放&#34;] -.- n4a[&#34;当SDS字符串缩短时，并不会立即释放多余的空间，
+	                              而是采取惰性空间释放的策略，待需要时再释放多余的空间。&#34;]
+	n1 --&gt; n5[&#34;二进制安全&#34;] -.- n5a[&#34;SDS可以保存任意二进制数据，而不仅仅局限于保存文本数据，
+	                                因此具有二进制安全性。&#34;]
+	n1 --&gt; n6[&#34;兼容C字符串&#34;] -.- n6a[&#34;SDS封装了一些C字符串函数，使得它们也可以用于SDS，
+	                                 方便了开发者的使用。&#34;]
+</code></pre><h3 id=2-sds字符串结构>2. SDS字符串结构</h3><blockquote><p>心法: SDS字符串结构</p></blockquote><ul><li>Redis中的SDS字符串结构是通过 <code>struct sdshdr</code> 来表示的，其定义如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>struct</span> sdshdr {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 记录 buf 数组中已使用字节的数量，若需要获取字符串长度，可直接取出此值，无需像C一样遍历计算，提升速度。
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> len;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 记录 buf 数组中未使用字节的数量，该空间可以在字符串追加时，自动进行拓展和预分配以避免频繁操作内存。
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> free;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 字节数组，用于保存实际数据，最后一个字符为空字符且不会被计算在len的结果中。
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>char</span> buf[];
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=3-字符串常用命令>3. 字符串常用命令</h3><blockquote><p>心法: 字符串常用命令</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;string常用命令&#34;] 
+n1 -.- n2[&#34;SET key value [NX|XX]&#34;] -.- n2a[&#34;设置key的字符串值&#34;] 
+n1 -.- n3[&#34;SETNX key value&#34;] -.- n3a[&#34;仅当key不存在时，设置key的字符串值&#34;]
+n1 -.- n4[&#34;SETEX key seconds value&#34;] -.- n4a[&#34;设置key的字符串值和过期时间&#34;]
+n1 -.- n5[&#34;GET key&#34;] -.- n5a[&#34;获取key的值&#34;]
+n1 -.- n6[&#34;STRLEN key&#34;] -.- n6a[&#34;获取存储在key中的字符串值的长度&#34;]
+n1 -.- n7[&#34;INCR key&#34;] -.- n7a[&#34;将key的整数值增加一&#34;]
+n1 -.- n8[&#34;DECR key&#34;] -.- n8a[&#34;将key的整数值递减一&#34;] 
+</code></pre><blockquote><p>武技: 测试字符型string的常用API方法，模拟存储小米99号手机 <code>m99</code> 的库存</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看string类型的全部本地方法</span>
+</span></span><span style=display:flex><span>6379&gt; help @string
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久存储米99手机的库存为200，同名覆盖，无论key是否存在都成功，总是返回OK</span>
+</span></span><span style=display:flex><span>6379&gt; set Mi99 <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久存储米99手机的库存为200，仅在key不存在时才成功并返回1，否则返回0</span>
+</span></span><span style=display:flex><span>6379&gt; setnx Mi99 <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 存储米99手机的库存为200，并设置60秒后过期，返回OK</span>
+</span></span><span style=display:flex><span>6379&gt; setex Mi99 <span style=color:#ae81ff>60</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取米99手机当前库存量，key不存在返回nil</span>
+</span></span><span style=display:flex><span>6379&gt; get Mi99
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取米99手机库存量的字节数组长度，UTF8编码下中文占3字节，GBK编码下中文占2字节</span>
+</span></span><span style=display:flex><span>6379&gt; strlen Mi99
+</span></span><span style=display:flex><span><span style=color:#75715e># 对米99手机库存量自增1，键不存在时视库存量为0，自增后返回1，值不为数字报错</span>
+</span></span><span style=display:flex><span>6379&gt; incr Mi99
+</span></span><span style=display:flex><span><span style=color:#75715e># 对米99手机库存量自减1，键不存在时视库存量为0，自减后返回-1，值不为数字报错</span>
+</span></span><span style=display:flex><span>6379&gt; decr Mi99
+</span></span></code></pre></div><h2 id=e03-redis哈希类型>E03. Redis哈希类型</h2><blockquote><p>心法: 哈希型hash</p></blockquote><ul><li>hash类型可视为Java中的HashMap容器，每个hash最多存储42亿个键值对。</li><li>hash类型拥有 <code>key / field / value</code> 三个字段，常用于存储实体类数据，比如用户数据，购物车数据等。</li></ul><h3 id=1-哈希常用命令>1. 哈希常用命令</h3><blockquote><p>心法: 哈希常用命令</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;hash常用命令&#34;] 
+n -.- n1[&#34;HSET key field value [field value ...]&#34;] -.- n1a[&#34;设置hash字段的字符串值&#34;] 
+n -.- n2[&#34;HSETNX key field value&#34;] -.- n2a[&#34;仅当hash字段不存在时，才设置该字段的值&#34;]
+n -.- n3[&#34;HEXISTS key field&#34;] -.- n3a[&#34;确定是否存在hash字段&#34;]
+n -.- n4[&#34;HGET key field&#34;] -.- n4a[&#34;获取hash字段的值&#34;]
+n -.- n5[&#34;HGETALL key&#34;] -.- n5a[&#34;获取hash中的所有字段和值&#34;]
+n -.- n6[&#34;HINCRBY key field increment&#34;] -.- n6a[&#34;将hash字段的整数值增加给定的数字&#34;]
+n -.- n7[&#34;HLEN key&#34;] -.- n7a[&#34;获取hash中的字段数&#34;] 
+n -.- n8[&#34;HDEL key field [field ...]&#34;] -.- n8a[&#34;删除一个或多个hash字段&#34;] 
+</code></pre><blockquote><p>武技: 测试哈希型hash的常用API方法，模拟存储1号用户 <code>u01</code> 的bean信息</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看hash类型的全部本地方法</span>
+</span></span><span style=display:flex><span>6379&gt; help @hash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为1号用户添加姓名为lucky，成功返回1</span>
+</span></span><span style=display:flex><span>6379&gt; hset u01 name lucky
+</span></span><span style=display:flex><span><span style=color:#75715e># 为1号用户添加姓名为lucky，若key已存在则失败返回0</span>
+</span></span><span style=display:flex><span>6379&gt; hsetnx u01 name lucky
+</span></span><span style=display:flex><span><span style=color:#75715e># 判断1号用户是否已经设置了姓名，存在返回1，不存在返回0</span>
+</span></span><span style=display:flex><span>6379&gt; hexists u01 name
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回1号用户的姓名，key不存在返回nil</span>
+</span></span><span style=display:flex><span>6379&gt; hget u01 name
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回1号用户的所有属性和值，key不存在返回 `empty` 提示</span>
+</span></span><span style=display:flex><span>6379&gt; hgetall u01
+</span></span><span style=display:flex><span><span style=color:#75715e># 为1号用户的年龄自增5，key不存在时年龄视为0，返回5，值不为数字报错，支持负数</span>
+</span></span><span style=display:flex><span>6379&gt; hincrby u01 age <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回1号用户中所有的键值对个数</span>
+</span></span><span style=display:flex><span>6379&gt; hlen u01
+</span></span><span style=display:flex><span><span style=color:#75715e># 同时删除1号用户的姓名和性别，返回成功总数</span>
+</span></span><span style=display:flex><span>6379&gt; hdel u01 age gender
+</span></span></code></pre></div><h2 id=e04-redis列表类型>E04. Redis列表类型</h2><blockquote><p>心法: 列表型list</p></blockquote><ul><li>list类型类似Java中有序双向LinkedList类型，用于存储有序字符串，允许重复元素，最多包含42亿个元素。</li><li>list类型常用于搭建消息队列，模拟栈结构和队列结构，展示数据列表，分页等场景。</li></ul><h3 id=1-列表常用命令>1. 列表常用命令</h3><blockquote><p>心法: 列表常用命令</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;list常用命令&#34;] 
+n -.- n1[&#34;LPUSH key element [element ...]&#34;] -.- n1a[&#34;将一个或多个element前置到list中&#34;] 
+n -.- n2[&#34;RPUSH key element [element ...]&#34;] -.- n2a[&#34;将一个或多个element后置到list中&#34;]
+n -.- n3[&#34;LLEN key&#34;] -.- n3a[&#34;获取list中的元素个数&#34;]
+n -.- n4[&#34;LRANGE key start stop&#34;] -.- n4a[&#34;从list中根据范围获取元素，包括两端值&#34;]
+n -.- n5[&#34;LPOP key [count]&#34;] -.- n5a[&#34;删除并获取list中的前count个元素，默认count为1&#34;]
+n -.- n6[&#34;RPOP key [count]&#34;] -.- n6a[&#34;删除并获取list中的后count个元素，默认count为1&#34;]
+n -.- n7[&#34;LINSERT key BEFORE|AFTER pivot element&#34;] -.- n7a[&#34;在list中的pivot元素之前或之后插入element&#34;] 
+n -.- n8[&#34;LINDEX key index&#34;] -.- n8a[&#34;按索引从list中获取元素&#34;]
+</code></pre><blockquote><p>武技: 测试列表型list的常用API方法，模拟存储1号用户的 <code>u02</code> 选课信息</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看list类型的全部本地方法</span>
+</span></span><span style=display:flex><span>6379&gt; help @list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 2号用户左插选课js和java，返回插入后队列长度</span>
+</span></span><span style=display:flex><span>6379&gt; lpush u02 js java
+</span></span><span style=display:flex><span><span style=color:#75715e># 2号用户右插选课mysql和spring，返回插入后队列长度</span>
+</span></span><span style=display:flex><span>6379&gt; rpush u02 mysql spring
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回2号用户一共选了多少课程</span>
+</span></span><span style=display:flex><span>6379&gt; llen u02
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回2号用户所选的0-3号课程，两端包括，负数视为倒数</span>
+</span></span><span style=display:flex><span>6379&gt; lrange u02 <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 弹出2号用户所选的第一门课程，空列表返回nil</span>
+</span></span><span style=display:flex><span>6379&gt; lpop u02
+</span></span><span style=display:flex><span><span style=color:#75715e># 弹出2号用户所选的最后2门课程，空列表返回nil</span>
+</span></span><span style=display:flex><span>6379&gt; rpop u02 <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 在2号用户所选的js课程前插入jq，js不存在返回-1</span>
+</span></span><span style=display:flex><span>6379&gt; linsert u02 before js jq
+</span></span><span style=display:flex><span><span style=color:#75715e># 在2号用户所选的js课程后插入css，js不存在返回-1</span>
+</span></span><span style=display:flex><span>6379&gt; linsert u02 after js css
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回1号位的元素</span>
+</span></span><span style=display:flex><span>6379&gt; linsert u02 <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h2 id=e05-redis集合类型>E05. Redis集合类型</h2><blockquote><p>心法: 集合型set</p></blockquote><ul><li>set类型可视为Java中的无序的HashSet类型，元素不允许重复，最多包含42亿个元素。</li><li>set类型常用于用户关注，共同好友，抽奖，点赞，签到，打卡等场景。</li></ul><h3 id=1-集合常用命令>1. 集合常用命令</h3><blockquote><p>心法: 集合常用命令</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;set常用命令&#34;] 
+n -.- n1[&#34;SADD key member [member ...]&#34;] -.- n1a[&#34;将一个或多个成员添加到set&#34;] 
+n -.- n2[&#34;SCARD key&#34;] -.- n2a[&#34;获取set中的成员数&#34;]
+n -.- n3[&#34;SMEMBERS key&#34;] -.- n3a[&#34;获取set中的所有成员&#34;]
+n -.- n4[&#34;SREM key member [member ...]&#34;] -.- n4a[&#34;从set中删除一个或多个成员&#34;]
+n -.- n5[&#34;SISMEMBER key member&#34;] -.- n5a[&#34;确定指定成员是否为set的成员&#34;]
+n -.- n6[&#34;SRANDMEMBER key [count]&#34;] -.- n6a[&#34;从set中获取一个或多个随机成员&#34;]
+n -.- n7[&#34;SPOP key [count]&#34;] -.- n7a[&#34;从set中移除并返回一个或多个随机成员&#34;] 
+n -.- n8[&#34;SDIFFSTORE destination key [key ...]&#34;] -.- n8a[&#34;求多个set的差集并将结果集存储到destination中&#34;]
+n -.- n9[&#34;SINTERSTORE destination key [key ...]&#34;] -.- n9a[&#34;求多个set的交集并将结果集存储到destination中&#34;]
+n -.- n10[&#34;SUNIONSTORE destination key [key ...]&#34;] -.- n10a[&#34;求多个set的并集并将结果集存储到destination中&#34;]
+</code></pre><blockquote><p>武技: 测试集合型set的常用API方法，模拟存储3号用户的 <code>u03</code> 关注明星</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看set类型的全部本地方法</span>
+</span></span><span style=display:flex><span>6379&gt; help @set
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3号用户同时关注jay和jj，重复添加返回0，返回总影响数</span>
+</span></span><span style=display:flex><span>6379&gt; sadd u03 jay jj
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回3号用户关注的全部明星数量</span>
+</span></span><span style=display:flex><span>6379&gt; scard u03
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回3号用户关注了哪些明星，重量级命令</span>
+</span></span><span style=display:flex><span>6379&gt; smembers u03
+</span></span><span style=display:flex><span><span style=color:#75715e># 3号用户同时取关jay和jj，返回总成功影响数</span>
+</span></span><span style=display:flex><span>6379&gt; srem u03 jay jj
+</span></span><span style=display:flex><span><span style=color:#75715e># 判断3号用户是否关注了jay，存在返回1，不存在返回0</span>
+</span></span><span style=display:flex><span>6379&gt; sismember u03 jay
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机3号用户的关注中选出5个明星，结果中的明星不重复</span>
+</span></span><span style=display:flex><span>6379&gt; srandmember u03 <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机3号用户的关注中选出5个明星，结果中的同个明星有可能重复出现</span>
+</span></span><span style=display:flex><span>6379&gt; srandmember u03 -5
+</span></span><span style=display:flex><span><span style=color:#75715e># 随机3号用户的关注中弹出5个不重复的元素，不支持负数</span>
+</span></span><span style=display:flex><span>6379&gt; spop u03 <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回s1和s2的差集（相同部分减去）并存入result，重量级命令</span>
+</span></span><span style=display:flex><span>6379&gt; sdiffstore result s1 s2
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回s1和s2的交集（相同部分保留）并存入result，重量级命令</span>
+</span></span><span style=display:flex><span>6379&gt; sinterstore result s1 s2
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回s1和s2的并集（组合去重）并存入result，重量级命令</span>
+</span></span><span style=display:flex><span>6379&gt; sunionstore result s1 s2
+</span></span></code></pre></div><h2 id=e06-redis有序集合>E06. Redis有序集合</h2><blockquote><p>心法: 排序集合型 sorted-set，简称 zset</p></blockquote><ul><li>sorted-set类型中的每个元素都会关联一个double类型的分数，用于排序。</li><li>sorted-set类型中的元素不允许重复但是分数可以重复。</li><li>sorted-set类型常用于排行榜，GEO等场景。</li></ul><h3 id=1-有序集合常用命令>1. 有序集合常用命令</h3><blockquote><p>心法: 有序集合常用命令</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;zset常用命令&#34;] 
+n -.- n1[&#34;ZADD key [NX|XX] score member [score member ...]&#34;] -.- n1a[&#34;将一或多个成员添加到zset中&#34;] 
+n -.- n2[&#34;ZCARD key&#34;] -.- n2a[&#34;获取zset中的成员数&#34;]
+n -.- n3[&#34;ZCOUNT key min max&#34;] -.- n3a[&#34;对得分在给定值内的zset中的成员进行计数&#34;]
+n -.- n4[&#34;ZSCORE key member&#34;] -.- n4a[&#34;获取zset中与给定成员相关联的分数&#34;]
+n -.- n5[&#34;ZRANGE key start stop [WITHSCORES]&#34;] -.- n5a[&#34;按索引返回zset中的成员范围，得分从低到高排序&#34;]
+n -.- n6[&#34;ZREVRANGE key start stop [WITHSCORES]&#34;] -.- n6a[&#34;按索引返回zset中的成员范围，得分从高到低排序&#34;]
+n -.- n7[&#34;ZRANGEBYSCORE key min max [WITHSCORES]&#34;] -.- n7a[&#34;按分数返回zset中的成员范围，得分从低到排序&#34;] 
+n -.- n8[&#34;ZREVRANGEBYSCORE key max min [WITHSCORES]&#34;] -.- n8a[&#34;按分数返回zset中的成员范围，得分从高到低排序&#34;]
+n -.- n9[&#34;ZRANK key member&#34;] -.- n9a[&#34;返回zset中指定成员的排名，得分从低到高排序&#34;]
+n -.- n10[&#34;ZREVRANK key member&#34;] -.- n10a[&#34;返回zset中指定成员的排名，得分从高到低排序&#34;]
+n -.- n11[&#34;ZREM key member [member ...]&#34;] -.- n11a[&#34;从zset中删除一个或多个成员&#34;]
+n -.- n12[&#34;ZINCRBY key increment member&#34;] -.- n12a[&#34;增加zset中指定成员的分数&#34;]
+</code></pre><blockquote><p>武技: 测试排序集合型sorted_set的常用API方法，模拟存储 <code>movie</code> 电影评分</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看sorted-set类型的全部本地方法</span>
+</span></span><span style=display:flex><span>6379&gt; help @sorted-set
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 向movie中添加2.5分的LaoPao元素，同名覆盖，返回总影响数</span>
+</span></span><span style=display:flex><span>6379&gt; zadd movie 2.5 LaoPao
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回movie中全部元素总数</span>
+</span></span><span style=display:flex><span>6379&gt; zcard movie
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回movie中分数在0到9之间的元素数量</span>
+</span></span><span style=display:flex><span>6379&gt; zcount movie <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>9</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回movie中LaoPao元素的分数，LaoPao不存在返回nil</span>
+</span></span><span style=display:flex><span>6379&gt; zscore movie LaoPao
+</span></span><span style=display:flex><span><span style=color:#75715e># 升序带分返回movie中索引0到3的元素</span>
+</span></span><span style=display:flex><span>6379&gt; zrange movie <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span> withscores
+</span></span><span style=display:flex><span><span style=color:#75715e># 降序带分返回movie中索引0到3的元素</span>
+</span></span><span style=display:flex><span>6379&gt; zrevrange movie <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span> withscores
+</span></span><span style=display:flex><span><span style=color:#75715e># 升序带分返回movie中3到7分的元素</span>
+</span></span><span style=display:flex><span>6379&gt; zrangebyscore movie <span style=color:#ae81ff>3</span> <span style=color:#ae81ff>7</span> withscores
+</span></span><span style=display:flex><span><span style=color:#75715e># 降序带分返回movie中7到3分的元素</span>
+</span></span><span style=display:flex><span>6379&gt; zrevrangebyscore movie <span style=color:#ae81ff>7</span> <span style=color:#ae81ff>3</span> withscores
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回LaoPao元素在movie中的升序排名，从0开始</span>
+</span></span><span style=display:flex><span>6379&gt; zrank movie LaoPao
+</span></span><span style=display:flex><span><span style=color:#75715e># 返回LaoPao元素在movie中的降序排名，从0开始</span>
+</span></span><span style=display:flex><span>6379&gt; zrevrank movie LaoPao
+</span></span><span style=display:flex><span><span style=color:#75715e># 从movie中删除LaoPao元素，返回总影响数</span>
+</span></span><span style=display:flex><span>6379&gt; zrem movie LaoPao
+</span></span><span style=display:flex><span><span style=color:#75715e># 将movie中LaoPao元素的分数自增5后返回，负数表示自减</span>
+</span></span><span style=display:flex><span>6379&gt; zincrby movie <span style=color:#ae81ff>5</span> LaoPao
+</span></span></code></pre></div><h1 id=s03-redis持久化>S03. Redis持久化</h1><blockquote><p>心法: Redis持久化</p></blockquote><ul><li>持久化指的是将内存中的数据备份到硬盘的操作，主要用于避免意外宕机时丢失数据的情况。</li><li>Redis可以同时使用RDB和AOF两种持久化方式，此时Redis服务重启时会优先读取AOF文件来恢复数据。</li></ul><h2 id=e01-rdb半持久化>E01. RDB半持久化</h2><h3 id=1-rdb流程解析>1. RDB流程解析</h3><blockquote><p>心法: RDB半持久化流程</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;RDB持久化流程&#34;] 
+--&gt; n1a[&#34;执行同步&lt;br/&gt;save命令&#34;] &amp; n1aa[&#34;执行异步&lt;br/&gt;bgsave命令&#34;]
+--&gt; n1b[&#34;在硬盘指定工作目录中&lt;br/&gt;生成临时RDB快照文件&#34;]
+--&gt; n1c[&#34;dump内存数据到&lt;br/&gt;临时RDB快照文件中&#34;]
+--&gt; n1d[&#34;替换之前的&lt;br/&gt;RDB快照文件&#34;]
+
+n2[&#34;RDB恢复数据流程&#34;]
+--&gt; n2a[&#34;直接重读RDB快照文件以恢复数据&#34;] -.- n2aa[&#34;此过程阻塞&#34;]
+</code></pre><h3 id=2-rdb优点缺点>2. RDB优点缺点</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n1[&#34;优点&#34;] --&gt; n1a[&#34;恢复速度快&#34;] .- n1a1[&#34;RDB快照文件内部采用二进制压缩，体积小，恢复速度快，
+	                                    适用恢复数据的规模比较大且对数据的完整性不敏感的情况使用。&#34;]
+n2[&#34;缺点&#34;] 
+n2 --&gt; n2a[&#34;恢复时阻塞&#34;] .- n2a1[&#34;重读RDB快照文件的过程会发生阻塞&#34;]
+n2 --&gt; n2b[&#34;会丢失数据&#34;] .- n2b1[&#34;系统一旦在某次持久化操作之前宕机，则有可能丢失一部分数据&#34;]
+</code></pre><h3 id=3-rdb开启方式>3. RDB开启方式</h3><blockquote><p>心法: RDB是默认开启的，不需要手动开启</p></blockquote><ul><li>若想禁用RDB持久化方案，则先添加 <code>save ""</code> 配置项，再删除已经生成的RDB文件即可。</li></ul><h3 id=4-rdb触发方式>4. RDB触发方式</h3><blockquote><p>心法: 同步触发和异步触发</p></blockquote><table><thead><tr><th></th><th>同步触发 <code>save</code></th><th>异步触发 <code>bgsave</code></th></tr></thead><tbody><tr><td>命令量级</td><td>重量级命令，不推荐直接使用</td><td>轻量级命令</td></tr><tr><td>响应结果</td><td>阻塞等待</td><td>不阻塞，立刻返回 <code>background saving start</code></td></tr><tr><td>工作流程</td><td>生成临时RDB文件，向其dump数据后替换旧RDB文件</td><td>主进程 <code>fork</code> 一个子进程来异步执行 <code>save</code> 命令</td></tr><tr><td>额外消耗</td><td>无</td><td>额外消耗内存进行 <code>fork</code> 操作</td></tr><tr><td>是否阻塞</td><td>整个同步过程都会阻塞</td><td>仅 <code>fork</code> 过程会发生短暂阻塞，其余过程不阻塞</td></tr></tbody></table><h3 id=5-rdb自动触发>5. RDB自动触发</h3><blockquote><p>心法: 自动触发 <code>bgsave</code> 命令的情况</p></blockquote><ol><li>Redis默认在60s内进行1W次写，300s内进行10次写，或900s内进行1次写时自动触发 <code>bgsave</code>，可视情况修改。</li><li>Redis客户端执行 <code>flushall</code> 命令时会自动生成一个空的RDB快照，意义不大。</li><li>Redis客户端执行 <code>shutdown</code> 命令时会先自动触发 <code>bgsave</code> 然后再关闭Redis服务。</li><li>Redis客户端执行 <code>debug reload</code> 命令时，会自动生成一个空的RDB快照，意义不大。</li><li>Redis默认在发生主从节点的 <code>slaveof</code> 命令时，会进行全量复制并自动生成RDB快照。</li></ol><h3 id=6-rdb功能测试>6. RDB功能测试</h3><blockquote><p>武技: 测试配置RDB半持久化</p></blockquote><ol><li>在Redis主配中配置RDB半持久化:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 修改Redis主配文件</span>
+</span></span><span style=display:flex><span>vim /opt/redis/single/conf/redis.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 内容如下：</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 300秒内有10个以上的key值发生改变，则触发 `bgsave`，可写多条</span>
+</span></span><span style=display:flex><span>save <span style=color:#ae81ff>300</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置RDB快照，默认为 `dump-6379.rdb`，生成在工作目录中</span>
+</span></span><span style=display:flex><span>dbfilename dump-6379.rdb
+</span></span><span style=display:flex><span><span style=color:#75715e># 最后一次 `bgsave` 失败时，主进程将停止接收数据加以警示，默认yes</span>
+</span></span><span style=display:flex><span>stop-writes-on-bgsave-error yes
+</span></span><span style=display:flex><span><span style=color:#75715e># 用LZF算法压缩RDB快照，节省硬盘空间，但会额外消耗CPU资源进行压缩操作，默认yes</span>
+</span></span><span style=display:flex><span>rdbcompression yes
+</span></span><span style=display:flex><span><span style=color:#75715e># 用CRC64算法检查RDB快照，提升安全性，但会额外增加10%左右的CPU消耗，默认yes</span>
+</span></span><span style=display:flex><span>rdbchecksum yes
+</span></span></code></pre></div><ol start=2><li>重启容器，使配置文件生效:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 重启容器，使配置文件生效</span>
+</span></span><span style=display:flex><span>docker restart redis
+</span></span></code></pre></div><ol start=3><li>测试RDB半持久化是否配置成功:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 生成一些测试数据</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; set name lucky
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; set age <span style=color:#ae81ff>28</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将数据异步存储到RDB快照中，此时观察RDB快照是否生成</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; bgsave
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; exit
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启Redis服务并重新连接Redis服务，此时Redis会从RDB快照中恢复数据，该过程会阻塞其它命令</span>
+</span></span><span style=display:flex><span>docker restart redis
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取数据，发现数据仍在，表示RDB持久化功能配置成功</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; get name
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; get age
+</span></span></code></pre></div><h2 id=e02-aof全持久化>E02. AOF全持久化</h2><blockquote><p>心法: AOF全持久化</p></blockquote><h3 id=1-aof流程解析>1. AOF流程解析</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;AOF持久化流程&#34;] 
+--&gt; n2[&#34;在硬盘指定工作目录中&lt;br/&gt;生成AOF日志文件&#34;]
+--&gt; n3[&#34;将每次的写命令&lt;br/&gt;追加到硬盘的缓冲区&#34;]
+--&gt; n4[&#34;按一定的刷盘策略&lt;br/&gt;将缓冲区数据刷到AOF日志文件中&#34;]
+
+n5[&#34;AOF恢复数据流程&#34;]
+--&gt; n6[&#34;重读AOF日志文件中的命令&#34;] 
+--&gt; n7[&#34;执行命令，完成数据恢复&#34;]
+</code></pre><h3 id=2-aof优点缺点>2. AOF优点缺点</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n1[&#34;优点&#34;] --&gt; n1a[&#34;数据完整度更高&#34;] &amp; n1b[&#34;数据安全性更高&#34;]
+
+n2[&#34;缺点&#34;] 
+n2 --&gt; n2a[&#34;日志文件过大&#34;] .- n2a1[&#34;AOF日志文件比RDB快照文件大&#34;]
+n2 --&gt; n2b[&#34;恢复速度慢&#34;]
+</code></pre><h3 id=3-aof文件重写>3. AOF文件重写</h3><blockquote><p>心法: AOF文件重写的目的是将一些被覆盖的，过期的命令进行优化，以压缩AOF文件大小，加速恢复速度</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n1a[&#34;客户端执行&lt;br/&gt;bgrewriteaof命令&#34;] &amp; n1b[&#34;AOF文件达到了&lt;br/&gt;一定阈值&#34;]
+	--&gt; n2[&#34;主进程fork&lt;br/&gt;一个子进程&#34;]
+n2 --&gt; n2a[&#34;子进程&lt;br/&gt;异步执行rewrite命令&#34;] 
+		--返回新的AOF文件--&gt; n2a2
+n2 --&gt; n2b[&#34;主进程此时接收到的写命令&lt;br/&gt;都会被暂时追加到缓冲区中&#34;] 
+		--&gt; n2a2[&#34;主进程&lt;br/&gt;刷盘&#34;]
+		--&gt; n2a3[&#34;主进程&lt;br/&gt;替换旧的AOF文件&#34;]
+	
+</code></pre><h3 id=4-aof刷盘策略>4. AOF刷盘策略</h3><blockquote><p>心法: AOF刷盘策略</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n[&#34;刷盘策略&#34;] --&gt; n1 &amp; n2 &amp; n3
+
+n1[&#34;always&#34;] -.- n1a[&#34;每次写操作&lt;br/&gt;都立刻刷盘&#34;]
+	-.- n1a1[&#34;优点：数据完整度高&lt;br/&gt;缺点：但是磁盘IO次数过多，效率低&#34;]
+n2[&#34;everysec&#34;] -.- n2a[&#34;每秒刷盘&lt;br/&gt;Redis默认策略&#34;]
+	-.- n2a1[&#34;优点：磁盘IO次数少&lt;br/&gt;缺点：有可能丢失最后1秒的数据&#34;]
+n3[&#34;no&#34;] -.- n3a[&#34;由OS决定如何刷盘&#34;]
+	-.- n3a1[&#34;优点：省心省力&lt;br/&gt;缺点：大多数linux系统是30秒刷盘一次，不用管，不可控，不建议&#34;]
+</code></pre><h3 id=5-aof功能测试>5. AOF功能测试</h3><blockquote><p>武技: 配置AOF全持久化</p></blockquote><ol><li>在Redis主配中配置AOF全持久化:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 修改Redis主配文件</span>
+</span></span><span style=display:flex><span>vim /opt/redis/single/conf/redis.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 内容如下：</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开启AOF持久化，默认no，表示不开启AOF持久化</span>
+</span></span><span style=display:flex><span>appendonly yes
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置AOF文件名，默认 `appendonly.aof`，生成在工作目录中</span>
+</span></span><span style=display:flex><span>appendfilename <span style=color:#e6db74>&#34;appendonly-6379.aof&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置AOF文件所在目录名，默认 `appendonlydir`</span>
+</span></span><span style=display:flex><span>appenddirname <span style=color:#e6db74>&#34;aof&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置刷盘策略为每秒刷盘，默认为 `everysec` 项</span>
+</span></span><span style=display:flex><span>appendfsync everysec
+</span></span><span style=display:flex><span><span style=color:#75715e># rewrite期间禁止刷盘，仅将数据暂存缓冲区，不阻塞但可能丢数据，默认no</span>
+</span></span><span style=display:flex><span>no-appendfsync-on-rewrite yes
+</span></span><span style=display:flex><span><span style=color:#75715e># AOF文件当前大小超过64M时满足自动rewrite条件之一，默认64M</span>
+</span></span><span style=display:flex><span>auto-aof-rewrite-min-size 64mb
+</span></span><span style=display:flex><span><span style=color:#75715e># AOF文件当前大小比上一次增大了100%时满足自动rewrite条件之一，默认100%</span>
+</span></span><span style=display:flex><span>auto-aof-rewrite-percentage <span style=color:#ae81ff>100</span>
+</span></span></code></pre></div><ol start=2><li>重启容器，使配置文件生效:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 重启容器，使配置文件生效</span>
+</span></span><span style=display:flex><span>docker restart redis
+</span></span></code></pre></div><ol start=3><li>测试AOF全持久化是否配置成功:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 生成一些测试数据</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; set name lsx
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; set gender male
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启Redis服务并重新连接Redis服务，此时Redis会将AOF文件中的命令全部都执行一遍以恢复数据</span>
+</span></span><span style=display:flex><span>docker restart redis
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 获取数据，发现数据仍在，表示AOF持久化功能配置成功</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; get name
+</span></span><span style=display:flex><span><span style=color:#ae81ff>6379</span>&gt; get gender
+</span></span></code></pre></div><h1 id=s04-redis高可用>S04. Redis高可用</h1><blockquote><p>心法: 三高模型，即高可用性、高可靠性和高可扩展性</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;三高模型&#34;] --&gt; n1 &amp; n2 &amp; n3
+n1[&#34;高可用性&lt;br/&gt;High Availability&#34;]
+	n1 --&gt; n1a[&#34;指系统能够在大部分时间内保持可用状态，
+	            即使在面临部分故障或异常情况下也能够继续提供服务。&#34;]
+	n1 --&gt; n1b[&#34;可以通过冗余部署、负载均衡、故障转移、数据备份等技术实现&#34;]
+n2[&#34;高可靠性&lt;br/&gt;High Reliability&#34;]
+	n2 --&gt; n2a[&#34;指系统能够在长时间内保持稳定运行，具有较低的故障率和系统崩溃的风险，
+	            用户能够依赖系统提供稳定的服务。&#34;]
+	n2 --&gt; n2b[&#34;可以通过容错、备份、健壮的设计、可靠的硬件设备、良好的错误处理和恢复机制等技术实现&#34;]
+n3[&#34;高拓展性&lt;br/&gt;High Scalability&#34;]
+	n3 --&gt; n3a[&#34;指系统能够在面对不断增长的负载或用户需求时，通过增加资源或扩展节点来满足需求，
+			    而不会对系统的性能或可用性造成显著影响。&#34;]
+	n3 --&gt; n3b[&#34;可以通过分布式计算、水平扩展、垂直扩展等技术实现&#34;]
+</code></pre><blockquote><p>心法: Redis保证高可用的方式就是提供足够多的节点</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n[&#34;Redis高可用&#34;] 
+n --&gt; n1[&#34;主从模型&#34;]
+	n1 --读写方面--&gt; n1a[&#34;缓解了读压力，没缓解写压力&#34;]
+	n1 --容灾方面--&gt; n1b[&#34;若Master故障，则系统可读，但不可写&#34;]
+	n1 --内存方面--&gt; n1c[&#34;Master和全部Slave中的数据需要保持全量一致，浪费内存&#34;]
+n --&gt; n2[&#34;哨兵模型&#34;]
+	n2 --读写方面--&gt; n2a[&#34;缓解了读压力，没缓解写压力&#34;]
+	n2 --容灾方面--&gt; n2b[&#34;若Master故障，则执行故障转移，此后系统仍然可读可写&#34;]
+	n2 --内存方面--&gt; n2c[&#34;在主从基础上多出哨兵节点，更加浪费内存&#34;]
+n --&gt; n3[&#34;分区集群&#34;]
+	n3 --读写方面--&gt; n3a[&#34;缓解了读压力，也缓解了写压力&#34;]
+	n3 --容灾方面--&gt; n3b[&#34;若Master故障，则执行故障转移，此后系统仍然可读可写&#34;]
+	n3 --内存方面--&gt; n3c[&#34;数据平均分摊，不浪费内存&#34;]
+</code></pre><h2 id=e01-redis主从模型>E01. Redis主从模型</h2><h3 id=1-主从模型特点>1. 主从模型特点</h3><blockquote><p>心法: Redis支持1主N从的主从模型以提高数据容灾性，也可以分摊读数据的压力</p></blockquote><ul><li>主从模型中，数据是单向的，只能从Master流向Slave，故主写从读，读写分离。</li><li>主从模型中，Master会将数据 <code>bgsave</code> 到RDB文件，再恢复到Slave中以同步数据。</li><li>主从模型中，在建立主从关系之前，会先自动清空Slave节点全部数据。</li><li>主从节点不建议部署在同一台机器上，机器少可以交叉部署以避免团灭。</li></ul><h3 id=2-主从搭建流程>2. 主从搭建流程</h3><blockquote><p>心法: Redis主从模型可以在配置文件中直接配置，也可以后期使用命令搭建</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;创建1个主节点和&lt;br/&gt;2个从节点目录&#34;]
+--&gt; n2[&#34;开发1个主节点和&lt;br/&gt;2个从节点主配&#34;]
+	n2 -.- n2a[&#34;使用 slaveof 配置项&lt;br/&gt;搭建主从关系&#34;]
+	n2 --&gt; n3[&#34;创建1个主节点和&lt;br/&gt;2个从节点容器&#34;]
+--&gt; n4[&#34;查看1个主节点和&lt;br/&gt;2个从节点信息&#34;]
+</code></pre><table><thead><tr><th>主从模型相关命令</th><th>描述</th></tr></thead><tbody><tr><td><code>slaveof IP地址 端口号</code></td><td>指定自己的Master节点的IP和端口号。</td></tr><tr><td><code>slaveof no one</code></td><td>使自己脱离主从关系，此后不再接收原Master同步的数据，但之前同步的数据仍然保留。</td></tr><tr><td><code>masterauth 123</code></td><td>配置Master节点的连接密码，Master节点无密码时可省略。</td></tr></tbody></table><blockquote><p>武技: 主从模型 - 搭建 <code>7001(Master) + 7002/7003(Slave)</code> 主从结构</p></blockquote><ol><li>创建主从节点目录：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发7001节点的目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7001/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7001/data;
+</span></span><span style=display:flex><span><span style=color:#75715e># 开发7002节点的目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7002/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7002/data;
+</span></span><span style=display:flex><span><span style=color:#75715e># 开发7003节点的目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7003/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/slave/node7003/data;
+</span></span></code></pre></div><ol start=2><li>开发主从节点主配：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发7001节点目录的主配文件</span>
+</span></span><span style=display:flex><span>cd /opt/redis/slave/node7001/conf;
+</span></span><span style=display:flex><span>touch redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;port 7001&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;bind 0.0.0.0&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;protected-mode no&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;dbfilename dump-7001.rdb&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将7001节点主配拷贝到7002和7003目录中</span>
+</span></span><span style=display:flex><span>cd /opt/redis/slave/node7001/conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/slave/node7002/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/slave/node7003/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7001/7002/g&#34;</span> /opt/redis/slave/node7002/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7001/7003/g&#34;</span> /opt/redis/slave/node7003/conf/redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将7002和7003设置为7001的从节点</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;slaveof 192.168.40.77 7001&#39;</span> &gt;&gt; /opt/redis/slave/node7002/conf/redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;slaveof 192.168.40.77 7001&#39;</span> &gt;&gt; /opt/redis/slave/node7003/conf/redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 提升文件权限（重点提升每个节点中redis.conf文件的权限）</span>
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/redis/slave;
+</span></span></code></pre></div><ol start=3><li>搭建主从节点容器:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=display:flex><span><span style=color:#75715e># 创建并运行redis7001/redis7002/redis7003容器</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 使用host网络，解决redis与docker网络模式不兼容的问题</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>docker run -itd --name redis7001 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7001/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7001/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>docker run -itd --name redis7002 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7002/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7002/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>docker run -itd --name redis7003 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7003/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/slave/node7003/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf;<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 查看3个Redis节点容器</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span> | grep redis<span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ol start=4><li>测试主写从读效果:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 进入Redis节点: 进入任何一个Redis容器都可以</span>
+</span></span><span style=display:flex><span>docker exec -it redis7001 bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接每个节点: 查看主从信息</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7003</span> info replication
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7002</span> info replication
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7001</span> info replication
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接7001节点: Master可读可写</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7001</span> set name lucky
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7001</span> get name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接7002节点: Slave只读，不可写</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7002</span> set age <span style=color:#ae81ff>18</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7002</span> get age
+</span></span></code></pre></div><h2 id=e02-redis哨兵模型>E02. Redis哨兵模型</h2><h3 id=1-哨兵模型特点>1. 哨兵模型特点</h3><blockquote><p>心法: 哨兵模型弥补了普通主从结构中，一旦主节点发生故障，则整个系统只能读不能写的缺陷</p></blockquote><ul><li>每个哨兵都可以监视 <code>monitor</code> 1或N套主从结构，哨兵之间可以互相发现，互相共享消息：<ul><li>哨兵只需要监控某个主从模型中的Master，就可以自动发现该Master下的所有Slave。</li><li>当Master崩溃时，会立刻从该Master的全部Slave中选举一个新的Master，此过程称为故障转移 <code>FailOver</code>。</li><li>若事后Master恢复正常，也只能成为新Master的Slave。</li></ul></li><li>建议对哨兵本身搭建集群，以提升哨兵体系的高可用性。</li></ul><h3 id=2-哨兵搭建流程>2. 哨兵搭建流程</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;创建3个&lt;br/&gt;哨兵节点目录&#34;]
+--&gt; n2[&#34;开发3个&lt;br/&gt;哨兵节点主配&#34;]
+--&gt; n3[&#34;创建3个&lt;br/&gt;哨兵节点容器&#34;]
+	n3 -.- n3a[&#34;使用 --sentinel 配置项&lt;br/&gt;创建并启动容器&#34;]
+	n3 --&gt; n4[&#34;查看3个&lt;br/&gt;哨兵节点信息&#34;]
+</code></pre><blockquote><p>武技: 测试哨兵模型 - 监视 <code>7001(Master) + 7002/7003(Slave)</code> 主从结构</p></blockquote><ol><li>创建3个哨兵节点目录：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发27001/27002/27003哨兵节点的目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27001/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27001/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27002/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27002/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27003/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/sentinel/node27003/data;
+</span></span></code></pre></div><ol start=2><li>开发3个哨兵节点主配：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发27001哨兵节点的主配文件</span>
+</span></span><span style=display:flex><span>cd /opt/redis/sentinel/node27001/conf;
+</span></span><span style=display:flex><span>touch redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;port 27001&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;bind 0.0.0.0&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;protected-mode no&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 监视7003的主从结构并起名为x，超过2枚主观下线标记时故障转移</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;sentinel monitor x 192.168.40.77 7001 2&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 哨兵在5s内ping不通x或x直接报错时，添加1枚主观下线标记</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;sentinel down-after-milliseconds x 5000&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将27001哨兵节点的主配拷贝到27002和27003目录中</span>
+</span></span><span style=display:flex><span>cd /opt/redis/sentinel/node27001/conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/sentinel/node27002/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/sentinel/node27003/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/27001/27002/g&#34;</span> /opt/redis/sentinel/node27002/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/27001/27003/g&#34;</span> /opt/redis/sentinel/node27003/conf/redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 提升文件权限（重点提升每个节点中redis.conf文件的权限）</span>
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/redis/sentinel;
+</span></span></code></pre></div><ol start=3><li>搭建3个哨兵节点容器:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行redis27003/redis27004/redis27005容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用host网络，解决redis与docker网络模式不兼容的问题</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动哨兵服务需要额外使用 `--sentinel` 参数</span>
+</span></span><span style=display:flex><span>docker run -itd --name redis27001 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27001/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27001/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --sentinel;
+</span></span><span style=display:flex><span>docker run -itd --name redis27002 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27002/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27002/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --sentinel;
+</span></span><span style=display:flex><span>docker run -itd --name redis27003 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27003/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/sentinel/node27003/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --sentinel;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看3个Redis哨兵节点容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span> | grep redis
+</span></span></code></pre></div><ol start=4><li>查看3个哨兵节点信息:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 进入任一Redis哨兵节点，查看Sentinel监视的相关信息</span>
+</span></span><span style=display:flex><span>docker exec -it redis27001 bash
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接27001节点: 查看哨兵信息</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>27001</span> info sentinel
+</span></span></code></pre></div><h3 id=3-故障转移流程>3. 故障转移流程</h3><blockquote><p>心法: FailOver故障转移流程</p></blockquote><ul><li>每个哨兵都会不断地对自己监视的主从结构进行心跳检测，当Master节点失联或报错时，对其添加一枚主观下线标记:<ul><li>主观下线 <code>subjective down</code>，简称 <code>sdown</code>: 我觉得这个节点好像挂了。</li></ul></li><li>当超过一定数量（需要配置）的哨兵都对Master节点添加了主观下线标记，则对其添加客观下线标记:<ul><li>客观下线 <code>objective down</code>，简称 <code>odown</code>: 这个节点确实挂了。</li></ul></li><li>当Master节点客观下线时，所有监视该Master节点的哨兵开始投票选举哨兵队长，负责进行故障转移:<ul><li>故障转移: 将发生故障的节点转移出去，从它的Slave节点中选出一个，晋升为新的Master节点。</li></ul></li><li>Sentinel队长开始执行故障转移，其它Sentinel队员等待故障转移结果:<ul><li>先从发生故障的Master节点的Slave节点中选择一个候选人节点。</li><li>然后对候选人节点执行 <code>slaveof no one</code> 命令，取消其Slave身份，恢复其自由身。</li><li>然后再依次修改Master节点和候选人节点的配置信息，完成身份互换。</li><li>最后通知其它Slave节点和其它Sentinel哨兵，这次 &ldquo;人事变更&rdquo; 的结果。</li><li>故障转移结束后，即使原Master节点复活了，也只能成为新Master节点的Slave节点。</li></ul></li></ul><blockquote><p>武技: 模拟节点故障以触发故障转移，分析故障转移日志</p></blockquote><ol><li>查看三个哨兵节点的启动日志，以 <code>redis27001</code> 节点为例:</li></ol><p><code>docker logs redis27001</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e># 哨兵节点ID唯一标识</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Sentinel</span> <span style=color:#e6db74>ID is 5b9...cad</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 该监视着以7001为Master的x结构，主观下线标记数量阈值为2</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+monitor</span> <span style=color:#e6db74>master x [IP] 7001 quorum 2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 发现了x结构中的两个从节点，7002和7003</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7002 [IP] 7002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 发现了x结构中的两个哨兵节点（同事），27002和27002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sentinel</span> <span style=color:#e6db74>sentinel f20...dc5 [IP] 27002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sentinel</span> <span style=color:#e6db74>sentinel 429...194 [IP] 27003 @ x [IP] 7001</span>
+</span></span></code></pre></div><ol start=2><li>使用 <code>docker stop redis7001</code> 手动下线主从结构 <code>x</code> 中的 <code>redis7001</code> Master节点。</li><li>查看哨兵队员日志（假设队员是 <code>redis27001</code> 节点）:</li></ol><p><code>docker logs redis27001</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e># 开启新纪元（迭代版本号 + 1）</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+new-epoch</span> <span style=color:#e6db74>1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 选举哨兵队长: 为哨兵 `429...194` 投1票</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+vote-for-leader</span> <span style=color:#e6db74>429...194 1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为7001添加主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sdown</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为7001添加客观下线标记（因为主观下线标记数量已超出设定值）</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+odown</span> <span style=color:#e6db74>master x [IP] 7001 #quorum 3/2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 接收到来自哨兵队长对于x结构的改动信息</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+config-update-from</span> <span style=color:#e6db74>sentinel 429...194 [IP] 27003 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 切换Master: 由7001切换为7002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+switch-master</span> <span style=color:#e6db74>x [IP] 7001 [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 发现2个Slave: 7003和7002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7001 [IP] 7001 @ x [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为7001添加主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sdown</span> <span style=color:#e6db74>slave [IP]:7001 [IP] 7001 @ x [IP] 7002</span>
+</span></span></code></pre></div><ol start=4><li>查看哨兵队长日志（假设队长是 <code>redis27003</code> 节点）:</li></ol><p><code>docker logs redis27003</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e># 为7001添加主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sdown</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为7001添加客观下线标记（因为主观下线标记数量已超出设定值）</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+odown</span> <span style=color:#e6db74>master x [IP] 7001 #quorum 2/2</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开启新纪元（迭代版本号 + 1）</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+new-epoch</span> <span style=color:#e6db74>1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 尝试对7001进行故障转移</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+try-failover</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 投票选举哨兵队长: 投票情况如下</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+vote-for-leader</span> <span style=color:#e6db74>429...194 1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>f20...dc5</span> <span style=color:#e6db74>voted for 429...194 1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>5b9...cad</span> <span style=color:#e6db74>voted for 429...194 1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 最终 `429...194` 当选哨兵队长</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+elected-leader</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 故障转移中: 为x结构选举新的Master</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+failover-state-select-slave</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 选择到7002为新的Master</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+selected-slave</span> <span style=color:#e6db74>slave [IP]:7002 [IP] 7002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 故障转移中: 发送 `slaveOfNoOne` 命令，取消7002的Slave状态</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+failover-state-send-slaveof-noone</span> <span style=color:#e6db74>slave [IP]:7002 [IP] 7002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 故障转移中: 通知7002等待晋升为新的Master</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+failover-state-wait-promotion</span> <span style=color:#e6db74>slave [IP]:7002 [IP] 7002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 7002成功晋升为新的Master</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+promoted-slave</span> <span style=color:#e6db74>slave [IP]:7002 [IP] 7002 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 故障转移中: 重新改写x结构相关配置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+failover-state-reconf-slaves</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重写7003从节点的配置信息</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave-reconf-sent</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave-reconf-inprog</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave-reconf-done</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 移除7001的主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>-odown</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 故障转移完成</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+failover-end</span> <span style=color:#e6db74>master x [IP] 7001</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 切换Master: 由7001切换为7002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+switch-master</span> <span style=color:#e6db74>x [IP] 7001 [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 发现2个Slave: 7003和7001</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7003 [IP] 7003 @ x [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+slave</span> <span style=color:#e6db74>slave [IP]:7001 [IP] 7001 @ x [IP] 7002</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 为7001添加主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>+sdown</span> <span style=color:#e6db74>slave [IP]:7001 [IP] 7001 @ x [IP] 7002</span>
+</span></span></code></pre></div><ol start=5><li>进入任一哨兵节点，查看Sentinel信息，发现Master发生变更，即已经完成故障转移:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=display:flex><span><span style=color:#75715e># 进入任一Redis哨兵节点，查看Sentinel监视的相关信息</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>docker exec -it redis27001 bash<span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span><span style=color:#75715e># 连接27001节点: 查看哨兵信息</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>redis-cli -p <span style=color:#ae81ff>27001</span> info sentinel<span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ol start=6><li>使用 <code>docker start redis7001</code> 重新上线主从结构 <code>x</code> 中的 <code>redis7001</code> Master节点。</li><li>查看哨兵队长日志（假设队长是 <code>redis27003</code> 节点）:</li></ol><p><code>docker logs redis27003</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e># 移除7001的主观下线标记</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>-sdown</span> <span style=color:#e6db74>slave [IP]:7001 [IP] 7001 @ x [IP] 7002</span>
+</span></span></code></pre></div><ol start=8><li>进入任一哨兵节点，查看Sentinel监视的相关信息，发现 <code>redis7001</code> 变更为当前Master <code>redis7003</code> 的Slave节点:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 进入任一Redis哨兵节点，查看Sentinel监视的相关信息</span>
+</span></span><span style=display:flex><span>docker exec -it redis27001 bash
+</span></span><span style=display:flex><span><span style=color:#75715e># 连接27001节点: 查看哨兵信息</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>27001</span> info sentinel
+</span></span></code></pre></div><h2 id=e03-redis分区集群>E03. Redis分区集群</h2><h3 id=1-分区集群特点>1. 分区集群特点</h3><blockquote><p>心法: Redis分区集群模型实现了分布式存储，将数据平摊到N套主从结构中</p></blockquote><ul><li>Redis分区集群进一步缓解了哨兵模型中Master的写压力，同时也节省了内存。</li><li>Redis集群仅能使用一个库 <code>db0</code>，集群中每个节点的配置内容保持统一且定期检查一致性。</li><li>Redis集群内部实现了故障转移机制，无需使用Sentinel即可完成主从切换。</li></ul><h3 id=2-分区集群方式>2. 分区集群方式</h3><blockquote><p>心法: Redis集群模型默认采取虚拟槽slot方式进行数据分区以分担Redis服务器压力</p></blockquote><ul><li>总共设置 <code>16384个（0-16383）</code> 虚拟槽用于存储数据，尽量平均分配给每个Master以避免数据倾斜。</li><li>存储数据时，先用key值对 <code>16383</code> 取余，根据结果存入对应的Master中，获取数据同理。</li><li>Master间可以互知槽范围，Slave不带槽。</li><li>在客户端提前计算key值的所在槽，并直接访问到对应的Master中可以提高操作效率。</li></ul><h3 id=3-集群搭建流程>3. 集群搭建流程</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+n1[&#34;创建6个&lt;br/&gt;集群节点目录&#34;]
+--&gt; n2[&#34;开发6个&lt;br/&gt;集群节点主配&#34;]
+--&gt; n3[&#34;创建6个&lt;br/&gt;集群节点容器&#34;]
+	n3 -.- n3a[&#34;使用 --cluster-enable yes 配置项&lt;br/&gt;创建并启动容器&#34;]
+	n3 --&gt; n4[&#34;搭建6个&lt;br/&gt;集群节点的主从关系&#34;] 
+	n4 --&gt; n5[&#34;为3个主节点&lt;br/&gt;分配虚拟槽&#34;]
+</code></pre><blockquote><p>武技: 搭建集群Redis容器，3主3从模型，使用7004~7009端口号</p></blockquote><ol><li>创建6个集群节点目录：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发7004/7005/7006/7007/7008/7009集群节点的目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7004/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7004/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7005/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7005/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7006/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7006/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7007/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7007/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7008/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7008/data;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7009/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/redis/cluster/node7009/data;
+</span></span></code></pre></div><ol start=2><li>开发6个集群节点主配：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发7004节点的主配文件</span>
+</span></span><span style=display:flex><span>cd /opt/redis/cluster/node7004/conf;
+</span></span><span style=display:flex><span>touch redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;port 7004&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;bind 0.0.0.0&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;protected-mode no&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;dbfilename dump-7004.rdb&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 开启分区集群模式</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;cluster-enabled yes&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 集群相关信息的配置文件</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;cluster-config-file nodes.conf&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 集群创建超时时间，单位毫秒</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;cluster-node-timeout 15000&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span><span style=color:#75715e># 表示当集群中有一个节点故障则整体不对外服务，默认yes，建议关闭</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;cluster-require-full-coverage no&#39;</span> &gt;&gt; redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将7004节点的主配拷贝到7005/7006/7007/7008/7009目录中</span>
+</span></span><span style=display:flex><span>cd /opt/redis/cluster/node7004/conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/cluster/node7005/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/cluster/node7006/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/cluster/node7007/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/cluster/node7008/conf/redis.conf;
+</span></span><span style=display:flex><span>cp redis.conf /opt/redis/cluster/node7009/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7004/7005/g&#34;</span> /opt/redis/cluster/node7005/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7004/7006/g&#34;</span> /opt/redis/cluster/node7006/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7004/7007/g&#34;</span> /opt/redis/cluster/node7007/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7004/7008/g&#34;</span> /opt/redis/cluster/node7008/conf/redis.conf;
+</span></span><span style=display:flex><span>sed -i <span style=color:#e6db74>&#34;s/7004/7009/g&#34;</span> /opt/redis/cluster/node7009/conf/redis.conf;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 提升文件权限（重点提升每个节点中redis.conf文件的权限）</span>
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/redis/cluster;
+</span></span></code></pre></div><ol start=3><li>搭建6个集群节点容器:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行7004/7005/7006/7007/7008/7009容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 使用host网络，解决redis与docker网络模式不兼容的问题</span>
+</span></span><span style=display:flex><span>docker run -itd --name redis7004 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7004/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7004/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7004;
+</span></span><span style=display:flex><span>docker run -itd --name redis7005 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7005/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7005/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7005;
+</span></span><span style=display:flex><span>docker run -itd --name redis7006 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7006/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7006/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7006;
+</span></span><span style=display:flex><span>docker run -itd --name redis7007 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7007/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7007/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7007;
+</span></span><span style=display:flex><span>docker run -itd --name redis7008 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7008/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7008/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7008;
+</span></span><span style=display:flex><span>docker run -itd --name redis7009 --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7009/conf:/etc/redis <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/redis/cluster/node7009/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      redis:7.0.5 redis-server /etc/redis/redis.conf --cluster-enabled yes --port 7009;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看6个Redis节点容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span> | grep redis
+</span></span></code></pre></div><ol start=4><li>搭建6个节点容器的集群关系:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 进入任一节点</span>
+</span></span><span style=display:flex><span>docker exec -it redis7004 bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 搭建集群关系: 输入yes进行槽分配</span>
+</span></span><span style=display:flex><span>redis-cli --cluster create <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      192.168.40.77:7004 192.168.40.77:7005 192.168.40.77:7006 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      192.168.40.77:7007 192.168.40.77:7008 192.168.40.77:7009 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      --cluster-replicas 1;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 以集群模式连接7004节点并查看集群节点信息</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 必须指定 `-c` 参数，否则没有自动重定向到其他节点的权限</span>
+</span></span><span style=display:flex><span>redis-cli -p <span style=color:#ae81ff>7004</span> -c cluster nodes
+</span></span></code></pre></div><h1 id=s05-redis客户端>S05. Redis客户端</h1><h2 id=e01-jedis>E01. Jedis</h2><blockquote><p>心法: <a href=https://github.com/redis/jedis>Jedis客户端</a></p></blockquote><ul><li>官方推荐使用Jedis作为Java语言的客户端工具，且提供了 <code>r.c.j.JedisPool</code> 连接池以避免频繁创建和销毁Jedis连接。</li></ul><h3 id=1-jedis项目整合>1. Jedis项目整合</h3><blockquote><p>武技: 创建 <code>v3-5-ssm-redis</code> 子项目并整合Jedis客户端</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;junit-version&gt;</span>4.13.2<span style=color:#f92672>&lt;/junit-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;hutool-version&gt;</span>5.8.14<span style=color:#f92672>&lt;/hutool-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-boot-version&gt;</span>2.3.12.RELEASE<span style=color:#f92672>&lt;/spring-boot-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;jedis-version&gt;</span>2.9.0<span style=color:#f92672>&lt;/jedis-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${junit-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${hutool-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-parent--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-boot-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--jedis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>redis.clients<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>jedis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${jedis-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--jedis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>redis.clients<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>jedis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-jedis工具封装>2. Jedis工具封装</h3><ul><li><a href=res/Jedis%E5%8D%95%E6%9C%BA%E5%B7%A5%E5%85%B7%E5%B0%81%E8%A3%85.md>Jedis单机工具封装</a></li><li><a href=res/Jedis%E5%93%A8%E5%85%B5%E5%B7%A5%E5%85%B7%E5%B0%81%E8%A3%85.md>Jedis哨兵工具封装</a></li><li><a href=res/Jedis%E9%9B%86%E7%BE%A4%E5%B7%A5%E5%85%B7%E5%B0%81%E8%A3%85.md>Jedis集群工具封装</a></li></ul><h2 id=e02-pipeline>E02. PipeLine</h2><blockquote><p>心法: PipeLine流水线</p></blockquote><ul><li>PipeLine可以节省网络IO消耗，但并不能节省命令执行时间。</li><li>PipeLine在集群模式下，仅能作用于一个节点。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+    n1[&#34;PipeLine将一批相同或不同的&lt;br/&gt;少量命令打包&#34;]
+--&gt; n2[&#34;PipeLine将打包的命令&lt;br/&gt;通过一次网络IO送达服务端&#34;]
+--&gt; n3[&#34;PipeLine在服务端解包&lt;br/&gt;并依次执行命令&#34;] -.- n3a[&#34;解包过程&lt;br/&gt;是非原子性的&#34;]
+</code></pre><blockquote><p>武技: 测试PipeLine流水线耗时</p></blockquote><ol><li>开发测试方法 <code>PipelineTest</code>:</li></ol><p><code>pipeline.PipelineTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PipelineTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 不使用pipeline，每次携带1条命令，总共花费1W次网络时间和1W次命令时间 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>noPipeline</span>() {
+</span></span><span style=display:flex><span>        Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> start <span style=color:#f92672>=</span> System.<span style=color:#a6e22e>currentTimeMillis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 10000; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>	        <span style=color:#75715e>// 使用jedis调用命令：立刻执行发送到服务端执行</span>
+</span></span><span style=display:flex><span>            jedis.<span style=color:#a6e22e>hset</span>(<span style=color:#e6db74>&#34;user&#34;</span> <span style=color:#f92672>+</span> i, <span style=color:#e6db74>&#34;name&#34;</span> <span style=color:#f92672>+</span> i, <span style=color:#e6db74>&#34;zhaosi&#34;</span> <span style=color:#f92672>+</span> i);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> end <span style=color:#f92672>=</span> System.<span style=color:#a6e22e>currentTimeMillis</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;不使用pipeline，共耗时&#34;</span> <span style=color:#f92672>+</span> (end <span style=color:#f92672>-</span> start) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;毫秒&#34;</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 关闭Jedis连接  </span>
+</span></span><span style=display:flex><span>		jedis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 使用pipeline，每次携带100条命令，总共花费100次网络时间和1W次命令时间 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>usePipeline</span>() {
+</span></span><span style=display:flex><span>        Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> start <span style=color:#f92672>=</span> System.<span style=color:#a6e22e>currentTimeMillis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 100; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 获取一个Pipeline实例</span>
+</span></span><span style=display:flex><span>            Pipeline pipeline <span style=color:#f92672>=</span> jedis.<span style=color:#a6e22e>pipelined</span>();
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 0-99, 100-199, 200-299...</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> i <span style=color:#f92672>*</span> 100; j <span style=color:#f92672>&lt;</span> (i <span style=color:#f92672>+</span> 1) <span style=color:#f92672>*</span> 100; j<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 使用pipeline调用命令：暂时将命令打包到pipeline中而不立刻执行</span>
+</span></span><span style=display:flex><span>                pipeline.<span style=color:#a6e22e>hset</span>(<span style=color:#e6db74>&#34;dog&#34;</span> <span style=color:#f92672>+</span> j, <span style=color:#e6db74>&#34;name&#34;</span> <span style=color:#f92672>+</span> j, <span style=color:#e6db74>&#34;2Ha&#34;</span> <span style=color:#f92672>+</span> j);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 异步执行并返回全部结果</span>
+</span></span><span style=display:flex><span>            pipeline.<span style=color:#a6e22e>syncAndReturnAll</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> end <span style=color:#f92672>=</span> System.<span style=color:#a6e22e>currentTimeMillis</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;使用了pipeline，共耗时&#34;</span> <span style=color:#f92672>+</span> (end <span style=color:#f92672>-</span> start) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;毫秒&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 关闭Jedis连接  </span>
+</span></span><span style=display:flex><span>		jedis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e03-geo>E03. GEO</h2><blockquote><p>心法: GEO地理定位</p></blockquote><ul><li>GEO表示地理信息定位，存储经纬度，计算两地直线距离，范围距离等。</li><li>GEO是Redis3.2+添加的一个特性，底层使用sorted_set结构。</li></ul><blockquote><p>武技: 测试GEO地理定位常用API方法</p></blockquote><h3 id=1-geo存值取值>1. GEO存值取值</h3><table><thead><tr><th>相关API方法</th><th>描述</th></tr></thead><tbody><tr><td><code>jedis.geoadd("city", 116.28, 39.55, "北京")</code></td><td>向 <code>city</code> 集合中填入经纬度和元素名称</td></tr><tr><td><code>jedis.geopos("city", "天津")</code></td><td>从 <code>city</code> 集合中获取天津的经纬度</td></tr></tbody></table><p><code>geo.GeoTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GeoTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add</span>() {
+</span></span><span style=display:flex><span>        Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向city中添加2组城市的GEO经纬度信息</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 116.<span style=color:#a6e22e>28</span>, 39.<span style=color:#a6e22e>55</span>, <span style=color:#e6db74>&#34;北京&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 117.<span style=color:#a6e22e>12</span>, 39.<span style=color:#a6e22e>08</span>, <span style=color:#e6db74>&#34;天津&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从city中获取2组城市的GEO经纬度信息</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(jedis.<span style=color:#a6e22e>geopos</span>(<span style=color:#e6db74>&#34;city&#34;</span>, <span style=color:#e6db74>&#34;北京&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(jedis.<span style=color:#a6e22e>geopos</span>(<span style=color:#e6db74>&#34;city&#34;</span>, <span style=color:#e6db74>&#34;天津&#34;</span>));
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-geo直线距离>2. GEO直线距离</h3><table><thead><tr><th>相关API方法</th><th>描述</th></tr></thead><tbody><tr><td><code>jedis.geodist("city", "北京", "天津", GeoUnit.KM)</code></td><td>在 <code>city</code> 中，获取北京到天津的直线距离，单位KM</td></tr></tbody></table><p><code>geo.GeoDistTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GeoDistTest</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dist</span>() {  
+</span></span><span style=display:flex><span>        Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向city中添加2组城市的GEO经纬度信息  </span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 116.<span style=color:#a6e22e>28</span>, 39.<span style=color:#a6e22e>55</span>, <span style=color:#e6db74>&#34;北京&#34;</span>);  
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 117.<span style=color:#a6e22e>12</span>, 39.<span style=color:#a6e22e>08</span>, <span style=color:#e6db74>&#34;天津&#34;</span>);  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取city中北京和天津的直线距离  </span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(jedis.<span style=color:#a6e22e>geodist</span>(<span style=color:#e6db74>&#34;city&#34;</span>, <span style=color:#e6db74>&#34;北京&#34;</span>, <span style=color:#e6db74>&#34;天津&#34;</span>, GeoUnit.<span style=color:#a6e22e>KM</span>));  
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>close</span>();  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-geo范围扫描>3. GEO范围扫描</h3><table><thead><tr><th>相关API方法</th><th>描述</th></tr></thead><tbody><tr><td><code>GeoRadiusParam.geoRadiusParam()</code></td><td>获取一个GEO范围配置实例 <code>GeoRadiusParam param</code><code>param.withCoord()</code>: 结果集中携带经纬度<code>param.withDist()</code>: 结果集中携带距离<code>param.count(4)</code>: 结果集中最多显示2个元素<code>param.sortAscending()</code>: 按距离对结果集升序</td></tr><tr><td><code>jedis.georadius("city",</code> <code>110.0, 38.0,</code> <code>600, GeoUnit.KM, param</code><code>)</code></td><td>在 <code>city</code> 中，以经纬度 <code>110.0, 38.0</code> 为圆心，返回600KM内的全部元素<code>r.getMemberByString()</code>：从结果中获取元素名称<code>r.getCoordinate()</code>：从结果中获取元素经纬度<code>r.getDistance()</code>：从结果中获取距离</td></tr><tr><td><code>jedis.georadiusByMember("city",</code> <code>"北京",</code> <code>600, GeoUnit.KM, param</code><code>)</code></td><td>在 <code>city</code> 中，以北京为圆心，获取600KM内的全部元素</td></tr></tbody></table><p><code>geo.GeoRadiusTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GeoRadiusTest</span> {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>radius</span>() {  
+</span></span><span style=display:flex><span>	    Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 向city中添加5组城市的GEO经纬度信息  </span>
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 116.<span style=color:#a6e22e>28</span>, 39.<span style=color:#a6e22e>55</span>, <span style=color:#e6db74>&#34;北京&#34;</span>);  
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 117.<span style=color:#a6e22e>12</span>, 39.<span style=color:#a6e22e>08</span>, <span style=color:#e6db74>&#34;天津&#34;</span>);  
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 114.<span style=color:#a6e22e>29</span>, 38.<span style=color:#a6e22e>02</span>, <span style=color:#e6db74>&#34;石家庄&#34;</span>);  
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 118.<span style=color:#a6e22e>01</span>, 39.<span style=color:#a6e22e>38</span>, <span style=color:#e6db74>&#34;唐山&#34;</span>);  
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 115.<span style=color:#a6e22e>29</span>, 38.<span style=color:#a6e22e>51</span>, <span style=color:#e6db74>&#34;保定&#34;</span>);  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 获取一个GEO范围配置实例：结果集中携带经纬度，携带距离，展示2个元素，按距离升序  </span>
+</span></span><span style=display:flex><span>	    GeoRadiusParam param <span style=color:#f92672>=</span> GeoRadiusParam.<span style=color:#a6e22e>geoRadiusParam</span>();  
+</span></span><span style=display:flex><span>	    param.<span style=color:#a6e22e>withCoord</span>().<span style=color:#a6e22e>withDist</span>().<span style=color:#a6e22e>count</span>(4).<span style=color:#a6e22e>sortAscending</span>();   
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 获取city中以指定经纬度 (110.0, 38.0) 为中心，600km范围内城市列表  </span>
+</span></span><span style=display:flex><span>	    List<span style=color:#f92672>&lt;</span>GeoRadiusResponse<span style=color:#f92672>&gt;</span> cities <span style=color:#f92672>=</span> 
+</span></span><span style=display:flex><span>		    jedis.<span style=color:#a6e22e>georadius</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 110.<span style=color:#a6e22e>0</span>, 38.<span style=color:#a6e22e>0</span>, 600, GeoUnit.<span style=color:#a6e22e>KM</span>, param);  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 遍历结果  </span>
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>for</span> (GeoRadiusResponse city : cities) {  
+</span></span><span style=display:flex><span>	        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;城市: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getMemberByString</span>());  
+</span></span><span style=display:flex><span>	        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;坐标: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getCoordinate</span>());  
+</span></span><span style=display:flex><span>	        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;距离: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getDistance</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;KM&#34;</span>);  
+</span></span><span style=display:flex><span>	        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();  
+</span></span><span style=display:flex><span>	    }  
+</span></span><span style=display:flex><span>	    jedis.<span style=color:#a6e22e>close</span>();  
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>radiusByMember</span>() {
+</span></span><span style=display:flex><span>        Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向city中添加5组城市的GEO经纬度信息</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 116.<span style=color:#a6e22e>28</span>, 39.<span style=color:#a6e22e>55</span>, <span style=color:#e6db74>&#34;北京&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 117.<span style=color:#a6e22e>12</span>, 39.<span style=color:#a6e22e>08</span>, <span style=color:#e6db74>&#34;天津&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 114.<span style=color:#a6e22e>29</span>, 38.<span style=color:#a6e22e>02</span>, <span style=color:#e6db74>&#34;石家庄&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 118.<span style=color:#a6e22e>01</span>, 39.<span style=color:#a6e22e>38</span>, <span style=color:#e6db74>&#34;唐山&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>geoadd</span>(<span style=color:#e6db74>&#34;city&#34;</span>, 115.<span style=color:#a6e22e>29</span>, 38.<span style=color:#a6e22e>51</span>, <span style=color:#e6db74>&#34;保定&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取一个GEO范围配置实例: 配置结果中携带经纬度，携带距离，只查2个元素，升序排序</span>
+</span></span><span style=display:flex><span>        GeoRadiusParam param <span style=color:#f92672>=</span> GeoRadiusParam.<span style=color:#a6e22e>geoRadiusParam</span>();
+</span></span><span style=display:flex><span>        param.<span style=color:#a6e22e>withCoord</span>().<span style=color:#a6e22e>withDist</span>().<span style=color:#a6e22e>count</span>(2).<span style=color:#a6e22e>sortAscending</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取city中以北京为中心，100km范围内城市列表</span>
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>GeoRadiusResponse<span style=color:#f92672>&gt;</span> cities <span style=color:#f92672>=</span> 
+</span></span><span style=display:flex><span>	        jedis.<span style=color:#a6e22e>georadiusByMember</span>(<span style=color:#e6db74>&#34;city&#34;</span>, <span style=color:#e6db74>&#34;北京&#34;</span>, 100, GeoUnit.<span style=color:#a6e22e>KM</span>, param);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历结果</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (GeoRadiusResponse city : cities) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;元素: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getMemberByString</span>());
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;坐标: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getCoordinate</span>());
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;距离: &#34;</span> <span style=color:#f92672>+</span> city.<span style=color:#a6e22e>getDistance</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;KM&#34;</span>);
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e04-bitmap>E04. BitMap</h2><blockquote><p>心法: BitMap位图</p></blockquote><ul><li>BitMap位图是Redis字符串的底层结构，采用二进制形式存储数据，Redis支持直接对位图进行按位操作。</li><li>BitMap位图可以字节（8bit）为单位自动扩容:<ul><li>字符串 <code>"a"</code> 的ascii值为 <code>97</code>，对应位图为 <code>01100001</code>: 无需扩容。</li><li>字符串 <code>"aa"</code> 的ascii值为 <code>97 97</code>，对应位图为 <code>01100001 01100001</code>: 自动扩容1字节。</li><li>字符串 <code>"a"</code> 的位图仅8位，若强行操作1000号位，则会将其9-999位全补0，严重耗时。</li></ul></li><li>BitMap常用于统计登录用户，布隆过滤器等场景。</li></ul><table><thead><tr><th>Jedis代码（假设 <code>name = "a"</code>）</th><th>Redis命令</th><th>描述（操作对象均为 <code>"a"</code> 的位图 <code>01100001</code>）</th></tr></thead><tbody><tr><td><code>jedis.setbit("name", 0, true)</code></td><td><code>setbit name 0 1</code></td><td>设置0号位上的值为 <code>1</code></td></tr><tr><td><code>jedis.setbit("name", 1, false)</code></td><td><code>setbit name 0 0</code></td><td>设置1号位上的值为 <code>0</code></td></tr><tr><td><code>jedis.getbit("name", 0)</code></td><td><code>getbit name 0</code></td><td>返回0号位上的值，返回 <code>true</code> 或 <code>false</code></td></tr><tr><td><code>jedis.bitcount("name", 0, -1)</code></td><td><code>bitcount name 0 -1</code></td><td>返回0到-1范围内，一共存在多少个1</td></tr><tr><td><code>jedis.bitpos("name", true)</code></td><td><code>bitpos name 1</code></td><td>返回首个1的位置</td></tr><tr><td><code>jedis.bitpos("name", false)</code></td><td><code>bitpos name 0</code></td><td>返回首个0的位置</td></tr><tr><td><code>jedis.bitop(BitOP.NOT, "r", "k1")</code></td><td><code>bitop not r k1</code></td><td>将k1值位图按位取反后存入 <code>r</code></td></tr><tr><td><code>jedis.bitop(BitOP.AND, "r", "k1", "k2")</code></td><td><code>bitop and r k1 k2</code></td><td>将k1和k2值位图的and结果存入 <code>r</code></td></tr><tr><td><code>jedis.bitop(BitOP.OR, "r", "k1", "k2")</code></td><td><code>bitop or r k1 k2</code></td><td>将k1和k2值位图的or结果存入 <code>r</code></td></tr><tr><td><code>jedis.bitop(BitOP.XOR, "r", "k1", "k2")</code></td><td><code>bitop xor r k1 k2</code></td><td>将k1和k2值位图的xor结果存入 <code>r</code></td></tr></tbody></table><blockquote><p>武技: 测试bitmap常用API方法</p></blockquote><p><code>bitmap.BitMapTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BitMapTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>api</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 存储 name = a(01100001)</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#e6db74>&#34;a&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name值位图: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;name&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回name值位图中一共有多少个1，同 `bitcount name 0 -1` 命令</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name值位图中有 &#34;</span> <span style=color:#f92672>+</span> jedis.<span style=color:#a6e22e>bitcount</span>(<span style=color:#e6db74>&#34;name&#34;</span>, 0, <span style=color:#f92672>-</span>1) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 个1&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回name值位图中首个0或1的位置，同 `bitpos name 0/1` 命令</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name值位图中首个0在 &#34;</span> <span style=color:#f92672>+</span> jedis.<span style=color:#a6e22e>bitpos</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#66d9ef>false</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 号位&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name值位图中首个1在 &#34;</span> <span style=color:#f92672>+</span> jedis.<span style=color:#a6e22e>bitpos</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#66d9ef>true</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 号位&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置name值位图中0号位上的值为1，同 `setbit name 0 1` 命令</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>setbit</span>(<span style=color:#e6db74>&#34;name&#34;</span>, 0, <span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name值位图: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;name&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>op</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 存储 k1 = a(01100001), k2 = d(01100100)</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;k1&#34;</span>, <span style=color:#e6db74>&#34;a&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;k2&#34;</span>, <span style=color:#e6db74>&#34;d&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;k1值位图: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;k1&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;k2值位图: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;k2&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将k1值位图按位取反后存入result中，同 `bitop not result k1` 命令</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>bitop</span>(BitOP.<span style=color:#a6e22e>NOT</span>, <span style=color:#e6db74>&#34;result&#34;</span>, <span style=color:#e6db74>&#34;k1&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;result值位图（取反）: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;result&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将k1值位图和k2值位图的and操作结果存入result中，同 `bitop and result k1 k2` 命令</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>bitop</span>(BitOP.<span style=color:#a6e22e>AND</span>, <span style=color:#e6db74>&#34;result&#34;</span>, <span style=color:#e6db74>&#34;k1&#34;</span>, <span style=color:#e6db74>&#34;k2&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;result值位图（并且）: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;result&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将k1值位图和k2值位图的or操作结果存入result中，同 `bitop or result k1 k2` 命令</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>bitop</span>(BitOP.<span style=color:#a6e22e>OR</span>, <span style=color:#e6db74>&#34;result&#34;</span>, <span style=color:#e6db74>&#34;k1&#34;</span>, <span style=color:#e6db74>&#34;k2&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;result值位图（或者）: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;result&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将k1值位图和k2值位图的xor操作结果存入result中，同 `bitop xor result k1 k2` 命令</span>
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>bitop</span>(BitOP.<span style=color:#a6e22e>XOR</span>, <span style=color:#e6db74>&#34;result&#34;</span>, <span style=color:#e6db74>&#34;k1&#34;</span>, <span style=color:#e6db74>&#34;k2&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;result值位图（异或）: &#34;</span> <span style=color:#f92672>+</span> printBitMap(<span style=color:#e6db74>&#34;result&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 通过键计算其值的位图形式
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param key 指定redis的键，若不存在则报错
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 对应键的值的位图形式
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String <span style=color:#a6e22e>printBitMap</span>(String key) {
+</span></span><span style=display:flex><span>        StringBuilder result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> StringBuilder();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>long</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> jedis.<span style=color:#a6e22e>strlen</span>(key) <span style=color:#f92672>*</span> 8; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 返回指定位图中，i号位上的布尔值，同 `getbit key001 0` 命令</span>
+</span></span><span style=display:flex><span>            result.<span style=color:#a6e22e>append</span>(jedis.<span style=color:#a6e22e>getbit</span>(key, i) <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;1&#34;</span> : <span style=color:#e6db74>&#34;0&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result.<span style=color:#a6e22e>toString</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=1-统计登录用户>1. 统计登录用户</h3><blockquote><p>心法: 使用BitMap，在用户ID对应的索引上设置1或0以表示登录或未登录</p></blockquote><ul><li>假设网站有1亿注册用户，则使用BitMap最多需要存储1亿个用户ID作为索引，共需 <code>1bit * 1亿 = 12.5M</code> 内存。</li><li>若日平均活跃用户5000W，用Set集合存储int类型ID，共需 <code>32bit * 5000W = 200M</code> 内存，差于BitMap。</li><li>若日平均活跃用户10W，用Set集合存储int类型ID，共需 <code>32bit * 10W = 4M</code> 内存，优于BitMap。</li></ul><blockquote><p>武技: 使用BitMap设计一个用于统计登录用户的系统</p></blockquote><p><code>bitmap.StatisticsLoginTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StatisticsLoginTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取一个Jedis实例</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Jedis jedis <span style=color:#f92672>=</span> JedisStandaloneUtil.<span style=color:#a6e22e>getJedis</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 创建一个Map，用于存储用户信息</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Map<span style=color:#f92672>&lt;</span>Integer, Object<span style=color:#f92672>&gt;</span> users <span style=color:#f92672>=</span> Map.<span style=color:#a6e22e>of</span>(
+</span></span><span style=display:flex><span>            1, <span style=color:#e6db74>&#34;赵四&#34;</span>, 2, <span style=color:#e6db74>&#34;刘能&#34;</span>, 3, <span style=color:#e6db74>&#34;小沈阳&#34;</span>, 4, <span style=color:#e6db74>&#34;宋小宝&#34;</span>, 5, <span style=color:#e6db74>&#34;刘英&#34;</span>,
+</span></span><span style=display:flex><span>            6, <span style=color:#e6db74>&#34;王天来&#34;</span>, 7, <span style=color:#e6db74>&#34;张晓&#34;</span>, 8, <span style=color:#e6db74>&#34;赵敏&#34;</span>, 9, <span style=color:#e6db74>&#34;周芷若&#34;</span>, 10, <span style=color:#e6db74>&#34;张无忌&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 创建一个Scanner实例，用于从控制台接收输入</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Scanner scanner <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Scanner(System.<span style=color:#a6e22e>in</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 定义一个key，用于存储登录用户</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;loginUsers&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 定义bitmap初始长度</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> BITMAP_INIT_LENGTH <span style=color:#f92672>=</span> 16;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 初始化一个长度为16的bitmap</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> BITMAP_INIT_LENGTH; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            jedis.<span style=color:#a6e22e>setbit</span>(KEY, i, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;初始BITMAP：&#34;</span> <span style=color:#f92672>+</span> printBitMap(KEY));
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 全部用户均已登录后，退出循环</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (jedis.<span style=color:#a6e22e>bitcount</span>(KEY) <span style=color:#f92672>&lt;</span> users.<span style=color:#a6e22e>size</span>()) {
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 请输入一个用户的ID，表示该用户登录系统</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请输入一个用户的ID，表示该用户登录系统..&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> id <span style=color:#f92672>=</span> scanner.<span style=color:#a6e22e>nextInt</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 判断该用户是否已经登录</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (jedis.<span style=color:#a6e22e>getbit</span>(KEY, id)) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(users.<span style=color:#a6e22e>get</span>(id) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;已经登录！&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 用户登录</span>
+</span></span><span style=display:flex><span>            jedis.<span style=color:#a6e22e>setbit</span>(<span style=color:#e6db74>&#34;loginUsers&#34;</span>, id, <span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(users.<span style=color:#a6e22e>get</span>(id) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;登录成功！&#34;</span>);
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;当前登录人数：&#34;</span> <span style=color:#f92672>+</span> jedis.<span style=color:#a6e22e>bitcount</span>(KEY));
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;当前BITMAP：&#34;</span> <span style=color:#f92672>+</span> printBitMap(KEY));
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;全部用户均已登录！退出系统..&#34;</span>);
+</span></span><span style=display:flex><span>        jedis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 通过键计算其值的位图形式
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param key 指定redis的键，若不存在则报错
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 对应键的值的位图形式
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>printBitMap</span>(String key) {
+</span></span><span style=display:flex><span>        StringBuilder result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> StringBuilder();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>long</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> jedis.<span style=color:#a6e22e>strlen</span>(key) <span style=color:#f92672>*</span> 8; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 返回指定位图中，i号位上的布尔值，同 `getbit key001 0` 命令</span>
+</span></span><span style=display:flex><span>            result.<span style=color:#a6e22e>append</span>(jedis.<span style=color:#a6e22e>getbit</span>(key, i) <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;1&#34;</span> : <span style=color:#e6db74>&#34;0&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result.<span style=color:#a6e22e>toString</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-布隆过滤器>2. 布隆过滤器</h3><blockquote><p>心法: 布隆过滤器底层使用一个BitMap和N个函数，用于过滤大量无效请求以解决部分缓存穿透问题</p></blockquote><ul><li>布隆过滤器中设置的函数越多失误率越低。</li><li>布隆过滤器说有，不一定是真的，但布隆过滤器说没有，一定是真的。</li></ul><blockquote><p>心法: 布隆过滤器使用流程</p></blockquote><ol><li>对数据库中的每个元素依次执行布隆过滤器的N个函数。</li><li>在结果对应的BitMap位图索引处标1。</li><li>当客户端请求查询某元素时，先经过布隆过滤器，分别执行N个函数。</li><li>在BitMap中比对，全为1才允许通过。</li></ol><blockquote><p>武技: 使用bitmap封装布隆过滤器工具类</p></blockquote><ol><li>封装布隆过滤器工具类：</li></ol><p><code>com.lsx.util.BloomFilterUtil</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BloomFilterUtil</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 布隆函数类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BloomFunction</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// bitmap位组长度：用于hash计算中的取余过程，尽量保证为2的N次方值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> length;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// hash种子：值随意，仅用在hash计算时确保不同的对象具有不同的哈希值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> seed;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>BloomFunction</span>(<span style=color:#66d9ef>int</span> length, <span style=color:#66d9ef>int</span> seed) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>=</span> length;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>seed</span> <span style=color:#f92672>=</span> seed;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * hash函数：仿照 HashMap.hash() 方法
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * @param value: 需要进行hash的值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * @return int 返回hash计算出来的值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         **/</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>hash</span>(Object value) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (value <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> 0;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 计算对象的初始哈希码：int型Hash值为32位，约有40亿种可能，直接在内存中创建40亿长度的数组是不明智的</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 所以不推荐直接使用这个hash值，需要二次处理</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> initHash <span style=color:#f92672>=</span> value.<span style=color:#a6e22e>hashCode</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 扰动函数：对32位的Hash值的操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1. 将Hash值右移动16位：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1.1 原Hash的高16位被移动到低16位
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1.2 原Hash的低16位被移出
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1.3 原Hash的高16位全部补充0
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2. 将右移动结果和原Hash值进行异或混合：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2.1 原Hash的高16位信息和低16位信息在结果的低16位进行混合，提升Hash值低16位的随机性以减少Hash冲突
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2.2 结果的高16位信息可忽略
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             */</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> hash <span style=color:#f92672>=</span> initHash <span style=color:#f92672>^</span> (initHash <span style=color:#f92672>&gt;&gt;&gt;</span> 16);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 使用位运算取余：使用Hash值对bitmap的长度取余：以决定最终存放的位置
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 位运算取余效率比 (hash % length) 高，但前提是bitmap的长度会被尽量保证为2的N次方
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1. 从二进制的角度来看，对一个数右移N位就相当于对这个数除以2的N次方：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1.1 右移N位后，剩余的二进制数字所表示的就是商，被移出的N个数字就是余数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 1.2 所以想要通过位运算获取一个数对2的N次方取余的结果，直接提取该数的后N位数即可
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2. 一个2的N次方值减去1后，位图末尾就会变为N个1：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2.1 如2的2次方 - 1 = 03(0000 0011)：末尾2个1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2.2 如2的3次方 - 1 = 07(0000 0111)：末尾3个1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 2.3 如2的4次方 - 1 = 15(0000 1111)：末尾4个1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 3. 任何数和此时的 `&amp;` 操作会提取Hash值中后N位：
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 3.1 如Hash值为21(0001 0101)，数组长度为16，减1后为15(0000 1111)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 3.2 那么 (0001 0101) &amp; (0000 1111) = (0000 0101)，相当于提取了21的后4位
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 3.3 而这后4位，就是 21%16 的结果，为5。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             * 4. seed 用于确保不同的对象具有不同的哈希值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>             */</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> (seed <span style=color:#f92672>*</span> (length <span style=color:#f92672>-</span> 1)) <span style=color:#f92672>&amp;</span> hash;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 最终结果不考虑负数</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> Math.<span style=color:#a6e22e>abs</span>(result);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 位组：起始长度相当于2乘以2的24次方 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> BitSet BIT_SET <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BitSet(2 <span style=color:#f92672>&lt;&lt;</span> 24);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 布隆函数数组 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> BloomFunction<span style=color:#f92672>[]</span> BLOOM_FUNCTIONS <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 3),
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 13),
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 46),
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 71),
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 91),
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>new</span> BloomFunction(6, 134)
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 将一个元素设置到BitMap中
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param value: 元素
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     **/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add</span>(Object value) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 依次通过6个布隆函数</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (BloomFunction bloomFunction : BLOOM_FUNCTIONS) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将对应位置标记为1</span>
+</span></span><span style=display:flex><span>            BIT_SET.<span style=color:#a6e22e>set</span>(bloomFunction.<span style=color:#a6e22e>hash</span>(value), <span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 判断BitMap中是否存在指定元素
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param value: 元素
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return true可能存在，false不存在
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     **/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>isExists</span>(Object value) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>boolean</span> res <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 依次通过6个布隆函数</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (BloomFunction bloomFunction : BLOOM_FUNCTIONS) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 仅 1 &amp; 1 = 1，任意一个函数结果为0，则整体结果为0</span>
+</span></span><span style=display:flex><span>            res <span style=color:#f92672>&amp;=</span> BIT_SET.<span style=color:#a6e22e>get</span>(bloomFunction.<span style=color:#a6e22e>hash</span>(value));
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> res;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>测试布隆过滤器工具类：</li></ol><p><code>util.BloomFilterUtilTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BloomFilterUtilTest</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBloomFilterUtil</span>() {  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Java&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;MySQL&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Oracle&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;Node&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;HTML&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;JavaScript&#34;</span>);  
+</span></span><span style=display:flex><span>		BloomFilterUtil.<span style=color:#a6e22e>add</span>(<span style=color:#e6db74>&#34;CSS&#34;</span>);  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;Java&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;MySQL&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;Oracle&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;Node&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;HTML&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;JavaScript&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;CSS&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;Nginx&#34;</span>));  
+</span></span><span style=display:flex><span>		System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(BloomFilterUtil.<span style=color:#a6e22e>isExists</span>(<span style=color:#e6db74>&#34;Elasticsearch&#34;</span>));
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e05-redistemplate>E05. RedisTemplate</h2><blockquote><p>心法: org.springframework.data.redis.core.StringRedisTemplate 模板类</p></blockquote><ul><li>StringRedisTemplate类高度封装了Jedis的API且可以自动管理连接池，使用比Jedis简单但效率略低。</li></ul><blockquote><p>武技: 在 <code>v3-5-ssm-redis</code> 子项目中整合StringRedisTemplate模板</p></blockquote><ol><li>添加依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-data-redis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在 <code>logback.xml</code> 中关闭重连日志:<ul><li>lettuce的心跳检测方案是将连接池中的空闲客户端每隔一段时间就主动断开重连。</li><li>所以在启动项目后，控制台会不断打印重连Redis的INFO级别日志 <code>reconnect</code>。</li><li>若不想看到的话，在 <code>logback.xml</code> 中将这个日志级别调高一点就行了。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;logger</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;io.lettuce.core.protocol&#34;</span> <span style=color:#a6e22e>level=</span><span style=color:#e6db74>&#34;ERROR&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><h3 id=1-redis单机配置>1. Redis单机配置</h3><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>############################# StringRedisTemplate ##############################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#RedisIP，Redis端口，超时毫秒数，最大连接，最大阻塞时间，最大空闲，最小空闲#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.host</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>6379</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.timeout</span><span style=color:#f92672>=</span><span style=color:#e6db74>3000ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-active</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-wait</span><span style=color:#f92672>=</span><span style=color:#e6db74>-1ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.min-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>0</span>
+</span></span></code></pre></div><h3 id=2-redis哨兵配置>2. Redis哨兵配置</h3><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>############################# StringRedisTemplate ##############################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#哨兵监视的主从结构名称，哨兵节点列表，超时毫秒数，最大连接，最大阻塞时间，最大空闲，最小空闲#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.sentinel.master</span><span style=color:#f92672>=</span><span style=color:#e6db74>x</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.sentinel.nodes</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77:27001,192.168.40.77:27002,192.168.40.77:27003</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.timeout</span><span style=color:#f92672>=</span><span style=color:#e6db74>3000ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-active</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-wait</span><span style=color:#f92672>=</span><span style=color:#e6db74>-1ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.min-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>0</span>
+</span></span></code></pre></div><h3 id=3-redis集群配置>3. Redis集群配置</h3><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>############################# StringRedisTemplate ##############################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#集群节点列表，超时毫秒数，最大连接，最大阻塞时间，最大空闲，最小空闲#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.cluster.nodes</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77:7001,192.168.40.77:7002,192.168.40.77:7003,\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                           192.168.40.77:7004,192.168.40.77:7005,192.168.40.77:7006</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.timeout</span><span style=color:#f92672>=</span><span style=color:#e6db74>3000ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-active</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-wait</span><span style=color:#f92672>=</span><span style=color:#e6db74>-1ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.min-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>0</span>
+</span></span></code></pre></div><h3 id=4-redis模板测试>4. Redis模板测试</h3><p><code>util.StringRedisTemplateTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RunWith</span>(SpringRunner.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootTest</span>(classes <span style=color:#f92672>=</span> RedisApp.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StringRedisTemplateTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> StringRedisTemplate stringRedisTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>api</span>() {
+</span></span><span style=display:flex><span>        stringRedisTemplate.<span style=color:#a6e22e>opsForValue</span>().<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#e6db74>&#34;liuneng&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(stringRedisTemplate.<span style=color:#a6e22e>opsForValue</span>().<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#34;name&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=5-redis工具封装>5. Redis工具封装</h3><ul><li><a href=res/RedisUtil%E5%B7%A5%E5%85%B7%E5%B0%81%E8%A3%85.md>RedisUtil工具封装</a></li></ul></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

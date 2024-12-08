@@ -1,0 +1,83 @@
+# Gson工具
+
+> 心法: Gson工具
+
+- Gson是Google公司发布的序列化和反序列化JSON的java开源框架。
+
+> 武技: 搭建Gson工具使用环境
+
+1. 添加三方依赖
+
+```xml
+<!--三方依赖-->
+<dependencies>
+    <!--gson-->
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.9.0</version>
+    </dependency>
+</dependencies>
+```
+
+2. 开发Gson工具类 `GsonUtil`:
+    - 开发方法 `GsonUtil -> format()`: 将响应数据格式化为JSON字符串，null值忽略。
+    - 开发方法 `GsonUtil -> parse()`: 将JSON字符串解析成指定类型并返回。
+
+```java
+package com.lsx;
+
+/** @author lsx */
+public class GsonUtil {
+
+    private static final String DATE_PATTERN = "yyyy/MM/dd hh:mm:ss";
+
+    /**
+     * 将响应数据格式化为JSON字符串，null值忽略
+     *
+     * @param data 响应数据
+     * @return 格式化后的字符串
+     */
+    @SneakyThrows
+    public static String format(Object data) {
+
+        if (data == null) {
+            throw new InvalidParameterException("参数包含null");
+        }
+
+        return new GsonBuilder()
+                // 设置序列化数据中的所有null值
+                .serializeNulls()
+                // 设置Date数据格式
+                .setDateFormat(DATE_PATTERN)
+                // 构造Gson对象
+                .create()
+                // 将数据转为Json字符串
+                .toJson(data);
+    }
+
+    /**
+     * 将JSON字符串解析成指定类型并返回
+     *
+     * @param json 符合JSON格式的字符串
+     * @return 参数指定的类型
+     */
+    @SneakyThrows
+    public static <T> T parse(String json, Class<T> c) {
+
+        if (json == null || c == null) {
+            throw new InvalidParameterException("参数包含null");
+        }
+
+        return new GsonBuilder()
+                // 设置序列化数据中的所有null值
+                .serializeNulls()
+                // 设置Date数据格式
+                .setDateFormat(DATE_PATTERN)
+                // 构造Gson对象
+                .create()
+                // 将Json字符串解析为指定类型
+                .fromJson(json, c);
+    }
+}
+```

@@ -1,0 +1,333 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-7-MongoDB</title>
+<meta name=description content="[!NOTE] Java道经第3卷 - 第7阶 - MongoDB v3-7-ssm-mongodb
+S01. Mongo基础入门 E01. Mongo概念入门 心法: MongoDB
+MongoDB是一个由C++语言编写的，基于分布式文件存储的数据库: MongoDB是面向文档存储的数据库，文档类似于JSON对象，数 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-7-MongoDB/JB3-7-MongoDB/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-7-MongoDB"><meta property="og:description" content="[!NOTE] Java道经第3卷 - 第7阶 - MongoDB v3-7-ssm-mongodb
+S01. Mongo基础入门 E01. Mongo概念入门 心法: MongoDB
+MongoDB是一个由C++语言编写的，基于分布式文件存储的数据库: MongoDB是面向文档存储的数据库，文档类似于JSON对象，数 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-7-MongoDB"><meta name=twitter:description content="[!NOTE] Java道经第3卷 - 第7阶 - MongoDB v3-7-ssm-mongodb
+S01. Mongo基础入门 E01. Mongo概念入门 心法: MongoDB
+MongoDB是一个由C++语言编写的，基于分布式文件存储的数据库: MongoDB是面向文档存储的数据库，文档类似于JSON对象，数 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-7-MongoDB/JB3-7-MongoDB/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-7-MongoDB/JB3-7-MongoDB/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-7-MongoDB/JB3-7-MongoDB/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-7-MongoDB</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第3卷 - 第7阶 - MongoDB
+v3-7-ssm-mongodb</p></blockquote><h1 id=s01-mongo基础入门>S01. Mongo基础入门</h1><h2 id=e01-mongo概念入门>E01. Mongo概念入门</h2><blockquote><p>心法: <a href=https://www.mongodb.com/zh-cn>MongoDB</a></p></blockquote><ul><li>MongoDB是一个由C++语言编写的，基于分布式文件存储的数据库:<ul><li>MongoDB是面向文档存储的数据库，文档类似于JSON对象，数据结构由键值对组成。</li></ul></li><li>MongoDB旨在为WEB应用提供可扩展的高性能数据存储解决方案。</li><li>MongoDB是一个介于关系数据库和非关系数据库之间的产品：<ul><li>MongoDB是非关系数据库当中功能最丰富，最像关系数据库的。</li><li>MongoDB支持支持索引，支持复杂查询。</li><li>MongoDB不支持连表操作，但支持文档数据嵌套。</li></ul></li></ul><h3 id=1-mongo对应mysql>1. Mongo对应MySQL</h3><table><thead><tr><th>MongoDB角色</th><th>中文</th><th>对应RDBMS中的</th></tr></thead><tbody><tr><td><code>database</code></td><td>数据库</td><td><code>database</code> 数据库</td></tr><tr><td><code>collection</code></td><td>集合</td><td><code>table</code> 表格</td></tr><tr><td><code>document</code></td><td>文档</td><td><code>row</code> 表行</td></tr><tr><td><code>field</code></td><td>字段</td><td><code>column</code> 表列</td></tr><tr><td><code>index</code></td><td>索引</td><td><code>index</code> 索引</td></tr><tr><td><code>primary key</code></td><td>主键</td><td><code>primary key</code> 主键</td></tr></tbody></table><h2 id=e02-mongo容器搭建>E02. Mongo容器搭建</h2><h3 id=1-准备相关目录>1. 准备相关目录</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建Mongo相关目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/mongo/data
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/mongo/data
+</span></span></code></pre></div><h3 id=2-创建运行容器>2. 创建运行容器</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并启动Mongo容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># args: `--auth`: 需要账号密码访问Mongo数据库</span>
+</span></span><span style=display:flex><span>docker run -itd --name mongo --network host <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>	-v /opt/mongo/data:/data <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>	mongo:6.0.3 --auth
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Mongo容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#f92672>{{</span>.Names<span style=color:#f92672>}}</span> | grep mongo
+</span></span><span style=display:flex><span>docker logs mongo --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进入Mongo容器: 进入内置的admin数据库中</span>
+</span></span><span style=display:flex><span>docker exec -it mongo mongosh admin
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 创建Mongo用户: admin/admin</span>
+</span></span><span style=display:flex><span>    db.createUser<span style=color:#f92672>({</span> 
+</span></span><span style=display:flex><span>        user:<span style=color:#e6db74>&#39;admin&#39;</span>, 
+</span></span><span style=display:flex><span>        pwd:<span style=color:#e6db74>&#39;admin&#39;</span>, 
+</span></span><span style=display:flex><span>        roles:<span style=color:#f92672>[{</span> role: <span style=color:#e6db74>&#39;root&#39;</span>, db: <span style=color:#e6db74>&#39;admin&#39;</span> <span style=color:#f92672>}]</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>})</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 登录Mongo容器</span>
+</span></span><span style=display:flex><span>    db.auth<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;admin&#39;</span>, <span style=color:#e6db74>&#39;admin&#39;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 查看所有非空数据库: 默认包含 `admin/config/local` 三个数据库</span>
+</span></span><span style=display:flex><span>    show dbs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开放Mongo容器端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>27017/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=3-客户端连接>3. 客户端连接</h3><blockquote><p>武技：使用IDEA作为Mongo客户端</p></blockquote><ul><li>进入Database配置页面：<ul><li>点击 <code>Database -> 加号 -> Data Source -> MongoDB</code></li></ul></li><li>添加MongoDB本地驱动Jar包：<ul><li>点击 <code>Driver:MongoDB -> Go to Driver -> 加号 -> Custom Jars -> 选择驱动jar包</code></li><li>res：<code>资源/附件/mongo/mongo-jdbc-standalone-1.13.jar</code></li></ul></li><li>在 <code>General</code> 选项卡中填写MySQL连接的连接名，注释，IP，端口，账号和密码等基本信息：<ul><li>填写 <code>Name/Comment/Host/Port/User/Password</code></li></ul></li><li>在 <code>SSH/SSL</code> 选项卡中选择SSH配置，若MySQL未安装到虚拟机则略过：<ul><li>勾选 <code>Use SSH tunnel</code> 项。</li><li>然后选择配置好的SSH连接。</li></ul></li><li>在 <code>General</code> 选项卡中测试MySQL连接：<ul><li>点击 <code>Test Connection</code> 按钮，绿色表示测试成功。</li></ul></li></ul><h1 id=s02-mongo常用角色>S02. Mongo常用角色</h1><h2 id=e01-数据库>E01. 数据库</h2><blockquote><p>心法: Mongo数据库</p></blockquote><ul><li>一个MongoDB服务中可以建立多个数据库，默认数据库为 <code>db</code>，存储在data目录中。</li></ul><h3 id=1-内置数据库>1. 内置数据库</h3><blockquote><p>心法: Mongo内置数据库</p></blockquote><ul><li><code>admin</code>: 从权限的角度来看，这是 <code>root</code> 数据库：<ul><li>要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。</li><li>一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。</li></ul></li><li><code>local</code>: 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合。</li><li><code>config</code>: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。</li></ul><h3 id=2-数据库操作>2. 数据库操作</h3><blockquote><p>武技: 测试Mongo数据库常用操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 切换当前数据库: 数据库不存在时自动创建
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>use</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>property</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查看所有数据库，空数据库不展示
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>show</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>dbs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查看当前数据库
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 删除当前数据库
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>dropDatabase</span>()
+</span></span></code></pre></div><h2 id=e02-用户>E02. 用户</h2><blockquote><p>心法: Mongo用户</p></blockquote><ul><li>一个Mongo数据库中可以包含多个Mongo用户。</li></ul><h3 id=1-内置角色>1. 内置角色</h3><blockquote><p>心法: Mongo内置角色</p></blockquote><ul><li><code>read</code>: 提供读取所有非系统集合和system.js集合上的数据的功能。</li><li><code>readWrite</code>: 提供read角色的所有特权以及修改所有非系统集合和system.js集合上的数据的能力。</li><li><code>dbAdmin</code>: 一些数据库对象的管理操作，但是没有数据库的读写权限。</li><li><code>dbOwner</code>: 该数据库的所有者，具有该数据库的全部权限。</li><li><code>userAdmin</code>: 为当前用户创建，修改用户和角色，可以将该数据库的任意权限赋予任意的用户。</li><li><code>readAnyDatabase</code>: 具有read每一个数据库权限，但是不包括应用到集群中的数据库。</li><li><code>readWriteAnyDatabase</code>: 具有readWrite每一个数据库权限，但是不包括应用到集群中的数据库。</li><li><code>userAdminAnyDatabase</code>: 具有userAdmin每一个数据库权限，但是不包括应用到集群中的数据库。</li><li><code>dbAdminAnyDatabase</code>: 提供了dbAdmin每一个数据库权限，但是不包括应用到集群中的数据库。</li><li><code>root</code>: 超级用户角色，包含以上全部角色特权:<ul><li>root角色不具有备份恢复和直接操作 <code>system.*</code> 集合的权限，但root角色用户可以赋予自己这些权限。</li></ul></li></ul><h3 id=2-用户操作>2. 用户操作</h3><blockquote><p>测试: Mongo用户常用操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 查看当前数据库中的全部用户
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>show</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>users</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建用户: property/property: 重复创建报错
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>createUser</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>user</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;property&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>pwd</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;property&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>roles</span><span style=color:#f92672>:</span> [{<span style=color:#a6e22e>role</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;dbAdmin&#39;</span>, <span style=color:#a6e22e>db</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;admin&#39;</span>}]
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 修改用户密码
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>changeUserPassword</span>(<span style=color:#e6db74>&#39;property&#39;</span>, <span style=color:#e6db74>&#39;test2&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 修改用户角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>updateUser</span>(<span style=color:#e6db74>&#39;property&#39;</span>, {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>roles</span><span style=color:#f92672>:</span> [{<span style=color:#a6e22e>role</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;read&#39;</span>, <span style=color:#a6e22e>db</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;admin&#39;</span>}]
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 删除用户
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>dropUser</span>(<span style=color:#e6db74>&#39;property&#39;</span>)
+</span></span></code></pre></div><h2 id=e03-集合>E03. 集合</h2><blockquote><p>心法: Mongo集合</p></blockquote><ul><li>集合就是MongoDB文档组，类似于RDBMS中的Table表格。</li><li>当第一个文档插入时，集合就会被创建。</li></ul><h3 id=1-内置集合>1. 内置集合</h3><blockquote><p>心法: Mongo内置集合</p></blockquote><ul><li><code>system.users</code>: 存储Mongo用户相关信息的集合。</li><li><code>system.version</code>: 存储Mongo版本相关信息的集合。</li></ul><h3 id=2-集合操作>2. 集合操作</h3><blockquote><p>测试: Mongo集合常用操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 查看当前数据库中的全部集合
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>show</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>collections</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建集合
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>createCollection</span>(<span style=color:#e6db74>&#34;test_collection&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 创建容量固定的集合: 当达到最大值时，它会自动覆盖最早的文档，适用于日志等数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>createCollection</span>(<span style=color:#e6db74>&#34;fix_collection&#34;</span>, {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>capped</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>, <span style=color:#75715e>// 固定容量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>size</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10000</span>, <span style=color:#75715e>// 最大不超过10000字节
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>max</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1000</span> <span style=color:#75715e>// 最多不超过1000个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 删除指定的集合
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>fix_collection</span>.<span style=color:#a6e22e>drop</span>()
+</span></span><span style=display:flex><span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>test_collection</span>.<span style=color:#a6e22e>drop</span>()
+</span></span></code></pre></div><h2 id=e04-文档>E04. 文档</h2><blockquote><p>心法: Mongo文档特点与要求</p></blockquote><ul><li>Mongo文档采用类似于JSON结构的BSON结构存储数据，底层同样为键值对结构:<ul><li>BSON是一种类似JSON的二进制形式的存储格式，是 <code>Binary JSON</code> 的简称。</li></ul></li><li>Mongo文档中的键值对是有序的。</li><li>Mongo文档中区分类型和大小写。</li><li>Mongo文档中不能有重复的键。</li></ul><h3 id=1-文档插入>1. 文档插入</h3><blockquote><p>测试: Mongo文档的插入操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 向当前数据库的user集合中插入一条数据: 集合自动创建 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 允许插入相同文档，但每条文档的 `_id` 值不同
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>insertOne</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lsx&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>16</span>
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>向当前数据库的user集合中插入多条数据</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>集合不存时自动创建</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>insertMany</span>([
+</span></span><span style=display:flex><span>    {<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lucky&#34;</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>16</span>},
+</span></span><span style=display:flex><span>    {<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;zhaosi&#34;</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>40</span>}
+</span></span><span style=display:flex><span>])
+</span></span></code></pre></div><h3 id=2-文档修改>2. 文档修改</h3><blockquote><p>测试 Mongo文档的修改操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 修改满足条件的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>updateOne</span>(
+</span></span><span style=display:flex><span>    {<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>}, <span style=color:#75715e>// 修改条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    {<span style=color:#a6e22e>$set</span><span style=color:#f92672>:</span> {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;tom&#39;</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>18</span>}} <span style=color:#75715e>// 修改的内容
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 修改满足条件的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// `{upsert: true}`: 若满足条件的文档不存在则执行添加操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// `{upsert: false}`: 若满足条件的文档不存在则不执行任何操作，默认值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>updateOne</span>(
+</span></span><span style=display:flex><span>    {<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span>}, <span style=color:#75715e>// 修改条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    {<span style=color:#a6e22e>$set</span><span style=color:#f92672>:</span> {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;jack&#39;</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>30</span>}}, <span style=color:#75715e>// 修改的内容
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    {<span style=color:#a6e22e>upsert</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>} <span style=color:#75715e>// 若满足条件的文档不存在则执行添加操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 修改满足条件的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>updateMany</span>(
+</span></span><span style=display:flex><span>    {<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>}, <span style=color:#75715e>// 修改条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    {<span style=color:#a6e22e>$set</span><span style=color:#f92672>:</span> {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;guangkun&#39;</span>, <span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>50</span>}} <span style=color:#75715e>// 修改的内容
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>)
+</span></span></code></pre></div><h3 id=3-mongo文档删除>3. Mongo文档删除</h3><blockquote><p>测试: Mongo文档的删除操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 删除当前数据库的user集合中，符合条件的第一条文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>deleteOne</span>({<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 删除当前数据库的user集合中，符合条件的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>deleteMany</span>({<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>})
+</span></span></code></pre></div><h3 id=4-基础查询>4. 基础查询</h3><blockquote><p>测试: Mongo文档的全部查询操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 查询全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询全部文档，按id升序查询
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>().<span style=color:#a6e22e>sort</span>({<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询全部文档，按age降序查询
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>().<span style=color:#a6e22e>sort</span>({<span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 跳过前4条文档后，查询2条文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 查询第N页，每页M条公式: .skip( (N-1)*M ).limit(M)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>().<span style=color:#a6e22e>skip</span>(<span style=color:#ae81ff>4</span>).<span style=color:#a6e22e>limit</span>(<span style=color:#ae81ff>2</span>)
+</span></span></code></pre></div><h3 id=5-条件查询>5. 条件查询</h3><blockquote><p>测试: Mongo文档的条件查询操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// 查询ID为3，且姓名为lucky的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 第2个参数用来设置结果集中展示那些列，1表示展示，默认展示全部列
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>({<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lucky&#34;</span>}, {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询ID为3，且姓名为lucky的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>findOne</span>({<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>, <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lucky&#34;</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询ID为3，或姓名为lucky的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>({<span style=color:#a6e22e>$or</span><span style=color:#f92672>:</span> [{<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>}, {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lucky&#34;</span>}]})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询ID为3，或姓名为lucky的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>findOne</span>({<span style=color:#a6e22e>$or</span><span style=color:#f92672>:</span> [{<span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3</span>}, {<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;lucky&#34;</span>}]})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询姓名符合正则的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>({<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>/lu/</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询姓名符合正则的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>findOne</span>({<span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>/lu/</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询年龄小于24的全部文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>find</span>({<span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> {<span style=color:#a6e22e>$lt</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>24</span>}})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 查询年龄小于24的第一个文档
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>db</span>.<span style=color:#a6e22e>user</span>.<span style=color:#a6e22e>findOne</span>({<span style=color:#a6e22e>age</span><span style=color:#f92672>:</span> {<span style=color:#a6e22e>$lt</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>24</span>}})
+</span></span></code></pre></div><h1 id=s03-mongo项目整合>S03. Mongo项目整合</h1><blockquote><p>武技: 整合Mongo到SpringBoot项目</p></blockquote><h3 id=e01-添加三方依赖>E01. 添加三方依赖</h3><ul><li>添加三方依赖</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!---mongodb相关依赖--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-data-mongodb<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><h3 id=e02-开发主配文件>E02. 开发主配文件</h3><ul><li>开发主配文件</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>mongodb</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>host</span>: <span style=color:#ae81ff>192.168.40.77</span> <span style=color:#75715e># mongodb的连接地址</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>port</span>: <span style=color:#ae81ff>27017</span> <span style=color:#75715e># mongodb的连接端口号</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>database</span>: <span style=color:#ae81ff>mall-port</span> <span style=color:#75715e># mongodb的连接的数据库</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>username</span>: <span style=color:#ae81ff>admin</span> <span style=color:#75715e># mongodb账号</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>password</span>: <span style=color:#ae81ff>admin</span> <span style=color:#75715e># mongodb密码</span>
+</span></span></code></pre></div><h3 id=e03-开发实体类>E03. 开发实体类</h3><ul><li>开发Document实体类 <code>MemberReadHistory</code>:<ul><li><code>@Document</code>: 标记实体类以映射Mongo文档。</li><li><code>@Id</code>: 标记属性以映射Mongo文档的主键。</li><li><code>@Indexed</code>: 标记属性以映射Mongo文档的索引字段。</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mongo.document;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Document</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemberReadHistory</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Id</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String id;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Indexed</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long memberId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String memberNickname;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String memberIcon;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Indexed</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long productId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String productName;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String productPic;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String productSubTitle;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String productPrice;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Date createTime;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=e04-开发接口类>E04. 开发接口类</h3><ul><li>开发Repository接口 <code>MemberReadHistoryRepository</code>:<ul><li>继承MongoRepository接口的基本CRUD方法以及随意定义衍生查询方法。</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mongo.repository;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>MemberReadHistoryRepository</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>extends</span> MongoRepository<span style=color:#f92672>&lt;</span>MemberReadHistory, String<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 衍生方法: 根据会员主键按时间倒序获取浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param memberId 会员id
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>MemberReadHistory<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>findByMemberIdOrderByCreateTimeDesc</span>(Long memberId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ul><li>开发业务接口 <code>MemberReadHistoryService</code></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>MemberReadHistoryService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 生成一条会员浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param memberReadHistory 会员浏览记录实体
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该条会员浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    MemberReadHistory <span style=color:#a6e22e>create</span>(MemberReadHistory memberReadHistory);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按会员浏览记录主键批量删除会员浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param memberReadHistoryIds 会员浏览记录实体
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByMemberReadHistoryIds</span>(List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> memberReadHistoryIds);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按会员主键获取该会员全部浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param memberId 会员主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该会员全部浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>MemberReadHistory<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>listByMemberId</span>(Long memberId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ul><li>实现业务接口 <code>MemberReadHistoryService</code></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemberReadHistoryServiceImpl</span> <span style=color:#66d9ef>implements</span> MemberReadHistoryService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MemberReadHistoryRepository memberReadHistoryRepository;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> MemberReadHistory <span style=color:#a6e22e>create</span>(MemberReadHistory memberReadHistory) {
+</span></span><span style=display:flex><span>        memberReadHistory.<span style=color:#a6e22e>setId</span>(<span style=color:#66d9ef>null</span>);
+</span></span><span style=display:flex><span>        memberReadHistory.<span style=color:#a6e22e>setCreateTime</span>(<span style=color:#66d9ef>new</span> Date());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryRepository.<span style=color:#a6e22e>save</span>(memberReadHistory);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByMemberReadHistoryIds</span>(List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> memberReadHistoryIds) {
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>MemberReadHistory<span style=color:#f92672>&gt;</span> deleteList <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (String memberReadHistoryId : memberReadHistoryIds) {
+</span></span><span style=display:flex><span>            MemberReadHistory memberReadHistory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MemberReadHistory();
+</span></span><span style=display:flex><span>            memberReadHistory.<span style=color:#a6e22e>setId</span>(memberReadHistoryId);
+</span></span><span style=display:flex><span>            deleteList.<span style=color:#a6e22e>add</span>(memberReadHistory);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        memberReadHistoryRepository.<span style=color:#a6e22e>deleteAll</span>(deleteList);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryIds.<span style=color:#a6e22e>size</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>MemberReadHistory<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>listByMemberId</span>(Long memberId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryRepository.<span style=color:#a6e22e>findByMemberIdOrderByCreateTimeDesc</span>(memberId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=e05-开发控制器>E05. 开发控制器</h3><ol><li>开发控制器 <code>MemberReadHistoryController</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/member/read-history&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemberReadHistoryController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MemberReadHistoryService memberReadHistoryService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PostMapping</span>(<span style=color:#e6db74>&#34;/create&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>create</span>(<span style=color:#a6e22e>@RequestBody</span> MemberReadHistory memberReadHistory) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryService.<span style=color:#a6e22e>create</span>(memberReadHistory);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PostMapping</span>(<span style=color:#e6db74>&#34;/delete-by-member-read-history-ids&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByMemberReadHistoryIds</span>(
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;member-read-history-ids&#34;</span>) List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> memberReadHistoryIds) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryService.<span style=color:#a6e22e>deleteByMemberReadHistoryIds</span>(memberReadHistoryIds);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/list-by-member-id&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>MemberReadHistory<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>listByMemberId</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;member-id&#34;</span>) Long memberId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> memberReadHistoryService.<span style=color:#a6e22e>listByMemberId</span>(memberId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>测试控制器 <code>MemberReadHistoryController</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>### 添加一条会员浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8080/api/v1/member/read-history/create
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/json
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>{
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;memberId&#34;: 1,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;memberNickname&#34;: &#34;赵四&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;memberIcon&#34;: &#34;zhaosi.ico&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;productId&#34;: 1,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;productName&#34;: &#34;小米手机&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;productSubTitle&#34;: &#34;Note16Pro&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  &#34;productPrice&#34;: 2500
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>}
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>### 查询指定会员的全部浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/api/v1/member/read-history/list-by-member-id?member-id=1
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Accept: application/json
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>### 批量删除多条会员浏览记录
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8080/api/v1/member/read-history/delete-by-member-read-history-ids?ids=63f2e9c6333b262b7001e40e&amp;ids=63f2e9bd333b262b7001e40d
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/json
+</span></span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

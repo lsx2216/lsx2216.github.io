@@ -1,0 +1,532 @@
+# Spring
+
+## AOP五大通知
+
+> 武技:
+
+- 添加依赖: `org.springframework.spring-aspects(4.3.14.RELEASE)`
+- 开发客户类 `CustomerServiceImpl`:
+
+```java
+package com.lsx.spring.aspect.advice;
+
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author lsx
+ */
+@Service
+public class CustomerServiceImpl {
+
+    public void delete(String name, Integer id) {
+        System.out.println("CustomerService.delete()...");
+        System.out.println("\tparams: " + name + ", " + id);
+    }
+
+    /**
+     * 不要使用基本数据类型和final类型作为返回值测试，
+     * 基本数据类型是复制传参，对复制品进行修改不会影响原来的值。
+     * final类型不可被修改，也无法使用。
+     */
+    public List<String> select(String name) {
+        System.out.println("CustomerService.select()...");
+        System.out.println("\tparams: " + name);
+        List<String> list = new ArrayList<>();
+        list.add(name);
+        return list;
+    }
+
+    public void update(Map<String, Object> user) {
+        System.out.println("CustomerService.update()...");
+        if (user == null) {
+            throw new NullPointerException();
+        }
+    }
+
+    public List<Integer> insert(Map<String, Object> user) {
+        System.out.println("CustomerService.insert()...");
+        if (user == null) {
+            throw new NullPointerException();
+        }
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(3);
+        return ids;
+    }
+}
+```
+
+### 注解配置
+
+> 心法技:
+
+- 开发切面类: `spring.aspect.advice.CustomerAspectByAnn`:
+    - 添加 `@Aspect` 表示这是一个切面类。
+    - 添加 `@Component` 表示该类需要被spring容器扫描和管理。
+- 开发切面类切点方法: 方法名随意仅用于区分，但方法体必须为空:
+    - `@Pointcut("execution(* c.j.s.a.a.CustomerServiceImpl.delete(..))")`
+    - `@Pointcut("execution(* c.j.s.a.a.CustomerServiceImpl.select(..))")`
+    - `@Pointcut("execution(* c.j.s.a.a.CustomerServiceImpl.update(..))")`
+    - `@Pointcut("execution(* c.j.s.a.a.CustomerServiceImpl.insert(..))")`
+- 在切面类中开发前后通知方法: 在业务方法执行前后做一些事，但无法阻止方法的运行:
+    - 对前置通知方法标记 `@Before("deletePointCut())`。
+    - 对后置通知方法标记 `@After("deletePointCut())`。
+    - 若想在通知方法中获取业务方法形参:
+        - 在注解中的切点方法名后附加 `&&args(形参列表)`。
+        - 在注解中添加额外的 `argNames="形参列表"`，更规范。
+        - 对通知方法添加形参，类型与业务方法一致，名与 `args()` 中一致。
+- 在切面类中开发返回后通知: 在业务方法return之后做一些事，但无法阻止方法的运行:
+    - 对返回后通知方法标记 `@AfterReturning("selectPointCut())`。
+    - 在注解中添加额外的 `returning` 属性指定方法的返回值。
+    - 对通知方法添加形参，类型与业务方法返回值一致，名与 `returning` 的值一致。
+    - 若想在通知方法中获取业务方法形参，一样可以使用 `args()`。
+- 在切面类中开发异常通知: 在业务方法发生异常后做一些事:
+    - 对异常通知方法标记 `@AfterThrowing("updatePointCut())`。
+    - 在注解中添加额外的 `throwing` 属性指定方法的异常对象。
+    - 对通知方法添加形参，类型与业务方法异常一致，名与 `throwing` 的值一致。
+    - 若想在通知方法中获取业务方法形参，一样可以使用 `args()`。
+- 在切面类中开发环绕通知: 实现前后、返回后和异常通知的所有功能:
+    - 对环绕通知方法标记 `@Around("insertPointCut())`。
+    - 通知方法的参数必须是 `ProceedingJoinPoint`，代表连接点:
+        - `pjp.getArgs()` 可以获取业务方法的参数列表。
+        - `pjp.proceed()` 可以执行业务方法，其返回值就是业务方法的返回值。
+    - 通知方法的返回必须是 `Object` 类型。
+
+```java
+package com.lsx.spring.aspect.advice;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author lsx
+ */
+@Aspect
+@Component
+public class CustomerAspectByAnn {
+
+    @Pointcut("execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.delete(..))")
+    public void deletePointCut() {
+    }
+
+    @Pointcut("execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.select(..))")
+    public void selectPointCut() {
+    }
+
+    @Pointcut("execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.update(..))")
+    public void updatePointCut() {
+    }
+
+    @Pointcut("execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.insert(..))")
+    public void insertPointCut() {
+    }
+
+    @Before(value = "deletePointCut()&&args(name, id)", argNames = "name,id")
+    public void beforeAdvice(String name, Integer id) {
+        System.out.println("beforeAdvice(): 鉴权...");
+        System.out.println("\tparams: " + name + ", " + id);
+    }
+
+    @After("deletePointCut()")
+    public void afterAdvice() {
+        System.out.println("afterAdvice(): 记录日志...");
+    }
+
+    @AfterReturning(value = "selectPointCut()&&args(name)", returning = "list", argNames = "name,list")
+    public void afterReturningAdvice(String name, List<String> list) {
+        System.out.println("afterReturningAdvice(): 改变原返回值...");
+        System.out.println("\tparams: " + name);
+        System.out.println("\tpre return value: " + list);
+        list.remove("zhaosi");
+        list.add("liuneng");
+    }
+
+    @AfterThrowing(pointcut = "updatePointCut()&&args(user)", throwing = "e", argNames = "user,e")
+    public void afterThrowingAdvice(Map<String, Object> user, Exception e) {
+        System.out.println("afterThrowingAdvice(): 爆发异常...");
+        System.out.println("\tparams: " + user);
+        System.out.println("\texception: " + e);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Around("insertPointCut()")
+    public Object aroundAdvice(ProceedingJoinPoint pjp) {
+        List<Integer> list = null;
+        System.out.println("aroundAdvice(): 环绕开始...");
+        Object[] args = pjp.getArgs();
+        System.out.println("\tparams: " + Arrays.toString(args));
+        try {
+            System.out.println("aroundAdvice(): 鉴权...");
+            list = (List<Integer>) pjp.proceed(args);
+        } catch (Throwable e) {
+            System.out.println("aroundAdvice(): 爆发异常...");
+            System.out.println("\texception: " + e);
+        } finally {
+            System.out.println("aroundAdvice(): 打印日志...");
+            System.out.println("aroundAdvice(): 将原返回值 [1,2,3] 改为 [4,5,6]...");
+            if (list != null) {
+                list.clear();
+                list.add(4);
+                list.add(5);
+                list.add(6);
+            }
+        }
+        return list;
+    }
+
+}
+```
+
+- 在主配中使用 `<context:component-scan base-package=""/>` 包扫描 `@Component`。
+- 在主配中使用 `<aop:aspectj-autoproxy />` 驱动 `@Aspect`。
+- tst: `spring.AdiviceTest`
+
+```java
+package com.lsx.spring;
+
+import com.lsx.spring.aspect.advice.CustomerServiceImpl;
+import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.HashMap;
+
+/**
+ * @author lsx
+ */
+
+public class AdviceTest {
+
+    private String configLocation = "classpath:spring/app-advice.xml";
+    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configLocation);
+    private CustomerServiceImpl customerServiceImpl = context.getBean(CustomerServiceImpl.class);
+
+    @Test
+    public void beforeAndAfterAdvice() {
+        customerServiceImpl.delete("zhaosi", 2);
+    }
+
+    @Test
+    public void afterReturningAdvice() {
+        System.out.println("property: " + customerServiceImpl.select("zhaosi"));
+    }
+
+    @Test
+    public void afterThrowingAdvice() {
+        customerServiceImpl.update(null);
+    }
+
+    @Test
+    public void aroundAdvice() {
+        System.out.println(customerServiceImpl.insert(new HashMap<>()));
+        System.out.println("------");
+        System.out.println(customerServiceImpl.insert(null));
+    }
+}
+```
+
+### XML配置
+
+- 开发切面类: `spring.aspect.advice.CustomerAspectByXml`:
+    - 不标记 `@Aspect`，不开发切点方法，不为环绕通知方法标记 `@Around`，其余同上。
+
+```java
+package com.lsx.spring.aspect.advice;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * @author lsx
+ */
+@Component
+public class CustomerAspectByXml {
+
+    public void beforeAdvice(JoinPoint joinPoint) {
+        System.out.println("beforeAdvice(): 鉴权...");
+        System.out.println("\tparams: " + Arrays.toString(joinPoint.getArgs()));
+    }
+
+    public void afterAdvice(JoinPoint joinPoint) {
+        System.out.println("afterAdvice(): 记录日志...");
+    }
+
+    public void afterReturningAdvice(JoinPoint joinPoint, List<String> list) {
+        System.out.println("afterReturningAdvice(): 改变原返回值...");
+        System.out.println("\tparams: " + Arrays.toString(joinPoint.getArgs()));
+        System.out.println("\tpre return value: " + list);
+        list.remove("zhaosi");
+        list.add("liuneng");
+    }
+
+    public void afterThrowingAdvice(JoinPoint joinPoint, Exception e) {
+        System.out.println("afterThrowingAdvice(): 爆发异常...");
+        System.out.println("\tparams: " + Arrays.toString(joinPoint.getArgs()));
+        System.out.println("\texception: " + e);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object aroundAdvice(ProceedingJoinPoint pjp) {
+        List<Integer> list = null;
+        Object[] args = pjp.getArgs();
+        System.out.println("params: " + Arrays.toString(args));
+        try {
+            System.out.println("aroundAdvice(): 鉴权...");
+            list = (List<Integer>) pjp.proceed(args);
+        } catch (Throwable e) {
+            System.out.println("aroundAdvice(): 爆发异常...");
+            System.out.println("\texception: " + e);
+        } finally {
+            System.out.println("aroundAdvice(): 打印日志...");
+            if (list != null) {
+                list.add(4);
+                list.add(5);
+                list.add(6);
+            }
+        }
+        return list;
+    }
+}
+```
+
+- 在主配中使用 `<context:component-scan base-package=""/>` 包扫描 `@Component`。
+- 在主配中配置AOP区域:
+    - `<aop:config ></aop:config>`
+- 在主配AOP区域中配置切点和切面类:
+    - `<aop:pointcut id="" expression="execution(PE表达式)"/>`
+    - `<aop:aspect ref="切面类的<bean>的id">`
+- 在切面类标签中配置通知方法: 注意切点id不带括号:
+    - `<aop:around method="通知方法名" pointcut-ref="切点id"/>`
+    - `<aop:before method="通知方法名" pointcut-ref="切点id"/>`
+    - `<aop:after method="通知方法名" pointcut-ref="切点id"/>`
+    - `<aop:after-returning method="通知方法名" pointcut-ref="切点id"returning="list"/>`
+    - `<aop:after-throwing method="通知方法名" pointcut-ref="切点id"throwing="e"/>`
+
+```xml
+
+<aop:config>
+    <aop:pointcut id="deletePointCut"
+                  expression="execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.delete(..)))"/>
+    <aop:pointcut id="selectPointCut"
+                  expression="execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.select(..)))"/>
+    <aop:pointcut id="updatePointCut"
+                  expression="execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.update(..)))"/>
+    <aop:pointcut id="insertPointCut"
+                  expression="execution(* com.lsx.spring.aspect.advice.CustomerServiceImpl.insert(..)))"/>
+    <aop:aspect ref="customerAspectByXml">
+        <aop:before method="beforeAdvice" pointcut-ref="deletePointCut"/>
+        <aop:after method="afterAdvice" pointcut-ref="deletePointCut"/>
+        <aop:after-returning method="afterReturningAdvice" pointcut-ref="selectPointCut" returning="list"/>
+        <aop:after-throwing method="afterThrowingAdvice" pointcut-ref="updatePointCut" throwing="e"/>
+        <aop:around method="aroundAdvice" pointcut-ref="insertPointCut"/>
+    </aop:aspect>
+</aop:config>
+```
+
+- tst: `spring.AdiviceTest`
+
+## RestTemplate
+
+**概念: ** `RestTemplate` 是spring3开始支持的，用来模拟客户端向服务端发送请求的工具，继承自 `InterceptingHttpAccessor` 并实现
+定义了常见的如GET，POST等请求操作 `RestOperations` 接口:
+
+- 开发动作类 `c.j.s.restTemplate.RestTemplateController`:
+    - `@GetMapping` 相当于 `@RequestMapping(method = RequestMethod.GET)`。
+    - `@PostMapping` 相当于 `@RequestMapping(method = RequestMethod.POST)`。
+- 开发测试类: `c.j.s.RestTemplateTest`:
+    - 使用 `new RestTemplate()` 实例化 `RestTemplate` 属性。
+- 单元测试GET请求: 使用 `restTemplate.getForObject()` 发送GET请求:
+    - param1: 请求URL，支持查询串和 `{}` 占位符两种方式传递请求参数。
+    - param2: 响应数据类型，对应动作方法返回值。
+    - param3: 可选，当URL使用占位符方式时可使用数组或Map结构进行赋值。
+    - return: 返回响应数据，若使用 `getForEntity()` 则额外返回响应头，状态码等信息。
+- 单元测试POST请求: 使用 `restTemplate.postForObject()` 发送POST请求:
+    - param2: 请求体对象，不需要时注入null，建议使用 `LinkedMultiValueMap()` 结构。
+    - 其余参数同 `getForObject()`。
+    - return: 返回响应数据，若使用 `postForEntity()` 则额外返回响应头，状态码等信息。
+- 单元测试重定向请求: 使用 `restTemplate.postForLocation()` 发送POST重定向请求:
+    - 参数同 `postForObject()`，返回值是一个URI对象，没有 `getForLocation()`。
+
+```
+package com.lsx.boot.rest;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.property.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.property.context.junit4.SpringRunner;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author lsx
+ */
+@Slf4j
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
+@RunWith(SpringRunner.class)
+public class RestTemplateTest {
+
+    /**
+     * 模拟客户端实例，用于向Controller发送请求
+     */
+    private RestTemplate restTemplate = new RestTemplate();
+
+    /**
+     * 测试: 使用RestTemplate模拟客户端发送GET请求，并返回ResponseEntity实例
+     */
+    @Test
+    public void testGetForEntity() {
+        String baseUrl = "http://localhost:8080/controller/rest-template/get-mapping";
+
+        // 发送GET请求，使用KV方式携带查询串，返回响应实例
+        ResponseEntity<String> respA = restTemplate.getForEntity(baseUrl + "?id=1", String.class);
+        log.info("==========respA==========");
+        log.info("respA响应码数值: {}", respA.getStatusCodeValue());
+        log.info("respA响应头内容: {}", respA.getHeaders());
+        log.info("respA响应体内容: {}", respA.getBody());
+
+        // 发送GET请求，使用占位符 + 不定长参数的方式携带查询串，返回响应实例
+        ResponseEntity<String> respB = restTemplate.getForEntity(baseUrl + "?id={id}", String.class, "2");
+        log.info("==========respB==========");
+        log.info("respB响应码数值: {}", respB.getStatusCodeValue());
+        log.info("respB响应头内容: {}", respB.getHeaders());
+        log.info("respB响应体内容: {}", respB.getBody());
+
+        // 发送GET请求，使用占位符 + Map型参数的方式携带查询串，返回响应实例
+        Map<String, String> map = new HashMap<>(1);
+        map.put("id", "3");
+        ResponseEntity<String> respC = restTemplate.getForEntity(baseUrl + "?id={id}", String.class, map);
+        log.info("==========respC==========");
+        log.info("respC响应码数值: {}", respC.getStatusCodeValue());
+        log.info("respC响应头内容: {}", respC.getHeaders());
+        log.info("respC响应体内容: {}", respC.getBody());
+    }
+
+    /**
+     * 测试: 使用RestTemplate模拟客户端发送POST请求，并返回ResponseEntity实例
+     */
+    @Test
+    public void testPostForEntity() {
+        String baseUrl = "http://localhost:8080/controller/rest-template/post-mapping";
+
+        // 发送POST请求，使用KV方式携带查询串，返回响应实例
+        ResponseEntity<String> respA = restTemplate.postForEntity(baseUrl + "?id=1", null, String.class);
+        log.info("==========respA==========");
+        log.info("respA响应码数值: {}", respA.getStatusCodeValue());
+        log.info("respA响应头内容: {}", respA.getHeaders());
+        log.info("respA响应体内容: {}", respA.getBody());
+
+        // 发送POST请求，使用占位符 + 不定长参数的方式携带查询串，返回响应实例
+        ResponseEntity<String> respB = restTemplate.postForEntity(baseUrl + "?id={id}", null, String.class, "2");
+        log.info("==========respB==========");
+        log.info("respB响应码数值: {}", respB.getStatusCodeValue());
+        log.info("respB响应头内容: {}", respB.getHeaders());
+        log.info("respB响应体内容: {}", respB.getBody());
+
+        // 发送POST请求，使用占位符 + Map型参数的方式携带查询串，返回响应实例
+        Map<String, String> map = new HashMap<>(1);
+        map.put("id", "3");
+        ResponseEntity<String> respC = restTemplate.postForEntity(baseUrl + "?id={id}", null, String.class, map);
+        log.info("==========respC==========");
+        log.info("respC响应码数值: {}", respC.getStatusCodeValue());
+        log.info("respC响应头内容: {}", respC.getHeaders());
+        log.info("respC响应体内容: {}", respC.getBody());
+
+        // 发送POST请求，使用请求体携带请求参数，返回响应实例
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("id", "4");
+        ResponseEntity<String> respD = restTemplate.postForEntity(baseUrl, requestBody, String.class);
+        log.info("==========respD==========");
+        log.info("respD响应码数值: {}", respD.getStatusCodeValue());
+        log.info("respD响应头内容: {}", respD.getHeaders());
+        log.info("respD响应体内容: {}", respD.getBody());
+    }
+
+    /**
+     * 测试: 使用RestTemplate模拟客户端发送POST请求，并返回重定向路径
+     */
+    @Test
+    public void testRedirect() {
+        String baseUrl = "http://localhost:8080/controller/rest-template/redirect";
+        // 发送POST请求，使用KV方式携带查询串，返回重定向路径的字符串
+        URI locationA = restTemplate.postForLocation(baseUrl + "?id=1", null, String.class);
+        log.info("locationA重定向路径: {}", locationA);
+
+        // 发送POST请求，使用占位符 + 不定长参数的方式携带查询串，返回重定向路径的字符串
+        URI locationB = restTemplate.postForLocation(baseUrl + "?id={id}", null, String.class, "2");
+        log.info("locationB重定向路径: {}", locationB);
+
+        // 发送POST请求，使用占位符 + Map型参数的方式携带查询串，返回重定向路径的字符串
+        Map<String, String> map = new HashMap<>(1);
+        map.put("id", "3");
+        URI locationC = restTemplate.postForLocation(baseUrl + "?id={id}", null, String.class, map);
+        log.info("locationC重定向路径: {}", locationC);
+
+        // 发送POST请求，使用请求体携带请求参数，返回重定向路径的字符串
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("id", "4");
+        URI locationD = restTemplate.postForLocation(baseUrl, requestBody, String.class);
+        log.info("locationD重定向路径: {}", locationD);
+    }
+}
+```
+
+## 整合Junit4
+
+> 武技:  junit4除了直接执行 `@Test` 标记的单元测试方法外，还可以和spring整合并执行功能测试，此时会先加载和启动spring容器，然后再执行单元测试方法:
+
+- 添加依赖:
+    - `org.springframework.spring-property(4.3.14.RELEASE)`
+- 开发测试类 `spring.SpringJunit4Test`
+    - 标记 `@RunWith(SpringJUnit4ClassRunner.class)` 表示使用Junit4整合spring。
+    - 标记 `@ContextConfiguration("classpath:")` 以指定XML主配置文件路径:
+        - 纯java开发的主配置使用 `classes=XXXConfig.class` 即可。
+- 在测试类直接使用 `@Autowired`:
+    - 此时建议标记在成员属性上，而不要标记在构造器上。
+
+```java
+package com.lsx.spring;
+
+import com.lsx.spring.aspect.UserServiceImpl;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.property.context.ContextConfiguration;
+import org.springframework.property.context.junit4.SpringJUnit4ClassRunner;
+
+/**
+ * @author lsx
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:spring/app-aop.xml")
+public class SpringJunit4Test {
+
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
+    @Test
+    public void selectById() {
+        userServiceImpl.selectById(1);
+    }
+}
+
+```

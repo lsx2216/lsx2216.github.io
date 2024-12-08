@@ -1,0 +1,217 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB2-2-Docker</title>
+<meta name=description content="[!NOTE] Java道经第2卷 - 第2阶 - Docker
+S01. Docker引擎 E01. 基础概念 1. Docker概念 心法: Docker (译为码头装卸工人)
+Docker是一个开源的应用容器引擎，用于将项目应用及应用运行的环境打包成一个可移植的镜像。 Docker旨在加速现代应用程序的构建，分享 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/JB2-2-Docker/"><meta property="og:type" content="website"><meta property="og:title" content="JB2-2-Docker"><meta property="og:description" content="[!NOTE] Java道经第2卷 - 第2阶 - Docker
+S01. Docker引擎 E01. 基础概念 1. Docker概念 心法: Docker (译为码头装卸工人)
+Docker是一个开源的应用容器引擎，用于将项目应用及应用运行的环境打包成一个可移植的镜像。 Docker旨在加速现代应用程序的构建，分享 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB2-2-Docker"><meta name=twitter:description content="[!NOTE] Java道经第2卷 - 第2阶 - Docker
+S01. Docker引擎 E01. 基础概念 1. Docker概念 心法: Docker (译为码头装卸工人)
+Docker是一个开源的应用容器引擎，用于将项目应用及应用运行的环境打包成一个可移植的镜像。 Docker旨在加速现代应用程序的构建，分享 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/JB2-2-Docker/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/JB2-2-Docker/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/JB2-2-Docker/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB2-2-Docker</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第2卷 - 第2阶 - Docker</p></blockquote><h1 id=s01-docker引擎>S01. Docker引擎</h1><h2 id=e01-基础概念>E01. 基础概念</h2><h3 id=1-docker概念>1. Docker概念</h3><blockquote><p>心法: <a href=https://www.docker.com/>Docker</a> (译为码头装卸工人)</p></blockquote><ul><li>Docker是一个开源的应用容器引擎，用于将项目应用及应用运行的环境打包成一个可移植的镜像。</li><li>Docker旨在加速现代应用程序的构建，分享和运行过程。</li><li>Docker统一了开发，测试和运维的环境，可带环境一起跨平台迁移，解决了Dev，QA和OPS间的部分矛盾。</li><li>Docker中的应用启动速度更快，对硬件配置的需求也更低，即使配置较低的电脑也可以轻松跑集群。</li></ul><p><img src=/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/image/818fac4b67c12f39d9e308af55c77204.png alt></p><h3 id=2-docker组件>2. Docker组件</h3><table><thead><tr><th>Docker组件</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>Client</code></td><td>客户端</td><td>客户端用于向Docker主机发送 DockerAPI 请求，该请求本质是一个 http-post 请求</td></tr><tr><td><code>Docker Host</code></td><td>主机</td><td>主机用来承载Docker本地运行环境以及Docker本地全部对象，主机可以存在多个（集群）</td></tr><tr><td><code>Docker Daemon</code><code>Dockerd</code></td><td>守护进程</td><td>守护进程用于监听DockerAPI请求，管理Docker对象如镜像，容器，网络，数据卷等守护进程还可以与其他Docker主机中的守护进程进行通信，以管理Docker服务</td></tr><tr><td><code>Image</code></td><td>镜像</td><td>镜像是用于创建容器的模板，是一个静态的概念，相当于Java类镜像的格式为 <code>镜像名:版本</code>，若不指定版本，则一律视为使用 <code>latest</code> 最新版</td></tr><tr><td><code>Container</code></td><td>容器集装箱</td><td>Docker容器是通过镜像创建出来的可运行的实体，相当于Java实例一个镜像可以创建出N个容器，一个容器中可以包含N个相关应用容器内和容器外是互相隔绝的，容器和容器之间也是相互隔离的</td></tr><tr><td><code>Registry</code></td><td>镜像中心</td><td><a href=https://hub.docker.com>Docker镜像中心</a> 中存放很多由官方，其他机构或个人创建的Docker镜像仓库</td></tr></tbody></table><h2 id=e02-引擎架构>E02. 引擎架构</h2><blockquote><p>心法: Docker引擎架构</p></blockquote><p><img src=/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/image/aca11be51f6c7aebbba9fbefba232d4b.png alt=截图></p><h3 id=1-centos装docker>1. CentOS装Docker</h3><blockquote><p>武技: 在 CentOS 平台中安装 Docker 引擎</p></blockquote><ul><li><a href=https://docs.docker.com/engine/install/centos/>参考文档</a></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 查看OS系统版本</span>
+</span></span><span style=display:flex><span>cat /etc/redhat-release
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Docker官方推荐在3.10以上版本的内核中安装</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查当前系统内核能否安装Docker引擎</span>
+</span></span><span style=display:flex><span>uname -r
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 卸载Docker引擎以及相关依赖</span>
+</span></span><span style=display:flex><span>yum remove -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>           docker-compose-plugin docker-ce-rootless-extras
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#75715e># 手动删除Docker相关文件</span>
+</span></span><span style=display:flex><span>rm -rf /var/lib/docker;
+</span></span><span style=display:flex><span>rm -rf /var/lib/containerd;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装yum-utils工具</span>
+</span></span><span style=display:flex><span>yum install -y yum-utils
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装Docker存储仓库（官方地址限速，替换为阿里云地址）</span>
+</span></span><span style=display:flex><span>yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Docker存储仓库</span>
+</span></span><span style=display:flex><span>ll /etc/yum.repos.d/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看可安装的Docker引擎版本</span>
+</span></span><span style=display:flex><span>yum list docker-ce --showduplicates | sort -r
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 安装指定版本的Docker引擎（18.06.3.ce）</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 备用: yum install docker-1.13.1-209.git7d71120.el7.centos -y</span>
+</span></span><span style=display:flex><span>yum install -y docker-ce-18.06.3.ce-3.el7 docker-ce-cli-18.06.3.ce-3.el7 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>               containerd.io docker-buildx-plugin docker-compose-plugin
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查Docker引擎</span>
+</span></span><span style=display:flex><span>yum list installed | grep docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 禁用SELinux功能: 某些版本的Linux内核中的SELinux不支持Docker引擎的安装</span>
+</span></span><span style=display:flex><span>vim /etc/selinux/config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># 修改 `SELINUX=enforcing` 为 `SELINUX=disabled` 以禁用SELinux</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Docker版本，包括客户端和服务端版本</span>
+</span></span><span style=display:flex><span>docker version
+</span></span></code></pre></div><h3 id=2-euler装docker>2. Euler装Docker</h3><blockquote><p>武技: 在 Euler 系统中安装 Docker 引擎</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 安装Docker</span>
+</span></span><span style=display:flex><span>dnf install docker -y
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Docker版本，包括客户端和服务端版本</span>
+</span></span><span style=display:flex><span>docker version
+</span></span></code></pre></div><h3 id=3-常用引擎操作>3. 常用引擎操作</h3><blockquote><p>武技: 测试Docker引擎相关操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 启动Docker引擎</span>
+</span></span><span style=display:flex><span>systemctl start docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 设置Docker引擎开机自启</span>
+</span></span><span style=display:flex><span>systemctl enable docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看运行状态，绿色的 `active` 表示正在运行</span>
+</span></span><span style=display:flex><span>systemctl status docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 停止Docker引擎</span>
+</span></span><span style=display:flex><span>systemctl stop docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启Docker引擎</span>
+</span></span><span style=display:flex><span>systemctl restart docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Docker信息，包括镜像和容器数</span>
+</span></span><span style=display:flex><span>docker info
+</span></span></code></pre></div><h1 id=s02-docker镜像>S02. Docker镜像</h1><h2 id=e01-镜像加速>E01. 镜像加速</h2><blockquote><p>心法: 为何要配置国内加速器</p></blockquote><ul><li>国内镜像加速器可以提高Docker引擎拉取镜像的速度。</li><li><a href=https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors>阿里云加速器地址</a></li></ul><blockquote><p>武技: 为Docker引擎配置多个国内镜像加速器</p></blockquote><ol><li>创建一个JSON文件：</li></ol><p><code>touch /etc/docker/daemon.json</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&#34;registry-mirrors&#34;</span>: [
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://2gelqknv.mirror.aliyuncs.com&#34;</span>,
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://docker.m.daocloud.io&#34;</span>,
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://noohub.ru&#34;</span>, 
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://huecker.io&#34;</span>, 
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://dockerhub.timeweb.cloud&#34;</span>,
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://docker.mirrors.ustc.edu.cn&#34;</span>,
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://hub-mirror.c.163.com&#34;</span>,
+</span></span><span style=display:flex><span>		<span style=color:#e6db74>&#34;https://reg-mirror.qiniu.com&#34;</span>
+</span></span><span style=display:flex><span>	]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>重启Docker：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 重启Dockerd和Docker引擎以使配置生效</span>
+</span></span><span style=display:flex><span>systemctl daemon-reload
+</span></span><span style=display:flex><span>systemctl restart docker
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Docker加速器是否配置成功: 检查末尾 Registry Mirrors 栏中的地址</span>
+</span></span><span style=display:flex><span>docker info
+</span></span></code></pre></div><h2 id=e02-镜像操作>E02. 镜像操作</h2><blockquote><p>心法: Docker镜像相关命令</p></blockquote><table><thead><tr><th>DockerAPI</th><th>描述</th></tr></thead><tbody><tr><td><code>docker search 镜像名:版本</code></td><td>搜索指定镜像</td></tr><tr><td><code>docker pull 镜像名:版本</code></td><td>拉取指定镜像，不指定版本时，默认使用 <code>latest</code> 版本</td></tr><tr><td><code>docker images</code></td><td>查看全部本地镜像，支持 <code>grep</code> 过滤</td></tr><tr><td><code>docker image inspect 镜像名:版本</code></td><td>查看指定镜像的详细信息</td></tr><tr><td><code>docker rmi 镜像名:版本</code></td><td>删除指定镜像，删除镜像前，必须先删除该镜像下所关联的所有的容器支持额外使用 <code>-f</code> 强制删除镜像</td></tr></tbody></table><blockquote><p>武技: 通过 <code>hello-world</code> 镜像测试镜像操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 搜索镜像: 展示指定镜像的全部可用版本，默认按STARS数降序</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 锁定OFFICIAL官方版本和STARS数最高的那个镜像名</span>
+</span></span><span style=display:flex><span>docker search hello-world
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 拉取指定镜像: 不指定版本时，默认使用 `latest` 版本</span>
+</span></span><span style=display:flex><span>docker pull hello-world:latest
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看指定镜像latest的具体版本: 个别镜像如 `hello-world` 等无法查询具体版本</span>
+</span></span><span style=display:flex><span>docker image inspect 镜像名:latest | grep -i version
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看全部镜像: 展示已经拉取到本地的镜像</span>
+</span></span><span style=display:flex><span>docker images
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除指定镜像: 删除镜像前，必须先删除该镜像下所关联的所有的容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 也可以通过镜像ID删除</span>
+</span></span><span style=display:flex><span>docker rmi hello-world
+</span></span></code></pre></div><h1 id=s03-docker容器>S03. Docker容器</h1><h2 id=e01-docker容器操作>E01. Docker容器操作</h2><blockquote><p>心法: Docker容器操作</p></blockquote><table><thead><tr><th>DockerAPI</th><th>描述</th></tr></thead><tbody><tr><td><code>docker run --name 容器名 镜像名:版本</code></td><td>根据镜像创建容器，镜像不存在时会自动从DockerHub仓库中拉取</td></tr><tr><td><code>docker ps</code></td><td>查看所有正在运行中的容器支持额外使用 <code>-a</code> 查看已退出的容器支持额外使用 <code>--format "{{.ID}}\t{{.Names}}"</code> 指定查看格式</td></tr><tr><td><code>docker start 容器名/ID</code></td><td>运行指定容器</td></tr><tr><td><code>docker stop 容器名/ID</code></td><td>停止指定容器</td></tr><tr><td><code>docker restart 容器名/ID</code></td><td>重启指定容器</td></tr><tr><td><code>docker rm 容器名/ID</code></td><td>删除指定容器，支持额外使用 <code>-f</code> 强制删除镜像</td></tr></tbody></table><blockquote><p>武技: 通过 <code>HelloWorld</code> 容器测试容器操作</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 根据镜像创建容器: 镜像不存在时会自动从DockerHub仓库中拉取</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `--name HelloWorld`: 指定容器的名字</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `hello-world:lasted`: 镜像名，不指定版本时视使用为 `latest` 最新版</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># HelloWorld容器在输出消息之后会自动结束退出，即变更为 `已退出` 状态</span>
+</span></span><span style=display:flex><span>docker run --name HelloWorld hello-world:latest
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看全部容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-a`: 额外展示 `已退出` 状态的容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `--format &#34;table {{.ID}}\t{{.Names}}\t{{.Ports}}&#34;`: 仅显示指定列</span>
+</span></span><span style=display:flex><span>docker ps -a --format <span style=color:#e6db74>&#34;table {{.ID}}\t{{.Names}}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动指定容器: 也可以通过容器的ID代替容器名称进行操作</span>
+</span></span><span style=display:flex><span>docker start HelloWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 停止指定容器: 也可以通过容器的ID代替容器名称进行操作</span>
+</span></span><span style=display:flex><span>docker stop HelloWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 重启指定容器: 也可以通过容器的ID代替容器名称进行操作</span>
+</span></span><span style=display:flex><span>docker restart HelloWorld
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 强制删除指定容器: 也可以通过容器的ID代替容器名称进行操作</span>
+</span></span><span style=display:flex><span>docker rm -f HelloWorld
+</span></span></code></pre></div><h2 id=e02-docker运行命令>E02. Docker运行命令</h2><blockquote><p>心法: DockerRun命令详解</p></blockquote><ul><li>命令 <code>docker run [参数..] 镜像名:版本</code> 用来根据镜像创建并启动一个容器:<ul><li>创建: 类似于Java对象的 <code>new</code> 过程。</li><li>启动: 类似于Java线程的 <code>start()</code> 过程。</li></ul></li></ul><table><thead><tr><th>DockerRun可选参数</th><th>描述</th></tr></thead><tbody><tr><td><code>-i</code></td><td>运行容器后进入交互模式，通常与 <code>-t</code> 同时使用</td></tr><tr><td><code>-t</code></td><td>为容器重新分配一个伪输入终端，通常与 <code>-i</code> 同时使用</td></tr><tr><td><code>-d</code></td><td>将该容器分离到后台运行并返回容器ID</td></tr><tr><td><code>--name XX</code></td><td>容器名，缺省则默认生成一个随机容器名</td></tr><tr><td><code>--network XX</code></td><td>网络类型，即将该容器加入到哪个网络中，缺省则默认添加到 <code>bridge</code> 网络</td></tr><tr><td><code>-p 主机端口:容器端口</code></td><td>将主机端口和容器端口挂载到一起，桥接网络下可用，主机网络下不可用外部只能通过访问主机端口的方式来间接访问容器端口</td></tr><tr><td><code>-v 主机目录/文件:容器目录/文件</code></td><td>将主机目录/文件和容器目录/文件挂载到一起外部只能通过访问主机目录/文件的方式来间接访问容器目录/文件</td></tr></tbody></table><blockquote><p>武技: 使用 Docker 搭建 JDK11 容器</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像（二选一）</span>
+</span></span><span style=display:flex><span>docker pull openjdk:11;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/jdk:11;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-it`: 以交互模式运行该容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-d`: 将该容器分离到后台运行</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `--name jdk11`: 创建的容器名称为 `jdk11`，命名随意</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `openjdk:11`: 创建容器所使用的镜像</span>
+</span></span><span style=display:flex><span>docker run -it -d --name jdk11 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>	registry.cn-hangzhou.aliyuncs.com/lsx/jdk:11
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;table {{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进入容器内部: 可用 `exit` 命令退出容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `/bin/bash` 可简写为 `bash` 写法</span>
+</span></span><span style=display:flex><span>docker exec -it jdk11 /bin/bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 在容器内部查看JDK版本</span>
+</span></span><span style=display:flex><span>java -version
+</span></span></code></pre></div><h2 id=e03-docker网络搭建>E03. Docker网络搭建</h2><blockquote><p>心法: Docker常用的网络模式</p></blockquote><table><thead><tr><th>网络模式</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>bridge</code></td><td>桥接模式</td><td>该模式下，Docker会创建一个 <code>虚拟网桥</code>，名为 <code>docker0</code>，可通过 <code>ip a</code> 查看该网桥的信息该 <code>虚拟网桥</code> 连接了宿主机的 <code>物理网卡</code> 和每个容器内部的 <code>虚拟网络接口</code>容器内的应用程序可以通过 <code>虚拟网络接口</code> 来访问宿主机和其他容器容器内的应用程序可以通过宿主机的 <code>物理网卡</code> 访问外部网络</td></tr><tr><td><code>host</code></td><td>主机模式</td><td>该模式下，Docker不会创建 <code>虚拟网桥</code>，容器和宿主机共享网络环境容器内的应用程序可以直接访问宿主机和外部网络，网络性能更高，但无法指定端口映射</td></tr></tbody></table><p><img src=/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-2-Docker/image/16ead1019d3119db0c18f35c665b3a76.png alt></p><blockquote><p>心法: Docker网络常用命令</p></blockquote><table><thead><tr><th>DockerAPI</th><th>描述</th></tr></thead><tbody><tr><td><code>docker network create -d bridge 网络名称</code></td><td>创建指定网络，类型默认为 <code>bridge</code></td></tr><tr><td><code>docker network list</code></td><td>查看网络列表，可以简写为 <code>docker network ls</code></td></tr><tr><td><code>docker network inspect 网络名称</code></td><td>查看指定网络详情，包含基础信息以及连接到该网的全部容器等</td></tr><tr><td><code>docker network rm 网络名称</code></td><td>删除指定网络</td></tr></tbody></table><blockquote><p>武技: 创建一个自定义的桥接网络 <code>my-net</code></p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建一个自定义的桥接网络，名称为 `my-net`</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># `-d bridge`: 设置自定义网络的类型为桥接，默认 `bridge`</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># `--subnet=172.20.0.0/16`: 支持手动指定子网IP，省略时默认分配子网IP</span>
+</span></span><span style=display:flex><span>docker network create -d bridge my-net
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看当前网络列表，可以简写为 `docker network ls`</span>
+</span></span><span style=display:flex><span>docker network list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 `my-net` 网络详情: 如基础信息，生效范围，驱动类型，子网，网关，连接到该网的全部容器等</span>
+</span></span><span style=display:flex><span>docker network inspect my-net
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除 `my-net` 网络</span>
+</span></span><span style=display:flex><span>docker network rm my-net
+</span></span></code></pre></div><h2 id=e04-docker可视界面>E04. Docker可视界面</h2><blockquote><p>心法: <a href=https://1panel.cn/>1Panel</a></p></blockquote><ul><li><code>1Panel</code> 是一个现代化、开源的Linux服务器运维管理面板。</li><li><code>1Panel</code> 可以通过Web端轻松管理Linux服务器，包括主机监控、文件管理、数据库管理、容器管理等。</li><li><code>1Panel</code> 基于容器来管理和部署应用，最小漏洞暴露面，提供防火墙和日志审计等功能。</li><li><code>1Panel</code> 支持一键备份和恢复，备份数据到各类云端存储，永不丢失。</li></ul><blockquote><p>武技: 搭建1Panel环境</p></blockquote><ol><li>在Linux虚拟机中安装 <code>1Panel</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># RedHat/Centos 系统下，输入以下命令进行安装 1Panel</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 位置: /opt/onepanel/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 端口: 26870</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 账号: onepanel</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 密码: onepanel</span>
+</span></span><span style=display:flex><span>curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -o quick_start.sh <span style=color:#f92672>&amp;&amp;</span> sh quick_start.sh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 `1Panel` 服务的版本</span>
+</span></span><span style=display:flex><span>1pctl version
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看用户信息</span>
+</span></span><span style=display:flex><span>1pctl user-info
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 `1Panel` 服务的运行状态</span>
+</span></span><span style=display:flex><span>1pctl status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启动/停止/重启/卸载 `1Panel` 服务</span>
+</span></span><span style=display:flex><span>1pctl start/stop/restart/uninstall
+</span></span></code></pre></div><ol start=2><li>通过浏览器访问 <code>1Panel</code>:<ul><li>cli: <code>http://目标服务器 IP 地址:目标端口/用户信息中entrance口令</code></li></ul></li></ol><h2 id=e05-docker备份恢复>E05. Docker备份恢复</h2><blockquote><p>心法: Docker备份恢复相关命令</p></blockquote><table><thead><tr><th>DockerAPI</th><th>描述</th></tr></thead><tbody><tr><td><code>docker commit -a 作者 -m 注释 -p 容器名/ID 镜像:标签</code></td><td>先将指定容器暂停，然后将指定容器打包为指定镜像</td></tr><tr><td><code>docker save -o 备份tar文件完整路径 镜像:标签</code></td><td>将指定镜像保存到指定位置，文件格式是一个tar包</td></tr><tr><td><code>docker load -i 备份tar文件完整路径</code></td><td>将指定tar包恢复为镜像</td></tr></tbody></table><blockquote><p>武技: 将JRE容器重新打包为一个镜像并备份到本地，然后恢复</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 制作镜像: 将JRE容器重新打包为镜像</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-a lsx`: 制作镜像的作者</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-m JRE容器备份`: 制作镜像的注释</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-p`: 在制作镜像时，将容器暂停</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `jre`: 容器名或者容器ID</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `jre-bak:v1.0`: 镜像名和镜像版本</span>
+</span></span><span style=display:flex><span>docker commit -a lsx -m JRE容器备份 -p jre jre-bak:v1.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查镜像</span>
+</span></span><span style=display:flex><span>docker images | grep jre-bak
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建备份目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/docker-bak
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将 `jre-bak:v1.0` 镜像打包以备份</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># `-o /opt/docker-bak/jre.tar`: output输出目标</span>
+</span></span><span style=display:flex><span>docker save -o /opt/docker-bak/jre-bak.tar jre-bak:v1.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除容器: 仅为测试恢复效果</span>
+</span></span><span style=display:flex><span>docker rm -f jre
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除镜像: 仅为测试恢复效果</span>
+</span></span><span style=display:flex><span>docker rmi jre-bak:v1.0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将 `jre.tar` 包恢复为镜像: 恢复后，可基于该镜像再次创建启动容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 参数 `-i /opt/docker-bak/jre-bak.tar`: input输入目标</span>
+</span></span><span style=display:flex><span>docker load -i /opt/docker-bak/jre-bak.tar
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 检查镜像</span>
+</span></span><span style=display:flex><span>docker images | grep jre-bak
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

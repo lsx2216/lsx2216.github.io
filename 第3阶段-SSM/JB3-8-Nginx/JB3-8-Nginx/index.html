@@ -1,0 +1,329 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-8-Nginx</title>
+<meta name=description content="[!NOTE] Java道经第3卷 - 第8阶 - Nginx v3-8-ssm-nginx
+S01. Nginx基础入门 E01. 基础概念 心法: Nginx
+Nginx是一款开源的服务器和反向代理Web服务器，邮件服务器，支持很多第三方的模块扩展。 1. 启动模式 心法: Nginx服务端启动模式
+Nginx服务 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-8-Nginx/JB3-8-Nginx/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-8-Nginx"><meta property="og:description" content="[!NOTE] Java道经第3卷 - 第8阶 - Nginx v3-8-ssm-nginx
+S01. Nginx基础入门 E01. 基础概念 心法: Nginx
+Nginx是一款开源的服务器和反向代理Web服务器，邮件服务器，支持很多第三方的模块扩展。 1. 启动模式 心法: Nginx服务端启动模式
+Nginx服务 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-8-Nginx"><meta name=twitter:description content="[!NOTE] Java道经第3卷 - 第8阶 - Nginx v3-8-ssm-nginx
+S01. Nginx基础入门 E01. 基础概念 心法: Nginx
+Nginx是一款开源的服务器和反向代理Web服务器，邮件服务器，支持很多第三方的模块扩展。 1. 启动模式 心法: Nginx服务端启动模式
+Nginx服务 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-8-Nginx/JB3-8-Nginx/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-8-Nginx/JB3-8-Nginx/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-8-Nginx/JB3-8-Nginx/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-8-Nginx</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第3卷 - 第8阶 - Nginx
+v3-8-ssm-nginx</p></blockquote><h1 id=s01-nginx基础入门>S01. Nginx基础入门</h1><h2 id=e01-基础概念>E01. 基础概念</h2><blockquote><p>心法: Nginx</p></blockquote><ul><li>Nginx是一款开源的服务器和反向代理Web服务器，邮件服务器，支持很多第三方的模块扩展。</li></ul><h3 id=1-启动模式>1. 启动模式</h3><blockquote><p>心法: Nginx服务端启动模式</p></blockquote><ul><li>Nginx服务端采取多进程模式，启动Nginx服务时，后台会至少启动2个进程。</li></ul><table><thead><tr><th>进程类型</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td>Master</td><td>守护进程</td><td>负责向Worker转发外界信号负责监控Worker状态，当Worker异常时会自动重启新的Worker进程</td></tr><tr><td>Worker</td><td>工作进程</td><td>负责监听端口和处理用户请求Worker之间相互隔离独立Worker数量建议配置与CPU核数一致</td></tr></tbody></table><h3 id=2-正向代理>2. 正向代理</h3><blockquote><p>心法: 正向代理 - 客户端的代理，对客户端负责</p></blockquote><ul><li>客户端发送请求到代理服务器，代理服务器转发请求到具体服务器，响应也是原路返回。</li></ul><table><thead><tr><th>正向代理优势</th><th>描述</th></tr></thead><tbody><tr><td>破解限制</td><td>某服务器限制客户端直接访问则可以找个可访问的代理服务器来访问该服务器如KX上网</td></tr><tr><td>加速访问</td><td>电信客户端访问联通服务器太慢则可以找个电信联通都能访问的代理服务器调节如游戏加速器</td></tr><tr><td>缓存数据</td><td>每次请求获取的数据都可以缓存到代理服务器中后续相同的请求可以直接从缓存中获取</td></tr><tr><td>保护客户端隐私</td><td>服务端仅知道请求来自于哪个代理服务器但并不知道请求具体来自于哪个客户端</td></tr></tbody></table><h3 id=3-反向代理>3. 反向代理</h3><blockquote><p>心法: 反向代理 - 服务端的代理，对服务端负责</p></blockquote><ul><li>代理流程: 代理服务器接收到请求之后，按一定规则分发给某个具体的服务器，响应也是原路返回。</li></ul><table><thead><tr><th>反向代理优势</th><th>描述</th></tr></thead><tbody><tr><td>负载均衡</td><td>代理服务器可以使用多种负载均衡策略分发请求，分摊服务器集群的压力</td></tr><tr><td>保护服务端隐私</td><td>客户端仅知道请求发送给了哪个代理服务器但并不知道请求具体由哪台服务器进行处理</td></tr></tbody></table><h2 id=e02-容器搭建>E02. 容器搭建</h2><blockquote><p>武技: 在Docker中搭建单机Nginx容器</p></blockquote><h3 id=1-创建相关目录>1. 创建相关目录</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建Nginx相关目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/nginx/conf;
+</span></span><span style=display:flex><span>mkdir -p /opt/nginx/logs;
+</span></span><span style=display:flex><span>mkdir -p /opt/nginx/static;
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/nginx;
+</span></span></code></pre></div><h3 id=2-开发配置文件>2. 开发配置文件</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像（二选一）</span>
+</span></span><span style=display:flex><span>docker pull nginx:1.25.2;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/nginx:1.25.2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行临时的容器: 该容器仅用于拷贝配置文件，用完即删</span>
+</span></span><span style=display:flex><span>docker run -d --name tmp registry.cn-hangzhou.aliyuncs.com/lsx/nginx:1.25.2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 拷贝主配文件，子配置目录和HTML目录到虚拟机</span>
+</span></span><span style=display:flex><span>docker cp tmp:/etc/nginx/nginx.conf /opt/nginx/conf/;
+</span></span><span style=display:flex><span>docker cp tmp:/etc/nginx/conf.d /opt/nginx/;
+</span></span><span style=display:flex><span>docker cp tmp:/usr/share/nginx/html /opt/nginx/;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 删除临时容器，为后续真正的容器让出端口</span>
+</span></span><span style=display:flex><span>docker rm -f tmp
+</span></span></code></pre></div><h3 id=3-创建运行容器>3. 创建运行容器</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行Nginx容器: 额外暴露几个端口，用于测试Nginx的多server模型</span>
+</span></span><span style=display:flex><span>docker run --name nginx -d -p 80:80 -p 81:81 -p 82:82 -p 83:83 --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/nginx/static:/opt <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/nginx/logs:/var/log/nginx <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/nginx/conf/nginx.conf:/etc/nginx/nginx.conf <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/nginx/conf.d:/etc/nginx/conf.d <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/nginx/html:/usr/share/nginx/html <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      registry.cn-hangzhou.aliyuncs.com/lsx/nginx:1.25.2;
+</span></span><span style=display:flex><span>   
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看Nginx容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs nginx --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进入容器的内部并查看Nginx版本</span>
+</span></span><span style=display:flex><span>docker exec -it nginx bash
+</span></span><span style=display:flex><span>nginx -version
+</span></span></code></pre></div><h3 id=4-访问单机容器>4. 访问单机容器</h3><ul><li>在Windows机器上 <a href=http://192.168.40.77:80>访问Nginx服务器</a>: 虚拟机默认开放了80端口。</li></ul><h1 id=s02-nginx配置文件>S02. Nginx配置文件</h1><h2 id=e01-nginxconf>E01. nginx.conf</h2><blockquote><p>武技: 解析Nginx主配置文件 <code>/opt/nginx/conf/nginx.conf</code></p></blockquote><h3 id=1-全局配置>1. 全局配置</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=display:flex><span><span style=color:#75715e># 启动Worker进程的用户和组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>user</span> <span style=color:#e6db74>nginx</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e># 生成的Worker进程数: 设置为auto表示自动设置为机器的CPU核数
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>worker_processes</span> <span style=color:#e6db74>auto</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e># 错误日志文件: notice级别
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>error_log</span> <span style=color:#e6db74>/var/log/nginx/error.log</span> <span style=color:#e6db74>notice</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e># PID文件，用于记录当前Master进程的ID值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>pid</span> <span style=color:#e6db74>/var/run/nginx.pid</span>;
+</span></span></code></pre></div><h3 id=2-events配置>2. events配置</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=display:flex><span><span style=color:#66d9ef>events</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 每个Worker进程能并发处理的最大连接数，包括前后端所有连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>worker_connections</span>  <span style=color:#ae81ff>1024</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-http配置>3. http配置</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=display:flex><span><span style=color:#66d9ef>http</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 导入扩展名与文件类型的映射表types文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>include</span> <span style=color:#e6db74>/etc/nginx/mime.types</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Nginx自动下载不识别的文件类型
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>default_type</span> <span style=color:#e6db74>application/octet-stream</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 日志格式: `客户端IP 用户 访问时间 请求信息/状态 内容大小 请求源头 浏览器`，命名为main
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>log_format</span> <span style=color:#e6db74>main</span>  <span style=color:#e6db74>&#39;</span>$remote_addr <span style=color:#e6db74>-</span> $remote_user <span style=color:#e6db74>[</span>$time_local] <span style=color:#e6db74>&#34;</span>$request&#34; <span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>                      <span style=color:#e6db74>&#39;</span>$status $body_bytes_sent <span style=color:#e6db74>&#34;</span>$http_referer&#34; <span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>                      <span style=color:#e6db74>&#39;&#34;</span>$http_user_agent&#34; <span style=color:#e6db74>&#34;</span>$http_x_forwarded_for&#34;&#39;;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 访问日志文件，采用main日志格式
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>access_log</span> <span style=color:#e6db74>/var/log/nginx/access.log</span> <span style=color:#e6db74>main</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 开启高效文件传输模式，关闭使用off，普通应用建议开启，下载相关的应用建议关闭
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>sendfile</span> <span style=color:#66d9ef>on</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 开启sendfile的情况下，会将请求合并，然后统⼀发送给客⼾端
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>tcp_nopush</span> <span style=color:#66d9ef>on</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># HTTP连接超时时间，上传文件时设置大一些，避免超时断开连接而上传失败
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>keepalive_timeout</span> <span style=color:#ae81ff>65</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 对网络传输的数据内容进行压缩以提升传输效率
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>gzip</span> <span style=color:#66d9ef>on</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 引入该目录下的所有Nginx子配置文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>include</span> <span style=color:#e6db74>/etc/nginx/conf.d/*.conf</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e02-defaultconf>E02. default.conf</h2><blockquote><p>武技: 解析Nginx子配置文件 <code>/opt/nginx/conf.d/default.conf</code></p></blockquote><h3 id=1-server配置>1. server配置</h3><ul><li><code>server{}</code> 可以存在多个，保证端口号和服务名不相同即可。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-nginx data-lang=nginx><span style=display:flex><span><span style=color:#66d9ef>server</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 配置服务器监听的端口号
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>listen</span>       <span style=color:#ae81ff>80</span>;
+</span></span><span style=display:flex><span>    <span style=color:#f92672>listen</span>  <span style=color:#e6db74>[::]:80</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 配置服务名
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>server_name</span> <span style=color:#e6db74>localhost</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 爆发50开头的错误时，执行名为 `/50x.html` 的 `location{}` 块
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>error_page</span> <span style=color:#ae81ff>500</span> <span style=color:#ae81ff>502</span> <span style=color:#ae81ff>503</span> <span style=color:#ae81ff>504</span> <span style=color:#e6db74>/50x.html</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 当请求 `/50x.html` 时，响应 `/usr/share/nginx/html/50x.html` 页面
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>location</span> = <span style=color:#e6db74>/50x.html</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 请求资源在服务器上的真实页面所在的目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#f92672>root</span> <span style=color:#e6db74>/usr/share/nginx/html</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 当请求 `/` 时，响应 `/usr/share/nginx/html/index.html` 页面
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#f92672>location</span> <span style=color:#e6db74>/</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 请求资源在服务器上的真实页面所在的目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#f92672>root</span> <span style=color:#e6db74>/usr/share/nginx/html</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 请求资源在服务器上的真实页面
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#f92672>index</span> <span style=color:#e6db74>index.html</span> <span style=color:#e6db74>index.htm</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e03-location匹配>E03. location匹配</h2><h3 id=1-匹配原则>1. 匹配原则</h3><blockquote><p>心法: location匹配原则</p></blockquote><ol><li>location所有匹配过程都会忽略请求末尾查询串。</li><li>location匹配顺序是首先精准匹配，然后正则匹配，最后前缀匹配。</li><li>Windows下的Nginx服务器对大小写不敏感，均可匹配成功。</li></ol><h3 id=2-精准匹配>2. 精准匹配</h3><blockquote><p>心法: location精准匹配：一旦匹配成功则立刻停止</p></blockquote><ul><li>若 <code>location = /a {}</code> 为当前location配置：</li></ul><table><thead><tr><th>请求示例</th><th>匹配结果</th></tr></thead><tbody><tr><td><code>http://IP:PORT/a</code></td><td>精准匹配，成功</td></tr><tr><td><code>http://IP:PORT/A</code></td><td>Linux下匹配失败，Windows下忽略大小写匹配成功。</td></tr><tr><td><code>http://IP:PORT/a/</code></td><td>对末尾的 <code>/</code> 敏感，失败。</td></tr><tr><td><code>http://IP:PORT/b</code></td><td>不匹配，失败。</td></tr></tbody></table><h3 id=3-正则匹配>3. 正则匹配</h3><blockquote><p>心法: location正则匹配：按照编写顺序依次匹配，一旦匹配成功则立刻停止</p></blockquote><ul><li>若 <code>location ~ ^/a$ {}</code> 为当前location配置：</li></ul><table><thead><tr><th>请求示例</th><th>匹配结果</th></tr></thead><tbody><tr><td><code>http://IP:PORT/a</code></td><td>正则匹配，成功。</td></tr><tr><td><code>http://IP:PORT/A</code></td><td>Linux下匹配失败，Windows下忽略大小写匹配成功。</td></tr><tr><td><code>http://IP:PORT/a/</code></td><td>对末尾的 <code>/</code> 敏感，失败。</td></tr><tr><td><code>http://IP:PORT/b</code></td><td>正则不匹配，失败。</td></tr></tbody></table><ul><li>若将 <code>~</code> 符号替换为 <code>!~</code> 表示取反操作。</li><li>若将 <code>~</code> 符号替换为 <code>~*</code> 表示忽略大小写正则匹配。</li><li>若将 <code>~</code> 符号替换为 <code>!~*</code> 表示忽略大小写正则匹配的取反效果。</li></ul><h3 id=4-前缀匹配>4. 前缀匹配</h3><blockquote><p>心法: location前缀匹配 - 按照编写顺序依次匹配，最终只有匹配度最高的那一个生效</p></blockquote><ul><li>若 <code>location /a {}</code> 为当前location配置：</li></ul><table><thead><tr><th>请求示例</th><th>匹配结果</th></tr></thead><tbody><tr><td><code>http://IP:PORT/a</code></td><td>前缀匹配，成功。</td></tr><tr><td><code>http://IP:PORT/ab</code></td><td>前缀匹配，成功。</td></tr><tr><td><code>http://IP:PORT/a/</code></td><td>前缀匹配，成功。</td></tr><tr><td><code>http://IP:PORT/A</code></td><td>Linux下匹配失败，Windows下忽略大小写匹配成功。</td></tr><tr><td><code>http://IP:PORT/b</code></td><td>前缀不匹配，失败。</td></tr></tbody></table><ul><li>若使用 <code>^~</code> 符号和前缀匹配效果一致，唯一不同的是匹配成功后立即停止继续匹配。</li></ul><h3 id=5-路径映射>5. 路径映射</h3><blockquote><p>武技: 使用Nginx代理本地资源（一张本地图片）</p></blockquote><ol><li>拷贝一张图片到虚拟机的 <code>/opt/nginx/static/image</code> 中，如 <code>a.png</code>。</li><li>开发子配置文件：</li></ol><p><code>cp /opt/nginx/conf.d/default.conf /opt/nginx/conf.d/82.conf</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>server</span> <span style=color:#e6db74>{</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>listen</span> <span style=color:#e6db74>82;</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>listen</span> <span style=color:#e6db74>[::]:82;</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>server_name</span> <span style=color:#e6db74>static-image;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>location</span> <span style=color:#e6db74>/image {</span>
+</span></span><span style=display:flex><span>	  <span style=color:#75715e># 需要指定Nginx容器内的静态资源地址</span>
+</span></span><span style=display:flex><span>	  <span style=color:#a6e22e>alias</span> <span style=color:#e6db74>/opt/image/;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>	}</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>}</span>
+</span></span></code></pre></div><ol start=3><li>重启Nginx服务使得配置生效：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>docker restart nginx
+</span></span></code></pre></div><ol start=4><li>在Windows机器上 <a href=http://192.168.40.77:82/image/a.png>访问静态资源</a></li></ol><h1 id=s03-nginx项目部署>S03. Nginx项目部署</h1><h2 id=e01-初始项目>E01. 初始项目</h2><blockquote><p>心法: 多个Nginx节点之间的Session共享</p></blockquote><ul><li>默认情况下，多个Nginx节点之间的Session是不一致的，会导致负载均衡效果下出现各种各样的意外。</li><li>在使用Nginx负载均衡时，建议使用Redis来共享Session配置:<ul><li>此时要求项目中引入 <code>spring-boot-starter-data-redis</code> 依赖。</li><li>此时要求项目中引入 <code>spring-session-data-redis</code> 依赖。</li><li>此时要求项目主配中正确配置了Redis服务地址和端口号等项。</li></ul></li></ul><blockquote><p>武技: 创建 <code>v3-8-ssm-nginx</code> 子项目，并创建两个子项目 <code>app-6625 / app-6626</code> 用于测试Nginx的负载均衡效果</p></blockquote><h3 id=1-第三方依赖>1. 第三方依赖</h3><ol><li>在父项目中锁定版本：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-boot-version&gt;</span>2.3.12.RELEASE<span style=color:#f92672>&lt;/spring-boot-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-parent--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-boot-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>分别在子项目 <code>app-6625</code> 和 <code>app-6626</code> 中引入依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-data-redis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-session-data-redis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.session<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-session-data-redis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项>2. 开发主配项</h3><ol><li>在子项目 <code>app-6625</code> 中开发主配项：</li></ol><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>spring.application.name</span><span style=color:#f92672>=</span><span style=color:#e6db74>app-6625  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>server.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>6625</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>############################# StringRedisTemplate ##############################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#RedisIP，Redis端口，超时毫秒数，最大连接，最大阻塞时间，最大空闲，最小空闲#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.host</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>6379</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.timeout</span><span style=color:#f92672>=</span><span style=color:#e6db74>3000ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-active</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-wait</span><span style=color:#f92672>=</span><span style=color:#e6db74>-1ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.min-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>0</span>
+</span></span></code></pre></div><ol start=2><li>在子项目 <code>app-6626</code> 中开发主配项：</li></ol><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>spring.application.name</span><span style=color:#f92672>=</span><span style=color:#e6db74>app-6626 </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>server.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>6626</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>############################# StringRedisTemplate ##############################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#RedisIP，Redis端口，超时毫秒数，最大连接，最大阻塞时间，最大空闲，最小空闲#</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.host</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>6379</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.timeout</span><span style=color:#f92672>=</span><span style=color:#e6db74>3000ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-active</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-wait</span><span style=color:#f92672>=</span><span style=color:#e6db74>-1ms</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.max-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.redis.jedis.pool.min-idle</span><span style=color:#f92672>=</span><span style=color:#e6db74>0</span>
+</span></span></code></pre></div><h3 id=3-开发启动类>3. 开发启动类</h3><ol><li>在子项目 <code>app-6625</code> 中开发启动类：</li></ol><p>`com.lsx.App6625</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>App6625</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(App6625.<span style=color:#a6e22e>class</span>, args);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>子项目 <code>app-6626</code> 中开发启动类：</li></ol><p><code>com.lsx.App6626</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>App6626</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(App02.<span style=color:#a6e22e>class</span>, args);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发控制器>4. 开发控制器</h3><ol><li>在子项目 <code>app-6625</code> 中开发控制器：</li></ol><p><code>com.lsx.controller</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NginxController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/hello&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>hello</span>(HttpSession httpSession) {
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;applicationName&#34;</span>, <span style=color:#e6db74>&#34;app-6625&#34;</span>);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;port&#34;</span>, 6625);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;session-id&#34;</span>, httpSession.<span style=color:#a6e22e>getId</span>());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> resultMap;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>在子项目 <code>app-6626</code> 中开发控制器：</li></ol><p><code>com.lsx.controller</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NginxController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/hello&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>hello</span>(HttpSession httpSession) {
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;applicationName&#34;</span>, <span style=color:#e6db74>&#34;app-6626&#34;</span>);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;port&#34;</span>, 6626);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;session-id&#34;</span>, httpSession.<span style=color:#a6e22e>getId</span>());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> resultMap;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=5-访问子项目>5. 访问子项目</h3><ul><li><a href=http://localhost:6625/hello>访问App6625子项目</a></li><li><a href=http://localhost:6626/hello>访问App6626子项目</a></li></ul><h2 id=e02-项目打包>E02. 项目打包</h2><blockquote><p>心法: Maven项目打包原则</p></blockquote><ul><li>War型WEB项目无需配置，需要将打成War包后部署到Tomcat中单独启动。</li><li>Jar型SpringBoot项目需要使用 <code>&lt;build></code> 指定启动类，需要单独打包运行。</li></ul><blockquote><p>武技：打包子项目 <code>app-6625</code> 和 <code>app-6626</code></p></blockquote><h3 id=1-添加打包插件>1. 添加打包插件</h3><ol><li>在子项目 <code>app-6625</code> 中添加打包插件：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--项目打包--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;build&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--最终Jar包名--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;finalName&gt;</span>app-6625<span style=color:#f92672>&lt;/finalName&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;plugins&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--SpringBoot打包插件--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;plugin&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;version&gt;</span>2.4.8<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--配置启动类--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;mainClass&gt;</span>com.lsx.App6625<span style=color:#f92672>&lt;/mainClass&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/configuration&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--打包本项目全部依赖包到最终Jar包内--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;executions&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;execution&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;goals&gt;</span>
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&lt;goal&gt;</span>repackage<span style=color:#f92672>&lt;/goal&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;/goals&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;/execution&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/executions&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/plugin&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/plugins&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/build&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在子项目 <code>app-6626</code> 中添加打包插件：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--项目打包--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;build&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--最终Jar包名--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;finalName&gt;</span>app-6626<span style=color:#f92672>&lt;/finalName&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;plugins&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--SpringBoot打包插件--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;plugin&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;version&gt;</span>2.4.8<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--配置启动类--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;mainClass&gt;</span>com.lsx.App6626<span style=color:#f92672>&lt;/mainClass&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/configuration&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--打包本项目全部依赖包到最终Jar包内--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;executions&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;execution&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;goals&gt;</span>
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&lt;goal&gt;</span>repackage<span style=color:#f92672>&lt;/goal&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;/goals&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;/execution&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/executions&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/plugin&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/plugins&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/build&gt;</span>
+</span></span></code></pre></div><h3 id=2-打包两个项目>2. 打包两个项目</h3><blockquote><p>心法：Maven父子项目打包，必须先父后子，且一般情况下，父项目打包完毕后，子项目也就打包完毕了</p></blockquote><ol><li>打包父项目：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 打包父项目</span>
+</span></span><span style=display:flex><span>cd D:\workspace\java\java-book
+</span></span><span style=display:flex><span>mvn clean install -Dmaven.test.skip=true
+</span></span></code></pre></div><ol start=2><li>打包 <code>app-6625</code> 项目：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 打包父项目</span>
+</span></span><span style=display:flex><span>cd D:\workspace\java\java-book\v3-<span style=color:#ae81ff>8</span>-ssm-nginx\app-<span style=color:#ae81ff>6625</span>
+</span></span><span style=display:flex><span>mvn clean install -Dmaven.test.skip=true
+</span></span></code></pre></div><ol start=3><li>打包 <code>app-6626</code> 项目：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 打包父项目</span>
+</span></span><span style=display:flex><span>cd D:\workspace\java\java-book\v3-<span style=color:#ae81ff>8</span>-ssm-nginx\app-<span style=color:#ae81ff>6626</span>
+</span></span><span style=display:flex><span>mvn clean install -Dmaven.test.skip=true
+</span></span></code></pre></div><h2 id=e03-项目部署>E03. 项目部署</h2><blockquote><p>武技: 在Docker中部署项目</p></blockquote><h3 id=1-创建相关目录-1>1. 创建相关目录</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建相关目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/app/app-6625;
+</span></span><span style=display:flex><span>mkdir -p /opt/app/app-6626;
+</span></span></code></pre></div><h3 id=2-拷贝两个jar包>2. 拷贝两个Jar包</h3><ol><li>将Jar包 <code>app-6625.jar</code> 拷贝到 <code>/opt/app/app-6625</code> 目录中。</li><li>将Jar包 <code>app-6626.jar</code> 拷贝到 <code>/opt/app/app-6626</code> 目录中。</li></ol><h3 id=3-创建dockerfile>3. 创建DockerFile</h3><ol><li>创建 <code>app-6625</code> 项目节点的DockerFile文件：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发 app-01 项目节点的Dockerfile文件</span>
+</span></span><span style=display:flex><span>cd /opt/app/app-6625;
+</span></span><span style=display:flex><span>touch Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;FROM openjdk:11&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;MAINTAINER lsx&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;ADD app-6625.jar app-6625.jar&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;EXPOSE 6625&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;CMD [&#34;nohup&#34;, &#34;java&#34;, &#34;-jar&#34;, &#34;app-6625.jar&#34;, &#34;&amp;&#34;]&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 根据Dockerfile文件制作镜像: 必须在Dockerfile文件同级目录下</span>
+</span></span><span style=display:flex><span>docker build -t app-6625:v1.0 .
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看镜像</span>
+</span></span><span style=display:flex><span>docker images
+</span></span></code></pre></div><ol start=2><li>创建 <code>app-6626</code> 项目节点的DockerFile文件：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发 app-02 项目节点的Dockerfile文件</span>
+</span></span><span style=display:flex><span>cd /opt/app/app-6626;
+</span></span><span style=display:flex><span>touch Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;FROM openjdk:11&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;MAINTAINER lsx&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;ADD app-6626.jar app-6626.jar&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;EXPOSE 6626&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;CMD [&#34;nohup&#34;, &#34;java&#34;, &#34;-jar&#34;, &#34;app-6626.jar&#34;, &#34;&amp;&#34;]&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 根据Dockerfile文件制作镜像: 必须在Dockerfile文件同级目录下</span>
+</span></span><span style=display:flex><span>docker build -t app-6626:v1.0 .
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看镜像</span>
+</span></span><span style=display:flex><span>docker images
+</span></span></code></pre></div><h3 id=4-创建运行容器>4. 创建运行容器</h3><ol><li>创建并运行 <code>app-6625</code> 项目节点容器：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行 app-6625 节点容器</span>
+</span></span><span style=display:flex><span>docker run --name app-6625 --network my-net -p 6625:6625 -d app-6625:v1.0;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 app-6625 节点容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久开放6625端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>6625/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><ol start=2><li>创建并运行 <code>app-6626</code> 项目节点容器：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行 app-6626 节点容器</span>
+</span></span><span style=display:flex><span>docker run --name app-6626 --network my-net -p 6626:6626 -d app-6626:v1.0;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看 app-6626 节点容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久开放6626端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>6626/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=5-访问项目容器>5. 访问项目容器</h3><ul><li>在Windows机器上 <a href=http://192.168.40.77:6625/hello>访问App6625项目节点</a></li><li>在Windows机器上 <a href=http://192.168.40.77:6626/hello>访问App6626项目节点</a></li><li>观察两个节点的 SessionId 是否已经一致。</li></ul><h2 id=ep04-负载均衡>EP04. 负载均衡</h2><blockquote><p>心法: Nginx负载均衡</p></blockquote><ul><li>代理服务器可以使用基础轮询，最少连接，地址哈希，加权轮询等策略分发请求，分摊服务器集群的压力。</li></ul><h3 id=1-负载均衡策略>1. 负载均衡策略</h3><table><thead><tr><th>负载均衡策略</th><th>描述（如何将请求转发到目标服务器节点）</th><th>配置（假设负载均衡器的名称为 <code>x</code>）</th></tr></thead><tbody><tr><td>基础轮询</td><td>按顺序轮流转发：每个服务器节点均摊请求</td><td>默认策略，无需配置</td></tr><tr><td>最少连接</td><td>按空闲度转发：当前连接数越少，接收到的请求就越多</td><td><code>upstream x {least_conn; 服务列表}</code></td></tr><tr><td>地址哈希</td><td>按客户端IP地址转发：定向转发到服务器节点</td><td><code>upstream x {ip_hash; 服务列表}</code></td></tr><tr><td>加权轮询</td><td>按权重转发：配置的权重越高，接收到的请求就越多</td><td><code>upstream x {服务 weight=1}</code></td></tr></tbody></table><h3 id=2-负载均衡器>2. 负载均衡器</h3><blockquote><p>心法: Nginx使用 <code>http{} -> upstream apps {}</code> 自定义负载均衡器</p></blockquote><ol><li>负载均衡器的名称随意，如 <code>apps</code>，但不能重复。</li><li>负载均衡器中使用 <code>server IP:PORT;</code> 设置节点，可设置多个。</li><li>负载均衡器中的每个Server节点都可以额外添加以下设置：</li></ol><table><thead><tr><th>负载均衡器配置</th><th>描述</th></tr></thead><tbody><tr><td><code>weight=1</code></td><td>设置该节点的权重，权重越大，访问的机率越大，压力也就越大，数字从1开始</td></tr><tr><td><code>down</code></td><td>设置该服务不参与负载均衡</td></tr><tr><td><code>max_fails=2</code></td><td>设置该节点允许请求失败的最大次数，超出次数后报错</td></tr><tr><td><code>fail_timeout=30s</code></td><td>设置该节点请求失败后暂停访问的超时时间</td></tr><tr><td><code>backup</code></td><td>设置节点为备用节点，即当其它节点全忙或宕机时，该节点才会被启用</td></tr></tbody></table><h3 id=3-反向代理项目>3. 反向代理项目</h3><blockquote><p>武技: 在Nginx服务器中反向代理 <code>app-6625</code> 和 <code>app-6626</code> 项目节点</p></blockquote><ol><li>在Nginx主配置文件的 <code>http{}</code> 块中添加负载均衡器：</li></ol><p><code>/opt/nginx/conf/nginx.conf -> http{ }</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e># 负载均衡器默认使用轮询策略</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>upstream</span> <span style=color:#e6db74>apps {</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>server</span> <span style=color:#e6db74>192.168.40.77:6625;</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>server</span> <span style=color:#e6db74>192.168.40.77:6626;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>}</span>
+</span></span></code></pre></div><ol start=2><li>开发子配置文件：</li></ol><p><code>cp /opt/nginx/conf.d/default.conf /opt/nginx/conf.d/83.conf</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>server</span> <span style=color:#e6db74>{</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>listen</span> <span style=color:#e6db74>83;</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>listen</span> <span style=color:#e6db74>[::]:83;</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>server_name</span> <span style=color:#e6db74>app-server;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>	</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>location</span> <span style=color:#e6db74>/ {</span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e># 拦截全部请求并代理转发到主配中的负载均衡器 `apps{}` 中，并进行负载均衡调用</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>proxy_pass</span> <span style=color:#e6db74>http://apps;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>	}</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>}</span>
+</span></span></code></pre></div><ol start=3><li>重启Nginx服务使得配置生效：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>docker restart nginx
+</span></span></code></pre></div><ol start=4><li>在Windows机器上 <a href=http://192.168.40.77:83/hello>访问项目节点</a>：多次访问，查看轮询效果。</li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

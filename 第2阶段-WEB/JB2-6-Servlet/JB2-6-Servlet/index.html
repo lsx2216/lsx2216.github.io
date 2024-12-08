@@ -1,0 +1,906 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB2-6-Servlet</title>
+<meta name=description content="Java道经第2卷 - 第6阶 - v2-6-web-servlet(WAR) - Servlet
+CH01. Servlet基础入门 EP01. Servlet基础入门 心法: Servlet辅助技术
+Web容器擅长提供静态页面，不擅长操作 just-in-time 即时动态页面。 若想得到一个即时显示当前时间的静态 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-6-Servlet/JB2-6-Servlet/"><meta property="og:type" content="website"><meta property="og:title" content="JB2-6-Servlet"><meta property="og:description" content="Java道经第2卷 - 第6阶 - v2-6-web-servlet(WAR) - Servlet
+CH01. Servlet基础入门 EP01. Servlet基础入门 心法: Servlet辅助技术
+Web容器擅长提供静态页面，不擅长操作 just-in-time 即时动态页面。 若想得到一个即时显示当前时间的静态 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB2-6-Servlet"><meta name=twitter:description content="Java道经第2卷 - 第6阶 - v2-6-web-servlet(WAR) - Servlet
+CH01. Servlet基础入门 EP01. Servlet基础入门 心法: Servlet辅助技术
+Web容器擅长提供静态页面，不擅长操作 just-in-time 即时动态页面。 若想得到一个即时显示当前时间的静态 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-6-Servlet/JB2-6-Servlet/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-6-Servlet/JB2-6-Servlet/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-6-Servlet/JB2-6-Servlet/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB2-6-Servlet</h1></div><div class=post-content><blockquote><p>Java道经第2卷 - 第6阶 - v2-6-web-servlet(WAR) - Servlet</p></blockquote><hr><h1 id=ch01-servlet基础入门>CH01. Servlet基础入门</h1><h2 id=ep01-servlet基础入门>EP01. Servlet基础入门</h2><blockquote><p>心法: Servlet辅助技术</p></blockquote><ul><li>Web容器擅长提供静态页面，不擅长操作 <code>just-in-time</code> 即时动态页面。</li><li>若想得到一个即时显示当前时间的静态页面，则Web容器必须求助一些如Servlet之类的辅助程序。</li></ul><blockquote><p>心法: Servlet访问流程</p></blockquote><ol><li>客户端发送请求，请求URL指向Web容器中的辅助程序Servlet:<ul><li>Web容器可以分析出这个请求是发给Servlet的，而非直接获取静态资源。</li></ul></li><li>Web容器启动并运行客户端指定的Servlet，将请求和请求参数一并转交。</li><li>Servlet执行 <code>service()</code> 方法，构造一个插入了当前系统时间的HTML静态代码。</li><li>Servlet将HTML静态代码返回给Web容器。</li><li>Web容器关闭Servlet，并将HTML静态代码响应给客户端。</li><li>客户端解析HTML静态代码并渲染到浏览器中，展示最终页面。</li></ol><p><img src=/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-6-Servlet/image/3b017fa216cbd946f4647533f4835d8f.png alt=截图></p><blockquote><p>武技: 创建War包子项目 <code>v2-6-web-servlet</code>，该项目用于学习Servlet技术</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;junit-version&gt;</span>4.13.2<span style=color:#f92672>&lt;/junit-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;hutool-version&gt;</span>5.8.14<span style=color:#f92672>&lt;/hutool-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;servlet-version&gt;</span>3.1.0<span style=color:#f92672>&lt;/servlet-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${junit-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${hutool-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--javax.servlet-api--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>javax.servlet<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>javax.servlet-api<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${servlet-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--javax.servlet-api--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>javax.servlet<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>javax.servlet-api<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>将 <code>webapp</code> 目录下的首页 <code>index.jsp</code> 替换为 <code>index.html</code> 文件，内容随意。</li></ol><h2 id=ep02-servlet配通方式>EP02. Servlet配通方式</h2><blockquote><p>心法: Servlet配通方式有2种</p></blockquote><table><thead><tr><th>配通方式</th><th>描述</th></tr></thead><tbody><tr><td>XML方式</td><td>采取继承，重写，配置的纯手动模式来配置一个Servlet</td></tr><tr><td>注解方式</td><td>Servlet3+版本支持使用 <code>@WebServlet</code> 注解简化Servlet的XML配置</td></tr></tbody></table><blockquote><p>武技: 使用XML方式配通 <code>XmlServlet</code></p></blockquote><ol><li>开发辅助类 <code>XmlServlet</code>:<ul><li>重写 <code>HttpServlet -> doGet()/doPost()</code> 方法。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>XmlServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 当GET请求来临时执行 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应MIME类型和编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取响应流</span>
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Servlet初始化参数</span>
+</span></span><span style=display:flex><span>        String builtInData <span style=color:#f92672>=</span> <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>getServletConfig</span>().<span style=color:#a6e22e>getInitParameter</span>(<span style=color:#e6db74>&#34;built-in-data&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 接收请求参数</span>
+</span></span><span style=display:flex><span>        String requestData <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;request-data&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 回写数据</span>
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;内置参数: &#34;</span> <span style=color:#f92672>+</span> builtInData);
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;请求参数: &#34;</span> <span style=color:#f92672>+</span> requestData);
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 当POST请求来临时执行 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doPost</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 和 doGet() 方法的逻辑保持统一</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>doGet</span>(req, resp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>配置辅助类 <code>XmlServlet</code>:<ul><li>在 <code>webapp/WEB-INF/web.xml</code> 文件中配置。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--全局配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;web-app&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置XmlServlet--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;servlet&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置Servlet配对名，用于寻找servlet-mapping--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;servlet-name&gt;</span>xmlServlet<span style=color:#f92672>&lt;/servlet-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置Servlet类全名--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;servlet-class&gt;</span>com.lsx.servlet.XmlServlet<span style=color:#f92672>&lt;/servlet-class&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--Servlet独享的初始化参数--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;init-param&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;param-name&gt;</span>built-in-data<span style=color:#f92672>&lt;/param-name&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;param-value&gt;</span>12138<span style=color:#f92672>&lt;/param-value&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/init-param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/servlet&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;servlet-mapping&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置Servlet配对名，用于寻找Servlet--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;servlet-name&gt;</span>xmlServlet<span style=color:#f92672>&lt;/servlet-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置Servlet路由，须以 `/` 开头--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;url-pattern&gt;</span>/api/v1/xml<span style=color:#f92672>&lt;/url-pattern&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/servlet-mapping&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/web-app&gt;</span>
+</span></span></code></pre></div><ol start=3><li>访问辅助类 <code>XmlServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试XmlServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/xml?request-data=5277
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><blockquote><p>武技: 使用注解方式配通 <code>AnnotationServlet</code></p></blockquote><ol><li>开发辅助类 <code>AnnotationServlet</code>:<ul><li>重写 <code>HttpServlet -> doGet()/doPost</code> 方法。</li><li>标记 <code>@WebServlet</code> 以指定Servlet的URL访问地址和初始化参数。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @author lsx
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * value: Servlet访问URL地址，`/` 不能省略
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * initParams: Servlet独享的初始化参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/api/v1/annotation&#34;</span>, initParams <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@WebInitParam</span>(name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;built-in-data&#34;</span>, value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;12139&#34;</span>)
+</span></span><span style=display:flex><span>})
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AnnotationServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应MIME类型和编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;text/html;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取响应流</span>
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Servlet初始化参数</span>
+</span></span><span style=display:flex><span>        String builtInData <span style=color:#f92672>=</span> <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>getServletConfig</span>().<span style=color:#a6e22e>getInitParameter</span>(<span style=color:#e6db74>&#34;built-in-data&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 回写数据</span>
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;&lt;h3&gt;AnnotationServlet响应数据&lt;/h3&gt;&#34;</span>);
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;&lt;p&gt;当前时间: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>new</span> Date());
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;&lt;p&gt;Servlet初始化参数built-in-data: &#34;</span> <span style=color:#f92672>+</span> builtInData);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 节省资源</span>
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doPost</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 和 doGet() 方法的逻辑保持统一</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>doGet</span>(req, resp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>AnnotationServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试AnnotationServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/annotation
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><h2 id=ep03-servlet全局参数>EP03. Servlet全局参数</h2><blockquote><p>心法: Servlet全局参数</p></blockquote><ul><li>Web容器在启动时可以设置一些所有Servlet共享的String类型参数。</li></ul><blockquote><p>测试: Servlet全局参数</p></blockquote><ol><li>在配置文件 <code>web.xml</code> 中添加Servlet全局参数设置:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--全局配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;web-app&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置Servlet全局参数--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;context-param&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-name&gt;</span>context-param-a<span style=color:#f92672>&lt;/param-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-value&gt;</span>hello<span style=color:#f92672>&lt;/param-value&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/context-param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;context-param&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-name&gt;</span>context-param-b<span style=color:#f92672>&lt;/param-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-value&gt;</span>world<span style=color:#f92672>&lt;/param-value&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/context-param&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/web-app&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发辅助类 <code>ContextParamServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/context-param&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ContextParamServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应MIME类型和编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取全局参数</span>
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;context-param-a&#34;</span>,
+</span></span><span style=display:flex><span>                getServletContext().<span style=color:#a6e22e>getInitParameter</span>(<span style=color:#e6db74>&#34;context-param-a&#34;</span>));
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;context-param-b&#34;</span>,
+</span></span><span style=display:flex><span>                getServletContext().<span style=color:#a6e22e>getInitParameter</span>(<span style=color:#e6db74>&#34;context-param-b&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parse</span>(resultMap));
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doPost</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 和 doGet() 方法的逻辑保持统一</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>doGet</span>(req, resp);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>访问辅助类 <code>ContextParamServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试ContextParamServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/context-param
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Accept: application/json
+</span></span></span></code></pre></div><h2 id=ep04-servlet生命周期>EP04. Servlet生命周期</h2><blockquote><p>心法: Servlet线程分配</p></blockquote><ul><li>Servlet是单例多线程的，Web容器会为每个指向Servlet的请求都分配一个单独的线程。</li></ul><blockquote><p>心法: Servlet生命周期</p></blockquote><ol><li>启动服务器时:<ol><li>Web容器寻找部署文件（DD文件）<code>web.xml</code>。</li><li>Web容器找所有的Servlet类，如 <code>LifeCycleServlet.class</code> 并加载它。</li><li>Web容器调用这个类的构造方法来实例化，所以我们自己不要重写它的构造器。</li><li>Web容器为每一个Servlet建立一个ServletConfig对象，负责读Servlet的初始化参数，还能来访问ServletContext（负责读取Web信息，如工程首页等）。</li></ol></li><li>请求到来时:<ol><li>Web容器分析出这个请求指向的是一个Servlet。</li><li>Web容器创建 <code>HttpServletRequest</code> 请求对象和 <code>HttpServletResponse</code> 响应对象。</li><li>Web容器根据请求的URL找到 <code>LifeCycleServlet</code>。</li><li>Web容器调用Servlet类的 <code>init()</code> 初始化这个类，只执行一次。</li><li>Web容器为该请求分配线程，用于调用 <code>service()</code> 并支付 <code>req</code> 和 <code>resp</code>。</li><li><code>service()</code> 根据请求头决定调用 <code>doGet()/doPost()</code>，并支付 <code>req</code> 和 <code>resp</code>。</li><li><code>doGet()/doPost()</code> 开始执行代码并做出响应。</li><li>线程结束，线程销毁或被遣返回线程池，<code>req</code> 和 <code>resp</code> 离开作用域，等待GC。</li><li>客户得到最终响应。</li></ol></li><li>关闭服务器时:<ol><li>Web容器调用Servlet的 <code>destroy()</code> 做一些清理工作，只执行一次。</li></ol></li></ol><blockquote><p>心法: loadOnStartup配置</p></blockquote><ul><li>若Servlet配置了 <code>&lt;load-on-startup></code> 且值大于等于0。</li><li>则 <code>init()</code> 在Servlet的实例化时执行，值越小加载优先级越高。</li><li>若值小于0或不配置，则 <code>init()</code> 在第一次Servlet请求时执行。</li></ul><blockquote><p>武技: 测试Servlet生命周期</p></blockquote><ol><li>开发辅助类 <code>LifeCycleServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/life-cycle&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LifeCycleServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>destroy</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;执行 destroy() 方法&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;执行 init() 方法&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;执行 doGet() 方法&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>LifeCycleServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试LifeCycleServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/life-cycle
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><h1 id=ch02-servlet工作内容>CH02. Servlet工作内容</h1><h2 id=ep01-servlet请求对象>EP01. Servlet请求对象</h2><blockquote><p>心法: Servlet请求 <code>javax.servlet.http.HttpServletRequest</code></p></blockquote><ul><li>Servlet使用 <code>HttpServletRequest</code> 类型的参数来表示请求对象:</li></ul><table><thead><tr><th>请求对象常用API方法</th><th>返回值类型</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td><code>req.setCharacterEncoding("xxx")</code></td><td><code>void</code></td><td>设置请求编码</td><td><code>UTF-8</code></td></tr><tr><td><code>req.getServerName()</code></td><td><code>String</code></td><td>获取服务器的IP地址</td><td><code>localhost</code></td></tr><tr><td><code>req.getServerPort()</code></td><td><code>int</code></td><td>获取服务器的端口号</td><td><code>8080</code></td></tr><tr><td><code>req.getContextPath()</code></td><td><code>String</code></td><td>获取项目的发布名称</td><td><code>servlet</code></td></tr><tr><td><code>req.getServletPath()</code></td><td><code>String</code></td><td>获取项目的Servlet路由</td><td><code>/api/v1/request</code></td></tr><tr><td><code>req.getRequestURI()</code></td><td><code>String</code></td><td>获取请求中的URI路径</td><td><code>/servlet/api/v1/request</code></td></tr><tr><td><code>req.getRequestURL()</code></td><td><code>StringBuffer</code></td><td>获取请求中的URL路径</td><td><code>http://localhost:8080</code><code>/servlet/api/v1/request</code></td></tr><tr><td><code>req.getQueryString()</code></td><td><code>String</code></td><td>获取请求中的查询串</td><td><code>name=lsx&amp;id=1&amp;id=2</code></td></tr><tr><td><code>req.getParameter("name")</code></td><td><code>String</code></td><td>获取指定的单个请求参数</td><td><code>lsx</code></td></tr><tr><td><code>req.getParameterValues("id")</code></td><td><code>String[]</code></td><td>获取指定的一组同名参数</td><td><code>[1, 2]</code></td></tr><tr><td><code>req.getHeader("host")</code></td><td><code>String</code></td><td>获取请求头中指定的参数</td><td><code>localhost:8080</code></td></tr><tr><td><code>req.getCookies()</code></td><td><code>Cookie[]</code></td><td>获取请求中的全部Cookie</td><td><code>null</code></td></tr></tbody></table><blockquote><p>武技: 测试Servlet请求对象的常用API方法</p></blockquote><ol><li>开发辅助类 <code>RequestServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/request&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RequestServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 用于封装响应数据</span>
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(10);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置请求编码以便正确接收中文参数</span>
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>setCharacterEncoding</span>(<span style=color:#e6db74>&#34;UTF-8&#34;</span>);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;服务器的IP地址&#34;</span>, req.<span style=color:#a6e22e>getServerName</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;服务器的端口号&#34;</span>, req.<span style=color:#a6e22e>getServerPort</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;项目的发布名称&#34;</span>, req.<span style=color:#a6e22e>getContextPath</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;项目的Servlet路由&#34;</span>, req.<span style=color:#a6e22e>getServletPath</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求中的URI路径&#34;</span>, req.<span style=color:#a6e22e>getRequestURI</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求中的URL路径&#34;</span>, req.<span style=color:#a6e22e>getRequestURL</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求中的查询串&#34;</span>, req.<span style=color:#a6e22e>getQueryString</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;单个请求参数name&#34;</span>, req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;name&#34;</span>));
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;一组请求参数id&#34;</span>, Arrays.<span style=color:#a6e22e>toString</span>(req.<span style=color:#a6e22e>getParameterValues</span>(<span style=color:#e6db74>&#34;id&#34;</span>)));
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求头参数host&#34;</span>, req.<span style=color:#a6e22e>getHeader</span>(<span style=color:#e6db74>&#34;host&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 组装Cookie值</span>
+</span></span><span style=display:flex><span>        StringBuilder cookieStr <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> StringBuilder();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (Cookie cookie : req.<span style=color:#a6e22e>getCookies</span>()) {
+</span></span><span style=display:flex><span>            cookieStr.<span style=color:#a6e22e>append</span>(cookie.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>            cookieStr.<span style=color:#a6e22e>append</span>(<span style=color:#e6db74>&#34;=&#34;</span>);
+</span></span><span style=display:flex><span>            cookieStr.<span style=color:#a6e22e>append</span>(cookie.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>            cookieStr.<span style=color:#a6e22e>append</span>(<span style=color:#e6db74>&#34;; &#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求中的全部Cookie&#34;</span>, cookieStr.<span style=color:#a6e22e>toString</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 回写数据</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>getWriter</span>().<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>RequestServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试 RequestServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/request?name=lsx&amp;id=5&amp;id=7
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Cookie: a=1; b=2
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><h2 id=ep02-servlet三层架构>EP02. Servlet三层架构</h2><blockquote><p>心法: MVC三层架构 - 对项目进行分层解耦</p></blockquote><table><thead><tr><th>分层</th><th>英文</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td>V</td><td><code>view</code></td><td>视图层</td><td>负责搭建前端页面，然后通过表单，超链接，AJAX等方式向控制层传递数据</td></tr><tr><td>C</td><td><code>controller</code></td><td>控制层</td><td>负责与视图层交互，包括接收视图层数据，调用业务层方法，存储数据，响应数据等</td></tr><tr><td>M</td><td><code>model</code></td><td>模型层</td><td>从控制层分离出来的Java类，比如:实体类 <code>entity</code>: 用于映射数据库对象，存储和传输数据业务类 <code>service</code>: 只负责对数据进行业务逻辑处理，面向接口开发数据类 <code>mapper/dao</code>: 利用JDBC与数据库交互数据，面向接口开发</td></tr></tbody></table><blockquote><p>武技: 根据MVC架构开发User表的CRUD业务</p></blockquote><ol><li>准备数据库相关数据:</li></ol><ul><li>sql: <code>create database servlet character set utf8mb4;use servlet;</code></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>-- table
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>exists</span> servlet.<span style=color:#66d9ef>user</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>exists</span> servlet.<span style=color:#66d9ef>user</span>
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>    user_id   int(<span style=color:#ae81ff>11</span>) auto_increment <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;主键&#39;</span>,
+</span></span><span style=display:flex><span>    real_name varchar(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#e6db74>&#39;&#39;</span> <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;用户真实名称&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span> (user_id)
+</span></span><span style=display:flex><span>) <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;用户表&#39;</span>;
+</span></span></code></pre></div><ol start=2><li>开发数据接口 <code>UserDao</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.dao;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserDao</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 添加一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param realName 用户姓名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>create</span>(String realName);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键查询一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 查询全部用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 全部用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>list</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键修改一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param realName 用户姓名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId   用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>updateByUserId</span>(String realName, Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键删除一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发数据实现类 <code>UserDaoImpl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.dao.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserDaoImpl</span> <span style=color:#66d9ef>implements</span> UserDao {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> JdbcTemplate jdbcTemplate <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> JdbcTemplate();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>create</span>(String realName) {
+</span></span><span style=display:flex><span>        String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;insert into servlet.user (real_name) values (?)&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, realName);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select u.user_id, u.real_name from servlet.user u &#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;where u.user_id = ?&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTemplate.<span style=color:#a6e22e>selectForMap</span>(sql, userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>list</span>() {
+</span></span><span style=display:flex><span>        String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select u.user_id, u.real_name from servlet.user u&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTemplate.<span style=color:#a6e22e>selectForList</span>(sql);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>updateByUserId</span>(String realName, Integer userId) {
+</span></span><span style=display:flex><span>        String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;update servlet.user set real_name = ? where user_id = ?&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, realName, userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;delete from servlet.user where user_id = ?&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发测试类 <code>UserDaoTest</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> dao;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserDaoTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> UserDao userDao <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserDaoImpl();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testCreate</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;赵四&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;刘能&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;广坤&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSelectByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>selectByUserId</span>(1));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>selectByUserId</span>(99));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testList</span>() {
+</span></span><span style=display:flex><span>        userDao.<span style=color:#a6e22e>list</span>().<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testUpdateByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>updateByUserId</span>(<span style=color:#e6db74>&#34;刘英&#34;</span>, 1));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testDeleteByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userDao.<span style=color:#a6e22e>deleteByUserId</span>(1));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发业务接口 <code>UserService</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 添加一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param realName 用户姓名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>create</span>(String realName);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键查询一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 查询全部用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 全部用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>list</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键修改一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param realName 用户姓名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId   用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>updateByUserId</span>(String realName, Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户主键删除一条用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>开发业务实现类 <code>UserServiceImpl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceImpl</span> <span style=color:#66d9ef>implements</span> UserService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> UserDao userDao <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserDaoImpl();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>create</span>(String realName) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userDao.<span style=color:#a6e22e>create</span>(realName);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userDao.<span style=color:#a6e22e>selectByUserId</span>(userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>list</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userDao.<span style=color:#a6e22e>list</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>updateByUserId</span>(String realName, Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userDao.<span style=color:#a6e22e>updateByUserId</span>(realName, userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userDao.<span style=color:#a6e22e>deleteByUserId</span>(userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=7><li>开发测试类 <code>UserServiceTest</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> UserService userService <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserServiceImpl();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testCreate</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;赵四&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;刘能&#34;</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>create</span>(<span style=color:#e6db74>&#34;广坤&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSelectByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>selectByUserId</span>(1));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>selectByUserId</span>(99));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testList</span>() {
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>list</span>().<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testUpdateByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>updateByUserId</span>(<span style=color:#e6db74>&#34;刘英&#34;</span>, 1));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testDeleteByUserId</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userService.<span style=color:#a6e22e>deleteByUserId</span>(1));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=8><li>开发控制器 <code>UserServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/user&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> UserService userService <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserServiceImpl();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 接收并判断操作指令</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>switch</span> (req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;meta&#34;</span>)) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#34;insert&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>insert</span>(req, resp);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#34;select-by-user-id&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>selectByUserId</span>(req, resp);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#34;list&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>list</span>(req, resp);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#34;update-by-user-id&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>updateByUserId</span>(req, resp);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#e6db74>&#34;delete-by-user-id&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>deleteByUserId</span>(req, resp);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>default</span>:
+</span></span><span style=display:flex><span>                resp.<span style=color:#a6e22e>getWriter</span>().<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;指令有误&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        String realName <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;real-name&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (userService.<span style=color:#a6e22e>create</span>(realName) <span style=color:#f92672>&gt;</span> 0) {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 200);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;添加成功&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 500);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;添加失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectByUserId</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        Integer userId <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>parseInt</span>(req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>));
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> user <span style=color:#f92672>=</span> userService.<span style=color:#a6e22e>selectByUserId</span>(userId);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>null</span> <span style=color:#f92672>!=</span> user) {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 200);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;查询成功&#34;</span>);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;data&#34;</span>, JSONUtil.<span style=color:#a6e22e>parseObj</span>(user));
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 500);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;查询失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>list</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> users <span style=color:#f92672>=</span> userService.<span style=color:#a6e22e>list</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>null</span> <span style=color:#f92672>!=</span> users <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>users.<span style=color:#a6e22e>isEmpty</span>()) {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 200);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;查询成功&#34;</span>);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;data&#34;</span>, JSONUtil.<span style=color:#a6e22e>parseObj</span>(users));
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 500);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;查询失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>updateByUserId</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        Integer userId <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>parseInt</span>(req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>));
+</span></span><span style=display:flex><span>        String realName <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;real-name&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (userService.<span style=color:#a6e22e>updateByUserId</span>(realName, userId) <span style=color:#f92672>&gt;</span> 0) {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 200);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;修改成功&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 500);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;修改失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>deleteByUserId</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        Integer userId <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>parseInt</span>(req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>));
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (userService.<span style=color:#a6e22e>deleteByUserId</span>(userId) <span style=color:#f92672>&gt;</span> 0) {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 200);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;删除成功&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;code&#34;</span>, 500);
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;删除失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=9><li>访问控制器 <code>UserServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http></code></pre></div><h2 id=ep03-servlet存值方式>EP03. Servlet存值方式</h2><blockquote><p>心法: Servlet存值的三种方式</p></blockquote><ul><li>Servlet中使用Request域，Session域和ServletContext域进行存取值操作，三者生命周期不同:</li></ul><table><thead><tr><th>存值方式</th><th>存储的值在何时失效</th><th>相关API方法</th><th>线程安全问题</th></tr></thead><tbody><tr><td>Request请求域</td><td>请求得到响应后</td><td>获取: <code>doGet()/doPost()</code> 的默认参数存值: <code>req.setAttribute(K, V)</code>: 同名覆盖取值: <code>req.getAttribute(K)</code>: 不存在返回null</td><td>线程安全</td></tr><tr><td>Session会话域</td><td>浏览器关闭且在失效时间内都无任何请求访问它时</td><td>获取: <code>req.getSession()</code>存值: <code>session.setAttribute(K, V)</code>: 同名覆盖取值: <code>session.getAttribute(K)</code>: 不存在返回null</td><td>线程不安全需要同步加锁</td></tr><tr><td>ServletContext应用域</td><td>服务器重启/崩溃/关闭时</td><td>获取: <code>req.getServletContext()</code>存值: <code>app.setAttribute(K, V)</code>: 同名覆盖取值: <code>app.getAttribute(K)</code>: 不存在返回null</td><td>线程不安全需要同步加锁</td></tr></tbody></table><blockquote><p>心法: SessionID</p></blockquote><ul><li>HTTP协议是无状态的，每个请求对它来说都是新的，若需要长久保存数据，建议使用Session域:<ul><li>当Session被创建时，会生成一个 <code>SessionID</code>，并响应到浏览器的Cookie中存储起来。</li><li>当前浏览器以后的每一个请求都会携带这个 <code>SessionID</code> 信息。</li><li>当Web容器看到 <code>SessionID</code> 后，会去寻找对应的Session，并将其和本次请求关联起来。</li></ul></li><li>所以不同的电脑，或者同一台电脑中的不同的浏览器都是不能共享Session的。</li></ul><blockquote><p>武技: 测试Request域存取值</p></blockquote><ol><li>开发辅助类 <code>StoreServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/store&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StoreServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(5);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Request域存值: 同名覆盖，线程安全</span>
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;request-name&#34;</span>, <span style=color:#e6db74>&#34;REQ赵四&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Request域取值: 不存在返回null</span>
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;request-name&#34;</span>, req.<span style=color:#a6e22e>getAttribute</span>(<span style=color:#e6db74>&#34;request-name&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Session域获取</span>
+</span></span><span style=display:flex><span>        HttpSession session <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getSession</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置失效时间间隔（秒），默认1800秒，设置为-1表示session永生，设置为0则表示session立刻失效</span>
+</span></span><span style=display:flex><span>        session.<span style=color:#a6e22e>setMaxInactiveInterval</span>(3600);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Session唯一标识&#34;</span>, session.<span style=color:#a6e22e>getId</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Session失效时间&#34;</span>, session.<span style=color:#a6e22e>getMaxInactiveInterval</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Session域存值: Session域线程不安全，建议同步加锁</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 不能使用this锁，因为它只能阻止同一个Servlet中的不同线程，但不能阻止不同的Servlet的线程</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>synchronized</span> (session) {
+</span></span><span style=display:flex><span>            session.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;session-name&#34;</span>, <span style=color:#e6db74>&#34;SESSION玉田&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Session域取值: 不存在返回null</span>
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;session-name&#34;</span>, session.<span style=color:#a6e22e>getAttribute</span>(<span style=color:#e6db74>&#34;session-name&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ServletContext域获取</span>
+</span></span><span style=display:flex><span>        ServletContext app <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getServletContext</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ServletContext域存值: ServletContext域线程不安全，建议同步加锁</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 不能使用this锁，因为它只能阻止同一个Servlet中的不同线程，但不能阻止不同的Servlet的线程</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>synchronized</span> (app) {
+</span></span><span style=display:flex><span>            app.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;app-name&#34;</span>, <span style=color:#e6db74>&#34;APP刘一水&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ServletContext域取值: 不存在返回null</span>
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;app-name&#34;</span>, app.<span style=color:#a6e22e>getAttribute</span>(<span style=color:#e6db74>&#34;app-name&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 回写数据</span>
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>getWriter</span>().<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>StoreServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试 StoreServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/store
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><h2 id=ep04-servlet响应对象>EP04. Servlet响应对象</h2><blockquote><p>心法: Servlet请求 <code>javax.servlet.http.HttpServletResponse</code></p></blockquote><ul><li>Servlet使用 <code>HttpServletResponse</code> 类型的参数来表示响应对象:</li></ul><table><thead><tr><th>响应对象常用API方法</th><th>返回值类型</th><th>描述</th></tr></thead><tbody><tr><td><code>resp.setContentType("xxx")</code></td><td><code>void</code></td><td>设置响应数据的MIME类型和编码如 <code>application/json;charset=UTF-8</code>如 <code>text/html;charset=UTF-8</code></td></tr><tr><td><code>resp.addCookie(cookie对象)</code></td><td><code>void</code></td><td>将Cookie添加到响应对象中</td></tr><tr><td><code>resp.addHeader(KEY, VALUE)</code></td><td><code>void</code></td><td>添加字符串类型的响应头项</td></tr><tr><td><code>resp.addIntHeader(KEY, VALUE)</code></td><td><code>void</code></td><td>添加数字类型的响应头项</td></tr><tr><td><code>resp.addDateHeader(KEY, VALUE)</code></td><td><code>void</code></td><td>添加日期类型的响应头项</td></tr><tr><td><code>resp.setStatus(响应码)</code></td><td><code>void</code></td><td>设置自定义的响应码</td></tr><tr><td><code>resp.getHeaderNames()</code></td><td><code>Collection&lt;String></code></td><td>遍历全部响应头数据</td></tr><tr><td><code>resp.getWriter()</code></td><td><code>PrintWriter</code></td><td>获取响应流</td></tr></tbody></table><blockquote><p>武技: 测试HttpResponse对象</p></blockquote><ol><li>开发辅助类 <code>ResponseServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/response&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ResponseServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(20);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应的MIME数据类型和编码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=UTF-8&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 添加一个Cookie对象</span>
+</span></span><span style=display:flex><span>        Cookie cookie <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Cookie(<span style=color:#e6db74>&#34;cookie-name&#34;</span>, <span style=color:#e6db74>&#34;cookie-value&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置Cooke的存活时间: 单位秒</span>
+</span></span><span style=display:flex><span>        cookie.<span style=color:#a6e22e>setMaxAge</span>(60 <span style=color:#f92672>*</span> 5);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将Cookie添加到响应对象中: Web容器会将其回写到客户端Cookie中</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>addCookie</span>(cookie);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 添加响应头</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>addHeader</span>(<span style=color:#e6db74>&#34;my-string-header&#34;</span>, <span style=color:#e6db74>&#34;hello&#34;</span>);
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>addIntHeader</span>(<span style=color:#e6db74>&#34;my-jnt-header&#34;</span>, 9527);
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>addDateHeader</span>(<span style=color:#e6db74>&#34;my-date-header&#34;</span>, System.<span style=color:#a6e22e>currentTimeMillis</span>());
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应码</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setStatus</span>(200);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历全部响应头数据并存放到resultMap中</span>
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>getHeaderNames</span>().<span style=color:#a6e22e>forEach</span>(headerName <span style=color:#f92672>-&gt;</span> resultMap.<span style=color:#a6e22e>put</span>(headerName, resp.<span style=color:#a6e22e>getHeader</span>(headerName)));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取响应流</span>
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(JSONUtil.<span style=color:#a6e22e>parseObj</span>(resultMap));
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>ResponseServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 测试ResponseServlet
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8080/servlet/api/v1/response
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span></code></pre></div><h2 id=ep05-servlet跳转页面>EP05. Servlet跳转页面</h2><blockquote><p>心法: Servlet跳转页面方式</p></blockquote><ul><li>Servlet转页方式包括请求转发和重定向两种:</li></ul><table><thead><tr><th>转页方式</th><th>转页原理</th><th>描述</th></tr></thead><tbody><tr><td>请求转发</td><td>Servlet将响应静态HTML页面的工作转发给另一个Servlet或HTML页面</td><td>特点: 一次请求，URL无变化，效率高，但无法避免重复请求产生的错误格式: <code>req.getRequestDispatcher("/路径").forward(req, resp)</code>路径: <code>"/路径"</code> 参数必须从 <code>webapp</code> 目录后开始，并以 <code>/</code> 开头</td></tr><tr><td>重定向</td><td>服务器将请求的资源地址原路返回然后再根据新地址重新发送该请求</td><td>特点: 二次请求，URL有变化，效率低，但可以避免重复请求产生的错误格式: <code>resp.sendRedirect("/项目名/路径")</code>路径: <code>"/路径"</code> 参数必须包含项目发布名，并以 <code>/</code> 开头</td></tr></tbody></table><blockquote><p>武技: 测试请求转发和重定向</p></blockquote><ol><li>开发辅助类 <code>JumpServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/jump&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JumpServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>        String meta <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getParameter</span>(<span style=color:#e6db74>&#34;meta&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试请求转发效果</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#e6db74>&#34;forward&#34;</span>.<span style=color:#a6e22e>equals</span>(meta)) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 请求转发必须以 `/` 开头，不用加项目路径</span>
+</span></span><span style=display:flex><span>            req.<span style=color:#a6e22e>getRequestDispatcher</span>(<span style=color:#e6db74>&#34;/index.html&#34;</span>).<span style=color:#a6e22e>forward</span>(req, resp);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试重定向效果</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#e6db74>&#34;redirect&#34;</span>.<span style=color:#a6e22e>equals</span>(meta)) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 重定向路径从项目发布名开始，以 `/` 开头</span>
+</span></span><span style=display:flex><span>            resp.<span style=color:#a6e22e>sendRedirect</span>(req.<span style=color:#a6e22e>getContextPath</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/index.html&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;指令有误&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>访问辅助类 <code>JumpServlet</code>: 建议使用浏览器测试请求转发和重定向的效果:<ul><li>cli: <code>http://localhost:8080/servlet/api/v1/jump?meta=forward</code></li><li>cli: <code>http://localhost:8080/servlet/api/v1/jump?meta=redirect</code></li></ul></li></ol><h1 id=ch03-servlet常用组件>CH03. Servlet常用组件</h1><blockquote><p>心法: Servlet常用组件</p></blockquote><ul><li>Servlet组件包括Servlet过滤器和Servlet监听器，二者均与服务器同生共死。</li></ul><h2 id=ep01-servlet过滤组件>EP01. Servlet过滤组件</h2><blockquote><p>心法: Servlet过滤器</p></blockquote><ul><li>Servlet过滤器作用于 <code>doGet/doPost()</code> 前后，与服务器同生共死。</li></ul><blockquote><p>武技: 开发Servlet编码过滤器 - 统一请求和响应的编码</p></blockquote><ol><li>开发过滤器 <code>GlobalEncodingFilter</code>:<ol><li>重写 <code>Filter -> init()/doFilter()/destroy()</code> 接口方法。</li><li>标记 <code>@WebFilter("/*")</code> 过滤范围，不支持前模糊但支持后模糊。</li><li>为请求和响应统一转码为UTF-8编码。</li><li>放行请求到 <code>doGet/doPost()</code> 中。</li></ol></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.filter;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebFilter</span>({<span style=color:#e6db74>&#34;/api/v1/**&#34;</span>, <span style=color:#e6db74>&#34;/api/v1/*&#34;</span>})
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GlobalEncodingFilter</span> <span style=color:#66d9ef>implements</span> Filter {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>(FilterConfig filterConfig) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;GlobalEncodingFilter init()...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doFilter</span>(ServletRequest request, ServletResponse response, FilterChain chain) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将参数转回HttpServletRequest/HttpServletResponse类型</span>
+</span></span><span style=display:flex><span>        HttpServletRequest req <span style=color:#f92672>=</span> (HttpServletRequest) request;
+</span></span><span style=display:flex><span>        HttpServletResponse resp <span style=color:#f92672>=</span> (HttpServletResponse) response;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置请求和响应的编码</span>
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>setCharacterEncoding</span>(<span style=color:#e6db74>&#34;utf-8&#34;</span>);
+</span></span><span style=display:flex><span>        resp.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 放行</span>
+</span></span><span style=display:flex><span>        chain.<span style=color:#a6e22e>doFilter</span>(req, resp);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;GlobalEncodingFilter: after doGet/doPost()...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>destroy</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;GlobalEncodingFilter destroy()...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>随意访问一个辅助类，查看Servlet过滤器是否生效。</li></ol><h2 id=ep02-servlet监听组件>EP02. Servlet监听组件</h2><blockquote><p>心法: Servlet常用的监听组件</p></blockquote><table><thead><tr><th>Servlet监听器类型</th><th>监听对象</th><th>监听的具体对象</th><th>监听方法的触发时机</th></tr></thead><tbody><tr><td><code>ServletRequestListener</code></td><td>请求</td><td>请求对象本身</td><td>初始化时: <code>requestInitialized()</code>被销毁时: <code>requestDestroyed()</code></td></tr><tr><td><code>ServletRequestAttributeListener</code></td><td>请求</td><td>请求域中的属性</td><td>被添加时: <code>attributeAdded()</code>被替换时: <code>attributeReplaced()</code>被删除时: <code>attributeRemoved()</code></td></tr><tr><td><code>HttpSessionListener</code></td><td>会话</td><td>会话对象本身</td><td>初始化时: <code>sessionCreated()</code>被销毁时: <code>sessionDestroyed()</code></td></tr><tr><td><code>HttpSessionAttributeListener</code></td><td>会话</td><td>会话域中的属性</td><td>被添加时: <code>attributeAdded()</code>被替换时: <code>attributeReplaced()</code>被删除时: <code>attributeRemoved()</code></td></tr><tr><td><code>ServletContextListener</code></td><td>应用</td><td>应用对象本身</td><td>初始化时: <code>contextInitialized()</code>被销毁时: <code>contextDestroyed()</code></td></tr><tr><td><code>ServletContextAttributeListener</code></td><td>应用</td><td>应用域中的属性</td><td>被添加时: <code>attributeAdded()</code>被替换时: <code>attributeReplaced()</code>被删除时: <code>attributeRemoved()</code></td></tr></tbody></table><blockquote><p>武技: 开发自定义监听器</p></blockquote><ol><li>开发监听器 <code>MyListener</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.listen;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyListener</span> <span style=color:#66d9ef>implements</span> ServletRequestListener, ServletRequestAttributeListener,
+</span></span><span style=display:flex><span>        HttpSessionListener, HttpSessionAttributeListener,
+</span></span><span style=display:flex><span>        ServletContextListener, ServletContextAttributeListener {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>requestInitialized</span>(ServletRequestEvent event) {
+</span></span><span style=display:flex><span>        HttpServletRequest req <span style=color:#f92672>=</span> (HttpServletRequest) event.<span style=color:#a6e22e>getServletRequest</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求监听: &#34;</span> <span style=color:#f92672>+</span> req.<span style=color:#a6e22e>getRequestURI</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 请求初始化...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>requestDestroyed</span>(ServletRequestEvent event) {
+</span></span><span style=display:flex><span>        HttpServletRequest req <span style=color:#f92672>=</span> (HttpServletRequest) event.<span style=color:#a6e22e>getServletRequest</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求监听: &#34;</span> <span style=color:#f92672>+</span> req.<span style=color:#a6e22e>getRequestURI</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 请求销毁...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeAdded</span>(ServletRequestAttributeEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求属性监听: 有人添加了请求域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeReplaced</span>(ServletRequestAttributeEvent event) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// event.getValue() 获取的是原值</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求属性监听: 有人替换了请求域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeRemoved</span>(ServletRequestAttributeEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求属性监听: 有人删除了请求域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>sessionCreated</span>(HttpSessionEvent se) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;会话监听: &#34;</span> <span style=color:#f92672>+</span> se.<span style=color:#a6e22e>getSession</span>().<span style=color:#a6e22e>getId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 会话初始化...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>sessionDestroyed</span>(HttpSessionEvent se) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;会话监听: &#34;</span> <span style=color:#f92672>+</span> se.<span style=color:#a6e22e>getSession</span>().<span style=color:#a6e22e>getId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 会话销毁...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeAdded</span>(HttpSessionBindingEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;会话属性监听: 有人添加了会话域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeRemoved</span>(HttpSessionBindingEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;会话属性监听: 有人删除了会话域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeReplaced</span>(HttpSessionBindingEvent event) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// event.getValue() 获取的是原值</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;会话属性监听: 有人修改了会话域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>contextInitialized</span>(ServletContextEvent sce) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务监听: 服务器启动...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>contextDestroyed</span>(ServletContextEvent sce) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务监听: 服务器关闭...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeAdded</span>(ServletContextAttributeEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务属性监听: 有人添加了服务域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeReplaced</span>(ServletContextAttributeEvent event) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// event.getValue() 获取的是原值</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务属性监听: 有人修改了服务域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>attributeRemoved</span>(ServletContextAttributeEvent event) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务属性监听: 有人删除了服务域属性: &#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getName</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> event.<span style=color:#a6e22e>getValue</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发辅助类 <code>ListenerServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.servlet;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@WebServlet</span>(<span style=color:#e6db74>&#34;/api/v1/listener&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ListenerServlet</span> <span style=color:#66d9ef>extends</span> HttpServlet {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>doGet</span>(HttpServletRequest req, HttpServletResponse resp) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 请求监听测试</span>
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#e6db74>&#34;zhao&#34;</span>);
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;name&#34;</span>, <span style=color:#e6db74>&#34;liu&#34;</span>);
+</span></span><span style=display:flex><span>        req.<span style=color:#a6e22e>removeAttribute</span>(<span style=color:#e6db74>&#34;name&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 会话监听测试</span>
+</span></span><span style=display:flex><span>        HttpSession session <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getSession</span>();
+</span></span><span style=display:flex><span>        session.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;age&#34;</span>, 18);
+</span></span><span style=display:flex><span>        session.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;age&#34;</span>, 19);
+</span></span><span style=display:flex><span>        session.<span style=color:#a6e22e>removeAttribute</span>(<span style=color:#e6db74>&#34;age&#34;</span>);
+</span></span><span style=display:flex><span>        session.<span style=color:#a6e22e>invalidate</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 应用监听测试</span>
+</span></span><span style=display:flex><span>        ServletContext servletContext <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getServletContext</span>();
+</span></span><span style=display:flex><span>        servletContext.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;gender&#34;</span>, <span style=color:#e6db74>&#34;male&#34;</span>);
+</span></span><span style=display:flex><span>        servletContext.<span style=color:#a6e22e>setAttribute</span>(<span style=color:#e6db74>&#34;gender&#34;</span>, <span style=color:#e6db74>&#34;female&#34;</span>);
+</span></span><span style=display:flex><span>        servletContext.<span style=color:#a6e22e>removeAttribute</span>(<span style=color:#e6db74>&#34;gender&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>访问辅助类 <code>ListenerServlet</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e>## 测试ListenerServlet</span>
+</span></span><span style=display:flex><span>GET http<span style=color:#960050;background-color:#1e0010>:</span>//localhost<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>8080</span>/servlet/api/v1/listener
+</span></span><span style=display:flex><span>Content-Type<span style=color:#960050;background-color:#1e0010>:</span> application/x-www-form-urlencoded
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

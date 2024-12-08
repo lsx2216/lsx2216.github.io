@@ -1,0 +1,739 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB2-4-JDBC</title>
+<meta name=description content="Java道经第2卷 - 第4阶 - v2-4-web-jdbc(JAR) - JDBC
+CH01. JDBC连库技术 EP01. JDBC连库中间件 心法: Java Data Base Connectivity，简称JDBC
+JDBC是Java和数据库连接中间件，是SUN公司面对各个数据库提供的一组接口，用于使 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-4-JDBC/JB2-4-JDBC/"><meta property="og:type" content="website"><meta property="og:title" content="JB2-4-JDBC"><meta property="og:description" content="Java道经第2卷 - 第4阶 - v2-4-web-jdbc(JAR) - JDBC
+CH01. JDBC连库技术 EP01. JDBC连库中间件 心法: Java Data Base Connectivity，简称JDBC
+JDBC是Java和数据库连接中间件，是SUN公司面对各个数据库提供的一组接口，用于使 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB2-4-JDBC"><meta name=twitter:description content="Java道经第2卷 - 第4阶 - v2-4-web-jdbc(JAR) - JDBC
+CH01. JDBC连库技术 EP01. JDBC连库中间件 心法: Java Data Base Connectivity，简称JDBC
+JDBC是Java和数据库连接中间件，是SUN公司面对各个数据库提供的一组接口，用于使 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-4-JDBC/JB2-4-JDBC/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-4-JDBC/JB2-4-JDBC/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-4-JDBC/JB2-4-JDBC/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB2-4-JDBC</h1></div><div class=post-content><blockquote><p>Java道经第2卷 - 第4阶 - v2-4-web-jdbc(JAR) - JDBC</p></blockquote><h1 id=ch01-jdbc连库技术>CH01. JDBC连库技术</h1><p><img src=/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-4-JDBC/image/e004b9c589021c4ec9c293debec69399.png alt=截图></p><h2 id=ep01-jdbc连库中间件>EP01. JDBC连库中间件</h2><blockquote><p>心法: <code>Java Data Base Connectivity</code>，简称JDBC</p></blockquote><ul><li>JDBC是Java和数据库连接中间件，是SUN公司面对各个数据库提供的一组接口，用于使用Java代码连接和操作数据库。</li></ul><blockquote><p>武技: 构建测试数据库</p></blockquote><ol><li>构建测试数据库:<ul><li>sql: <code>create database jdbc character set utf8mb4; use jdbc;</code></li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>-- table
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>exists</span> jdbc.<span style=color:#66d9ef>user</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>exists</span> jdbc.<span style=color:#66d9ef>user</span>
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>    user_id   int auto_increment <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;用户主键&#39;</span>,
+</span></span><span style=display:flex><span>    real_name varchar(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#e6db74>&#39;&#39;</span> <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;用户姓名&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span> (user_id)
+</span></span><span style=display:flex><span>) <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;用户表&#39;</span>;
+</span></span></code></pre></div><h2 id=ep02-jdbc中间件配通>EP02. JDBC中间件配通</h2><blockquote><p>武技: 在项目 <code>v2-4-web-jdbc</code> 中配通JDBC连库中间件</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--jdbc--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;mysql-connector-j-version&gt;</span>8.0.33<span style=color:#f92672>&lt;/mysql-connector-j-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:<ul><li>项目编译时并不需要此依赖中的类，而运行和打包的时候需要，故而建议使用 <code>runtime scope</code> 提高编译效率。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!-- mysql-connector-j --&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.mysql<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mysql-connector-j<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${mysql-connector-j-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>runtime<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- mysql-connector-j --&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.mysql<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mysql-connector-j<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发测试方法 <code>ConnectTest -> connect()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> jdbc;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConnectTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**驱动串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String DRIVER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.mysql.cj.jdbc.Driver&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String URL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;jdbc:mysql://192.168.40.77:3306/jdbc&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf8&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&#34;</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库账号*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String USER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库密码*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String PASSWORD <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>connect</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 驱动 com.mysql.cj.jdbc.Driver 类</span>
+</span></span><span style=display:flex><span>        Class.<span style=color:#a6e22e>forName</span>(DRIVER);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取连接: DriverManager类是Java自带的</span>
+</span></span><span style=display:flex><span>        Connection connection <span style=color:#f92672>=</span> DriverManager.<span style=color:#a6e22e>getConnection</span>(URL, USER, PASSWORD);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试连接是否关闭</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭连接</span>
+</span></span><span style=display:flex><span>        connection.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-jdbc数据源封装>EP03. JDBC数据源封装</h2><blockquote><p>心法: JDBC数据源类 <code>JDBC DataSource</code></p></blockquote><ul><li>JDBC数据源类用于驱动，获取连接和关闭连接。</li></ul><blockquote><p>武技: 封装JDBC数据源类</p></blockquote><ol><li>开发数据源类 <code>DataSource</code>:<ul><li>将数据源四项提升为 <code>private static final</code> 属性。</li><li>使用静态块驱动MySQL数据库。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.jdbc.v1;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DataSource</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**驱动串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String DRIVER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.mysql.cj.jdbc.Driver&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String URL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;jdbc:mysql://192.168.40.77:3306/jdbc&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf8&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&#34;</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库账号*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String USER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库密码*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String PASSWORD <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 驱动数据库</span>
+</span></span><span style=display:flex><span>            Class.<span style=color:#a6e22e>forName</span>(DRIVER);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (ClassNotFoundException e) {
+</span></span><span style=display:flex><span>            e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发获取连接的方法 <code>DataSource -> getConnection()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 获取Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 一个Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Connection <span style=color:#a6e22e>getConnection</span>() {
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建一个连接</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> DriverManager.<span style=color:#a6e22e>getConnection</span>(URL, USER, PASSWORD);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> connection;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发关闭连接的方法 <code>DataSource -> closeConnection()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 关闭指定的Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param connection 指定的Connection连接实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>closeConnection</span>(Connection connection) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (connection <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            connection.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发测试方法 <code>DataSourceTest -> dataSource()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> jdbc;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DataSourceTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dataSource</span>() {
+</span></span><span style=display:flex><span>        com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v1</span>.<span style=color:#a6e22e>DataSource</span> dataSource <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v1</span>.<span style=color:#a6e22e>DataSource</span>();
+</span></span><span style=display:flex><span>        Connection connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-jdbc使用连接池>EP04. JDBC使用连接池</h2><blockquote><p>武技: 修改据源类 <code>DataSource</code>: 使用连接池</p></blockquote><ol><li>修改数据源类 <code>DataSource</code>: 使用连接池:<ul><li>设计连接池属性和连接池大小属性。</li><li>在静态块中循环创建CONNECTION_SIZE个连接并且添加到CONNECTION_POOL中。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.jdbc.v2;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DataSource</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**驱动串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String DRIVER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.mysql.cj.jdbc.Driver&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String URL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;jdbc:mysql://192.168.40.77:3306/jdbc&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf8&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库账号*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String USERNAME <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库密码*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String PASSWORD <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;root&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接池属性*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> List<span style=color:#f92672>&lt;</span>Connection<span style=color:#f92672>&gt;</span> CONNECTION_POOL <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接池大小属性*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> Integer connectionSize <span style=color:#f92672>=</span> 10;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 驱动数据库</span>
+</span></span><span style=display:flex><span>            Class.<span style=color:#a6e22e>forName</span>(DRIVER);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 循环创建连接，并加入连接池</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> connectionSize; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                CONNECTION_POOL.<span style=color:#a6e22e>add</span>(DriverManager.<span style=color:#a6e22e>getConnection</span>(URL, USERNAME, PASSWORD));
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (ClassNotFoundException <span style=color:#f92672>|</span> SQLException e) {
+</span></span><span style=display:flex><span>            e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>升级方法 <code>DataSource -> getConnection()</code>:<ul><li>若当前CONNECTION_POOL中还有连接，就从CONNECTION_POOL中remove一个连接并返回。</li><li>若当前CONNECTION_POOL中没有连接，则创建一个新的连接并返回。</li><li>方法添加 <code>synchronized</code> 保护，以免多人获取到同一个实例。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 同步获取一个Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 一个Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>synchronized</span> Connection <span style=color:#a6e22e>getConnection</span>() {
+</span></span><span style=display:flex><span>    Connection result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (CONNECTION_POOL.<span style=color:#a6e22e>isEmpty</span>()) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 若当前CONNECTION_POOL中没有连接，则创建一个新的连接并返回</span>
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> DriverManager.<span style=color:#a6e22e>getConnection</span>(URL, USERNAME, PASSWORD);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 若当前CONNECTION_POOL中还有连接，就从CONNECTION_POOL中remove一个连接并返回</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// remove(0)，表示返回并删除列表中的第0个元素</span>
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> CONNECTION_POOL.<span style=color:#a6e22e>remove</span>(0);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>升级方法 <code>DataSource -> closeConnection()</code>:<ul><li>若当前 <code>CONNECTION_POOL</code> 中连接数量达到最大，则直接关闭新来的连接。</li><li>若当前 <code>CONNECTION_POOL</code> 中仍有空余位置，则回收新来的连接。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 关闭指定的Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param connection 指定的Connection连接实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>closeConnection</span>(Connection connection) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (connection <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 若当前CONNECTION_POOL中连接数量达到最大，则直接关闭新来的连接</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (CONNECTION_POOL.<span style=color:#a6e22e>size</span>() <span style=color:#f92672>==</span> connectionSize) {
+</span></span><span style=display:flex><span>                connection.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>            } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 若当前CONNECTION_POOL中仍有空余位置，则回收新来的连接</span>
+</span></span><span style=display:flex><span>                CONNECTION_POOL.<span style=color:#a6e22e>add</span>(connection);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发测试方法 <code>DataSourceTest -> connectionPool()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>connectionPool</span>() {
+</span></span><span style=display:flex><span>    com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v2</span>.<span style=color:#a6e22e>DataSource</span> dataSource <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v2</span>.<span style=color:#a6e22e>DataSource</span>();
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>    dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-jdbc读属性文件>EP05. JDBC读属性文件</h2><blockquote><p>武技: 修改据源类 <code>DataSource</code>: 使用属性文件</p></blockquote><ol><li>在 <code>resources</code> 下创建 <code>db.properties</code> 属性文件:<ul><li>将数据源四项和连接池大小属性以 <code>K=V</code> 的形式提取到属性文件中。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>jdbc.driver</span><span style=color:#f92672>=</span><span style=color:#e6db74>com.mysql.cj.jdbc.Driver</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.url</span><span style=color:#f92672>=</span><span style=color:#e6db74>jdbc:mysql://192.168.40.77:3306/jdbc\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  ?serverTimezone=Asia/Shanghai\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;useUnicode=true\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;characterEncoding=utf8\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;useSSL=false\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;allowPublicKeyRetrieval=true</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.username</span><span style=color:#f92672>=</span><span style=color:#e6db74>lsx</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.password</span><span style=color:#f92672>=</span><span style=color:#e6db74>lsx</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.connection_size</span><span style=color:#f92672>=</span><span style=color:#e6db74>10</span>
+</span></span></code></pre></div><ol start=2><li>在 <code>DataSource -> static{}</code> 中读取属性文件中的信息:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.jdbc.v3;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DataSource</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接池属性*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> List<span style=color:#f92672>&lt;</span>Connection<span style=color:#f92672>&gt;</span> CONNECTION_POOL <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**属性文件*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> ResourceBundle RESOURCE_BUNDLE <span style=color:#f92672>=</span> PropertyResourceBundle.<span style=color:#a6e22e>getBundle</span>(<span style=color:#e6db74>&#34;db&#34;</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**驱动串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String driver;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接串*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String url;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库账号*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String username;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连库密码*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String password;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**连接池大小属性*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> Integer connectionSize;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            driver <span style=color:#f92672>=</span> RESOURCE_BUNDLE.<span style=color:#a6e22e>getString</span>(<span style=color:#e6db74>&#34;jdbc.driver&#34;</span>);
+</span></span><span style=display:flex><span>            url <span style=color:#f92672>=</span> RESOURCE_BUNDLE.<span style=color:#a6e22e>getString</span>(<span style=color:#e6db74>&#34;jdbc.url&#34;</span>);
+</span></span><span style=display:flex><span>            username <span style=color:#f92672>=</span> RESOURCE_BUNDLE.<span style=color:#a6e22e>getString</span>(<span style=color:#e6db74>&#34;jdbc.username&#34;</span>);
+</span></span><span style=display:flex><span>            password <span style=color:#f92672>=</span> RESOURCE_BUNDLE.<span style=color:#a6e22e>getString</span>(<span style=color:#e6db74>&#34;jdbc.password&#34;</span>);
+</span></span><span style=display:flex><span>            connectionSize <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>valueOf</span>(RESOURCE_BUNDLE.<span style=color:#a6e22e>getString</span>(<span style=color:#e6db74>&#34;jdbc.connection_size&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 驱动数据库</span>
+</span></span><span style=display:flex><span>            Class.<span style=color:#a6e22e>forName</span>(driver);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 循环创建连接，并加入连接池</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> connectionSize; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                CONNECTION_POOL.<span style=color:#a6e22e>add</span>(DriverManager.<span style=color:#a6e22e>getConnection</span>(url, username, password));
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (ClassNotFoundException <span style=color:#f92672>|</span> SQLException e) {
+</span></span><span style=display:flex><span>            e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 同步获取一个Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 一个Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>synchronized</span> Connection <span style=color:#a6e22e>getConnection</span>() {
+</span></span><span style=display:flex><span>        Connection result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (CONNECTION_POOL.<span style=color:#a6e22e>isEmpty</span>()) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 若当前CONNECTION_POOL中没有连接，则创建一个新的连接并返回</span>
+</span></span><span style=display:flex><span>                result <span style=color:#f92672>=</span> DriverManager.<span style=color:#a6e22e>getConnection</span>(url, username, password);
+</span></span><span style=display:flex><span>            } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 若当前CONNECTION_POOL中还有连接，就从CONNECTION_POOL中remove一个连接并返回</span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// remove(0)，表示返回并删除列表中的第0个元素</span>
+</span></span><span style=display:flex><span>                result <span style=color:#f92672>=</span> CONNECTION_POOL.<span style=color:#a6e22e>remove</span>(0);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>            e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 关闭指定的Connection连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param connection 指定的Connection连接实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>closeConnection</span>(Connection connection) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (connection <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 若当前CONNECTION_POOL中连接数量达到最大，则直接关闭新来的连接</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (CONNECTION_POOL.<span style=color:#a6e22e>size</span>() <span style=color:#f92672>==</span> connectionSize) {
+</span></span><span style=display:flex><span>                    connection.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>                } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 若当前CONNECTION_POOL中仍有空余位置，则回收新来的连接</span>
+</span></span><span style=display:flex><span>                    CONNECTION_POOL.<span style=color:#a6e22e>add</span>(connection);
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>            e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发测试方法 <code>DataSourceTest -> propertiesFile()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>propertiesFile</span>() {
+</span></span><span style=display:flex><span>    com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v3</span>.<span style=color:#a6e22e>DataSource</span> dataSource <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> com.<span style=color:#a6e22e>lsx</span>.<span style=color:#a6e22e>jdbc</span>.<span style=color:#a6e22e>v3</span>.<span style=color:#a6e22e>DataSource</span>();
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>    dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch02-jdbc封装模板>CH02. JDBC封装模板</h1><blockquote><p>心法: JDBC封装模板类 <code>JdbcTemplate</code></p></blockquote><ul><li>JdbcTemplate模板类用于发送各种类型的SQL语句，需要注入据源类。</li></ul><blockquote><p>武技: 开发JDBC封装模板类</p></blockquote><ol><li>开发JDBC模板类 <code>JdbcTemplate</code>:<ul><li>注入 <code>DataSource</code> 类: 这里可以使用工厂模式。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.jdbc;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JdbcTemplate</span> {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**数据源*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> JdbcTemplate jdbcTemplate <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> JdbcTemplate();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep01-ddl执行方法>EP01. DDL执行方法</h2><blockquote><p>武技: 开发执行DDL语句的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> execute()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 执行DDL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 仅当返回结果的类型是ResultSet时返回true
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>execute</span>(String sql) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>boolean</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    Statement statement <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Connection连接实例</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Statement媒介实例，用于发送SQL，执行SQL并带回结果</span>
+</span></span><span style=display:flex><span>        statement <span style=color:#f92672>=</span> connection.<span style=color:#a6e22e>createStatement</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将SQL发送到数据库执行，仅当返回结果的类型是ResultSet时返回true</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> statement.<span style=color:#a6e22e>execute</span>(sql);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序关闭媒介实例和连接实例，以节省资源</span>
+</span></span><span style=display:flex><span>        closeStatement(statement);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 关闭一个Statement媒介
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param statement Statement媒介
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>closeStatement</span>(Statement statement) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (statement <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            statement.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (Exception e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>JdbcTemplateTest -> execute()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>execute</span>() {
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>execute</span>(<span style=color:#e6db74>&#34;create table jdbc.jdbc_test_table (&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;username varchar(50), password varchar(50))&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;创建完毕&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-dml操作方法>EP02. DML操作方法</h2><blockquote><p>武技: 开发执行DML语句的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> update()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 执行DML语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql    SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>update</span>(String sql, Object... params) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>1;
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    PreparedStatement prepareStatement <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Connection连接实例</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取PrepareStatement媒介实例，该媒介类型支持动态绑定问号</span>
+</span></span><span style=display:flex><span>        prepareStatement <span style=color:#f92672>=</span> connection.<span style=color:#a6e22e>prepareStatement</span>(sql);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将SQL发送到数据库，执行，并带回int结果</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> sendSqlAndGetInt(prepareStatement, params);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序关闭媒介实例和连接实例，以节省资源</span>
+</span></span><span style=display:flex><span>        closeStatement(prepareStatement);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 将DML类型的SQL发送到数据库并执行，并返回int结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param prepareStatement SQL媒介实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params           SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>sendSqlAndGetInt</span>(PreparedStatement prepareStatement, Object... params)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throws</span> SQLException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 为SQL中的第i个问号赋值o，i从1开始</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> params.<span style=color:#a6e22e>length</span>; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        prepareStatement.<span style=color:#a6e22e>setObject</span>(i <span style=color:#f92672>+</span> 1, params<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 将SQL发送到数据库，执行，并带回int结果</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> prepareStatement.<span style=color:#a6e22e>executeUpdate</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>JdbcTemplateTest -> update()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>() {
+</span></span><span style=display:flex><span>    String sql;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 测试DML插入操作</span>
+</span></span><span style=display:flex><span>    sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table (username, password) values (?, ?)&#34;</span>;
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, <span style=color:#e6db74>&#34;测试账号&#34;</span>, <span style=color:#e6db74>&#34;测试密码&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加完毕&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 测试DML修改操作</span>
+</span></span><span style=display:flex><span>    sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;update jdbc.jdbc_test_table set password = ? where username = ?&#34;</span>;
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, <span style=color:#e6db74>&#34;测试密码2&#34;</span>, <span style=color:#e6db74>&#34;测试账号&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;修改完毕&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 测试DML删除操作</span>
+</span></span><span style=display:flex><span>    sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;delete from jdbc.jdbc_test_table where password = ?&#34;</span>;
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>update</span>(sql, <span style=color:#e6db74>&#34;测试密码2&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;删除完毕&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-dml批量处理>EP03. DML批量处理</h2><blockquote><p>武技: 开发批处理同类型SQL的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> batchUpdate(String sql, Object[]... params)</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 执行批量相同SQL的DML语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql    SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> <span style=color:#a6e22e>batchUpdate</span>(String sql, Object<span style=color:#f92672>[]</span>... params) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    PreparedStatement prepareStatement <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Connection连接实例</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭连接实例 `connection` 的自动提交属性</span>
+</span></span><span style=display:flex><span>        connection.<span style=color:#a6e22e>setAutoCommit</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取PrepareStatement媒介实例，该媒介类型支持动态绑定问号</span>
+</span></span><span style=display:flex><span>        prepareStatement <span style=color:#f92672>=</span> connection.<span style=color:#a6e22e>prepareStatement</span>(sql);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将所有SQL语句发送到数据库，执行并返回int[]类型的结果</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> sendSqlAndGetIntArray(prepareStatement, params);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 提交</span>
+</span></span><span style=display:flex><span>        connection.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 回滚</span>
+</span></span><span style=display:flex><span>            connection.<span style=color:#a6e22e>rollback</span>();
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e1) { e1.<span style=color:#a6e22e>printStackTrace</span>(); }
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将自动提交属性还原</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (connection <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>                connection.<span style=color:#a6e22e>setAutoCommit</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e) { e.<span style=color:#a6e22e>printStackTrace</span>(); }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序关闭媒介实例和连接实例，以节省资源</span>
+</span></span><span style=display:flex><span>        closeStatement(prepareStatement);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 将DML类型的SQL发送到数据库并执行，并返回int[]结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param prepareStatement SQL媒介实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params           SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> <span style=color:#a6e22e>sendSqlAndGetIntArray</span>(PreparedStatement prepareStatement, Object<span style=color:#f92672>[]</span>... params)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throws</span> SQLException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 为SQL中的第i个问号赋值o，i从1开始</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (Object<span style=color:#f92672>[]</span> param : params) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> param.<span style=color:#a6e22e>length</span>; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            prepareStatement.<span style=color:#a6e22e>setObject</span>(i <span style=color:#f92672>+</span> 1, param<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将拼装完整的SQL语句加入到预执行区域，等待批处理</span>
+</span></span><span style=display:flex><span>        prepareStatement.<span style=color:#a6e22e>addBatch</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 将预执行区域中的所有SQL语句发送到数据库，执行并返回int[]类型的结果</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> prepareStatement.<span style=color:#a6e22e>executeBatch</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发方法 <code>JdbcTemplate -> batchUpdate(String... sqls)</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 执行批量不同SQL的DML语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sqls SQL语句数组，需要调用方自行拼装参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> <span style=color:#a6e22e>batchUpdate</span>(String... sqls) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    Statement statement <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Connection连接实例</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭连接实例 `connection` 的自动提交属性</span>
+</span></span><span style=display:flex><span>        connection.<span style=color:#a6e22e>setAutoCommit</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Statement媒介实例</span>
+</span></span><span style=display:flex><span>        statement <span style=color:#f92672>=</span> connection.<span style=color:#a6e22e>createStatement</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将所有SQL语句发送到数据库，执行并返回int[]类型的结果</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> sendSqlAndGetIntArray(statement, sqls);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 提交</span>
+</span></span><span style=display:flex><span>        connection.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 回滚</span>
+</span></span><span style=display:flex><span>            connection.<span style=color:#a6e22e>rollback</span>();
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e1) { e1.<span style=color:#a6e22e>printStackTrace</span>(); }
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (connection <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 恢复自动提交</span>
+</span></span><span style=display:flex><span>                connection.<span style=color:#a6e22e>setAutoCommit</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (SQLException e) { e.<span style=color:#a6e22e>printStackTrace</span>(); }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序关闭媒介实例和连接实例，以节省资源</span>
+</span></span><span style=display:flex><span>        closeStatement(statement);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 将DML类型的SQL发送到数据库并执行，并返回int[]结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param statement SQL媒介实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sqls      SQL数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> <span style=color:#a6e22e>sendSqlAndGetIntArray</span>(Statement statement, String... sqls)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throws</span> SQLException {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (String sql : sqls) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历SQL语句并分别加入到预执行区域，等待批处理</span>
+</span></span><span style=display:flex><span>        statement.<span style=color:#a6e22e>addBatch</span>(sql);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 将预执行区域中的所有SQL语句发送到数据库，执行并返回int[]类型的结果</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> statement.<span style=color:#a6e22e>executeBatch</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发测试方法 <code>JdbcTemplateTest -> batchUpdate()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>batchUpdate</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 测试相同SQL的批处理</span>
+</span></span><span style=display:flex><span>    String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table values (?, ?)&#34;</span>;
+</span></span><span style=display:flex><span>    Object<span style=color:#f92672>[][]</span> params <span style=color:#f92672>=</span> {{<span style=color:#e6db74>&#34;张三账号&#34;</span>, <span style=color:#e6db74>&#34;张三密码&#34;</span>}, {<span style=color:#e6db74>&#34;李四账号&#34;</span>, <span style=color:#e6db74>&#34;李四密码&#34;</span>}};
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>batchUpdate</span>(sql, params);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加完毕&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 测试不同SQL的批处理</span>
+</span></span><span style=display:flex><span>    String<span style=color:#f92672>[]</span> sqls <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table values (&#39;赵四&#39;, &#39;zs&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table values (&#39;刘能&#39;, &#39;ln&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table values (&#39;长贵&#39;, &#39;cg&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;insert into jdbc.jdbc_test_table values (&#39;广坤&#39;, &#39;gk&#39;)&#34;</span>,
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>batchUpdate</span>(sqls);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加完毕&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-dql多查方法>EP04. DQL多查方法</h2><blockquote><p>武技: 开发执行DQL语句查多条的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> selectForList()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 查询多条数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql    SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 结果集
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>selectForList</span>(String sql, Object... params) {
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>    Connection connection <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    PreparedStatement prepareStatement <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    ResultSet resultSet <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取Connection连接实例</span>
+</span></span><span style=display:flex><span>        connection <span style=color:#f92672>=</span> dataSource.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取PrepareStatement媒介实例，该媒介类型支持动态绑定问号</span>
+</span></span><span style=display:flex><span>        prepareStatement <span style=color:#f92672>=</span> connection.<span style=color:#a6e22e>prepareStatement</span>(sql);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将SQL发送到数据库，执行，并带回ResultSet结果集</span>
+</span></span><span style=display:flex><span>        resultSet <span style=color:#f92672>=</span> sendSqlAndGetResultSet(prepareStatement, params);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将ResultSet结果集转化为 `List&lt;Map&gt;` 结构</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> resultSetToList(resultSet);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) {
+</span></span><span style=display:flex><span>        e.<span style=color:#a6e22e>printStackTrace</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>finally</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序关闭结果集实例，媒介实例和连接实例，以节省资源</span>
+</span></span><span style=display:flex><span>        closeResultSet(resultSet);
+</span></span><span style=display:flex><span>        closeStatement(prepareStatement);
+</span></span><span style=display:flex><span>        dataSource.<span style=color:#a6e22e>closeConnection</span>(connection);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 将DML类型的SQL发送到数据库并执行，并返回ResultSet结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param prepareStatement SQL媒介实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params           SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> ResultSet <span style=color:#a6e22e>sendSqlAndGetResultSet</span>(PreparedStatement prepareStatement, Object... params)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throws</span> SQLException {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 为SQL中的第i个问号赋值o，i从1开始</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> params.<span style=color:#a6e22e>length</span>; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        prepareStatement.<span style=color:#a6e22e>setObject</span>(i <span style=color:#f92672>+</span> 1, params<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 将SQL发送到数据库，执行，并带回ResultSet结果集</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> prepareStatement.<span style=color:#a6e22e>executeQuery</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 将ResultSet结果集转化为List结果集
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param resultSet ResultSet结果集实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return List结果集，泛型为Map类型
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> <span style=color:#a6e22e>resultSetToList</span>(ResultSet resultSet)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throws</span> SQLException {
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> resultList <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取元数据</span>
+</span></span><span style=display:flex><span>    ResultSetMetaData metaData <span style=color:#f92672>=</span> resultSet.<span style=color:#a6e22e>getMetaData</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取结果集的总列数</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> columnCount <span style=color:#f92672>=</span> metaData.<span style=color:#a6e22e>getColumnCount</span>();
+</span></span><span style=display:flex><span>    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> tempMap;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 遍历每一行</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (resultSet.<span style=color:#a6e22e>next</span>()) {
+</span></span><span style=display:flex><span>        tempMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(columnCount);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历每一列: 数据库的列从1开始</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 1; i <span style=color:#f92672>&lt;=</span> columnCount; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 获取第i个列的列名，i从1开始</span>
+</span></span><span style=display:flex><span>            String columnName <span style=color:#f92672>=</span> metaData.<span style=color:#a6e22e>getColumnName</span>(i);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 通过列名获取对应的值</span>
+</span></span><span style=display:flex><span>            Object value <span style=color:#f92672>=</span> resultSet.<span style=color:#a6e22e>getObject</span>(columnName);
+</span></span><span style=display:flex><span>            tempMap.<span style=color:#a6e22e>put</span>(columnName, value);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        resultList.<span style=color:#a6e22e>add</span>(tempMap);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> resultList;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 关闭一个ResultSet媒介
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param resultSet ResultSet媒介
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>closeResultSet</span>(ResultSet resultSet) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (resultSet <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) { resultSet.<span style=color:#a6e22e>close</span>(); }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (SQLException e) { e.<span style=color:#a6e22e>printStackTrace</span>(); }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>JdbcTemplateTest -> selectForList()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectForList</span>() {
+</span></span><span style=display:flex><span>    String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select j.username, j.password from jdbc.jdbc_test_table j&#34;</span>;
+</span></span><span style=display:flex><span>    jdbcTemplate.<span style=color:#a6e22e>selectForList</span>(sql).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-dql单查方法>EP05. DQL单查方法</h2><blockquote><p>武技: 开发执行DQL语句查一条的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> selectForMap()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 查询单条数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql    SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 结果集
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectForMap</span>(String sql, Object... params) {
+</span></span><span style=display:flex><span>    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(10);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 直接调用JDBC中查询多条的方法，并进行空值保护</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;&gt;</span> list <span style=color:#f92672>=</span> selectForList(sql, params);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (list <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>list.<span style=color:#a6e22e>isEmpty</span>()) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 取出List类型的结果集中唯一的一条记录，并返回</span>
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> list.<span style=color:#a6e22e>get</span>(0);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>JdbcTemplateTest -> selectForMap()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSelectForMap</span>() {
+</span></span><span style=display:flex><span>    String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select j.username, j.password from jdbc.jdbc_test_table j &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;where j.username = ?&#34;</span>;
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(jdbcTemplate.<span style=color:#a6e22e>selectForMap</span>(sql, <span style=color:#e6db74>&#34;赵四&#34;</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-dql计数方法>EP06. DQL计数方法</h2><blockquote><p>武技: 开发执行DQL语句查结果集数量的方法</p></blockquote><ol><li>开发方法 <code>JdbcTemplate -> selectForInt()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 查询记录数量
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param sql    SQL语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param params SQL参数数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 记录数量
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>selectForInt</span>(String sql, Object... params) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>1;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 直接调用JDBC中查询单条的方法，得到Map型结果集</span>
+</span></span><span style=display:flex><span>    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> selectForMap(sql, params);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (String key : map.<span style=color:#a6e22e>keySet</span>()) {
+</span></span><span style=display:flex><span>        Object value <span style=color:#f92672>=</span> map.<span style=color:#a6e22e>get</span>(key);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (value <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 通过Map型结果集中唯一的key值获取对应的值，强转为int型并返回</span>
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>parseInt</span>(value.<span style=color:#a6e22e>toString</span>());
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>JdbcTemplateTest -> selectForInt()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectForInt</span>() {
+</span></span><span style=display:flex><span>    String sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select count(*) from jdbc.jdbc_test_table&#34;</span>;
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(jdbcTemplate.<span style=color:#a6e22e>selectForInt</span>(sql));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

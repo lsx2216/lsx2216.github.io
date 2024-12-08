@@ -1,0 +1,113 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB4-8-其他服务</title>
+<meta name=description content="[!NOTE] Java道经第4卷 - 第8阶 - 其他服务 lesson-monitor
+S01. 开发监控服务 武技: 创建子项目 lesson-monitor 做为监控服务子项目
+E01. 开发监控服务端 1. 第三方依赖 pom.xml
+&amp;lt;!--spring-boot-admin-server--&amp;gt; …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC4%E9%98%B6%E6%AE%B5-LESSON/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/"><meta property="og:type" content="website"><meta property="og:title" content="JB4-8-其他服务"><meta property="og:description" content="[!NOTE] Java道经第4卷 - 第8阶 - 其他服务 lesson-monitor
+S01. 开发监控服务 武技: 创建子项目 lesson-monitor 做为监控服务子项目
+E01. 开发监控服务端 1. 第三方依赖 pom.xml
+&amp;lt;!--spring-boot-admin-server--&amp;gt; …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB4-8-其他服务"><meta name=twitter:description content="[!NOTE] Java道经第4卷 - 第8阶 - 其他服务 lesson-monitor
+S01. 开发监控服务 武技: 创建子项目 lesson-monitor 做为监控服务子项目
+E01. 开发监控服务端 1. 第三方依赖 pom.xml
+&amp;lt;!--spring-boot-admin-server--&amp;gt; …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC4%E9%98%B6%E6%AE%B5-LESSON/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC4%E9%98%B6%E6%AE%B5-LESSON/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC4%E9%98%B6%E6%AE%B5-LESSON/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/JB4-8-%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB4-8-其他服务</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第4卷 - 第8阶 - 其他服务
+lesson-monitor</p></blockquote><h1 id=s01-开发监控服务>S01. 开发监控服务</h1><blockquote><p>武技: 创建子项目 <code>lesson-monitor</code> 做为监控服务子项目</p></blockquote><h2 id=e01-开发监控服务端>E01. 开发监控服务端</h2><h3 id=1-第三方依赖>1. 第三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-admin-server--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>de.codecentric<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-admin-server<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>2.2.4<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-admin-server-ui--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>de.codecentric<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-admin-server-ui<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>2.2.4<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项>2. 开发主配项</h3><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>############################# App ##############################  </span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#端口号，项目名，管控台账号，管控台密码#  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>server.port</span><span style=color:#f92672>=</span><span style=color:#e6db74>5002  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.application.name</span><span style=color:#f92672>=</span><span style=color:#e6db74>lesson-monitor  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.security.user.name</span><span style=color:#f92672>=</span><span style=color:#e6db74>monitor  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.security.user.password</span><span style=color:#f92672>=</span><span style=color:#e6db74>monitor</span>
+</span></span></code></pre></div><h3 id=3-开发启动类>3. 开发启动类</h3><p>`com.lsx.LessonMonitorApp</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@EnableAdminServer</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LessonMonitorApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(LessonMonitorApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e02-开发监控客户端>E02. 开发监控客户端</h2><blockquote><p>武技: 使用子项目 <code>lesson-admin</code> 和 <code>lesson-server</code> 做为监控客户端</p></blockquote><h3 id=1-第三方依赖-1>1. 第三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-admin-starter-client--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>de.codecentric<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-admin-starter-client<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>2.2.4<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项-1>2. 开发主配项</h3><p><code>classpath:application.properties</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>############################# SpringBootAdmin ##############################  </span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#客户端地址，服务端地址，使用IP地址，账号，密码，暴露所有端点，展示health端点详情#  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.boot.admin.client.instance.service-base-url</span><span style=color:#f92672>=</span><span style=color:#e6db74>http://localhost:5266  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.boot.admin.client.url</span><span style=color:#f92672>=</span><span style=color:#e6db74>http://localhost:5002  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.boot.admin.client.instance.prefer-ip</span><span style=color:#f92672>=</span><span style=color:#e6db74>true  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.boot.admin.client.username</span><span style=color:#f92672>=</span><span style=color:#e6db74>monitor  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.boot.admin.client.password</span><span style=color:#f92672>=</span><span style=color:#e6db74>monitor  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>management.endpoints.web.exposure.include</span><span style=color:#f92672>=</span><span style=color:#e6db74>*  </span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>management.endpoint.health.show-details</span><span style=color:#f92672>=</span><span style=color:#e6db74>always</span>
+</span></span></code></pre></div><h3 id=3-测试客户端>3. 测试客户端</h3><ol><li>启动用户后台服务和监控服务，<a href=http://localhost:5002>访问监控管控台</a>。</li><li>在应用墙中查看监控的项目，在监控界面的 <code>Insights -> 细节</code> 右侧查看。</li></ol><h2 id=e03-部署监控服务>E03. 部署监控服务</h2><blockquote><p>武技：在Docker中部署 <code>lesson-monitor</code> 项目</p></blockquote><h3 id=1-打包项目>1. 打包项目</h3><ol><li>将主配中的全部IP地址由 <code>localhost</code> 改为 <code>192.168.40.77</code> 虚拟机地址。</li><li>在子项目 <code>lesson-monitor</code> 中添加打包插件：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--项目打包--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;build&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--最终Jar包名--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;finalName&gt;</span>lesson-monitor<span style=color:#f92672>&lt;/finalName&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;plugins&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--SpringBoot打包插件--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;plugin&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;version&gt;</span>2.4.8<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--配置启动类--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;mainClass&gt;</span>com.lsx.LessonMonitorApp<span style=color:#f92672>&lt;/mainClass&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/configuration&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--打包本项目全部依赖包到最终Jar包内--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;executions&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;execution&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;goals&gt;</span>
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&lt;goal&gt;</span>repackage<span style=color:#f92672>&lt;/goal&gt;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&lt;/goals&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;/execution&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/executions&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/plugin&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/plugins&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/build&gt;</span>
+</span></span></code></pre></div><ol start=3><li>打包父项目（然后打包子项目）：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># 打包父项目</span>
+</span></span><span style=display:flex><span>cd D:\workspace\java\lesson-project
+</span></span><span style=display:flex><span>mvn clean install -Dmaven.test.skip=true
+</span></span></code></pre></div><h3 id=2-创建容器>2. 创建容器</h3><ol><li>创建相关目录：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建相关目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/app/lesson/lesson-monitor;
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/app/lesson;
+</span></span></code></pre></div><ol start=2><li>将Jar包 <code>lesson-monitor.jar</code> 拷贝到 <code>/opt/app/lesson/lesson-monitor</code> 目录中。</li><li>创建DockerFile：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 开发节点的Dockerfile文件</span>
+</span></span><span style=display:flex><span>cd /opt/app/lesson/lesson-monitor;
+</span></span><span style=display:flex><span>touch Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;FROM openjdk:11&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;MAINTAINER lsx&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;ADD lesson-monitor.jar lesson-monitor.jar&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;EXPOSE 5002&#39;</span> &gt;&gt; Dockerfile;
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;CMD [&#34;nohup&#34;, &#34;java&#34;, &#34;-jar&#34;, &#34;lesson-monitor.jar&#34;, &#34;&amp;&#34;]&#39;</span> &gt;&gt; Dockerfile;
+</span></span></code></pre></div><ol start=4><li>构建镜像：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 根据Dockerfile文件制作镜像: 必须在Dockerfile文件同级目录下</span>
+</span></span><span style=display:flex><span>docker build -t lesson-monitor:v1.0 .
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看镜像</span>
+</span></span><span style=display:flex><span>docker images
+</span></span></code></pre></div><ol start=5><li>创建容器：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行节点容器</span>
+</span></span><span style=display:flex><span>docker run --name lesson-monitor --network my-net -p 5002:5002 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>	-e TZ<span style=color:#f92672>=</span>Asia/Shanghai <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>	-d lesson-monitor:v1.0;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看节点容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久开放5055端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>5002/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><ol start=6><li>在Windows机器上 <a href=http://192.168.40.77:5002>监控服务</a></li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

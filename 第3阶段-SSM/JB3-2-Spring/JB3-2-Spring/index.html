@@ -1,0 +1,805 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-2-Spring</title>
+<meta name=description content="[!NOTE] Java道经第3卷 - 第2阶 - Spring v3-2-ssm-spring
+S01. Spring基础入门 心法: Spring
+Spring是2003年兴起的一个轻量级的Java开源框架，用于管理MVC架构中的控制层和模型层，它提供了一组强大的功能和工具，使得开发者能够更加容易地构建高效、可维护 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/JB3-2-Spring/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-2-Spring"><meta property="og:description" content="[!NOTE] Java道经第3卷 - 第2阶 - Spring v3-2-ssm-spring
+S01. Spring基础入门 心法: Spring
+Spring是2003年兴起的一个轻量级的Java开源框架，用于管理MVC架构中的控制层和模型层，它提供了一组强大的功能和工具，使得开发者能够更加容易地构建高效、可维护 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-2-Spring"><meta name=twitter:description content="[!NOTE] Java道经第3卷 - 第2阶 - Spring v3-2-ssm-spring
+S01. Spring基础入门 心法: Spring
+Spring是2003年兴起的一个轻量级的Java开源框架，用于管理MVC架构中的控制层和模型层，它提供了一组强大的功能和工具，使得开发者能够更加容易地构建高效、可维护 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/JB3-2-Spring/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/JB3-2-Spring/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/JB3-2-Spring/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-2-Spring</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第3卷 - 第2阶 - Spring
+v3-2-ssm-spring</p></blockquote><h1 id=s01-spring基础入门>S01. Spring基础入门</h1><blockquote><p>心法: <a href=https://repo.spring.io/release/org/springframework/spring>Spring</a></p></blockquote><ul><li>Spring是2003年兴起的一个轻量级的Java开源框架，用于管理MVC架构中的控制层和模型层，它提供了一组强大的功能和工具，使得开发者能够更加容易地构建高效、可维护和可扩展的 Java 应用程序，核心包括:<ul><li>SpringCore模块：提供了IOC和DI的支持，用于管理对象以及对象间的依赖关系。</li><li>SpringAOP模块：提供了AOP的支持，用于解耦业务代码和切面代码。</li><li>SpringContext模块：提供了BeanFactory的功能，是核心模块的拓展。</li><li>SpringJDBC模块：提供了JDBC的支持，用于访问和操作数据库。</li><li>SpringORM模块：提供了对ORM框架的支持，如Mybatis、JPA等。</li><li>SpringWeb模块：提供构建Web应用所需的各种特性和工具，如SpringMVC，Servlet等。</li><li>SpringTest模块：提供了对单元测试和集成测试的支持，如JUnit等。</li></ul></li><li>Spring支持基于XML的配置，基于注解的配置和基于纯Java的配置这三种开发方式。</li><li>Spring中使用到了大量的设计模式：</li></ul><table><thead><tr><th>设计模式</th><th>描述</th></tr></thead><tbody><tr><td>代理模式</td><td>AOP中使用到了CGLIB动态代理</td></tr><tr><td>单例模式</td><td>Spring配置文件中定义的bean默认为单例模式</td></tr><tr><td>模板方法</td><td>用来解决代码重复的问题，如RestTemplate, JmsTemplate, JpaTemplate等</td></tr><tr><td>工厂模式</td><td>Spring通过BeanFactory或ApplicationContext等容器来创建和管理Bean对象</td></tr></tbody></table><h2 id=e01-spring基础配通>E01. Spring基础配通</h2><blockquote><p>武技: 在 <code>v3-2-ssm-spring</code> 子项目中整合Spring框架</p></blockquote><h3 id=1-引入相关依赖>1. 引入相关依赖</h3><ol><li>在父项目中锁定版本:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;junit-version&gt;</span>4.13.2<span style=color:#f92672>&lt;/junit-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;hutool-version&gt;</span>5.8.14<span style=color:#f92672>&lt;/hutool-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-version&gt;</span>5.2.15.RELEASE<span style=color:#f92672>&lt;/spring-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${junit-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${hutool-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-context-support--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-context-support<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中添加依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-context-support--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-context-support<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发配置文件>2. 开发配置文件</h3><ol><li>开发Spring主配文件：</li></ol><p><code>classpath:spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;beans</span> <span style=color:#a6e22e>xmlns=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/beans&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xmlns:xsi=</span><span style=color:#e6db74>&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xmlns:aop=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/aop&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xsi:schemaLocation=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/beans
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          http://www.springframework.org/schema/beans/spring-beans.xsd
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          http://www.springframework.org/schema/aop
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          https://www.springframework.org/schema/aop/spring-aop.xsd&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/beans&gt;</span>
+</span></span></code></pre></div><h1 id=s02-spring控制反转>S02. Spring控制反转</h1><h2 id=e01-控制反转ioc>E01. 控制反转IOC</h2><blockquote><p>心法: Spring控制反转 <code>Inversion Of Control</code>，简称IOC</p></blockquote><ul><li>Spring控制反转就是将bean实例的创建，初始化，实例化，销毁等实例生命周期过程交给Spring容器管理:<ul><li>IOC的最终目的是解决手动new实例时，侵入性和耦合度双高的问题。</li><li>IOC大部分功能来自于 <code>org.springframework.beans</code> 和 <code>org.springframework.context</code> 包。</li></ul></li><li>在Spring主配中，使用 <code>&lt;bean></code> 标签来IOC管理某个Java类，但无法管理接口。</li></ul><h3 id=1-构造器创建bean>1. 构造器创建Bean</h3><blockquote><p>心法: bean标签相关属性</p></blockquote><table><thead><tr><th><code>&lt;bean></code> 属性</th><th>描述</th><th>可省略？</th><th>可重复？</th><th>示例</th></tr></thead><tbody><tr><td><code>id</code></td><td>bean标签唯一标识，一般为类名小写</td><td>可以</td><td>不可，运行会报错</td><td><code>&lt;bean id="dog"></code></td></tr><tr><td><code>name</code></td><td>bean标签名称</td><td>可以</td><td>不可，运行会报错</td><td><code>&lt;bean name="jiaFei"></code></td></tr><tr><td><code>class</code></td><td>bean标签对应Java类的类全名</td><td>不可</td><td>不可，运行会报错</td><td><code>&lt;bean class="com.xxx.Dog"></code></td></tr></tbody></table><blockquote><p>武技: 使用构造器的方式测试 IOC 控制反转</p></blockquote><ol><li>开发实体类 <code>Cat</code>:</li></ol><p><code>com.lsx.entity.Cat</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Cat</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Cat()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>管理实体类：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Cat实例--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;cat&#34;</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;JiaFeiMao&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Cat&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试实体类：</li></ol><p><code>spring.SpringTest -> cat()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SpringTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>cat</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 造鱼缸: 创建Spring容器，需要读取主配，可省略 `classpath:` 前缀</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// BeanFactory是ClassPathXmlApplicationContext的顶级接口</span>
+</span></span><span style=display:flex><span>        BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;classpath:spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 捞鱼: 通过ID值/Name值/Class值从Spring容器中获取bean实例</span>
+</span></span><span style=display:flex><span>        Cat cat01 <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(<span style=color:#e6db74>&#34;cat&#34;</span>, Cat.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        Cat cat02 <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(<span style=color:#e6db74>&#34;JiaFeiMao&#34;</span>, Cat.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        Cat cat03 <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Cat.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 用鱼: 调用bean实例方法</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;byId: &#34;</span> <span style=color:#f92672>+</span> cat01);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;byName: &#34;</span> <span style=color:#f92672>+</span> cat02);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;byClass: &#34;</span> <span style=color:#f92672>+</span> cat03);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 砸鱼缸  </span>
+</span></span><span style=display:flex><span>		((ClassPathXmlApplicationContext)beanFactory).<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-静态工厂创建bean>2. 静态工厂创建Bean</h3><blockquote><p>心法: 静态工厂创建Bean</p></blockquote><ul><li>Spring支持使用静态工厂的方式创建Bean，可调用有参构造器且无需额外管理工厂类，但效率比无参构造的方式低，且线程不安全。</li><li>该方案需要在 bean 标签中额外使用 <code>factory-method</code> 属性指定工厂方法的名称。</li></ul><blockquote><p>武技: 使用静态工厂测试 IOC 控制反转</p></blockquote><ol><li>开发实体类 <code>Mouse</code>:</li></ol><p><code>com.lsx.entity.Mouse</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Mouse</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String mouseName;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Mouse</span>(String mouseName) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>mouseName</span> <span style=color:#f92672>=</span> mouseName;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Mouse(String mouseName)&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发静态工厂类 <code>MouseFactory</code>:</li></ol><p><code>com.lsx.factory.MouseFactory</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MouseFactory</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>MouseFactory</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: MouseFactory()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 静态方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Mouse <span style=color:#a6e22e>getInstance</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Mouse(<span style=color:#e6db74>&#34;Mickey&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>管理实体类 <code>Mouse</code>:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Mouse实例: 使用静态工厂模式--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;mouse&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.factory.MouseFactory&#34;</span> <span style=color:#a6e22e>factory-method=</span><span style=color:#e6db74>&#34;getInstance&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试：</li></ol><p><code>spring.SpringTest -> mouse()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>mouse</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory  <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beanFactory.<span style=color:#a6e22e>getBean</span>(Mouse.<span style=color:#a6e22e>class</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-实例工厂创建bean>3. 实例工厂创建Bean</h3><blockquote><p>心法: 实例工厂创建Bean</p></blockquote><ul><li>Spring支持使用实例工厂的方式创建Bean，可调用有参构造器且线程安全，但效率最低，且需要额外管理工厂类。</li><li>该方案需要在额外配置实例工厂，然后：<ul><li>使用 <code>factory-bean</code> 属性指定工厂bean的ID。</li><li>使用 <code>factory-method</code> 属性指定工厂方法的名称。</li></ul></li></ul><blockquote><p>武技: 使用实例工厂测试 IOC 控制反转</p></blockquote><ol><li>开发实体类 <code>Tiger</code>:</li></ol><p><code>com.lsx.entity.Tiger</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Tiger</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String tigerName;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Tiger</span>(String tigerName) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>tigerName</span> <span style=color:#f92672>=</span> tigerName;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Tiger(String tigerName)&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发实例工厂类 <code>TigerFactory</code>:</li></ol><p><code>com.lsx.factory.TigerFactory</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TigerFactory</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>TigerFactory</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: TigerFactory()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Tiger <span style=color:#a6e22e>getInstance</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Tiger(<span style=color:#e6db74>&#34;PeiQinHu&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>管理实体类 <code>Tiger</code> 和实例工厂 <code>TigerFactory</code>：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Tiger实例工厂--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;tigerFactory&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.factory.TigerFactory&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Tiger实例: 使用实例工厂模式--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;tiger&#34;</span> <span style=color:#a6e22e>factory-bean=</span><span style=color:#e6db74>&#34;tigerFactory&#34;</span> <span style=color:#a6e22e>factory-method=</span><span style=color:#e6db74>&#34;getInstance&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试：</li></ol><p><code>spring.SpringTest -> tiger()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>tiger</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory  <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beanFactory.<span style=color:#a6e22e>getBean</span>(Tiger.<span style=color:#a6e22e>class</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e02-依赖注入di>E02. 依赖注入DI</h2><h3 id=1-属性注入>1. 属性注入</h3><blockquote><p>心法: Spring依赖注入 <code>Depend Injection</code>，简称 DI</p></blockquote><ul><li>Spring依赖注入就是在IOC创建实例时，向实例的成员属性，构造器参数等进行注值的过程。</li><li>Spring依赖注入拥有属性字段注入，构造器注入，Setter方法注入等多种实现方式。</li></ul><table><thead><tr><th>DI相关标签</th><th>父标签</th><th>DI的具体对象</th></tr></thead><tbody><tr><td><code>&lt;constructor-arg index="索引" name="名" value="值"></code></td><td><code>&lt;bean></code></td><td>构造器参数</td></tr><tr><td><code>&lt;property name="名" value="值"></code></td><td><code>&lt;bean></code></td><td>String型成员属性</td></tr><tr><td><code>&lt;property name="名" ref="另一个bean标签的ID值"></code></td><td><code>&lt;bean></code></td><td>bean实例型成员属性</td></tr><tr><td><code>&lt;array>/&lt;list>/&lt;set> -> &lt;value>值&lt;/value></code></td><td><code>&lt;property name="名"></code></td><td>Array/List/Set型成员属性</td></tr><tr><td><code>&lt;map> -> &lt;entry key="键" value="值"/></code></td><td><code>&lt;property name="名"></code></td><td>Map型成员属性</td></tr><tr><td><code>&lt;props> -> &lt;prop key="名">值&lt;/prop></code></td><td><code>&lt;property name="名"></code></td><td>Properties型成员属性</td></tr></tbody></table><blockquote><p>武技: 测试SpringDI依赖注入</p></blockquote><ol><li>开发实体类 <code>Dog</code>:</li></ol><p><code>com.lsx.entity.Dog</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Dog</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String dogName;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer dogAge;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> hobby;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Cat catFriend;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String gender;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String breeds;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Dog</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Dog()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Dog</span>(String gender, String breeds) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Dog(String gender, String breeds)&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>gender</span> <span style=color:#f92672>=</span> gender;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>breeds</span> <span style=color:#f92672>=</span> breeds;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>管理实体类：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Dog实例--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;dog&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Dog&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;constructor-arg</span> <span style=color:#a6e22e>index=</span><span style=color:#e6db74>&#34;0&#34;</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;gender&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;公&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;constructor-arg</span> <span style=color:#a6e22e>index=</span><span style=color:#e6db74>&#34;1&#34;</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;breeds&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;金毛&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;dogName&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;欧迪&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;dogAge&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;5&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;hobby&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;list&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;value&gt;</span>抽烟<span style=color:#f92672>&lt;/value&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;value&gt;</span>喝酒<span style=color:#f92672>&lt;/value&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;value&gt;</span>烫头<span style=color:#f92672>&lt;/value&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/list&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/property&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;catFriend&#34;</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;cat&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/bean&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试实体类：</li></ol><p><code>spring.SpringTest -> dog()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>dog</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>	BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 捞鱼: 通过Class值从Spring容器中获取bean实例</span>
+</span></span><span style=display:flex><span>	System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beanFactory.<span style=color:#a6e22e>getBean</span>(Dog.<span style=color:#a6e22e>class</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-循环依赖>2. 循环依赖</h3><blockquote><p>心法: 依赖注入过程中的循环依赖问题</p></blockquote><ul><li>在Spring容器中，若A实例中包含B属性，B实例中包含A属性，则会产生循环依赖的问题。</li><li>Spring中默认使用三级缓存架构来解决属性的循环依赖问题，但注意:<ul><li>三级缓存架构可以解决属性注入的循环依赖问题，但无法解决构造器注入的循环依赖问题。</li><li>三级缓存架构可以解决单例Bean的循环依赖问题，但无法解决原型Bean的循环依赖问题。</li></ul></li></ul><table><thead><tr><th>缓存级别</th><th>名称</th><th>缓存内容</th></tr></thead><tbody><tr><td>三级缓存</td><td><code>singletonFactories</code></td><td>缓存单例工厂对象，是专门用于处理循环依赖的临时缓存</td></tr><tr><td>二级缓存</td><td><code>earlySingletonObjects</code></td><td>缓存半成品单例对象，即已经实例化完毕，但尚未赋值和初始化的对象是专门用于处理循环依赖的临时缓存</td></tr><tr><td>一级缓存</td><td><code>singletonObjects</code></td><td>缓存完整的单例对象，即已经实例化完毕，也已经赋值和初始化完毕的对象项目启动完成后获取bean实例时从此获取</td></tr></tbody></table><ol><li>创建 <code>A实例</code>：<ol><li>首先，标记 <code>A实例</code> 为 <code>创建中</code>，然后通过反射创建 <code>A实例</code>，最后将 <code>A实例的对象工厂</code> 存入三级缓存。</li><li>然后，初始化 <code>A实例</code>，发现需要依赖注入 <code>B实例</code>，则依次尝试从一到三级缓存中获取 <code>B实例</code>，均失败。</li><li>最后，暂停 <code>A实例</code> 的创建过程，即取消 <code>A实例</code> 的 <code>创建中</code> 标记，转而优先取创建 <code>B实例</code>。</li></ol></li><li>创建 <code>B实例</code>：<ol><li>首先，标记 <code>B实例</code> 为 <code>创建中</code>，然后通过反射创建 <code>B实例</code>，最后将 <code>B实例的对象工厂</code> 存入三级缓存。</li><li>然后，初始化 <code>B实例</code>，发现需要依赖注入 <code>A实例</code>，则依次尝试从一到三级缓存中获取 <code>A实例</code>。</li><li>然后，成功从三级缓存中获取了 <code>A实例的对象工厂</code>，调用其 <code>getObject()</code> 方法获得 <code>半成品的A实例</code>，完成依赖注入。</li><li>然后，将 <code>半成品的A实例</code> 放入二级缓存，并删除三级缓存中的 <code>A实例的对象工厂</code>。</li><li>最后，成功创建 <code>B实例</code>，将其放入一级缓存，并删除三级缓存中的 <code>B实例的对象工厂</code>。</li></ol></li><li>继续创建 <code>A实例</code>：<ol><li>首先，从一级缓存中成功获取到 <code>B实例</code>，完成依赖注入。</li><li>然后，成功创建 <code>A实例</code>，将其放入一级缓存，并删除二级缓存中的 <code>A实例</code>。</li></ol></li></ol><blockquote><p>武技: 测试Spring是否存在循环依赖问题</p></blockquote><ol><li>开发实体类 <code>Chicken</code>：<ol><li>不要使用 <code>@Data</code> 重写的toString方法，该方法在循环依赖情况下会生成足以导致堆栈溢出的调用。</li></ol></li></ol><p><code>com.lsx.entity.Chicken</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Setter</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Getter</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Chicken</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Egg egg;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发实体类 <code>Egg</code>：<ol><li>不要使用 <code>@Data</code> 重写的toString方法，该方法在循环依赖情况下会生成足以导致堆栈溢出的调用。</li></ol></li></ol><p><code>com.lsx.entity.Egg</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Setter</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Getter</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Egg</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Chicken chicken;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>管理实体类 <code>Chicken</code> 和 <code>Egg</code>：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Chicken实体类--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;chicken&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Chicken&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;egg&#34;</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;egg&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Egg实体类--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;egg&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Egg&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;chicken&#34;</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;chicken&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/bean&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试：</li></ol><p><code>spring.SpringTest -> circularDependency()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>circularDependency</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼</span>
+</span></span><span style=display:flex><span>    Chicken chicken <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Chicken.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    Egg egg <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Egg.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 用鱼</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(chicken.<span style=color:#a6e22e>getEgg</span>());
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(egg.<span style=color:#a6e22e>getChicken</span>());
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-factorybean>3. FactoryBean</h3><blockquote><p>心法: FactoryBean</p></blockquote><ul><li>FactoryBean是SpringIOC容器创建Bean的另一种形式，一般用于创建过程比较复杂的场景。</li><li>FactoryBean会向容器中注册两个Bean，一个是它本身，一个是 <code>FactoryBean.getObject()</code> 方法返回值所代表的Bean。</li></ul><blockquote><p>武技: 使用FactoryBean对Person进行复杂构建</p></blockquote><ol><li>开发实体类 <code>Person</code>:</li></ol><p><code>com.lsx.entity.Person</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String idCard;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String birth;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String gender;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer age;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String province;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发工厂Bean：</li></ol><p><code>com.lsx.component.PersonFactoryBean</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PersonFactoryBean</span> <span style=color:#66d9ef>implements</span> FactoryBean<span style=color:#f92672>&lt;</span>Person<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String idCard;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Person <span style=color:#a6e22e>getObject</span>() <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        Person person <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Person();
+</span></span><span style=display:flex><span>        person.<span style=color:#a6e22e>setIdCard</span>(idCard);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过身份证号来获取生日，性别，年龄，省份等其他信息</span>
+</span></span><span style=display:flex><span>        DateFormat dateFormat <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> SimpleDateFormat(<span style=color:#e6db74>&#34;yyyyMMdd&#34;</span>);
+</span></span><span style=display:flex><span>        Date birth <span style=color:#f92672>=</span> dateFormat.<span style=color:#a6e22e>parse</span>(IdcardUtil.<span style=color:#a6e22e>getBirthByIdCard</span>(idCard));
+</span></span><span style=display:flex><span>        person.<span style=color:#a6e22e>setBirthday</span>(birth);
+</span></span><span style=display:flex><span>        person.<span style=color:#a6e22e>setGender</span>(IdcardUtil.<span style=color:#a6e22e>getGenderByIdCard</span>(idCard) <span style=color:#f92672>==</span> 1 <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;男&#34;</span> : <span style=color:#e6db74>&#34;女&#34;</span>);
+</span></span><span style=display:flex><span>        person.<span style=color:#a6e22e>setAge</span>(IdcardUtil.<span style=color:#a6e22e>getAgeByIdCard</span>(idCard));
+</span></span><span style=display:flex><span>        person.<span style=color:#a6e22e>setProvince</span>(IdcardUtil.<span style=color:#a6e22e>getProvinceByIdCard</span>(idCard));
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> person;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Class<span style=color:#f92672>&lt;?&gt;</span> getObjectType() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Person.<span style=color:#a6e22e>class</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>管理工厂类：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理personFactoryBean--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;personFactoryBean&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.component.PersonFactoryBean&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;idCard&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;230107199306200210&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/bean&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试Person类：</li></ol><p><code>spring.SpringTest -> person()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>person</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼: 可以直接获取Person实例</span>
+</span></span><span style=display:flex><span>    Person person <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Person.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(person);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼: 可以先获取PersonFactoryBean，然后再通过调用它的 `getObject()` 方法获取到Person实例</span>
+</span></span><span style=display:flex><span>    PersonFactoryBean personFactoryBean <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(PersonFactoryBean.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(personFactoryBean.<span style=color:#a6e22e>getObject</span>());
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e03-bean实例专题>E03. Bean实例专题</h2><blockquote><p>心法: Bean的加载方式 - 我们可以通过哪些方式将bean加载到Spring容器中？</p></blockquote><ol><li>通过XML配置文件中的 <code>&lt;bean></code> 标签定义Bean，然后Spring容器读取并解析配置文件，完成Bean的装载。</li><li>通过 <code>@Component</code> 注解将Java类标记为Bean，Spring会自动扫描并加载这些标记的类。</li><li>通过 <code>@Configuration</code> + <code>@Bean</code> 注解的方式完成Bean的定义。</li></ol><h3 id=1-lazyinit>1. LazyInit</h3><blockquote><p>心法: SpringBean的创建时机</p></blockquote><ul><li>可以在主配根标签 <code>&lt;beans></code> 中使用 <code>default-lazy-init="true"</code> 设置全局懒加载。</li></ul><table><thead><tr><th>创建时机</th><th>代码</th><th>描述</th></tr></thead><tbody><tr><td>非懒加载 / 非延迟加载</td><td><code>&lt;bean lazy-init="false"></code></td><td>Spring容器在初始化时就将该bean创建好，默认值</td></tr><tr><td>懒加载 / 延迟加载</td><td><code>&lt;bean lazy-init="true"></code></td><td>Spring容器在仅在该bean被调用时才去创建该bean实例</td></tr></tbody></table><blockquote><p>武技: 测试SpringBean的创建时机</p></blockquote><ol><li>开发实体类 <code>Pig</code>:</li></ol><p><code>com.lsx.entity.Pig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Pig</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Pig</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Pig()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>管理实体类 <code>Pig</code>:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Pig实例--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Pig&#34;</span> <span style=color:#a6e22e>lazy-init=</span><span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试：使用debug断点测试bean的延迟加载效果：</li></ol><p><code>spring.SpringTest -> pig()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>pig</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼</span>
+</span></span><span style=display:flex><span>    Pig pig <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Pig.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 用鱼</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(pig);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-scope>2. Scope</h3><blockquote><p>心法: SpringBean的生效范围</p></blockquote><table><thead><tr><th>生效范围</th><th>代码</th><th>描述</th></tr></thead><tbody><tr><td>单例</td><td><code>&lt;bean scope="singleton"></code></td><td>Spring容器对所有调用者返回的都是同一个bean实例，默认值</td></tr><tr><td>原型</td><td><code>&lt;bean scope="prototype"></code></td><td>Spring容器对所有调用者返回的都是一个新new出来的实例原型模式下自动开启懒加载，即自动设置 <code>lazy-init="true"</code></td></tr></tbody></table><blockquote><p>武技: 测试SpringBean的生效范围</p></blockquote><ol><li>开发实体类 <code>Monkey</code>:</li></ol><p><code>com.lsx.entity.Monkey</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Monkey</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Monkey</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;构造器: Monkey()&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>管理实体类 <code>Monkey</code>:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Monkey实例--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Monkey&#34;</span> <span style=color:#a6e22e>scope=</span><span style=color:#e6db74>&#34;prototype&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试：</li></ol><p><code>spring.SpringTest -> monkey()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>monkey</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼: 通过Class值从Spring容器中获取bean实例</span>
+</span></span><span style=display:flex><span>    Monkey monkey01 <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Monkey.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    Monkey monkey02 <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(Monkey.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 用鱼: 原型模式下返回false，单例模式下返回true</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(monkey01 <span style=color:#f92672>==</span> monkey02);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beanFactory.<span style=color:#a6e22e>isPrototype</span>(<span style=color:#e6db74>&#34;monkey&#34;</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-生命周期>3. 生命周期</h3><blockquote><p>心法: SpringBean的生命周期</p></blockquote><ul><li>Spring容器在启动后，先将主配中的元数据解析成 <code>BeanDefinition</code> 对象:<ul><li><code>BeanDefinition</code> 对象专门用于存储Bean的信息。</li></ul></li><li>然后再将 <code>BeanDefinition</code> 对象注册到 <code>org.springframework.beans.factory.BeanFactory</code> 中:<ul><li><code>BeanFactory</code> 是SpringIOC的核心接口，用于包装和管理各种Bean实例。</li><li>此时通过 <code>BeanFactory</code> 的 <code>getBean()</code> 方法可获取到该Bean实例。</li></ul></li><li>最后再将 <code>BeanFactory</code> 加入到Spring的三级缓存中。</li></ul><table><thead><tr><th>周期顺序</th><th>生命周期</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td>第1步</td><td><code>instantiation</code></td><td>实例化</td><td>反射bean实例的构造器或使用工厂创建实例</td></tr><tr><td>第2步</td><td><code>populate</code></td><td>属性赋值</td><td>反射bean实例的属性，然后赋值</td></tr><tr><td>第3步</td><td><code>initialization</code></td><td>初始化</td><td>1. 执行 <code>BeanPostProcessor</code> 的 <code>postProcessBeforeInitialization()</code>2. 反射调用bean实例的初始化方法，对应 <code>init-method="方法名"</code>3. 执行 <code>BeanPostProcessor</code> 的 <code>postProcessAfterInitialization()</code></td></tr><tr><td>第4步</td><td><code>use</code></td><td>使用</td><td>通过 <code>BeanFactory</code> 的 <code>getBean()</code> 获取并使用bean实例</td></tr><tr><td>第5步</td><td><code>destruction</code></td><td>销毁</td><td>反射调用bean实例的销毁方法，对应 <code>destroy-method="方法名"</code></td></tr></tbody></table><blockquote><p>武技: 测试SpringBean的生命周期</p></blockquote><ol><li>开发实体类 <code>Bat</code>:</li></ol><p><code>com.lsx.entity.Bat</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Bat</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Bat</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Bat的无参构造器被调用..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Bat实例的init()被调用..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>destroy</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Bat实例的destroy()被调用..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>管理实体类 <code>Bat</code>:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理Bat实例--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;bat&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.entity.Bat&#34;</span> <span style=color:#a6e22e>init-method=</span><span style=color:#e6db74>&#34;init&#34;</span> <span style=color:#a6e22e>destroy-method=</span><span style=color:#e6db74>&#34;destroy&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=3><li>开发自定义后置处理器 <code>MyBeanPostProcessor</code>:</li></ol><p><code>com.lsx.processor.MyBeanPostProcessor</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyBeanPostProcessor</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 这个方法会在Spring容器中所有bean的初始化之前执行 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessBeforeInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;处理器: &#34;</span> <span style=color:#f92672>+</span> beanName <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;.postProcessBeforeInitialization()&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> bean;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 这个方法会在Spring容器中所有bean的初始化之后执行 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;处理器: &#34;</span> <span style=color:#f92672>+</span> beanName <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;.postProcessAfterInitialization()&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> bean;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>管理后置处理器类 <code>MyBeanPostProcessor</code>:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理后置处理器--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;myBeanPostProcessor&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.processor.MyBeanPostProcessor&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=5><li>测试：</li></ol><p><code>spring.SpringTest -> bat()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>bat</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 造鱼缸: 创建Spring容器</span>
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 捞鱼</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beanFactory.<span style=color:#a6e22e>getBean</span>(Bat.<span style=color:#a6e22e>class</span>));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 砸鱼缸：此时触发destory方法</span>
+</span></span><span style=display:flex><span>    ((ClassPathXmlApplicationContext)beanFactory).<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=s03-spring面向切面>S03. Spring面向切面</h1><h2 id=e01-动态代理>E01. 动态代理</h2><blockquote><p>心法: Spring动态代理</p></blockquote><ul><li>代理模式可以在不修改被代理对象的基础上，通过扩展代理类，进行一些功能的附加与增强：<ul><li>要求代理类和被代理类应该共同实现同一个接口，或者是共同继承同一个类。</li></ul></li><li><a href=../../%E8%B5%84%E6%BA%90/%E5%B0%8F%E8%AF%B4-JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86.md>小说-JDK动态代理</a></li></ul><table><thead><tr><th></th><th>JDK静态代理</th><th>JDK动态代理</th><th>CGLIB动态代理</th></tr></thead><tbody><tr><td>来源</td><td>JDK</td><td>JDK</td><td>Spring</td></tr><tr><td>代理要求</td><td>仅能代理接口的实现类</td><td>仅能代理接口的实现类</td><td>可以代理任何非final类</td></tr><tr><td>代理类</td><td>自己编写要求必须实现接口</td><td>通过 <code>Proxy.newInstance()</code> 动态生成代理类</td><td>通过 <code>new Enhancer().create()</code> 动态生成代理类</td></tr><tr><td>任务清单</td><td>自己编写重写对应的接口方法</td><td>重写 <code>InvocationHandler -> invoke()</code> 方法</td><td>重写 <code>MethodInterceptor -> intercept()</code> 方法</td></tr></tbody></table><h3 id=1-静态代理>1. 静态代理</h3><blockquote><p>武技: 测试静态代理模式</p></blockquote><ol><li>开发业务接口：</li></ol><p><code>com.lsx.service.Movie</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Movie</span> {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 播放电影 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>play</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>实现业务接口：</li></ol><p><code>com.lsx.service.impl.GongFuMovie</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GongFuMovie</span> <span style=color:#66d9ef>implements</span> Movie {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>play</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;正在播放电影《功夫》&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发静态代理类：需要手动编写代码让代理类实现 Movie 接口，所以称之为静态代理类：</li></ol><p><code>com.lsx.proxy.MyStaticProxy</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyStaticProxy</span> <span style=color:#66d9ef>implements</span> Movie {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Movie movie;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>MyStaticProxy</span>(Movie movie) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>movie</span> <span style=color:#f92672>=</span> movie;  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>play</span>() {  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;电影即将开始，爆米花、可乐8折优惠，欢迎选购！&#34;</span>);  
+</span></span><span style=display:flex><span>        movie.<span style=color:#a6e22e>play</span>();  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;电影即将结束，爆米花、可乐8折优惠，请买回家！&#34;</span>);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>测试静态代理：</li></ol><p><code>proxy.ProxyTest.staticProxy()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>staticProxy</span>() {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>	GongFuMovie gongFuMovie <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> GongFuMovie();  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 创建静态代理  </span>
+</span></span><span style=display:flex><span>	Movie movie <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MyStaticProxy(gongFuMovie);  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 通过代理来调用方法  </span>
+</span></span><span style=display:flex><span>	movie.<span style=color:#a6e22e>play</span>();  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-jdk动态代理>2. JDK动态代理</h3><blockquote><p>武技: 测试JDK动态代理模式</p></blockquote><ol><li>开发业务接口 <code>UserService</code>:</li></ol><p><code>com.lsx.service.UserService</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserService</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 模拟添加业务 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 模拟删除业务 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>实现业务接口 <code>UserServiceImpl</code>:</li></ol><p><code>com.lsx.service.impl.UserServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceImpl</span> <span style=color:#66d9ef>implements</span> UserService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>() { System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加成功&#34;</span>); }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>() { System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;删除成功&#34;</span>); }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发JDK动态代理类 <code>MyJdkProxy</code>:</li></ol><p><code>com.lsx.proxy.MyJdkProxy</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyJdkProxy</span> <span style=color:#66d9ef>implements</span> InvocationHandler {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 客户 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Object customer;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 为客户聘请一个代理 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>getProxy</span>(Object customer) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 上升客户作用域</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>customer</span> <span style=color:#f92672>=</span> customer;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建JDK动态代理实例: </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Proxy.<span style=color:#a6e22e>newProxyInstance</span>(
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// JDK动态代理需要了解客户的类加载器</span>
+</span></span><span style=display:flex><span>                customer.<span style=color:#a6e22e>getClass</span>().<span style=color:#a6e22e>getClassLoader</span>(),
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// JDK动态代理需要了解客户的接口们</span>
+</span></span><span style=display:flex><span>                customer.<span style=color:#a6e22e>getClass</span>().<span style=color:#a6e22e>getInterfaces</span>(),
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// JDK动态代理需要了解需要调用哪个类中的任务清单方法</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>this</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 任务清单方法: 即代理需要做的事情
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param proxy 代理对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param method 业务方法对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param args 业务方法参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 业务方法的返回值，若是void，就返回null
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>invoke</span>(Object proxy, Method method, Object<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 前置通知</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;鉴权..&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用业务方法: 需要指定客户以及业务方法参数</span>
+</span></span><span style=display:flex><span>        Object result <span style=color:#f92672>=</span> method.<span style=color:#a6e22e>invoke</span>(customer, args);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 后置通知</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;日志..&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回业务方法的返回值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>测试JDK动态代理 <code>ProxyTest-> jdkProxy()</code>:<ol><li>创建客户并为客户聘用代理，注意要将代理类型强转为客户接口类型，否则无法调用业务方法。</li></ol></li></ol><p><code>proxy.ProxyTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ProxyTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>jdkProxy</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 准备一个客户[赵四]，可以使用多态形式</span>
+</span></span><span style=display:flex><span>        UserService zhaosi <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserServiceImpl();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建JDK代理类</span>
+</span></span><span style=display:flex><span>        MyJdkProxy myJdkProxy <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MyJdkProxy();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 为 [赵四] 聘用一个同类型的代理 [刘能]</span>
+</span></span><span style=display:flex><span>        UserService liuneng <span style=color:#f92672>=</span> (UserService) myJdkProxy.<span style=color:#a6e22e>getProxy</span>(zhaosi);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 让代理 [刘能] 来执行业务方法</span>
+</span></span><span style=display:flex><span>        liuneng.<span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>        liuneng.<span style=color:#a6e22e>delete</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-cglib动态代理>3. CGLIB动态代理</h3><blockquote><p>武技: 测试CGLIB动态代理模式</p></blockquote><ol><li>开发业务类 <code>EmpServiceImpl</code>:</li></ol><p><code>com.lsx.service.impl.EmpServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EmpServiceImpl</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>() { System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;修改成功&#34;</span>); }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>select</span>() { System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;查询成功&#34;</span>); }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发CGLIB代理类 <code>MyCglibProxy</code>:</li></ol><p><code>com.lsx.proxy.MyCglibProxy</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyCglibProxy</span> <span style=color:#66d9ef>implements</span> MethodInterceptor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 客户 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Object customer;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 为客户聘请一个代理 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>getProxy</span>(Object customer) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 上升客户作用域</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>customer</span> <span style=color:#f92672>=</span> customer;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// CGLIB使用Enhancer对象创建代理</span>
+</span></span><span style=display:flex><span>        Enhancer enhancer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Enhancer();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// CGLIB动态代理需要了解客户的父类</span>
+</span></span><span style=display:flex><span>        enhancer.<span style=color:#a6e22e>setSuperclass</span>(customer.<span style=color:#a6e22e>getClass</span>());
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// CGLIB动态代理需要了解需要调用哪个类中的任务清单方法</span>
+</span></span><span style=display:flex><span>        enhancer.<span style=color:#a6e22e>setCallback</span>(<span style=color:#66d9ef>this</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建JDK动态代理实例</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> enhancer.<span style=color:#a6e22e>create</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 代理任务清单
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param proxy       代理对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param method      代理方法的Method对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param args        代理方法的形参
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param methodProxy 方法的代理对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 业务方法的返回值，若是void，就返回null
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>intercept</span>(Object proxy, Method method, Object<span style=color:#f92672>[]</span> args, 
+</span></span><span style=display:flex><span>                            MethodProxy methodProxy) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 前置通知</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;鉴权..&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用业务方法: 需要指定客户以及业务方法参数</span>
+</span></span><span style=display:flex><span>        Object result <span style=color:#f92672>=</span> method.<span style=color:#a6e22e>invoke</span>(customer, args);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 后置通知</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;日志..&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回业务方法的返回值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>测试CGLIB代理类 <code>ProxyTest -> cglibProxy()</code>:</li></ol><p><code>proxy.ProxyTest -> cglibProxy()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>cglibProxy</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 准备一个客户 [赵四]，可以使用多态形式</span>
+</span></span><span style=display:flex><span>    EmpServiceImpl zhaosi <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> EmpServiceImpl();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 为 [赵四] 聘用一个同类型的代理 [刘能]</span>
+</span></span><span style=display:flex><span>    EmpServiceImpl liuneng <span style=color:#f92672>=</span> (EmpServiceImpl) <span style=color:#66d9ef>new</span> MyCglibProxy().<span style=color:#a6e22e>getProxy</span>(zhaosi);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 让代理 [刘能] 来执行业务方法</span>
+</span></span><span style=display:flex><span>    liuneng.<span style=color:#a6e22e>update</span>();
+</span></span><span style=display:flex><span>    liuneng.<span style=color:#a6e22e>select</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e02-面向切面>E02. 面向切面</h2><blockquote><p>心法: 面向切面编程 <code>Aspect Oriented Programming</code> 简称AOP</p></blockquote><ul><li>SpringAOP是OOP的延续，通过预编译的方式在运行期，使用动态代理来实现业务代码和切面代码的逻辑分离:<ul><li>主要用于降低耦合度，从而提高程序的重用性。</li></ul></li><li>SpringAOP主要场景是控制事务的传播。</li></ul><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/image/835b176c08c0ddc9356b5c12fd4f16c6.png alt=截图></p><blockquote><p>武技: 为子项目添加 SpringAOP 相关依赖</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-version&gt;</span>5.2.15.RELEASE<span style=color:#f92672>&lt;/spring-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-aspects--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-aspects<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中添加依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-aspects--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-aspects<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发客户类 <code>AspectServiceImpl</code>：</li></ol><p><code>com.lsx.service.impl.AspectServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AspectServiceImpl</span> {}
+</span></span></code></pre></div><ol start=5><li>开发切面类 <code>MyAspect</code>:</li></ol><p><code>com.lsx.aspect.MyAspect</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyAspect</span> {}
+</span></span></code></pre></div><ol start=6><li>管理客户类 <code>AspectServiceImpl</code> 和切面类 <code>MyAspect</code>：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--管理客户类--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.service.impl.AspectServiceImpl&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--管理切面类--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;myAspect&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;com.lsx.aspect.MyAspect&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><h3 id=1-基础通知>1. 基础通知</h3><blockquote><p>心法: PE表达式</p></blockquote><ul><li>PE表达式本质是一个字符串，用于描述AOP客户的范围，即满足PE表达式的客户方法都会被AOP代理。</li><li>PE表达式格式: <code>execution([修饰符] 返回值 包.类.方法(形参))</code>。</li></ul><table><thead><tr><th>位置格式</th><th>符号</th><th>符合条件的示例</th></tr></thead><tbody><tr><td>修饰符</td><td><code>*</code></td><td>任何修饰符均符合</td></tr><tr><td></td><td><code>public/private/protected</code></td><td>被 <code>public/private/protected</code> 修饰的方法</td></tr><tr><td>返回值</td><td><code>*</code></td><td>任何返回值均符合</td></tr><tr><td></td><td><code>String</code></td><td>返回值类型为 <code>String</code> 的方法</td></tr><tr><td></td><td><code>void</code></td><td>返回值类型为 <code>void</code> 的方法</td></tr><tr><td>类全名</td><td><code>*.*</code></td><td>任何包下的任何类均符合</td></tr><tr><td></td><td><code>com.A</code></td><td>仅 <code>com.A</code> 类</td></tr><tr><td></td><td><code>com..A</code></td><td>如 <code>com.A / com.a.A / com.a.b.A</code> 类等</td></tr><tr><td></td><td><code>com.*.A</code></td><td>如 <code>com.a.A / com.b.A</code> 类等</td></tr><tr><td></td><td><code>*..*App</code></td><td>如 <code>com.UserApp / com.a.UserApp / com.a.b.UserApp</code> 类等</td></tr><tr><td>方法名</td><td><code>*</code></td><td>任何方法均符合</td></tr><tr><td></td><td><code>select*</code></td><td><code>select</code> 开头的方法均符合</td></tr><tr><td></td><td><code>*ByUserId*</code></td><td><code>*ById</code> 结尾的方法均符合</td></tr><tr><td></td><td><code>*selectByUserId*</code></td><td>仅 <code>selectById</code> 方法</td></tr><tr><td>形参</td><td><code>(*)</code></td><td>任何类型的单个参数均符合</td></tr><tr><td></td><td><code>(*,*)</code></td><td>任何类型的两个参数均符合</td></tr><tr><td></td><td><code>(*,int)</code></td><td>第一个参数为任意，第二个参数必须是 <code>int</code> 类型</td></tr><tr><td></td><td><code>(..)</code></td><td>任何类型的N个参数均符合</td></tr><tr><td></td><td><code>()</code></td><td>必须无参</td></tr><tr><td></td><td><code>(int,String)</code></td><td>第一个参数必须是 <code>int</code> 类型，第二个参数必须是 <code>String</code> 类型</td></tr></tbody></table><blockquote><p>武技: 测试4个基础的AOP通知</p></blockquote><ol><li>开发客户方法 <code>baseMethod()</code>：</li></ol><p><code>com.lsx.service.impl.AspectServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 一个有参有返的业务方法: 用于测试4种基础AOP通知 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Dog <span style=color:#a6e22e>baseMethod</span>(String dogName) {
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;baseMethod() 方法被调用，参数为: &#34;</span> <span style=color:#f92672>+</span> dogName);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (dogName <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;狗的名字不能为null&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Dog();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>在切面类 <code>MyAspect</code> 中开发4个基础通知方法:</li></ol><p><code>com.lsx.aspect.MyAspect</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 前置通知方法 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>beforeAdvice</span>(JoinPoint joinPoint) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取业务方法的参数</span>
+</span></span><span style=display:flex><span>    Object<span style=color:#f92672>[]</span> args <span style=color:#f92672>=</span> joinPoint.<span style=color:#a6e22e>getArgs</span>();
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;前置通知: 鉴权...&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;前置通知: 获取到参数: &#34;</span> <span style=color:#f92672>+</span> Arrays.<span style=color:#a6e22e>toString</span>(args));
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 后置通知方法 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>afterAdvice</span>(JoinPoint joinPoint) {
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;后置通知: 日志...&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 异常通知方法: 允许直接在参数中获取异常对象 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>afterThrowingAdvice</span>(JoinPoint joinPoint, Exception ex) {
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;异常通知: &#34;</span> <span style=color:#f92672>+</span> ex.<span style=color:#a6e22e>getMessage</span>());
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 返回通知方法: 允许直接在参数中获取返回值对象 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>afterReturningAdvice</span>(JoinPoint joinPoint, Dog dog) {
+</span></span><span style=display:flex><span>    dog.<span style=color:#a6e22e>setDogName</span>(<span style=color:#e6db74>&#34;小白&#34;</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;返回通知: 修改返回值的dogName属性&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在主配中配置AOP相关配置项:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--AOP配置区域: 切点和切面类都在此标签内配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;aop:config&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置切点，并通过PE表达式指定范围--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;aop:pointcut</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;pc01&#34;</span> <span style=color:#a6e22e>expression=</span><span style=color:#e6db74>&#34;execution(* com.lsx..AspectServiceImpl.*(..))&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置切面类--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;aop:aspect</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;myAspect&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--前置通知方法: 指定方法名和切点--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;aop:before</span> <span style=color:#a6e22e>method=</span><span style=color:#e6db74>&#34;beforeAdvice&#34;</span> <span style=color:#a6e22e>pointcut-ref=</span><span style=color:#e6db74>&#34;pc01&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--后置通知方法: 指定方法名和切点--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;aop:after</span> <span style=color:#a6e22e>method=</span><span style=color:#e6db74>&#34;afterAdvice&#34;</span> <span style=color:#a6e22e>pointcut-ref=</span><span style=color:#e6db74>&#34;pc01&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--异常通知方法: 指定方法名，异常参数名和切点--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;aop:after-throwing</span> <span style=color:#a6e22e>method=</span><span style=color:#e6db74>&#34;afterThrowingAdvice&#34;</span> <span style=color:#a6e22e>throwing=</span><span style=color:#e6db74>&#34;ex&#34;</span> <span style=color:#a6e22e>pointcut-ref=</span><span style=color:#e6db74>&#34;pc01&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--返回通知方法: 指定方法名，返回值参数名和切点--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;aop:after-returning</span> <span style=color:#a6e22e>method=</span><span style=color:#e6db74>&#34;afterReturningAdvice&#34;</span> <span style=color:#a6e22e>returning=</span><span style=color:#e6db74>&#34;dog&#34;</span> <span style=color:#a6e22e>pointcut-ref=</span><span style=color:#e6db74>&#34;pc01&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/aop:aspect&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/aop:config&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试4个基础通知方法：</li></ol><p><code>aspect.MyAspectTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyAspectTest</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>baseAdvice</span>(){
+</span></span><span style=display:flex><span>        BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>        AspectServiceImpl myService <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(AspectServiceImpl.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(myService.<span style=color:#a6e22e>baseMethod</span>(<span style=color:#e6db74>&#34;欧迪&#34;</span>));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// System.out.println(myService.test(null));</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-环绕通知>2. 环绕通知</h3><blockquote><p>心法: 环绕通知</p></blockquote><ul><li>环绕通知可以包括前置通知，后置通知，返回通知和异常通知这4种基础通知。</li></ul><blockquote><p>武技: 测试AOP环绕通知</p></blockquote><ol><li>开发客户方法 <code>AspectServiceImpl -> roundMethod()</code>:</li></ol><p><code>com.lsx.service.impl.AspectServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 一个有参有返的业务方法: 用于测试1种环绕AOP通知 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Dog <span style=color:#a6e22e>roundMethod</span>(String dogName) {
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;roundMethod() 方法被调用，参数为: &#34;</span> <span style=color:#f92672>+</span> dogName);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (dogName <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;狗的名字不能为null&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Dog();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发通知方法 <code>aroundAdvice()</code>:</li></ol><p><code>com.lsx.aspect.MyAspect</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 环绕通知方法: 返回值必须是Object，参数必须是ProceedingJoinPoint */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>aroundAdvice</span>(ProceedingJoinPoint pjp) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 执行正常的业务方法</span>
+</span></span><span style=display:flex><span>    Object result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取业务方法的参数</span>
+</span></span><span style=display:flex><span>        Object<span style=color:#f92672>[]</span> args <span style=color:#f92672>=</span> pjp.<span style=color:#a6e22e>getArgs</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;进入环绕通知..&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\tAOP前置通知: 鉴权&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\tAOP获取参数: &#34;</span> <span style=color:#f92672>+</span> Arrays.<span style=color:#a6e22e>toString</span>(args));
+</span></span><span style=display:flex><span>        result <span style=color:#f92672>=</span> pjp.<span style=color:#a6e22e>proceed</span>(args);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\tAOP后置通知: 日志&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\tAOP返回通知: 脱敏&#34;</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (Throwable e) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\tAOP异常通知: &#34;</span> <span style=color:#f92672>+</span> e.<span style=color:#a6e22e>getMessage</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在主配中配置AOP相关配置项:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--AOP配置区域: 切点和切面类都在此标签内配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;aop:config&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置切点，并通过PE表达式指定范围--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;aop:pointcut</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;pc01&#34;</span> <span style=color:#a6e22e>expression=</span><span style=color:#e6db74>&#34;execution(* com.lsx..AspectServiceImpl.*(..))&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配置切面类--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;aop:aspect</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;myAspect&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--环绕通知方法: 指定方法名，返回值参数名和切点--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;aop:around</span> <span style=color:#a6e22e>method=</span><span style=color:#e6db74>&#34;aroundAdvice&#34;</span> <span style=color:#a6e22e>pointcut-ref=</span><span style=color:#e6db74>&#34;pc01&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/aop:aspect&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/aop:config&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试环绕通知方法 <code>aroundAdvice()</code>：</li></ol><p><code>aspect.MyAspectTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>aroundAdvice</span>(){
+</span></span><span style=display:flex><span>    BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;classpath:spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>    AspectServiceImpl myService <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(AspectServiceImpl.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(myService.<span style=color:#a6e22e>roundMethod</span>(<span style=color:#e6db74>&#34;欧迪&#34;</span>));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// System.out.println(myService.roundMethod(null));</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=s04-spring常用注解>S04. Spring常用注解</h1><h2 id=e01-component>E01. @Component</h2><blockquote><p>心法: @Component注解</p></blockquote><ul><li>Spring使用 <code>@Component</code> 注解来快速IOC其所在的类。</li><li>Spring使用 <code>&lt;context:component-scan base-package=""></code> 来扫描所在包及子包下的 <code>@Component</code> 注解。</li></ul><table><thead><tr><th>注解 <code>@Component</code> 的语义化子注解</th><th>作用</th></tr></thead><tbody><tr><td><code>@Repository(value = "对应bean的ID值，默认为该类的小驼峰单词")</code></td><td>用于标记数据类</td></tr><tr><td><code>@Service(value = "对应bean的ID值，默认为该类的小驼峰单词")</code></td><td>用于标记业务类</td></tr><tr><td><code>@Controller(value = "对应bean的ID值，默认为该类的小驼峰单词")</code></td><td>用于标记控制类</td></tr></tbody></table><blockquote><p>武技: 测试 @Component 注解</p></blockquote><ol><li>开发业务接口 <code>VideoService</code>：</li></ol><p>`com.lsx.service.VideoService</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>VideoService</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 添加Video记录 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addVideo</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>实现业务接口 <code>VideoServiceImpl</code>：标记 <code>@Service</code> 注解：</li></ol><p><code>com.lsx.service.impl.VideoServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @author lsx 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 相当于 &lt;bean id=&#34;videoServiceImpl&#34; class=&#34;com.xxx.VideoServiceImpl&#34;&gt; 配置 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VideoServiceImpl</span> <span style=color:#66d9ef>implements</span> VideoService {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addVideo</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加Video成功..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在主配中扫描 <code>@Component</code> 注解：</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--扫描指定包及其子包下的 @Component 注解--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;context:component-scan</span> <span style=color:#a6e22e>base-package=</span><span style=color:#e6db74>&#34;com.lsx.service.impl&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试业务接口 <code>VideoServiceTest</code>：</li></ol><p><code>service.VideoServiceTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VideoServiceTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addVideo</span>() {
+</span></span><span style=display:flex><span>        BeanFactory beanFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ClassPathXmlApplicationContext(<span style=color:#e6db74>&#34;spring.xml&#34;</span>);
+</span></span><span style=display:flex><span>        VideoService videoService <span style=color:#f92672>=</span> beanFactory.<span style=color:#a6e22e>getBean</span>(VideoServiceImpl.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        videoService.<span style=color:#a6e22e>addVideo</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e02-autowired>E02. @Autowired</h2><h3 id=1-runwith>1. @RunWith</h3><blockquote><p>心法: SpringTest单元测试</p></blockquote><ul><li>如果在进行单元测试之前，不需要启动Spring项目，则直接使用Junit单元测试即可。</li><li>如果在进行单元测试之前，需要先启动Spring项目，则可以使用Spring单元测试:<ul><li>类上标记 <code>@RunWith(SpringRunner.class)</code>: Spring整合Junit单元测试。</li><li>类上标记 <code>@ContextConfiguration("classpath:spring.xml")</code>: 指定主配文件。</li></ul></li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
+
+n1[准备进行&lt;br/&gt;单元测试] --&gt; f{是否需要&lt;br/&gt;先启动项目}
+	f--否--&gt; n2[使用Junit单元测试] --&gt; n3[无需任何注解]
+	f--是--&gt; n4[使用SpringTest单元测试] --&gt; n5[需要RunWith和ContextConfiguration注解]
+</code></pre><blockquote><p>武技: 测试 SpringTest 单元测试</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-version&gt;</span>5.2.15.RELEASE<span style=color:#f92672>&lt;/spring-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发测试类 <code>SpringTestTest</code>:</li></ol><p><code>springtest.SpringTestTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RunWith</span>(SpringRunner.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@ContextConfiguration</span>(<span style=color:#e6db74>&#34;classpath:spring.xml&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SpringTestTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>hello</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;hello&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-autowired>2. @Autowired</h3><blockquote><p>心法: @Autowired + @Qualifier</p></blockquote><ul><li>Spring使用 <code>@Autowired</code> 注解进行DI注入时，优先使用类全名对标记属性进行DI注入。</li><li>Spring使用 <code>@Qualifier</code> 注解进行DI注入时，只会使用属性名对标记属性进行DI注入:<ul><li>该注解无法单独使用，需要配合 <code>@Autowired</code> 一起使用。</li></ul></li><li>该注解可设置在属性，Setter方法或构造器上，官方建议设置在构造器上。</li></ul><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-2-Spring/image/170227221c0046eb8a9023d1cbce7105.png alt=截图></p><blockquote><p>武技: 测试 <code>@Autowired</code> 注解</p></blockquote><ol><li>开发数据类 <code>VideoDao</code>: 标记 <code>@Repository</code> 使其加入Spring管理。</li></ol><p><code>com.lsx.dao.VideoDao</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Repository</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VideoDao</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;模拟 insert into 语句..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>升级业务实现类 <code>VideoServiceImpl</code>: 使用 <code>@AutoWired</code> 注入 <code>VideoDao</code> 属性。</li></ol><p><code>com.lsx.service.impl.VideoServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VideoServiceImpl</span> <span style=color:#66d9ef>implements</span> VideoService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> VideoDao videoDao;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addVideo</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用VideoDao中的insert方法</span>
+</span></span><span style=display:flex><span>        videoDao.<span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在主配中扫描 <code>@Component</code> 注解:</li></ol><p><code>spring.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--扫描指定包及其子包下的 @Component 注解--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;context:component-scan</span> <span style=color:#a6e22e>base-package=</span><span style=color:#e6db74>&#34;com.lsx.dao&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;context:component-scan</span> <span style=color:#a6e22e>base-package=</span><span style=color:#e6db74>&#34;com.lsx.service&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发测试类 <code>VideoServiceTest</code>:</li></ol><p>`springtest.VideoServiceTest</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RunWith</span>(SpringRunner.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@ContextConfiguration</span>(<span style=color:#e6db74>&#34;classpath:spring.xml&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VideoServiceTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>private</span> VideoService videoService;
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>addVideo</span>() {
+</span></span><span style=display:flex><span>        videoService.<span style=color:#a6e22e>addVideo</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e03-configuration>E03. @Configuration</h2><blockquote><p>心法: @Configuration + @Bean 注解</p></blockquote><table><thead><tr><th>注解</th><th>描述</th></tr></thead><tbody><tr><td><code>@Configuration</code></td><td>标记一个类为Spring配置类，即Spring鱼缸</td></tr><tr><td><code>@Bean</code></td><td>标记一个方法为 <code>&lt;bean></code> 配置，方法名对应 <code>&lt;bean id=""></code>，返回值对应 <code>&lt;bean class=""></code></td></tr></tbody></table><blockquote><p>武技: 测试 @Configuration 注解</p></blockquote><ol><li>开发实体类 <code>Duck</code>:</li></ol><p><code>com.lsx.entity.Duck</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Duck</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String duckName;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer duckAge;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发配置类 <code>DuckConfig</code>：标记 <code>@Configuration</code> 使得该类变为Spring配置类。</li></ol><p><code>com.lsx.config.DuckConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DuckConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Duck <span style=color:#a6e22e>duck</span>(){
+</span></span><span style=display:flex><span>        Duck duck <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Duck();
+</span></span><span style=display:flex><span>        duck.<span style=color:#a6e22e>setDuckName</span>(<span style=color:#e6db74>&#34;可达鸭&#34;</span>);
+</span></span><span style=display:flex><span>        duck.<span style=color:#a6e22e>setDuckAge</span>(5);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> duck;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>测试实体类 <code>DuckTest</code>:</li></ol><p><code>config.DuckTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RunWith</span>(SpringRunner.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@ContextConfiguration</span>(classes <span style=color:#f92672>=</span> DuckConfig.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DuckTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Duck duck;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>duck</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(duck);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

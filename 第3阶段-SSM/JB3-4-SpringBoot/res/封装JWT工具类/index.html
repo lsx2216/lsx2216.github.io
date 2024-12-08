@@ -1,0 +1,162 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>lsx2216</title>
+<meta name=description content="S01. 封装JWT工具类 心法: Token解析流程
+sequenceDiagram autonumber title: Token解析流程 participant BI as 前端拦截器 participant SI as 后端拦截器 note over BI: 从sessionStorage中获取当前Token …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85JWT%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta property="og:type" content="website"><meta property="og:title" content="lsx2216"><meta property="og:description" content="S01. 封装JWT工具类 心法: Token解析流程
+sequenceDiagram autonumber title: Token解析流程 participant BI as 前端拦截器 participant SI as 后端拦截器 note over BI: 从sessionStorage中获取当前Token …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="lsx2216"><meta name=twitter:description content="S01. 封装JWT工具类 心法: Token解析流程
+sequenceDiagram autonumber title: Token解析流程 participant BI as 前端拦截器 participant SI as 后端拦截器 note over BI: 从sessionStorage中获取当前Token …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85JWT%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85JWT%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85JWT%E5%B7%A5%E5%85%B7%E7%B1%BB/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1></h1></div><div class=post-content><h1 id=s01-封装jwt工具类>S01. 封装JWT工具类</h1><blockquote><p>心法: Token解析流程</p></blockquote><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+	autonumber
+	title: Token解析流程
+	participant BI as 前端拦截器
+	participant SI as 后端拦截器
+
+note over BI: 从sessionStorage中获取当前Token
+note over BI: 将当前Token设置到请求头中
+BI -&gt;&gt; SI: 发送请求
+	note over SI: 判断是否携带正确的Token
+	opt 未携带正确的Token
+		SI --&gt;&gt; BI: 响应Token验证失败(1003)
+	end
+	opt 携带了正确的Token
+	    note over SI: 判断Token是否即将过期
+		opt Token过期时间大于30分钟
+			note over SI: 放行请求到目标方法并执行下单业务
+		end
+		opt Token过期时间小于30分钟
+			SI --&gt;&gt; BI: 响应Token即将过期(1004)和一个新的Token
+			note over BI: 当响应码是1004时，用新的Token替换旧的Token
+			BI --&gt;&gt; SI: 携带新的Token，重新发送请求，重复第1步骤
+		end
+	end
+</code></pre><blockquote><p>武技: 封装Token令牌工具类</p></blockquote><ol><li>开发常量属性 <code>Constant</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.constant;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>JwtConst</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 密钥 */</span>  
+</span></span><span style=display:flex><span>    String SECRET_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;my-secret-key&#34;</span>;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 主题 */</span>  
+</span></span><span style=display:flex><span>    String SUBJECT <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;用户登录认证&#34;</span>;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 签发人 */</span>  
+</span></span><span style=display:flex><span>    String ISSUER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lsx&#34;</span>;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 过期时间（毫秒） */</span>  
+</span></span><span style=display:flex><span>    Long EXPIRE_TIME <span style=color:#f92672>=</span> 1000 <span style=color:#f92672>*</span> 3600 <span style=color:#f92672>*</span> 24 <span style=color:#f92672>*</span> 7L;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 过期时间判定阈值（毫秒）*/</span>  
+</span></span><span style=display:flex><span>    Long EXPIRATION_TIME_THRESHOLD <span style=color:#f92672>=</span> 1000 <span style=color:#f92672>*</span> 60 <span style=color:#f92672>*</span> 30L;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 即将过期标记 Key 值*/</span>  
+</span></span><span style=display:flex><span>	String EXPIRATION_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;expireSoon&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 新Token的 Key 值*/</span>  
+</span></span><span style=display:flex><span>	String NEW_TOKEN_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;newToken&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 前端传递Token令牌时的固定key值 */</span>  
+</span></span><span style=display:flex><span>	String TOKEN_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;token&#34;</span>;  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发Token令牌工具类 <code>JwtUtil</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JwtUtil</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 生成用户对应的token字符串，默认将用户的主键，昵称和头像地址添加到token负载中  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param id       用户的主键  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param nickname 用户的昵称  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param avatar   用户的头像  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return token字符串  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>build</span>(Long id, String nickname, String avatar) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ObjectUtil.<span style=color:#a6e22e>hasNull</span>(id, nickname, avatar)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;必要参数为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>        JWTCreator.<span style=color:#a6e22e>Builder</span> builder <span style=color:#f92672>=</span> JWT.<span style=color:#a6e22e>create</span>();  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withClaim</span>(<span style=color:#e6db74>&#34;id&#34;</span>, id);  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withClaim</span>(<span style=color:#e6db74>&#34;nickname&#34;</span>, nickname);  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withClaim</span>(<span style=color:#e6db74>&#34;avatar&#34;</span>, avatar);  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withSubject</span>(JwtConst.<span style=color:#a6e22e>SUBJECT</span>);  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withIssuer</span>(JwtConst.<span style=color:#a6e22e>ISSUER</span>);  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withIssuedAt</span>(<span style=color:#66d9ef>new</span> Date());  
+</span></span><span style=display:flex><span>        builder.<span style=color:#a6e22e>withExpiresAt</span>(<span style=color:#66d9ef>new</span> Date(System.<span style=color:#a6e22e>currentTimeMillis</span>() <span style=color:#f92672>+</span> JwtConst.<span style=color:#a6e22e>EXPIRE_TIME</span>));  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> builder.<span style=color:#a6e22e>sign</span>(Algorithm.<span style=color:#a6e22e>HMAC256</span>(JwtConst.<span style=color:#a6e22e>SECRET_KEY</span>));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 验证token字符串，验证失败直接抛出异常，  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 验证成功后判断当前token是否即将过期，若是则生成新的token并返回，否则返回原token值  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param token token字符串  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return token信息，若expireSoon为true，表示token即将过期，反之表示token不需要刷新  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>verify</span>(String token) {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 检查必要参数  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ObjectUtil.<span style=color:#a6e22e>isEmpty</span>(token)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;token字符串为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(4);  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 通过秘钥验证token字符串，验证失败直接抛出异常  </span>
+</span></span><span style=display:flex><span>		DecodedJWT decodedJwt <span style=color:#f92672>=</span> JWT.<span style=color:#a6e22e>require</span>(Algorithm.<span style=color:#a6e22e>HMAC256</span>(JwtConst.<span style=color:#a6e22e>SECRET_KEY</span>))  
+</span></span><span style=display:flex><span>		        .<span style=color:#a6e22e>build</span>()  
+</span></span><span style=display:flex><span>		        .<span style=color:#a6e22e>verify</span>(token);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取用户信息  </span>
+</span></span><span style=display:flex><span>        Long id <span style=color:#f92672>=</span> decodedJwt.<span style=color:#a6e22e>getClaim</span>(<span style=color:#e6db74>&#34;id&#34;</span>).<span style=color:#a6e22e>asLong</span>();  
+</span></span><span style=display:flex><span>        String nickname <span style=color:#f92672>=</span> decodedJwt.<span style=color:#a6e22e>getClaim</span>(<span style=color:#e6db74>&#34;nickname&#34;</span>).<span style=color:#a6e22e>asString</span>();  
+</span></span><span style=display:flex><span>        String avatar <span style=color:#f92672>=</span> decodedJwt.<span style=color:#a6e22e>getClaim</span>(<span style=color:#e6db74>&#34;avatar&#34;</span>).<span style=color:#a6e22e>asString</span>();  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 若token过期时间小于指定阈值，则重新生成token并返回  </span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (decodedJwt.<span style=color:#a6e22e>getExpiresAt</span>().<span style=color:#a6e22e>getTime</span>() <span style=color:#f92672>-</span> System.<span style=color:#a6e22e>currentTimeMillis</span>()   
+</span></span><span style=display:flex><span>		        <span style=color:#f92672>&lt;</span> JwtConst.<span style=color:#a6e22e>EXPIRATION_TIME_THRESHOLD</span>) {
+</span></span><span style=display:flex><span>		        
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(JwtConst.<span style=color:#a6e22e>EXPIRATION_KEY</span>, <span style=color:#66d9ef>true</span>);  
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(JwtConst.<span style=color:#a6e22e>NEW_TOKEN_KEY</span>, build(id, nickname, avatar));  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 若token过期时间大于指定阈值，不需要重新生成token，将用户信息存入resultMap中返回即可  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> {  
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;id&#34;</span>, id);  
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;nickname&#34;</span>, nickname);  
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;avatar&#34;</span>, avatar);  
+</span></span><span style=display:flex><span>            resultMap.<span style=color:#a6e22e>put</span>(JwtConst.<span style=color:#a6e22e>EXPIRATION_KEY</span>, <span style=color:#66d9ef>false</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> resultMap;  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=s02-测试jwt工具类>S02. 测试JWT工具类</h1><blockquote><p>武技: 测试Token令牌工具类</p></blockquote><ol><li>测试Token令牌工具类 <code>JwtUtilTest</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JwtUtilTest</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>build</span>() {  
+</span></span><span style=display:flex><span>        Long id <span style=color:#f92672>=</span> 1L;  
+</span></span><span style=display:flex><span>        String nickname <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;随机昵称&#34;</span>;  
+</span></span><span style=display:flex><span>        String avatar <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;default-avatar.jpg&#34;</span>;  
+</span></span><span style=display:flex><span>        String result <span style=color:#f92672>=</span> JwtUtil.<span style=color:#a6e22e>build</span>(id, nickname, avatar);  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(result);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>parse</span>() {  
+</span></span><span style=display:flex><span>        String token <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOi&#34;</span> <span style=color:#f92672>+</span>  
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;LnlKjmiLfnmbvlvZXorqTor4EiLCJuaWNrbmFtZSI6Iumaj-acuuaY&#34;</span> <span style=color:#f92672>+</span>  
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;teensCIsImlzcyI6IkpvZVpob3UiLCJpZCI6MSwiYXZhdGFyIjoiZG&#34;</span> <span style=color:#f92672>+</span>  
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;VmYXVsdC1hdmF0YXIuanBnIiwiZXhwIjoxNzA2NTgxMDY0LCJpYXQi&#34;</span> <span style=color:#f92672>+</span>  
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;OjE3MDUzNzE0NjR9.57XfExgPee7ml8oU0rSOwa_K8wdxPF3eNZWllSIK30A&#34;</span>;  
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> JwtUtil.<span style=color:#a6e22e>verify</span>(token);  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(result);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

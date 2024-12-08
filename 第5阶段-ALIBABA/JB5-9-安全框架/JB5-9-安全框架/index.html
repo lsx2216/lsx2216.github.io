@@ -1,0 +1,1081 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB5-9-安全框架</title>
+<meta name=description content="Java道经第5卷 - 第9阶 - v5-alibaba - 安全框架
+CH01. Security概念入门 心法: 安全框架
+安全框架就是解决系统安全的框架，可以通过配置的方式实现对资源的访问限制. 目前主流安全框架产品包括Spring家族的SpringSecurity框架和Apache的Shiro框架。 心法: …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/"><meta property="og:type" content="website"><meta property="og:title" content="JB5-9-安全框架"><meta property="og:description" content="Java道经第5卷 - 第9阶 - v5-alibaba - 安全框架
+CH01. Security概念入门 心法: 安全框架
+安全框架就是解决系统安全的框架，可以通过配置的方式实现对资源的访问限制. 目前主流安全框架产品包括Spring家族的SpringSecurity框架和Apache的Shiro框架。 心法: …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB5-9-安全框架"><meta name=twitter:description content="Java道经第5卷 - 第9阶 - v5-alibaba - 安全框架
+CH01. Security概念入门 心法: 安全框架
+安全框架就是解决系统安全的框架，可以通过配置的方式实现对资源的访问限制. 目前主流安全框架产品包括Spring家族的SpringSecurity框架和Apache的Shiro框架。 心法: …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/JB5-9-%E5%AE%89%E5%85%A8%E6%A1%86%E6%9E%B6/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB5-9-安全框架</h1></div><div class=post-content><blockquote><p>Java道经第5卷 - 第9阶 - v5-alibaba - 安全框架</p></blockquote><hr><h1 id=ch01-security概念入门>CH01. Security概念入门</h1><blockquote><p>心法: 安全框架</p></blockquote><ul><li>安全框架就是解决系统安全的框架，可以通过配置的方式实现对资源的访问限制.</li><li>目前主流安全框架产品包括Spring家族的SpringSecurity框架和Apache的Shiro框架。</li></ul><blockquote><p>心法: SpringSecurity安全框架</p></blockquote><ul><li>SpringSecurity是Spring用于提供声明式安全访问控制解决方案的安全框架。</li><li>SpringSecurity核心认证: 比对用户的账号密码身份等信息，即登录。</li><li>SpringSecurity核心授权: 为用户赋权或赋角色。</li></ul><h2 id=ep01-搭建项目环境>EP01. 搭建项目环境</h2><blockquote><p>心法: SpringSecurity项目涉及到的表</p></blockquote><ul><li><code>member</code>: 会员表。</li><li><code>role</code>: 角色表</li><li><code>permission</code>: 权限表</li><li><code>member_role</code>: 会员-角色中间表/关系表，会员与角色是多对多关系。</li><li><code>role_permission</code>: 角色-权限中间表/关系表，角色与权限是多对多关系。</li></ul><blockquote><p>武技: 创建测试子项目 <code>alibaba-auth</code> 并搭建基础项目环境</p></blockquote><ol><li>添加三方依赖 <code>pom.xml</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--alibaba-common--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.lsx<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>alibaba-common<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;version&gt;</span>1.0-SNAPSHOT<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-cloud-starter-alibaba-nacos-discovery--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-cloud-starter-openfeign--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-openfeign<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--mybatis-plus-boot-starter--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.baomidou<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>mybatis-plus-boot-starter<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--mysql-connector-java--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>mysql<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>mysql-connector-java<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--druid--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>druid<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-security--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-security<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发主配文件 <code>application.yml</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8040</span> <span style=color:#75715e># 项目端口号</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>alibaba-auth</span> <span style=color:#75715e># 项目发布名称</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>resources</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>static-locations</span>: <span style=color:#ae81ff>classpath:/templates/,classpath:/static/</span> <span style=color:#75715e># 静态资源目录</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>datasource</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>driver-class-name</span>: <span style=color:#ae81ff>com.mysql.cj.jdbc.Driver</span> <span style=color:#75715e># 驱动串</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>url</span>: <span style=color:#ae81ff>jdbc:mysql://192.168.40.77:3306/v3_alibaba?serverTimezone=Asia/Shanghai</span> <span style=color:#75715e># 连接串</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>username</span>: <span style=color:#ae81ff>root</span> <span style=color:#75715e># 连库账号</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>password</span>: <span style=color:#ae81ff>root</span> <span style=color:#75715e># 连库密码</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>type</span>: <span style=color:#ae81ff>com.alibaba.druid.pool.DruidDataSource</span> <span style=color:#75715e># Druid连接池</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nacos</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>server-addr</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>8848</span> <span style=color:#75715e># Nacos服务地址，集群用逗号分隔</span>
+</span></span></code></pre></div><ol start=3><li>开发配置文件 <code>NacosConfig</code>:<ul><li>标记 <code>@EnableDiscoveryClient</code> 以开启Nacos注册中心功能。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableDiscoveryClient</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NacosConfig</span> {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发控制方法 <code>TestController -> getRes()</code>: 作为资源</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/test&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TestController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/get-res&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getRes</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;资源访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 访问SpringSecurity保护的资源</p></blockquote><ol><li>访问资源: <code>localhost:8040/api/v1/test/get-res</code></li><li>触发保护: SpringSecurity将请求重定向到 <code>localhost:8040/login</code> 并展示内置登录页面。</li><li>认证授权: 输入SpringSecurity内置账号 <code>user</code> 和IDEA控制台日志中生成的随机密码串进行认证登录:<ul><li>认证成功: SpringSecurity自动重新发送认证前一次的请求。</li><li>认证失败: 直接404。</li></ul></li></ol><h2 id=ep02-准备远程调用>EP02. 准备远程调用</h2><blockquote><p>心法: 为何要准备远程调用</p></blockquote><ul><li>SpringSecurity在重写登录逻辑时，需要调用 <code>alibaba-user</code> 微服务的某些接口:<ul><li>如 <code>selectByUsername()</code>: 按用户账号查询用户信息。</li><li>如 <code>selectRolesByUserId()</code>: 按用户账号查询用户全部角色。</li><li>如 <code>selectPermissionsByUserId()</code>: 按用户账号查询用户全部权限。</li></ul></li></ul><blockquote><p>武技: 在 <code>alibaba-user</code> 中开发按用户账号查询用户信息接口</p></blockquote><ol><li>开发接口方法 <code>UserService -> selectByUsername()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>RoleService</span> <span style=color:#66d9ef>extends</span> IService<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按账号查询用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param username 账号
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 符合条件的用户记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    User <span style=color:#a6e22e>selectByUsername</span>(String username);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>重写接口方法 <code>UserService -> selectByUsername()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceImpl</span> <span style=color:#66d9ef>extends</span> ServiceImpl<span style=color:#f92672>&lt;</span>UserMapper, User<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>implements</span> UserService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> UserMapper userMapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> User <span style=color:#a6e22e>selectByUsername</span>(String username) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StringUtils.<span style=color:#a6e22e>isBlank</span>(username)) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;必要参数为空&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 构建查询条件包装器</span>
+</span></span><span style=display:flex><span>        QueryWrapper<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> queryWrapper <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> QueryWrapper<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 构建查询条件</span>
+</span></span><span style=display:flex><span>        queryWrapper.<span style=color:#a6e22e>eq</span>(<span style=color:#e6db74>&#34;username&#34;</span>, username);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userMapper.<span style=color:#a6e22e>selectOne</span>(queryWrapper);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发控制方法 <code>UserController -> selectByUsername()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/user&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> UserService userService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/select-by-username&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>selectByUsername</span>(<span style=color:#a6e22e>@RequestParam</span> String username) {
+</span></span><span style=display:flex><span>        User user <span style=color:#f92672>=</span> userService.<span style=color:#a6e22e>selectByUsername</span>(username);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span> <span style=color:#f92672>!=</span> user <span style=color:#f92672>?</span> Result.<span style=color:#a6e22e>success</span>(user) :
+</span></span><span style=display:flex><span>                Result.<span style=color:#a6e22e>fail</span>(<span style=color:#f92672>-</span>1, <span style=color:#e6db74>&#34;当前不存在任何符合条件的用户记录&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 在 <code>alibaba-user</code> 中开发按用户主键查询用户角色接口</p></blockquote><ol><li>开发接口方法 <code>RoleMapper -> selectRolesByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Repository</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>RoleMapper</span> <span style=color:#66d9ef>extends</span> BaseMapper<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** ROLE表全查SQL片段 */</span>
+</span></span><span style=display:flex><span>    String ROLE_LIST_ALL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;SELECT r.role_id, r.role_title, r.role_info, &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;r.create_time, r.last_modify &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;FROM v3_alibaba.role r &#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Select</span>(ROLE_LIST_ALL <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;WHERE r.role_id IN ( &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;    SELECT ur.role_id FROM v3_alibaba.user_role ur &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;    WHERE ur.user_id = #{param1} &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;)&#34;</span>)
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectRolesByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口方法 <code>RoleService -> selectRolesByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>RoleService</span> <span style=color:#66d9ef>extends</span> IService<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectRolesByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>重写接口方法 <code>RoleService -> selectRolesByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RoleServiceImpl</span> <span style=color:#66d9ef>extends</span> ServiceImpl<span style=color:#f92672>&lt;</span>RoleMapper, Role<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>implements</span> RoleService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RoleMapper roleMapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectRolesByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> roleMapper.<span style=color:#a6e22e>selectRolesByUserId</span>(userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发控制方法 <code>RoleController -> selectRolesByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/role&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RoleController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RoleService roleService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/select-roles-by-user-id&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>selectRolesByUserId</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>) Integer userId) {
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> roles <span style=color:#f92672>=</span> roleService.<span style=color:#a6e22e>selectRolesByUserId</span>(userId);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> roles.<span style=color:#a6e22e>isEmpty</span>() <span style=color:#f92672>?</span> Result.<span style=color:#a6e22e>fail</span>(<span style=color:#f92672>-</span>1, <span style=color:#e6db74>&#34;暂无角色&#34;</span>) : Result.<span style=color:#a6e22e>success</span>(roles);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 在 <code>alibaba-user</code> 中开发按用户主键查询用户权限业务</p></blockquote><ol><li>开发接口方法 <code>PermissionMapper -> selectPermissionsByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Repository</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>PermissionMapper</span> <span style=color:#66d9ef>extends</span> BaseMapper<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** PERMISSION表全查SQL片段 */</span>
+</span></span><span style=display:flex><span>    String PERMISSION_LIST_ALL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;SELECT p.permission_id, p.permission_title, &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;p.permission_info, p.create_time, p.last_modify &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;FROM permission p &#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Select</span>(PERMISSION_LIST_ALL <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;JOIN v3_alibaba.role_permission rp ON rp.permission_id = p.permission_id &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;WHERE rp.role_id IN ( &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;    SELECT ur.role_id FROM v3_alibaba.user_role ur &#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;    WHERE ur.user_id = #{param1}&#34;</span> <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;) GROUP BY p.permission_id&#34;</span>)
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectPermissionsByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口方法 <code>PermissionService -> selectPermissionsByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>PermissionService</span> <span style=color:#66d9ef>extends</span> IService<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectPermissionsByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>重写接口方法 <code>PermissionService -> selectPermissionsByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PermissionServiceImpl</span> <span style=color:#66d9ef>extends</span> ServiceImpl<span style=color:#f92672>&lt;</span>PermissionMapper, Permission<span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>implements</span> PermissionService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> PermissionMapper permissionMapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectPermissionsByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> permissionMapper.<span style=color:#a6e22e>selectPermissionsByUserId</span>(userId);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发控制方法 <code>PermissionController -> selectPermissionsByUserId()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/permission&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PermissionController</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> PermissionService permissionService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;select-permissions-by-user-id&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>selectPermissionsByUserId</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>) Integer userId) {
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> permissions <span style=color:#f92672>=</span> permissionService.<span style=color:#a6e22e>selectPermissionsByUserId</span>(userId);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> permissions.<span style=color:#a6e22e>isEmpty</span>() <span style=color:#f92672>?</span> Result.<span style=color:#a6e22e>fail</span>(<span style=color:#f92672>-</span>1, <span style=color:#e6db74>&#34;暂无权限&#34;</span>) :
+</span></span><span style=display:flex><span>                Result.<span style=color:#a6e22e>success</span>(permissions);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 在 <code>alibaba-auth</code> 准备远程调用环境</p></blockquote><ol><li>开发远程接口 <code>UserFeign</code>: 对应 <code>alibaba-user</code> 微服务的接口。</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.feign;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@FeignClient</span>(<span style=color:#e6db74>&#34;alibaba-user&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserFeign</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表账号查询该用户的信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param username 用户表账号
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/api/v1/user/select-by-username&#34;</span>)
+</span></span><span style=display:flex><span>    Result <span style=color:#a6e22e>selectByUserName</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;username&#34;</span>) String username);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部角色
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/api/v1/role/select-roles-by-user-id&#34;</span>)
+</span></span><span style=display:flex><span>    Result <span style=color:#a6e22e>selectRolesByUserId</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>) Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按用户表主键查询该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId 用户表主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 该用户的全部权限
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/api/v1/permission/select-permissions-by-user-id&#34;</span>)
+</span></span><span style=display:flex><span>    Result <span style=color:#a6e22e>selectPermissionsByUserId</span>(<span style=color:#a6e22e>@RequestParam</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>) Integer userId);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发配置类 <code>FeignConfig</code>: 启用Feign功能</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableFeignClients</span>(basePackages <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.lsx.feign&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FeignConfig</span> {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-重写登录逻辑>EP03. 重写登录逻辑</h2><blockquote><p>心法: 重写SpringSecurity登录逻辑要求</p></blockquote><ul><li>Spring容器中必须存在一个 <code>PasswordEncoder</code> 的Bean实例，且登录时密码必须加密处理。</li></ul><blockquote><p>武技: 重写SpringSecurity登录逻辑</p></blockquote><ol><li>开发配置类 <code>PasswordEncoderConfig</code>:<ul><li>管理 <code>PasswordEncoder</code> 实例。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PasswordEncoderConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 重写SpringSecurity登录逻辑时需要 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> PasswordEncoder <span style=color:#a6e22e>passwordEncoder</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> BCryptPasswordEncoder();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>重写接口方法 <code>UserDetailsService -> loadUserByUsername()</code>:<ul><li>自定义登录逻辑。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserDetailsServiceImpl</span> <span style=color:#66d9ef>implements</span> UserDetailsService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> UserFeign userFeign;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> PasswordEncoder passwordEncoder;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 在这里开发我们的自定义登录逻辑 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> UserDetails <span style=color:#a6e22e>loadUserByUsername</span>(String username) <span style=color:#66d9ef>throws</span> UsernameNotFoundException {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按账号获取用户信息</span>
+</span></span><span style=display:flex><span>        Result userResult <span style=color:#f92672>=</span> userFeign.<span style=color:#a6e22e>selectByUserName</span>(username);
+</span></span><span style=display:flex><span>        User user <span style=color:#f92672>=</span> Convert.<span style=color:#a6e22e>convert</span>(User.<span style=color:#a6e22e>class</span>, userResult.<span style=color:#a6e22e>getData</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取用户表主键</span>
+</span></span><span style=display:flex><span>        Integer userId <span style=color:#f92672>=</span> user.<span style=color:#a6e22e>getUserId</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按用户主键获取该用户的全部角色</span>
+</span></span><span style=display:flex><span>        Result rolesResult <span style=color:#f92672>=</span> userFeign.<span style=color:#a6e22e>selectRolesByUserId</span>(user.<span style=color:#a6e22e>getUserId</span>());
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>Role<span style=color:#f92672>&gt;</span> roles <span style=color:#f92672>=</span> Convert.<span style=color:#a6e22e>toList</span>(Role.<span style=color:#a6e22e>class</span>, rolesResult.<span style=color:#a6e22e>getData</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按用户主键获取该用户的全部权限</span>
+</span></span><span style=display:flex><span>        Result permissionsResult <span style=color:#f92672>=</span> userFeign.<span style=color:#a6e22e>selectPermissionsByUserId</span>(user.<span style=color:#a6e22e>getUserId</span>());
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>Permission<span style=color:#f92672>&gt;</span> permissions <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>                Convert.<span style=color:#a6e22e>toList</span>(Permission.<span style=color:#a6e22e>class</span>, permissionsResult.<span style=color:#a6e22e>getData</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用BCRYPT将会员密码进行加密</span>
+</span></span><span style=display:flex><span>        String password <span style=color:#f92672>=</span> passwordEncoder.<span style=color:#a6e22e>encode</span>(user.<span style=color:#a6e22e>getPassword</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 准备权限/角色集合</span>
+</span></span><span style=display:flex><span>        Set<span style=color:#f92672>&lt;</span>GrantedAuthority<span style=color:#f92672>&gt;</span> authorities <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将用户的全部权限添加到authorities集合中: 角色名需要添加 `ROLE_` 前缀</span>
+</span></span><span style=display:flex><span>        roles.<span style=color:#a6e22e>forEach</span>(role <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>                authorities.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> SimpleGrantedAuthority(<span style=color:#e6db74>&#34;ROLE_&#34;</span> <span style=color:#f92672>+</span> role.<span style=color:#a6e22e>getRoleTitle</span>())));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将用户的全部角色添加到authorities集合中</span>
+</span></span><span style=display:flex><span>        permissions.<span style=color:#a6e22e>forEach</span>(permission <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>                authorities.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> SimpleGrantedAuthority(permission.<span style=color:#a6e22e>getPermissionTitle</span>())));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// TODO: remove in prod</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;认证成功: &#34;</span> <span style=color:#f92672>+</span> user.<span style=color:#a6e22e>getUsername</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> authorities);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建并返回 `o.s.s.c.u.User` 实例</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> org.<span style=color:#a6e22e>springframework</span>.<span style=color:#a6e22e>security</span>.<span style=color:#a6e22e>core</span>.<span style=color:#a6e22e>userdetails</span>.<span style=color:#a6e22e>User</span>(
+</span></span><span style=display:flex><span>                username, password, authorities);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 重写SpringSecurity登录逻辑</p></blockquote><ol><li>访问资源: <code>localhost:8040/test</code></li><li>触发保护: SpringSecurity将请求重定向到 <code>localhost:8040/login</code> 并展示内置登录页面。</li><li>认证授权: 使用数据库的账号密码进行登录:<ul><li>认证成功: SpringSecurity自动重新发送认证前一次的请求。</li><li>认证失败: 直接404。</li></ul></li></ol><h2 id=ep04-重写登录页面>EP04. 重写登录页面</h2><blockquote><p>武技: 重写SpringSecurity的登录页面</p></blockquote><ol><li>开发一个自定义的登录页面 <code>classpath:templates/login.html</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!--登录表单--&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/login&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;usernameIpt&#34;</span>&gt;账号: &lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;usernameIpt&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;uname&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zhaosi&#34;</span>/&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwordIpt&#34;</span>&gt;密码: &lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwordIpt&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zhaosi&#34;</span>/&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span>&gt;登录&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>form</span>&gt;
+</span></span></code></pre></div><ol start=2><li>开发配置类 <code>WebSecurityConfig</code>:<ul><li>标记 <code>@EnableWebSecurity</code> 以启用SpringSecurity功能。</li><li>重写 <code>WebSecurityConfigurerAdapter -> configure(http)</code> 方法。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableWebSecurity</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> <span style=color:#66d9ef>extends</span> WebSecurityConfigurerAdapter {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 登录表单配置</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>formLogin</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 重写登录页面</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>loginPage</span>(<span style=color:#e6db74>&#34;/login.html&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 将 `/login` 请求视为登录请求，去执行自定义登录逻辑，该值和表单的action值保持一致</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>loginProcessingUrl</span>(<span style=color:#e6db74>&#34;/login&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 该值和表单中账号控件的name值保持一致，默认username</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>usernameParameter</span>(<span style=color:#e6db74>&#34;uname&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 该值和表单中密码控件的name值保持一致，默认password</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>passwordParameter</span>(<span style=color:#e6db74>&#34;pwd&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 授权认证配置</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>authorizeRequests</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 指定某些请求放行: 无需认证</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>antMatchers</span>(<span style=color:#e6db74>&#34;/login.html&#34;</span>).<span style=color:#a6e22e>permitAll</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 其余全部请求拦截: 必须认证，认证成功后才可放行</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>anyRequest</span>().<span style=color:#a6e22e>authenticated</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭CSRF防护: 否则无法访问自定义登录逻辑</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>csrf</span>().<span style=color:#a6e22e>disable</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 重写SpringSecurity登录页面</p></blockquote><ol><li>访问资源: <code>localhost:8040/test</code></li><li>触发保护: SpringSecurity将请求重定向到 <code>localhost:8040/login</code> 并展示自定义的登录页面。</li><li>认证授权: 使用数据库的账号密码进行登录:<ul><li>认证成功: SpringSecurity重新发送认证前一次的请求。</li><li>认证失败: SpringSecurity重定向到 <code>/login.html?error</code> 地址。</li></ul></li></ol><h2 id=ep05-自定义处理器>EP05. 自定义处理器</h2><blockquote><p>武技: 自定义认证成功和认证失败后的处理器类</p></blockquote><ol><li>开发处理器 <code>MyAuthenticationSuccessHandler</code>:<ul><li>认证成功后，重定向到认证前一次请求。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.handler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyAuthenticationSuccessHandler</span> <span style=color:#66d9ef>implements</span> AuthenticationSuccessHandler {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onAuthenticationSuccess</span>(HttpServletRequest request,
+</span></span><span style=display:flex><span>                                        HttpServletResponse response,
+</span></span><span style=display:flex><span>                                        Authentication auth) <span style=color:#66d9ef>throws</span> IOException {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// HttpSessionRequestCache中缓存了认证前的请求对象</span>
+</span></span><span style=display:flex><span>        HttpSessionRequestCache httpSessionRequestCache <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HttpSessionRequestCache();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从HttpSessionRequestCache中获取认证前的请求对象</span>
+</span></span><span style=display:flex><span>        SavedRequest savedRequest <span style=color:#f92672>=</span> httpSessionRequestCache.<span style=color:#a6e22e>getRequest</span>(request, response);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从请求对象中获取具体的请求地址</span>
+</span></span><span style=display:flex><span>        String redirectUrl <span style=color:#f92672>=</span> savedRequest.<span style=color:#a6e22e>getRedirectUrl</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 重定向之前的请求</span>
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>sendRedirect</span>(redirectUrl);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发处理器 <code>MyAuthenticationFailureHandler</code>:<ul><li>认证失败后，返回错误信息提示。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.handler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyAuthenticationFailureHandler</span> <span style=color:#66d9ef>implements</span> AuthenticationFailureHandler {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onAuthenticationFailure</span>(HttpServletRequest request,
+</span></span><span style=display:flex><span>                                        HttpServletResponse response,
+</span></span><span style=display:flex><span>                                        AuthenticationException e) <span style=color:#66d9ef>throws</span> IOException {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>setStatus</span>(HttpServletResponse.<span style=color:#a6e22e>SC_INTERNAL_SERVER_ERROR</span>);
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> response.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;认证失败，请核对账号或密码&#34;</span>);
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发配置类 <code>MyHandlerConfig</code>:<ul><li>管理认证成功处理器和认证失败处理器实例。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyHandlerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 认证成功处理器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> MyAuthenticationSuccessHandler <span style=color:#a6e22e>myAuthenticationSuccessHandler</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> MyAuthenticationSuccessHandler();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 认证失败处理器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> MyAuthenticationFailureHandler <span style=color:#a6e22e>myAuthenticationFailureHandler</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> MyAuthenticationFailureHandler();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>修改配置方法 <code>WebSecurityConfig -> configure(http)</code>:<ul><li>配置认证成功和认证失败后的处理器类。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 登录表单配置</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>formLogin</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 登录成功时执行MyAuthenticationSuccessHandler处理器</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>successHandler</span>(myAuthenticationSuccessHandler)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 登录失败时执行MyAuthenticationFailureHandler处理器</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>failureHandler</span>(myAuthenticationFailureHandler);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 自定义处理器</p></blockquote><ol><li>访问资源: <code>localhost:8040/test</code></li><li>触发保护: SpringSecurity将请求重定向到 <code>localhost:8040/login</code> 并展示自定义的登录页面。</li><li>认证授权: 使用数据库的账号密码进行登录:<ul><li>认证成功: 执行自定义的 <code>MyAuthenticationSuccessHandler</code> 中的逻辑。</li><li>认证失败: 执行自定义的 <code>MyAuthenticationFailureHandler</code> 中的逻辑。</li></ul></li></ol><h2 id=ep06-重写登出逻辑>EP06. 重写登出逻辑</h2><blockquote><p>心法: 重写登出逻辑</p></blockquote><ul><li>浏览器完全退出时表示注销当前登录的用户，但不够友好。</li></ul><blockquote><p>武技: 重写SpringSecurity登出逻辑</p></blockquote><ol><li>开发处理器 <code>MyLogoutSuccessHandler</code>:<ul><li>登出成功后执行。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.handler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyLogoutSuccessHandler</span> <span style=color:#66d9ef>implements</span> LogoutSuccessHandler {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onLogoutSuccess</span>(HttpServletRequest request,
+</span></span><span style=display:flex><span>                                HttpServletResponse response,
+</span></span><span style=display:flex><span>                                Authentication authentication) <span style=color:#66d9ef>throws</span> IOException {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 重定向到自定义的登录页面</span>
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>sendRedirect</span>(request.<span style=color:#a6e22e>getContextPath</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/login.html&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>修改配置类 <code>MyHandlerConfig</code>:<ul><li>管理 <code>MyLogoutSuccessHandler</code> 实例。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyHandlerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 登出成功处理器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> MyLogoutSuccessHandler <span style=color:#a6e22e>myLogoutSuccessHandler</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> MyLogoutSuccessHandler();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>修改配置方法 <code>WebSecurityConfig -> configure(http)</code>:<ul><li>配置登出相关项。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MyLogoutSuccessHandler myLogoutSuccessHandler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 登出配置</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>logout</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 发送 `/logout` 请求即可退出登录，默认 `/logout`</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>logoutUrl</span>(<span style=color:#e6db74>&#34;/logout&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 退出登录成功时执行MyLogoutSuccessHandler处理器</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>logoutSuccessHandler</span>(myLogoutSuccessHandler)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 删除Cookie中的JSESSIONID，否则连接一直维持，不算注销</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>deleteCookies</span>(<span style=color:#e6db74>&#34;JSESSIONID&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 使HttpSession失效</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>invalidateHttpSession</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 重写SpringSecurity登出逻辑</p></blockquote><ul><li>cli: <code>localhost:8040/logout</code></li></ul><h2 id=ep07-记住账号密码>EP07. 记住账号密码</h2><blockquote><p>心法: RememberMe功能</p></blockquote><ul><li>SpringSecurity支持RememberMe记住账号功能。</li><li>当用户在登录时勾选 <code>remember-me</code> 复选框时，SpringSecurity会自动将用户信息存储到数据库。</li><li>默认2周内，不再需要重复登录即可访问权限内的任意受保护的资源。</li></ul><blockquote><p>武技: 在 <code>alibaba-auth</code> 中整合RememberMe功能</p></blockquote><ol><li>在业务数据库中创建 <code>persistent_logins</code> 表</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>use v3_alibaba;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>exists</span> v3_alibaba.persistent_logins
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>    series    varchar(<span style=color:#ae81ff>64</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span> <span style=color:#e6db74>&#39;主键&#39;</span>,
+</span></span><span style=display:flex><span>    username  varchar(<span style=color:#ae81ff>64</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;账号&#39;</span>,
+</span></span><span style=display:flex><span>    token     varchar(<span style=color:#ae81ff>64</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;Token令牌&#39;</span>,
+</span></span><span style=display:flex><span>    last_used <span style=color:#66d9ef>timestamp</span>   <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;上次使用时间&#39;</span>
+</span></span><span style=display:flex><span>) <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;账号持久化表&#39;</span>;
+</span></span></code></pre></div><ol start=2><li>开发配置类 <code>RememberMeConfig</code>: 管理 <code>PersistentTokenRepository</code> 实例</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RememberMeConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> DataSource dataSource;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 使用RememberMe功能时要通过这个实例来将用户登录信息存储到数据库 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> PersistentTokenRepository <span style=color:#a6e22e>jdbcTokenRepository</span>() {
+</span></span><span style=display:flex><span>        JdbcTokenRepositoryImpl jdbcTokenRepository <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> JdbcTokenRepositoryImpl();
+</span></span><span style=display:flex><span>        jdbcTokenRepository.<span style=color:#a6e22e>setDataSource</span>(dataSource);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jdbcTokenRepository;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>修改配置方法 <code>WebSecurityConfig -> configure(http)</code>:<ul><li>添加RememberMe相关配置。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> UserDetailsService userDetailsService;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> PersistentTokenRepository persistentTokenRepository;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// RememberMe配置</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>rememberMe</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 该值和表单中复选框控件的name值保持一致，默认remember-me</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>rememberMeParameter</span>(<span style=color:#e6db74>&#34;remember-me&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// token过期时间，单位秒，默认2周</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>tokenValiditySeconds</span>(1200)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 自定义登录逻辑类</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>userDetailsService</span>(userDetailsService)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// token仓库</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>tokenRepository</span>(persistentTokenRepository);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>修改自定义登录页面 <code>login.html</code>:<ul><li>添加RememberMe复选框。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!--登录表单--&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/login&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;usernameIpt&#34;</span>&gt;账号: &lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;usernameIpt&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;uname&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zhaosi&#34;</span>/&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwordIpt&#34;</span>&gt;密码: &lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwordIpt&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zhaosi&#34;</span>/&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rememberMeIpt&#34;</span>&gt;记住我: &lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rememberMeIpt&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;checkbox&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;remember-me&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;true&#34;</span>/&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span>&gt;登录&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>form</span>&gt;
+</span></span></code></pre></div><blockquote><p>测试: RememberMe功能</p></blockquote><ol><li>访问资源: <code>localhost:8040/test</code></li><li>触发保护: SpringSecurity将请求重定向到 <code>localhost:8040/login</code> 并展示自定义的登录页面。</li><li>认证授权: 使用数据库的账号密码进行登录，登录时勾选 <code>记住我</code> 复选框:<ul><li>认证成功后执行自定的 <code>MyAuthenticationSuccessHandler()</code> 中的逻辑。</li><li>查看用户信息是否被记录在数据库 <code>persistent_logins</code> 表中。</li></ul></li><li>退出登录: <code>localhost:8040/logout</code>:<ul><li>查看用户信息是否从数据库 <code>persistent_logins</code> 表中删除。</li></ul></li></ol><h2 id=ep08-配置访问权限>EP08. 配置访问权限</h2><blockquote><p>心法: 访问权限注解 <code>@PreAuthorize</code></p></blockquote><ul><li><code>@PreAuthorize</code> 注解可以标记在控制器方法上来确定该方法的访问权限。</li><li><code>@PreAuthorize("hasAuthority(ROLE_admin)")</code>: 仅admin角色可以访问我。</li><li><code>@PreAuthorize("hasAnyAuthority(ROLE_admin, create)")</code>: 仅admin角色或create权限可以访问我。</li></ul><blockquote><p>武技: 配置访问权限</p></blockquote><ol><li>开发处理器 <code>MyAccessDeniedHandler</code>:<ul><li>权限验证失败后执行。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.handler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyAccessDeniedHandler</span> <span style=color:#66d9ef>implements</span> AccessDeniedHandler {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>handle</span>(HttpServletRequest request,
+</span></span><span style=display:flex><span>                       HttpServletResponse response,
+</span></span><span style=display:flex><span>                       AccessDeniedException e) <span style=color:#66d9ef>throws</span> IOException {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;application/json;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>setStatus</span>(HttpServletResponse.<span style=color:#a6e22e>SC_FORBIDDEN</span>);
+</span></span><span style=display:flex><span>        PrintWriter writer <span style=color:#f92672>=</span> response.<span style=color:#a6e22e>getWriter</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;权限不足，请联系管理员&#34;</span>);
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>flush</span>();
+</span></span><span style=display:flex><span>        writer.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>修改配置类 <code>MyHandlerConfig</code>:<ul><li>管理 <code>MyAccessDeniedHandler</code> 实例。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyHandlerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 权限不足处理器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> MyAccessDeniedHandler <span style=color:#a6e22e>myAccessDeniedHandler</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> MyAccessDeniedHandler();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>修改配置类 <code>WebSecurityConfig</code>:<ul><li>标记 <code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code> 注解启用 <code>@PreAuthorize</code> 注解。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** `prePostEnabled = true`: 启用 @PreAuthorize 注解 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableGlobalMethodSecurity</span>(prePostEnabled <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>修改配置方法 <code>WebSecurityConfig -> configure(http)</code>:<ul><li>添加异常处理器。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> MyAccessDeniedHandler myAccessDeniedHandler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 自定义异常处理器</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>exceptionHandling</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 权限不足时，执行MyAccessDeniedHandler处理器</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>accessDeniedHandler</span>(myAccessDeniedHandler);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发控制器 <code>AuthController</code>:<ul><li>仅用于测试权限注解。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/auth&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,ROLE_admin,create&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/insert&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>insert</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;insert()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,ROLE_admin,ROLE_normal,select&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/select&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>select</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;select()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,ROLE_admin,update&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/update&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>update</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;update()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,ROLE_admin,delete&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/delete&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>delete</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;delete()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,create&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/create&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>create</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;create()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;ROLE_root,drop&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/drop&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>drop</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;drop()方法访问成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 访问权限</p></blockquote><ul><li>cli: <code>localhost:8040/api/v1/auth/insert</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li><li>cli: <code>localhost:8040/api/v1/auth/select</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li><li>cli: <code>localhost:8040/api/v1/auth/update</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li><li>cli: <code>localhost:8040/api/v1/auth/delete</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li><li>cli: <code>localhost:8040/api/v1/auth/create</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li><li>cli: <code>localhost:8040/api/v1/auth/drop</code>: 分别用不同角色的账号登录，测试是否有访问权限。</li></ul><h1 id=ch02-oauth2概念入门>CH02. OAuth2概念入门</h1><h2 id=ep01-认证框架概念>EP01. 认证框架概念</h2><blockquote><p>心法: OAuth2认证框架</p></blockquote><ul><li>OAuth2是一个开放的标准，该标准允许用户让第三方应用访问该用户在 <code>某网站</code> 上存储的部分信息。</li><li>任何第三方应用都可以使用OAuth2认证，任何服务提供商都可以实现自身的OAuth2认证服务。</li><li>OAuth2已经发展到2.0版本，1.0版本过于复杂，2.0版本已经得到广泛应用。</li></ul><blockquote><p>心法: OAuth2认证流程</p></blockquote><ul><li>赵四访问百度某篇文章时被提示需要登录后才能访问全部内容，于是赵四点击 <code>微信登录</code> 按钮:<ul><li>此时，赵四是一个 <code>资源拥有者</code>，该资源指的是用户的微信账号。</li><li>此时，百度网站是一个 <code>客户端</code>，仅用于通过用户的授权去请求资源服务器的资源。</li></ul></li><li>百度向微信请求了一张用于授权的微信二维码页面并展示给赵四:<ul><li>此过程可以理解为，百度向赵四发起授权申请，赵四若点击 <code>登录并同意</code> 按钮，则表示同意授权。</li></ul></li><li>赵四使用微信扫码，点击 <code>登录并同意</code> 按钮，完成授权，表示同意将自己的部分微信信息暴露给百度:<ul><li>微信的 <code>认证服务器</code> 颁发一个授权码给百度，该授权码是一次性的。</li></ul></li><li>百度携带授权码，向微信请求一个AccessToken令牌:<ul><li>微信的 <code>认证服务器</code> 颁发一个AccessToken令牌给百度。</li></ul></li><li>百度携带AccessToken令牌，向微信请求赵四的部分信息，如头像，昵称等:<ul><li>微信的 <code>认证服务器</code> 校验AccessToken令牌是否有效或过期。</li><li>微信的 <code>资源服务器</code> 返回赵四的部分用户信息给百度。</li></ul></li><li>百度服务将用户数据绑定到百度账号，完成登录，并且将用户的部分信息展示在自己页面的右上角。</li><li>整个登录过程中，赵四仅靠一个AccessToken令牌登录百度，并没有向百度暴露账号密码:<ul><li>令牌相当于临时密码，比密码时效性更端，权限更小，更容易被撤销，所以比密码更加灵活和安全。</li></ul></li></ul><h2 id=ep02-配置授权服务>EP02. 配置授权服务</h2><blockquote><p>心法: 授权服务器</p></blockquote><ul><li><code>授权服务器</code> 也叫 <code>认证服务器/验证服务器</code>，用于对 <code>资源拥有者</code> 进行身份认证和授权。</li><li><code>客户端</code> 向 <code>授权服务器</code> 发送授权请求时，需要携带 <code>授权许可</code>。</li><li><code>授权服务器</code> 对 <code>资源拥有者</code> 授权成功后，会返回给 <code>客户端</code> 一个 <code>访问令牌</code>。</li></ul><blockquote><p>武技: 在 <code>alibaba-auth</code> 中配置授权服务器</p></blockquote><ol><li>添加三方依赖<ul><li><code>spring-cloud-starter-oauth2</code> 中包含 <code>spring-cloud-starter-security</code></li><li><code>spring-cloud-starter-security</code> 中包含 <code>spring-boot-starter-security</code></li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-cloud-starter-oauth2--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-oauth2<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=2><li>修改配置方法 <code>WebSecurityConfig -> configure(http)</code> 中补充放行 <code>/oauth/**</code> 请求:<ul><li>如OAuth2内置的 <code>/oauth/authorize</code> 请求用于获取授权码。</li><li>如OAuth2内置的 <code>/oauth/token</code> 请求用于获取AccessToken令牌。</li><li>如OAuth2内置的 <code>/oauth/check_token</code> 请求用于校验并解析AccessToken令牌。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>authorizeRequests</span>()
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>antMatchers</span>(<span style=color:#e6db74>&#34;/login.html&#34;</span>, <span style=color:#e6db74>&#34;/oauth/**&#34;</span>, <span style=color:#e6db74>&#34;/login/**&#34;</span>, <span style=color:#e6db74>&#34;/logout/**&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>permitAll</span>()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>修改配置类 <code>WebSecurityConfig</code>:<ul><li>重写并管理认证管理器 <code>AuthenticationManager</code> 实例。</li><li>认证管理器在密码授权模式下必须配置，用于认证用户的账号密码。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebSecurityConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理认证管理器: 密码模式需要 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> AuthenticationManager <span style=color:#a6e22e>authenticationManager</span>() <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>authenticationManager</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发Token存储配置类 <code>TokenStoreConfig</code>:<ul><li>暂用内存方式存储Token令牌。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TokenStoreConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**使用内存的方式存储Token令牌*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> TokenStore <span style=color:#a6e22e>tokenStore</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> InMemoryTokenStore();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发授权服务器配置类 <code>AuthorizationServerConfig</code>:<ul><li>需要继承 <code>AuthorizationServerConfigurerAdapter</code> 并重写三个 <code>configure()</code> 方法。</li><li>需要标记 <code>@EnableAuthorizationServer</code> 以启用授权服务器功能。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 授权服务器的配置 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableAuthorizationServer</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthorizationServerConfig</span> <span style=color:#66d9ef>extends</span> AuthorizationServerConfigurerAdapter {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置客户端详情 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(ClientDetailsServiceConfigurer clients) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置授权服务器端点 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(AuthorizationServerEndpointsConfigurer endpoints) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置令牌安全策略 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(AuthorizationServerSecurityConfigurer security) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>修改配置方法 <code>AuthorizationServerConfig -> configure(clients)</code>:<ul><li><code>.withClient()</code>: 客户端ID，必填配置</li><li><code>.secret()</code>: 客户端安全码，必须加密</li><li><code>.resourceIds()</code>: 客户端可以访问的资源列表，对应资源服务器的ID值，名称自定义</li><li><code>.redirectUris()</code>: 授权服务会向该回调地址推送授权码和相关客户端信息</li><li><code>.scopes()</code>: 客户端可以访问的权限范围，名称自定义</li><li><code>.authorizedGrantTypes()</code>: 配置授权类型，如授权码/密码/客户端/简化模式/refreshToken模式</li><li><code>.autoApprove(true/false)</code>: 开启自动/手动授权，默认false，需要在浏览器手动点击授权按钮</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthorizationServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> PasswordEncoder passwordEncoder;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;h3&gt;配置客户端详情&lt;/h3&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; withClient(): 客户端ID，必填配置
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; secret(): 客户端安全码，必须加密
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; resourceIds(): 客户端可以访问的资源列表，对应资源服务器的ID值，名称自定义
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; redirectUris(): 授权服务会向该回调地址推送授权码和相关客户端信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; scopes(): 客户端可以访问的权限范围，名称自定义
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; authorizedGrantTypes(): 配置授权类型，如授权码/密码/客户端/简化模式/refreshToken模式
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * &lt;p&gt; autoApprove(true/false): 开启自动/手动授权，默认false，需要在浏览器手动点击授权按钮
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(ClientDetailsServiceConfigurer clients) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 客户端配置: 将客户端配置存储在内存中</span>
+</span></span><span style=display:flex><span>        clients.<span style=color:#a6e22e>inMemory</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 第1套客户端配置</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>withClient</span>(<span style=color:#e6db74>&#34;client01&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>secret</span>(passwordEncoder.<span style=color:#a6e22e>encode</span>(<span style=color:#e6db74>&#34;secret01&#34;</span>))
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>resourceIds</span>(<span style=color:#e6db74>&#34;test&#34;</span>, <span style=color:#e6db74>&#34;dev&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>redirectUris</span>(<span style=color:#e6db74>&#34;http://www.baidu.com&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>scopes</span>(<span style=color:#e6db74>&#34;test&#34;</span>, <span style=color:#e6db74>&#34;dev&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authorizedGrantTypes</span>(
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;authorization_code&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;password&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;client_credentials&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;implicit&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;refresh_token&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>autoApprove</span>(<span style=color:#66d9ef>false</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>and</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 第2套客户端配置</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>withClient</span>(<span style=color:#e6db74>&#34;client02&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>secret</span>(passwordEncoder.<span style=color:#a6e22e>encode</span>(<span style=color:#e6db74>&#34;secret02&#34;</span>))
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>resourceIds</span>(<span style=color:#e6db74>&#34;prod&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>redirectUris</span>(<span style=color:#e6db74>&#34;http://localhost:8050/login&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>scopes</span>(<span style=color:#e6db74>&#34;prod&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authorizedGrantTypes</span>(
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;authorization_code&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;refresh_token&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>autoApprove</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=7><li>修改配置方法 <code>AuthorizationServerConfig -> configure(endpoints)</code>:<ul><li><code>.authenticationManager()</code>: 配置认证管理器，密码模式需要配置。</li><li><code>.authorizationCodeServices()</code>: 授权码管理服务，授权码模式需要配置。</li><li><code>.tokenServices()</code>: 令牌管理服务，全部模式需要配置。</li><li><code>.allowedTokenEndpointRequestMethods(HttpMethod.POST)</code>: 只允许POST请求访问令牌。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthorizationServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> AuthenticationManager authenticationManager;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> TokenStore tokenStore;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> AuthenticationManager authenticationManager;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> ClientDetailsService clientDetailsService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置授权服务器端点 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(AuthorizationServerEndpointsConfigurer endpoints) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        endpoints
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 认证管理器，密码模式需要配置</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authenticationManager</span>(authenticationManager)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 授权码管理服务，授权码模式需要配置</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authorizationCodeServices</span>(authorizationCodeServices())
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 令牌管理服务，全部模式需要配置</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>tokenServices</span>(authorizationServerTokenServices())
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 只允许POST请求访问令牌</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>allowedTokenEndpointRequestMethods</span>(HttpMethod.<span style=color:#a6e22e>POST</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理授权码服务: 将授权模式下的授权码存储在内存 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> AuthorizationCodeServices <span style=color:#a6e22e>authorizationCodeServices</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> InMemoryAuthorizationCodeServices();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 令牌管理服务 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> AuthorizationServerTokenServices <span style=color:#a6e22e>authorizationServerTokenServices</span>() {
+</span></span><span style=display:flex><span>        DefaultTokenServices defaultTokenServices <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultTokenServices();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置客户端详细信息服务: 直接注入即可</span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setClientDetailsService</span>(clientDetailsService);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 支持令牌刷新</span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setSupportRefreshToken</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置令牌存储方式</span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setTokenStore</span>(tokenStore);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 配置accessToken的有效期，单位秒</span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setAccessTokenValiditySeconds</span>(300);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 配置refreshToken的有效期，单位秒</span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setRefreshTokenValiditySeconds</span>(400);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> defaultTokenServices;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=8><li>修改配置方法 <code>AuthorizationServerConfig -> configure(security)</code>:<ul><li><code>.tokenKeyAccess("isAuthenticated()")</code>: 必须通过认证后才可以访问 <code>oauth/token_key</code> 接口。</li><li><code>.checkTokenAccess("permitAll()")</code>: 允许直接访问 <code>oauth/check_token</code> 接口。</li><li><code>.allowFormAuthenticationForClients()</code>: 允许客户端使用表单。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthorizationServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置令牌安全策略 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(AuthorizationServerSecurityConfigurer security) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        security
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 必须通过认证后才可以访问 `oauth/token_key` 接口</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>tokenKeyAccess</span>(<span style=color:#e6db74>&#34;isAuthenticated()&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 允许直接访问 `oauth/check_token` 接口</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>checkTokenAccess</span>(<span style=color:#e6db74>&#34;permitAll()&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 允许客户端使用表单传递 `client_id/client_secret` 参数以进行身份验证</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>allowFormAuthenticationForClients</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 通过授权服务器获取授权码，兑换为Token令牌，然后检查Token令牌</p></blockquote><ol><li>使用浏览器客户端向授权服务器发送请求: 携带正确的客户端凭证，返回授权码:<ul><li>发送授权请求后，浏览器自动跳转到SpringSecurity登录界面。</li><li>输入一个正确的账号密码后，自动授权成功，展示登录成功。</li><li>再次发送该请求，跳入百度页面，在百度页面URL的末尾可以查看到授权码信息。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>http://localhost:8040/oauth/authorize?response_type=code&amp;client_id=client01&amp;scope=test&amp;redirect_uri=http://www.baidu.com
+</span></span></span></code></pre></div><ol start=2><li>向授权服务器发送POST请求: 使用授权码兑换Token令牌:<ul><li>在表单中指定clientId，clientSecret以及其他客户端凭证。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 使用授权码兑换Token令牌
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8040/oauth/token
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>code=7xyvT8&amp;client_id=client01&amp;client_secret=secret01&amp;scope=test&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com
+</span></span></span></code></pre></div><ol start=3><li>向授权服务器发送GET请求: 解析Token令牌是否合法:<ul><li>使用查询串的方式指定Token令牌。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 解析Token令牌是否合法
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8040/oauth/check_token?token=xxx
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Accept: application/json
+</span></span></span></code></pre></div><h2 id=ep03-常用授权模式>EP03. 常用授权模式</h2><blockquote><p>心法: OAuth2常用四种授权模式</p></blockquote><ul><li>授权码模式 <code>Authorization code Grant</code>:<ul><li>用户访问客户端，重定向到认证服务器授权页面，等待用户授权。</li><li>用户授权完毕，认证服务器向指定的回调地址返回一个授权码。</li><li>客户端使用授权码向认证服务器兑换Token令牌。</li><li>授权码模式是最常用，最安全的授权模式，私密性最高，适用于有后端的Web应用。</li></ul></li><li>隐式授权模式 <code>Implicit Grant</code>:<ul><li>用户访问客户端，重定向到认证服务器授权页面，等待用户授权。</li><li>用户授权完毕，认证服务器向指定的回调地址返回一个Token令牌。</li><li>隐式授权模式可视为简化版的授权码模式，隐藏了授权码兑换Token令牌的过程，适用于纯静态页面项目。</li></ul></li><li>资源密码凭证 <code>Resources Password Credentials Grant</code>:<ul><li>用户访问客户端，直接输入第三方账号密码，然后客户端使用该信息向授权服务器申请Token令牌。</li><li>整个过程不需要多次请求转发，额外开销，同时可以获取更多的用户信息，如密码。</li><li>该模式要求认证服务器和客户端互信，更适用于自家公司搭建的认证服务器。</li></ul></li><li>客户端凭证模式 <code>Client Credentials Grant</code>:<ul><li>用户访问客户端，客户端使用自己的名义而非用户的名义直接拿到令牌。</li><li>该模式最不安全，要求用户对客户端完全信任。</li><li>客户端拿到一次令牌就可以畅通无阻的访问其他的资源页面。</li></ul></li></ul><blockquote><p>测试: 授权模式之-隐式授权模式</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 直接发起认证: 认证后，令牌会直接出现在回调地址末尾
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>http://localhost:8040/oauth/authorize?response_type=token&amp;client_id=client01&amp;scope=test&amp;redirect_uri=http://www.baidu.com
+</span></span></span></code></pre></div><blockquote><p>测试: 授权模式之-资源密码凭证模式</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 密码模式-获取Token令牌: 直接指定第三方用户的账号密码，Scope可选
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8040/oauth/token
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>grant_type=password&amp;client_id=client01&amp;client_secret=secret01&amp;username=zhaosi&amp;password=zhaosi&amp;scope=test
+</span></span></span></code></pre></div><blockquote><p>测试: 授权模式之-客户端凭证模式</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 客户端凭证模式-获取Token令牌: 仅需指定客户端ID和Secret，Scope可选
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8040/oauth/token
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/x-www-form-urlencoded
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>grant_type=client_credentials&amp;client_id=client01&amp;client_secret=secret01&amp;scope=test
+</span></span></span></code></pre></div><h2 id=ep04-令牌存储模式>EP04. 令牌存储模式</h2><blockquote><p>心法: 使用JWT存储Token</p></blockquote><ul><li>JWT的Token格式中自包含用户信息，若将OAuth2的AccessToken令牌转为JWT的Token格式，则无需再使用第三方数据库如MySQL，Redis等进行存储操作。</li></ul><blockquote><p>武技: 使用JWT存储Token令牌</p></blockquote><ol><li>修改配置类 <code>TokenStoreConfig</code>:<ul><li>管理 <code>TokenStore</code> 实例: 由内存存储方式修改为JWT存储方式。</li><li>管理 <code>JwtAccessTokenConverter</code> 实例，用于向JWT的Token格式进行转化。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TokenStoreConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String TOKEN_SIGN_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;my_secret&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理Token存储实例: 使用JWT方式存储*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> TokenStore <span style=color:#a6e22e>jwtTokenStore</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> JwtTokenStore(jwtAccessTokenConverter());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理Jwt访问令牌转换器实例: 用于将OAuth2的AccessToken令牌转为JWT的Token格式 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> JwtAccessTokenConverter <span style=color:#a6e22e>jwtAccessTokenConverter</span>() {
+</span></span><span style=display:flex><span>        JwtAccessTokenConverter jwtAccessTokenConverter <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> JwtAccessTokenConverter();
+</span></span><span style=display:flex><span>        jwtAccessTokenConverter.<span style=color:#a6e22e>setSigningKey</span>(TOKEN_SIGN_KEY);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> jwtAccessTokenConverter;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发内容增强器 <code>JwtTokenEnhancer</code>: 用于设置之定义的Token负载。</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.component;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JwtTokenEnhancer</span> <span style=color:#66d9ef>implements</span> TokenEnhancer {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> OAuth2AccessToken <span style=color:#a6e22e>enhance</span>(OAuth2AccessToken oAuth2AccessToken,
+</span></span><span style=display:flex><span>                                     OAuth2Authentication oAuth2Authentication) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> tokenExt <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(1);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置自定义JWT的Token负载内容</span>
+</span></span><span style=display:flex><span>        tokenExt.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;author&#34;</span>, <span style=color:#e6db74>&#34;lsx&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将自定义的Map类型的Token负载加入到Token中</span>
+</span></span><span style=display:flex><span>        ((DefaultOAuth2AccessToken) oAuth2AccessToken).<span style=color:#a6e22e>setAdditionalInformation</span>(tokenExt);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> oAuth2AccessToken;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在配置类 <code>AuthorizationServerConfig -> authorizationServerTokenServices()</code> 中指定JWT存储方式</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuthorizationServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> JwtAccessTokenConverter jwtAccessTokenConverter;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> JwtTokenEnhancer jwtTokenEnhancer;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理令牌服务 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> AuthorizationServerTokenServices <span style=color:#a6e22e>authorizationServerTokenServices</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 配置JWT内容增强器</span>
+</span></span><span style=display:flex><span>        TokenEnhancerChain tokenEnhancerChain <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> TokenEnhancerChain();
+</span></span><span style=display:flex><span>        List<span style=color:#f92672>&lt;</span>TokenEnhancer<span style=color:#f92672>&gt;</span> tokenEnhancers <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>        tokenEnhancers.<span style=color:#a6e22e>add</span>(jwtTokenEnhancer);
+</span></span><span style=display:flex><span>        tokenEnhancers.<span style=color:#a6e22e>add</span>(jwtAccessTokenConverter);
+</span></span><span style=display:flex><span>        tokenEnhancerChain.<span style=color:#a6e22e>setTokenEnhancers</span>(tokenEnhancers);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        defaultTokenServices.<span style=color:#a6e22e>setTokenEnhancer</span>(tokenEnhancerChain);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> defaultTokenServices;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 使用JWT存储Token令牌</p></blockquote><ul><li>获取Token令牌之后，查看是否为JWT格式的Token令牌。</li><li>res: <a href=http://jwt.io>Token在线解析</a></li></ul><h2 id=ep05-配置资源服务>EP05. 配置资源服务</h2><blockquote><p>心法: 资源服务器</p></blockquote><ul><li><code>资源服务器</code> 是真正存储受保护的 <code>资源</code> 的服务器。</li><li><code>客户端</code> 向 <code>资源服务器</code> 发送请求时，需要携带 <code>访问令牌</code>，否则访问失败。</li></ul><blockquote><p>武技: 在 <code>alibaba-auth</code> 中配置资源服务器</p></blockquote><ol><li>开发资源服务器配置类 <code>ResourceServerConfig</code>:<ul><li>需要继承 <code>ResourceServerConfigurerAdapter</code> 并重写两个 <code>configure()</code> 方法。</li><li>需要标记 <code>@EnableResourceServer</code> 以启用资源服务器功能。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableResourceServer</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ResourceServerConfig</span> <span style=color:#66d9ef>extends</span> ResourceServerConfigurerAdapter {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置资源的安全策略 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(ResourceServerSecurityConfigurer resources) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 配置请求的安全策略 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>在资源服务配置方法 <code>ResourceServerConfig -> configure(resources)</code> 中配置资源的安全策略</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ResourceServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(ResourceServerSecurityConfigurer resources) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 该值必须和认证中心-客户端详情配置中的资源列表名称一致</span>
+</span></span><span style=display:flex><span>        resources.<span style=color:#a6e22e>resourceId</span>(<span style=color:#e6db74>&#34;test&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>在资源服务配置方法 <code>ResourceServerConfig -> configure(http)</code> 中配置请求的安全策略</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ResourceServerConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭CSRF跨站伪造防护</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>csrf</span>().<span style=color:#a6e22e>disable</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 全部请求都需要认证</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authorizeRequests</span>().<span style=color:#a6e22e>anyRequest</span>().<span style=color:#a6e22e>authenticated</span>()
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>and</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 放行指定请求</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>requestMatchers</span>().<span style=color:#a6e22e>antMatchers</span>(<span style=color:#e6db74>&#34;/api/v1/**&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>and</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// SpringSecurity永远不会创建HttpSession，也永远不会使用它来获取</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>sessionManagement</span>().<span style=color:#a6e22e>sessionCreationPolicy</span>(SessionCreationPolicy.<span style=color:#a6e22e>STATELESS</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发控制器 <code>TokenController</code>:<ul><li><code>getAuthMessage()</code>: 用于获取认证信息。</li><li><code>parseToken()</code>: 用于解析Token令牌。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/token&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TokenController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/get-auth-message&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>getAuthMessage</span>(Authentication authentication,
+</span></span><span style=display:flex><span>                                 HttpServletRequest request) {
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(3);
+</span></span><span style=display:flex><span>        String authorization <span style=color:#f92672>=</span> request.<span style=color:#a6e22e>getHeader</span>(<span style=color:#e6db74>&#34;Authorization&#34;</span>);
+</span></span><span style=display:flex><span>        String token <span style=color:#f92672>=</span> authorization.<span style=color:#a6e22e>substring</span>(authorization.<span style=color:#a6e22e>indexOf</span>(<span style=color:#e6db74>&#34;bearer&#34;</span>) <span style=color:#f92672>+</span> 7);
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;authentication&#34;</span>, authentication.<span style=color:#a6e22e>getPrincipal</span>());
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;token&#34;</span>, token);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Result.<span style=color:#a6e22e>success</span>(resultMap);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/parse-token&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>parseToken</span>(HttpServletRequest request) {
+</span></span><span style=display:flex><span>        String authorization <span style=color:#f92672>=</span> request.<span style=color:#a6e22e>getHeader</span>(<span style=color:#e6db74>&#34;Authorization&#34;</span>);
+</span></span><span style=display:flex><span>        String token <span style=color:#f92672>=</span> authorization.<span style=color:#a6e22e>substring</span>(authorization.<span style=color:#a6e22e>indexOf</span>(<span style=color:#e6db74>&#34;bearer&#34;</span>) <span style=color:#f92672>+</span> 7);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Result.<span style=color:#a6e22e>success</span>(Jwts.<span style=color:#a6e22e>parser</span>()
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>setSigningKey</span>(<span style=color:#e6db74>&#34;my_secret&#34;</span>.<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>))
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>parseClaimsJws</span>(token)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>getBody</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 访问资源服务器资源</p></blockquote><ul><li>先从授权服务器中，使用任意模式获取AccessToken令牌，然后再向资源服务器发送请求</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## EP01. 获取资源信息
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010># 使用 `Authorization:` 指定Token令牌: 需要 `Bearer` 前缀
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8040/api/v1/token/get-auth-message
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdCIsImRldiJdLCJ1c2VyX25hbWUiOiJsaXVuZW5nIiwiYXV0aG9yIjoiSm9lWmhvdSIsInNjb3BlIjpbInRlc3QiXSwiZXhwIjoxNjc2NzkwMzQwLCJhdXRob3JpdGllcyI6WyJST0xFX2FkbWluIiwiaW5zZXJ0IiwidXBkYXRlIiwic2VsZWN0IiwiZGVsZXRlIl0sImp0aSI6ImE4YzQzNzY5LWNhN2ItNDkyYy1iMDMwLWQxNzMxZWYxNDA0YSIsImNsaWVudF9pZCI6ImNsaWVudDAxIn0.ZInDhyrtrUjjWyaUa06Ohlq5r0_rX0XvLfK1dnzkmYE
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Accept: application/json
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>## 解析Token令牌
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010># 使用 `Authorization:` 指定Token令牌: 需要 `Bearer` 前缀
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>GET http://localhost:8040/api/v1/token/parse-token
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdCIsImRldiJdLCJ1c2VyX25hbWUiOiJsaXVuZW5nIiwiYXV0aG9yIjoiSm9lWmhvdSIsInNjb3BlIjpbInRlc3QiXSwiZXhwIjoxNjc2NzkwMzQwLCJhdXRob3JpdGllcyI6WyJST0xFX2FkbWluIiwiaW5zZXJ0IiwidXBkYXRlIiwic2VsZWN0IiwiZGVsZXRlIl0sImp0aSI6ImE4YzQzNzY5LWNhN2ItNDkyYy1iMDMwLWQxNzMxZWYxNDA0YSIsImNsaWVudF9pZCI6ImNsaWVudDAxIn0.ZInDhyrtrUjjWyaUa06Ohlq5r0_rX0XvLfK1dnzkmYE
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Accept: application/json
+</span></span></span></code></pre></div><h2 id=ep06-整合单点登录>EP06. 整合单点登录</h2><blockquote><p>心法: SSO单点登录</p></blockquote><ul><li><code>Single Sign On</code> 简称SSO单点登录，指的是在一个具有多个子系统的系统中，只需登录其中一个子系统，即可随意访问其他子系统:<ul><li>以 <code>alibaba-auth</code> 为SSO服务端项目。</li><li>以 <code>alibaba-auth-client</code> 为SSO客户端项目。</li></ul></li></ul><blockquote><p>武技: 准备SSO客户端项目环境</p></blockquote><ul><li>客户端添加三方依赖</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-cloud-starter-oauth2--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-oauth2<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ul><li>客户端开发主配文件</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8050</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>servlet</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>session</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>cookie</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>name</span>: <span style=color:#ae81ff>OAUTH2-CLIENT-SESSIONID-001</span> <span style=color:#75715e># 防止Cookie冲突导致验证失败</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>security</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>oauth2</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>client</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>client-id</span>: <span style=color:#ae81ff>client02</span> <span style=color:#75715e># 凭证ID</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>client-secret</span>: <span style=color:#ae81ff>secret02</span> <span style=color:#75715e># 凭证密钥</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>user-authorization-uri</span>: <span style=color:#ae81ff>http://localhost:8040/oauth/authorize</span> <span style=color:#75715e># 获取授权码地址</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>access-token-uri</span>: <span style=color:#ae81ff>http://localhost:8040/oauth/token</span> <span style=color:#75715e># 获取Token令牌地址</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>scope</span>: <span style=color:#ae81ff>prod</span> <span style=color:#75715e># Scope范围</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>resource</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>jwt</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>key-uri</span>: <span style=color:#ae81ff>http://localhost:8040/oauth/token_key</span> <span style=color:#75715e># JWT的Token_Key地址</span>
+</span></span></code></pre></div><ul><li>开发配置类 <code>SsoConfig</code>:<ul><li>需要标记 <code>@EnableOAuth2Sso</code> 注解以声明为SSO单点登录客户端。</li><li>需要标记 <code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code> 以启用 <code>@PreAuthorize</code> 注解。</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.config;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableOAuth2Sso</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableGlobalMethodSecurity</span>(prePostEnabled <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SsoConfig</span> <span style=color:#66d9ef>extends</span> WebSecurityConfigurerAdapter {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>configure</span>(HttpSecurity http) <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭跨站伪造防护</span>
+</span></span><span style=display:flex><span>        http.<span style=color:#a6e22e>csrf</span>().<span style=color:#a6e22e>disable</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 所有请求都需要验证</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>authorizeRequests</span>().<span style=color:#a6e22e>anyRequest</span>().<span style=color:#a6e22e>authenticated</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ul><li>开发控制器 <code>TestController</code>:<ul><li><code>select()</code>: 只有拥有select权限的账号才能访问该控制方法。</li><li><code>create()</code>: 只有拥有create权限的账号才能访问该控制方法。</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TestController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/message&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Authentication <span style=color:#a6e22e>message</span>(Authentication authentication) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回认证信息</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> authentication;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;select&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/select&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>select</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;只有拥有select权限的账号才能访问我&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PreAuthorize</span>(<span style=color:#e6db74>&#34;hasAnyAuthority(&#39;create&#39;)&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/create&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>create</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;只有拥有create权限的账号才能访问我&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>测试: 测试SSO单点登录功能</p></blockquote><ul><li>启动 <code>alibaba-auth</code> 授权服务器。</li><li>启动 <code>alibaba-auth-client</code> 客户端项目。</li><li>cli: <code>localhost:8050/message</code>:<ul><li>重定向到 <code>localhost:8040/login.html</code> 页面: 使用 <code>liuneng</code> 登录后，展示该账号的认证信息。</li></ul></li><li>cli: <code>localhost:8050/select</code>: 测试该账号是否有权访问 <code>select()</code> 方法。</li><li>cli: <code>localhost:8050/create</code>: 测试该账号是否有权访问 <code>create()</code> 方法。</li></ul></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

@@ -1,0 +1,41 @@
+# Tomcat项目打包
+
+> 心法: 汤姆猫项目打包
+
+- 在开发环境下，使用SpringBoot内置的Tomcat容器会更加便捷。
+- 而生产模式下，将项目打成War包并部署到独立的Tomcat容器中会更便于对容器做额外优化。
+
+> 武技: 将SpringBoot项目打成War包
+
+1. 添加三方依赖:
+
+- 不需要独立部署时建议删除该依赖，否则容易和内置Tomcat冲突导致APP启动后闪退。
+
+```xml
+<!--三方依赖-->
+<dependencies>
+    <!--spring-boot-starter-tomcat-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+```
+
+2. 在POM文件中修改打包方式:
+
+```xml
+
+<packaging>war</packaging>
+```
+
+3. 启动类重写 `o.s.b.a.SpringBootServletInitializer.configure()`:
+    - `builder.sources(启动类.class)`
+4. 将项目打成war包: 建议项目右键，选择Terminal并键入Maven打包命令:
+    - cmd: `mvn clean package -Dmaven.property.skip=true`
+5. 部署War包: 建议先重命名War包:
+    - 将war包拷贝到 `%TOMCAT_HOME%\webapps` 中。
+6. 启动Tomcat容器:
+    - 双击 `%TOMCAT_HOME%\bin\startup.bat` 文件。
+7. cli: `localhost:8080/项目名/URL接口`

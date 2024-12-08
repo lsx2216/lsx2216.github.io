@@ -1,0 +1,51 @@
+project:
+  env: dev # 开发环境
+server:
+  port: 8000 # 端口号
+spring:
+  application:
+    name: alibaba-gateway # 服务名
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.40.77:8848 # Nacos注册中心地址
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 允许发现Nacos中的其它服务
+      routes:
+        - id: user-route # 用户微服务路由唯一标识，名称随意，不重复即可
+          uri: lb://alibaba-user # 设置转发到用户微服务，`lb://` 表示负载均衡
+          order: 1 # 设置路由优先级，数字越小级别越高
+          predicates: # 设置断言，即转发前的条件判断，其值是一个数组
+            - Path=/user-app/** # URL请求满足此格式时，断言配置才能生效
+            #           - Query=a, \d+ # 请求参数必须携带a，且值必须满足指定正则表达式
+            - Age=16,60 # 自定义断言配置
+          filters: # 设置过滤器，即转发前的一些修改，其值是一个数组
+            - StripPrefix=1 # 转发之前去掉端口之后的1层路径，即服务名
+            - AddRequestHeader=a,1 # 为原请求添加Header键值对a=1
+            - AddRequestParameter=b,2 # 为原请求添加请求参数键值对b=2
+            - AddResponseHeader=c,3 # 为原响应添加Header键值对c=3
+            - SetResponseHeader=d,4 # 修改原响应Header中d的值为4
+            - SetStatus=2000 # 修改原始响应的状态码为2000
+            - Req=true,true # 自定义过滤器配置
+        - id: order-route # 订单微服务的自定义路由配置，同上
+          uri: lb://alibaba-order
+          order: 1
+          predicates:
+            - Path=/order-app/**
+          filters:
+            - StripPrefix=1
+        - id: product-route # 商品微服务的自定义路由配置，同上
+          uri: lb://alibaba-product
+          order: 1
+          predicates:
+            - Path=/product-app/**
+          filters:
+            - StripPrefix=1
+  zipkin:
+    base-url: http://192.168.40.77:9411 # Zipkin服务端地址
+    discovery-client-enabled: false # 不向Nacos注册此服务
+  sleuth:
+    sampler:
+      probability: 1.0 # 采样的百分比设置为100%采样
