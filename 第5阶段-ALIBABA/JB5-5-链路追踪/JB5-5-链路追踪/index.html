@@ -1,0 +1,274 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB5-5-链路追踪</title>
+<meta name=description content="[!NOTE] Java道经第5卷 - 第5阶 - 链路追踪 v5-5-alibaba-sleuth
+S01. Sleuth概念入门 心法: Sleuth链路追踪
+SpringCloud中的Sleuth组件用于将一次分布式请求还原成调用链路，进行日志记录，性能监控并集中展示。 E01. Sleuth核心组件 1. …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"><meta property="og:type" content="website"><meta property="og:title" content="JB5-5-链路追踪"><meta property="og:description" content="[!NOTE] Java道经第5卷 - 第5阶 - 链路追踪 v5-5-alibaba-sleuth
+S01. Sleuth概念入门 心法: Sleuth链路追踪
+SpringCloud中的Sleuth组件用于将一次分布式请求还原成调用链路，进行日志记录，性能监控并集中展示。 E01. Sleuth核心组件 1. …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB5-5-链路追踪"><meta name=twitter:description content="[!NOTE] Java道经第5卷 - 第5阶 - 链路追踪 v5-5-alibaba-sleuth
+S01. Sleuth概念入门 心法: Sleuth链路追踪
+SpringCloud中的Sleuth组件用于将一次分布式请求还原成调用链路，进行日志记录，性能监控并集中展示。 E01. Sleuth核心组件 1. …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB5-5-链路追踪</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第5卷 - 第5阶 - 链路追踪
+v5-5-alibaba-sleuth</p></blockquote><h1 id=s01-sleuth概念入门>S01. Sleuth概念入门</h1><blockquote><p>心法: Sleuth链路追踪</p></blockquote><ul><li>SpringCloud中的Sleuth组件用于将一次分布式请求还原成调用链路，进行日志记录，性能监控并集中展示。</li></ul><h2 id=e01-sleuth核心组件>E01. Sleuth核心组件</h2><h3 id=1-traceid>1. TraceId</h3><blockquote><p>心法: Sleuth核心之 <code>TraceId</code></p></blockquote><ul><li>当请求到达微服务的入口端点时，Sleuth会为该请求创建一个 <code>TraceId</code> 作为本次请求的唯一标识。</li><li>从请求开始到请求结束，<code>TraceId</code> 的值都不会发生改变。</li></ul><h3 id=2-spanid>2. SpanId</h3><blockquote><p>心法: Sleuth核心之 <code>SpanId</code></p></blockquote><ul><li>在一次完整的请求中，每个分支请求都会生成一个 <code>SpanId</code> 作为唯一标识。</li><li><code>SpanId</code> 用来标记请求的开始，具体过程和结束，方便统计每次请求的调用时间和元信息等。</li></ul><h3 id=3-annotation>3. Annotation</h3><blockquote><p>心法: Sleuth核心之 <code>Annotation</code></p></blockquote><ul><li><code>Annotation</code>: 用于记录一次请求的生命周期时间段，是链路追踪内部使用的重要元素。</li></ul><table><thead><tr><th>相关概念</th><th>描述</th><th>相关公式</th></tr></thead><tbody><tr><td><code>CS(Client Send)</code></td><td>客户端发出请求，开始一个请求的生命周期</td><td>SR - CS = 网络延迟时间</td></tr><tr><td><code>SR(Server Received)</code></td><td>服务端接收到请求，并开始进行处理</td><td></td></tr><tr><td><code>SS(Server Send)</code></td><td>服务端处理请求完毕，准备给客户端发送响应</td><td>SS - SR = 服务器处理时间</td></tr><tr><td><code>CR(Client Received)</code></td><td>客户端接收到服务端的响应，整个请求结束</td><td>CR - CS = 请求的总时间</td></tr></tbody></table><h2 id=e02-开发商品服务>E02. 开发商品服务</h2><blockquote><p>武技: 创建 <code>v5-5-alibaba-sleuth</code> 子项目，以及 <code>sleuth-product</code> 子项目</p></blockquote><h3 id=1-添加三方依赖>1. 添加三方依赖</h3><ol><li>在父项目中锁定版本：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-boot-version&gt;</span>2.3.12.RELEASE<span style=color:#f92672>&lt;/spring-boot-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-version&gt;</span>Hoxton.SR12<span style=color:#f92672>&lt;/spring-cloud-version&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-alibaba-version&gt;</span>2.2.9.RELEASE<span style=color:#f92672>&lt;/spring-cloud-alibaba-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-parent--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#f92672>&lt;/artifactId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-boot-version}<span style=color:#f92672>&lt;/version&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>  
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-alibaba-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-alibaba-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-alibaba-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-alibaba-nacos-discovery--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-openfeign--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-openfeign<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-sleuth--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-sleuth<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发启动类>2. 开发启动类</h3><p><code>com.lsx.SleuthProductApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SleuthProductApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(SleuthProductApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-开发配置类>3. 开发配置类</h3><ol><li>开发Nacos配置类：</li></ol><p><code>com.lsx.config.NacosConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableDiscoveryClient</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NacosConfig</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发OpenFeign配置类：</li></ol><p><code>com.lsx.config.OpenFeignConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableFeignClients</span>(basePackages <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.lsx.feign&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OpenFeignConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * OpenFeign提供了日志打印功能，用于对OpenFeign接口的调用情况进行监控和输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.NONE: 不显示任何日志，默认值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.BASIC: 仅记录请求方法、URL、响应状态码及执行时间
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.HEADERS: 除了BASIC中定义的信息之外，还有请求和响应的头信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.FULL: 除了HEADERS中定义的信息之外，还有请求和响应的正文及元数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 */</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>	Logger.<span style=color:#a6e22e>Level</span> <span style=color:#a6e22e>feignLoggerLevel</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> Logger.<span style=color:#a6e22e>Level</span>.<span style=color:#a6e22e>FULL</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发主配项>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=display:flex><span><span style=color:#f92672>server</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8090</span> <span style=color:#75715e># 端口号  </span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sleuth-product</span> <span style=color:#75715e># 项目名称  </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nacos</span>:  
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>server-addr</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>8848</span> <span style=color:#75715e># nacos地址  </span>
+</span></span><span style=display:flex><span><span style=color:#f92672>logging</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>level</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>com.lsx.feign</span>: <span style=color:#ae81ff>debug</span> <span style=color:#75715e># 配置指定包的日志等级</span>
+</span></span></code></pre></div><h3 id=5-开发控制器类>5. 开发控制器类</h3><ul><li>在 <code>sleuth-product</code> 子项目中开发控制器类：</li></ul><p><code>com.lsx.controller.ProductController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/product&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ProductController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getById/{id}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getById</span>(<span style=color:#a6e22e>@PathVariable</span> Long id) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> id <span style=color:#f92672>==</span> 1L <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;小米手机&#34;</span> : <span style=color:#e6db74>&#34;苹果手机&#34;</span>;  
+</span></span><span style=display:flex><span>    } 
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e03-开发订单服务>E03. 开发订单服务</h2><blockquote><p>武技: 创建 <code>v5-5-alibaba-sleuth</code> 子项目，以及 <code>sleuth-order</code> 子项目</p></blockquote><h3 id=1-添加三方依赖-1>1. 添加三方依赖</h3><ol><li>在父项目中锁定版本：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-boot-version&gt;</span>2.3.12.RELEASE<span style=color:#f92672>&lt;/spring-boot-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-version&gt;</span>Hoxton.SR12<span style=color:#f92672>&lt;/spring-cloud-version&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-alibaba-version&gt;</span>2.2.9.RELEASE<span style=color:#f92672>&lt;/spring-cloud-alibaba-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-parent--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#f92672>&lt;/artifactId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-boot-version}<span style=color:#f92672>&lt;/version&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>  
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-alibaba-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-alibaba-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-alibaba-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-alibaba-nacos-discovery--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-openfeign--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-openfeign<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-sleuth--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-sleuth<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发启动类-1>2. 开发启动类</h3><p><code>com.lsx.SleuthOrderApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SleuthOrderApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(SleuthOrderApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-开发配置类-1>3. 开发配置类</h3><ol><li>开发Nacos配置类：</li></ol><p><code>com.lsx.config.NacosConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableDiscoveryClient</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NacosConfig</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发OpenFeign配置类：</li></ol><p><code>com.lsx.config.OpenFeignConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableFeignClients</span>(basePackages <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;com.lsx.feign&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OpenFeignConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * OpenFeign提供了日志打印功能，用于对OpenFeign接口的调用情况进行监控和输出
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.NONE: 不显示任何日志，默认值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.BASIC: 仅记录请求方法、URL、响应状态码及执行时间
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.HEADERS: 除了BASIC中定义的信息之外，还有请求和响应的头信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 * &lt;p&gt;Logger.Level.FULL: 除了HEADERS中定义的信息之外，还有请求和响应的正文及元数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e>	 */</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>	Logger.<span style=color:#a6e22e>Level</span> <span style=color:#a6e22e>feignLoggerLevel</span>() {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> Logger.<span style=color:#a6e22e>Level</span>.<span style=color:#a6e22e>FULL</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发主配项-1>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=display:flex><span><span style=color:#f92672>server</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8091</span> <span style=color:#75715e># 端口号  </span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sleuth-order</span> <span style=color:#75715e># 项目名称  </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nacos</span>:  
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>server-addr</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>8848</span> <span style=color:#75715e># nacos地址  </span>
+</span></span><span style=display:flex><span><span style=color:#f92672>logging</span>:  
+</span></span><span style=display:flex><span>  <span style=color:#f92672>level</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>com.lsx.feign</span>: <span style=color:#ae81ff>debug</span> <span style=color:#75715e># 配置指定包的日志等级</span>
+</span></span></code></pre></div><h3 id=5-开发远程接口>5. 开发远程接口</h3><ul><li>在 <code>openfeign-order</code> 子项目中开发远程调用接口：</li></ul><p><code>com.lsx.feign.ProductFeign</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@FeignClient</span>(<span style=color:#e6db74>&#34;sleuth-product&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ProductFeign</span> {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 远程: 通过商品主键查询一条商品记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param id 商品主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 一条商品记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/api/v1/product/getById/{id}&#34;</span>)  
+</span></span><span style=display:flex><span>    String <span style=color:#a6e22e>getById</span>(<span style=color:#a6e22e>@PathVariable</span>(<span style=color:#e6db74>&#34;id&#34;</span>) Long id);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=6-开发控制器类>6. 开发控制器类</h3><ul><li>在 <code>sleuth-order</code> 子项目中开发控制器：</li></ul><p><code>com.lsx.controller.OrderController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/order&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>private</span> ProductFeign productFeign;
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getById/{id}&#34;</span>)  
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getById</span>(<span style=color:#a6e22e>@PathVariable</span> Long id) {  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 查询订单中的商品名称：假设1号订单购买了1号商品，2号订单中购买了2号商品  </span>
+</span></span><span style=display:flex><span>	    Long productId <span style=color:#f92672>=</span> id <span style=color:#f92672>==</span> 1L <span style=color:#f92672>?</span> 1L : 2L;  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 远程调用商品微服务中的对应方法  </span>
+</span></span><span style=display:flex><span>	    String productName <span style=color:#f92672>=</span> productFeign.<span style=color:#a6e22e>getById</span>(productId);  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>return</span> id <span style=color:#f92672>==</span> 1L <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;1号订单：&#34;</span> <span style=color:#f92672>+</span> productName : <span style=color:#e6db74>&#34;2号订单：&#34;</span> <span style=color:#f92672>+</span> productName;  
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=7-启动微服务>7. 启动微服务</h3><ul><li>启动订单微服务和商品微服务，发送一次远程调用请求，然后在控制台观察Sleuth链路追踪效果：<ul><li>信息格式：<code>[微服务名, TraceId, SpanId, 是否连入第三方管控台]</code></li></ul></li></ul><h1 id=s02-zipkin概念入门>S02. Zipkin概念入门</h1><blockquote><p>心法: Zipkin管控台</p></blockquote><ul><li>Zipkin是Twitter的一个开源项目，可以作为Sleuth链路追踪的管控台服务。</li><li>一旦发生服务间的调用，就会触发配置在客户端里面的Sleuth监听器，收集相应的Trace和Span信息并发送给Zipkin服务端。</li></ul><h2 id=ep01-zipkin核心组件>EP01. Zipkin核心组件</h2><blockquote><p>心法: Zipkin管控台核心组件</p></blockquote><table><thead><tr><th>组件</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>Collector</code></td><td>收集器</td><td>用于处理从外部系统发送过来的跟踪信息并将这些信息转换为Zipkin内部处理的Span格式</td></tr><tr><td><code>Storage</code></td><td>存储器</td><td>用于将收集器接收到的跟踪信息存储在内存中支持持久化操作</td></tr><tr><td><code>REST_API</code></td><td>API组件</td><td>用于提供外部访问接口比如给客户端展示跟踪信息或外接系统访问以实现监控等</td></tr><tr><td><code>WEB_UI</code></td><td>UI组件</td><td>用于更直观地展示给用户查询和分析跟踪的信息</td></tr></tbody></table><h2 id=ep02-zipkin容器搭建>EP02. Zipkin容器搭建</h2><blockquote><p>心法：Zipkin持久化</p></blockquote><ul><li>Zipkin的链路追踪的信息默认存储在内存中，Zipkin服务一旦重启就会丢失之前的数据，所以建议持久化。</li></ul><blockquote><p>武技: 在Docker中搭建可持久化数据的Zipkin容器</p></blockquote><h3 id=1-创建数据库>1. 创建数据库</h3><ol><li><a href=https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql>下载官方用于Zipkin持久化的SQL文件</a>:<ol><li><a href=res/zipkin.sql.md>zipkin.sql</a></li></ol></li></ol><h3 id=2-创建运行容器>2. 创建运行容器</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像（二选一）</span>
+</span></span><span style=display:flex><span>docker pull openzipkin/zipkin:2.21.7;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/zipkin:2.21.7;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并启动一个可持久化的Zipkin容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e STORAGE_TYPE=mysql`: 使用MySQL进行持久化</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e MYSQL_USER=lsx`: MySQL账号</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e MYSQL_PASS=lsx`: MySQL密码</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e MYSQL_HOST=192.168.40.77`: MySQL的IP地址</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e MYSQL_TCP_PORT=3306`: MySQL的端口号</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e MYSQL_DB=zipkin`: MySQL数据库名称</span>
+</span></span><span style=display:flex><span>docker run -dp 9411:9411 --name zipkin --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e STORAGE_TYPE<span style=color:#f92672>=</span>mysql <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e MYSQL_USER<span style=color:#f92672>=</span>lsx <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e MYSQL_PASS<span style=color:#f92672>=</span>lsx <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e MYSQL_HOST<span style=color:#f92672>=</span>192.168.40.77 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e MYSQL_DB<span style=color:#f92672>=</span>zipkin <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  -e MYSQL_TCP_PORT<span style=color:#f92672>=</span><span style=color:#ae81ff>3306</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  registry.cn-hangzhou.aliyuncs.com/lsx/zipkin:2.21.7;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>## 查看Zipkin容器</span>
+</span></span><span style=display:flex><span>docker ps -a --format <span style=color:#e6db74>&#34;table {{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs zipkin --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>## 永久开放9411端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>9411/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=3-访问单机容器>3. 访问单机容器</h3><ul><li>在Window主机访问 <a href=http://192.168.40.77:9411>Zipkin单机容器</a></li></ul><h2 id=ep03-zipkin项目整合>EP03. Zipkin项目整合</h2><blockquote><p>武技: 在 <code>slueth-order</code> 和 <code>slueth-product</code> 两个子项目中整合Zipkin</p></blockquote><h3 id=1-引入三方依赖>1. 引入三方依赖</h3><ul><li>Zipkin依赖中包含了Sleuth依赖，所以可以删除Sleuth依赖。</li></ul><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-zipkin: Zipkin依赖中包含了Sleuth依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-zipkin<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项>2. 开发主配项</h3><ul><li>分别在两个子项目中添加如下配置项：</li></ul><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>zipkin</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>base-url</span>: <span style=color:#ae81ff>http://192.168.40.77:9411</span> <span style=color:#75715e># Zipkin服务端地址</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>discovery-client-enabled</span>: <span style=color:#66d9ef>false</span> <span style=color:#75715e># 不向Nacos注册此服务</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>sleuth</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>sampler</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>probability</span>: <span style=color:#ae81ff>1.0</span> <span style=color:#75715e># 采样的百分比设置为100%采样</span>
+</span></span></code></pre></div><h3 id=3-启动微服务>3. 启动微服务</h3><ol><li>启动订单微服务和商品微服务，发送一次远程调用请求，然后在Zipkin中观察链路追踪信息。</li></ol><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-5-%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/image/Zipkin%E6%9F%A5%E7%9C%8B%E6%96%B9%E5%BC%8F.png alt></p><ol start=2><li>查看Zipkin对应的MySQL数据库表中是否记录了本次链路信息。</li><li>重启Zipkin容器，然后再次查看Zipkin管控台，观察是否保留了之前的链路信息。</li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

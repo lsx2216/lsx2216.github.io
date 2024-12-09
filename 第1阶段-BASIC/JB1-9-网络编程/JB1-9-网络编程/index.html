@@ -1,0 +1,379 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB1-9-网络编程</title>
+<meta name=description content="Java道经第1卷 - 第9阶 - v1-9-basic-net(JAR) - 网络编程
+S01. 网络模型 E01. 基础概念 1. 何为网络编程 网络编程的本质就是N台计算机之间的数据交换，客户端发送请求到服务端，服务端需要一直保持启动状态。 而整个数据交换过程被分了层，主要目的是解耦，易于各个分层的独立实现和维 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><meta property="og:type" content="website"><meta property="og:title" content="JB1-9-网络编程"><meta property="og:description" content="Java道经第1卷 - 第9阶 - v1-9-basic-net(JAR) - 网络编程
+S01. 网络模型 E01. 基础概念 1. 何为网络编程 网络编程的本质就是N台计算机之间的数据交换，客户端发送请求到服务端，服务端需要一直保持启动状态。 而整个数据交换过程被分了层，主要目的是解耦，易于各个分层的独立实现和维 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB1-9-网络编程"><meta name=twitter:description content="Java道经第1卷 - 第9阶 - v1-9-basic-net(JAR) - 网络编程
+S01. 网络模型 E01. 基础概念 1. 何为网络编程 网络编程的本质就是N台计算机之间的数据交换，客户端发送请求到服务端，服务端需要一直保持启动状态。 而整个数据交换过程被分了层，主要目的是解耦，易于各个分层的独立实现和维 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB1-9-网络编程</h1></div><div class=post-content><blockquote><p>Java道经第1卷 - 第9阶 - v1-9-basic-net(JAR) - 网络编程</p></blockquote><hr><h1 id=s01-网络模型>S01. 网络模型</h1><h2 id=e01-基础概念>E01. 基础概念</h2><h3 id=1-何为网络编程>1. 何为网络编程</h3><ul><li>网络编程的本质就是N台计算机之间的数据交换，客户端发送请求到服务端，服务端需要一直保持启动状态。</li><li>而整个数据交换过程被分了层，主要目的是解耦，易于各个分层的独立实现和维护。</li></ul><h3 id=2-osi分层模型>2. OSI分层模型</h3><ul><li>OSI（Open System Interconnect）开放式系统互联是 ISO（国际标准化组织）组织在1985年研究的网络互连模型，旨在普及网络应用，统一网络标准，以更方便的进行互通互联。</li><li>OSI七层模型如下，其中应用层，表示层和会话层可以被统一称为应用层，即七层模型和五层模型的说法都是可以的：</li></ul><p>![[第1阶段-BASIC/JB1-9-网络编程/draw/OSI分层协议.excalidraw.md#^group=P42Or2SHc2pqwsNG_uaex|100%]]</p><h3 id=3-osi分层协议>3. OSI分层协议</h3><blockquote><p>心法：OSI五层模型中分别使用的协议类型</p></blockquote><table><thead><tr><th>分层</th><th>描述</th><th>协议栈</th></tr></thead><tbody><tr><td>应用层</td><td>处理应用到应用的通信</td><td>HTTP, Telnet, FTP, TFTP, DNS, SMTP等</td></tr><tr><td>传输层</td><td>处理端口到端口的通信</td><td>TCP, UDP等</td></tr><tr><td>网络层</td><td>处理IP地址到IP地址的通信</td><td>IP, ICMP, RIP, IGMP等</td></tr><tr><td>数据链路层</td><td>处理Mac地址到Mac地址的通信</td><td>ARP, RARP, IEEE802.3, PPP, CSMA/CD等</td></tr><tr><td>物理层</td><td>处理硬件到硬件的通信</td><td>FE自协商, Manchester, MLT-3, 4A, PAM5等</td></tr></tbody></table><h2 id=e02-应用层>E02. 应用层</h2><blockquote><p>心法：应用层是整个网络分层中的最上层（最贴近用户），负责处理应用程序的数据传输</p></blockquote><ul><li>应用层的网络服务协议有 HTTP, Telnet, FTP, TFTP, DNS, SMTP 等等。</li></ul><h3 id=1-工作内容>1. 工作内容</h3><blockquote><p>心法：应用层工作内容</p></blockquote><ol><li>定义应用程序的协议，以规定数据传输的格式，规则和错误处理方案等：<ol><li>常见的协议包括 HTTP，SMTP，FTP，DNS，TFTP，Telnet 等。</li></ol></li><li>拆分数据（可选）：当应用层需要传输的数据过大时，会将数据拆成小块分别进行传输：<ol><li>这些小块被成为 <code>Data Packet</code> 数据报文。</li></ol></li><li>为数据报文添加首部，然后发送给传输层。</li></ol><h3 id=2-首部内容>2. 首部内容</h3><table><thead><tr><th>内容</th><th>描述</th></tr></thead><tbody><tr><td>源地址</td><td>数据报文的发送方</td></tr><tr><td>目的地址</td><td>数据报文的接收方</td></tr><tr><td>协议类型</td><td>数据报文使用的协议类型</td></tr><tr><td>数据长度</td><td>数据报文的长度</td></tr><tr><td>序列号</td><td>数据报文的顺序，以确保数据的有序传输，接收方会根据序列号重新组装</td></tr><tr><td>确认号</td><td>用于确认接收方已成功接收到数据报文，以便发送方继续发送下一份数据</td></tr><tr><td>首部校验和</td><td>用于检测数据在传输过程中是否丢失或损坏的方法，已确保数据的完整传输</td></tr></tbody></table><h3 id=3-首部校验和>3. 首部校验和</h3><blockquote><p>心法：Checksum 是一种用于检测数据在传输过程中是否丢失或损坏的方法</p></blockquote><ol><li>Checksum通过一个特定的算法，对数据包中的关键字段进行计算，得到一个唯一的校验值:<ol><li>字段可能包括源IP地址、目标IP地址、协议类型、数据长度等。</li></ol></li><li>在传输过程中，如果数据包中的任何字段发生变化，校验和也会相应地发生变化。</li><li>因此，接收方可以通过计算接收到的数据包的校验和，并与发送方计算的校验和进行比较：<ol><li>若相同：数据包完整，通过校验。</li><li>若不同：数据包损坏，此时TCP协议会要求发送方重新发送数据包。</li></ol></li></ol><h2 id=e03-传输层>E03. 传输层</h2><blockquote><p>心法: 传输层主要用于建立端口到端口的可靠透明通信</p></blockquote><ul><li>端口：用于标识一台主机上的唯一应用，范围是0~65535，其中0~1023被系统占用。</li><li>传输层的网络服务协议有 TCP，UDP 等等。</li></ul><h3 id=1-工作内容-1>1. 工作内容</h3><blockquote><p>心法：传输层负责在源和目标之间提供可靠的、全双工的通信连接</p></blockquote><ol><li>定义输出传输的协议，以规定数据传输的方式：<ol><li>常见的协议包括 TCP，UDP 等。</li></ol></li><li>拆分数据（可选）：当数据报文过大时，会将其拆成小块分别进行传输：<ol><li>这些小块被成为 <code>Data Segment</code> 数据段。</li></ol></li><li>为数据段添加首部，然后发送给网络层。</li></ol><h3 id=2-首部内容-1>2. 首部内容</h3><table><thead><tr><th>内容</th><th>描述</th></tr></thead><tbody><tr><td>源端口</td><td>发送方的TCP端口号，以便接收方能够回传数据</td></tr><tr><td>目的端口</td><td>接收方的TCP端口号，以便数据段能够发送到正确的应用程序。</td></tr><tr><td>协议类型</td><td>数据报文使用的协议类型</td></tr><tr><td>数据长度</td><td>数据报文的长度</td></tr><tr><td>序列号</td><td>数据报文的顺序，以确保数据的有序传输，接收方会根据序列号重新组装</td></tr><tr><td>确认号</td><td>用于确认接收方已成功接收到数据报文，以便发送方继续发送下一份数据</td></tr><tr><td>首部校验和</td><td>用于检测数据在传输过程中是否丢失或损坏的方法，已确保数据的完整传输</td></tr><tr><td>偏移量</td><td>TCP数据部分在TCP包中的偏移量，用于告诉接收方在TCP包的哪个位置可以找到数据</td></tr><tr><td>窗口大小</td><td>告诉发送方当前可以发送的数据量，用于控制发送方发送数据的速率</td></tr></tbody></table><h3 id=3-tcp与udp>3. TCP与UDP</h3><blockquote><p>心法: TCP 和 UDP 有什么区别？</p></blockquote><ol><li>网络开销方面：<ol><li>TCP是一种面向连接的协议，需要使用三次握手和四次挥手机制建立连接，网络开大，效率低。</li><li>UDP是一种无连接的协议，使用过程中无需建立连接，网络开销小，效率高。</li></ol></li><li>可靠性方面：<ol><li>TCP可靠：TCP建立连接后，会通过序列号和确认号来跟踪数据的传输顺序，确保正确传输。</li><li>UDP不可靠：UDP只负责将数据从源发送到目标，但不保证数据能被正确接收。</li></ol></li><li>数据容量限制方面：<ol><li>TCP数据无限制。</li><li>UDP数据最大不能超过65535字节。</li></ol></li><li>重传机制方面：<ol><li>TCP具有重传机制，当数据发送方发现接收方没有正确接收数据时，会要求发送方重新发送数据。</li><li>UDP无重传机制，不保证数据的完整性。</li></ol></li></ol><blockquote><p>TCP和UDP的应用场景：</p></blockquote><ul><li>TCP的应用场景：<ul><li>网页浏览（HTTP, HTTPS）：保证页面内容的完整性和安全性。</li><li>文件传输（FTP）：保证文件的正确无误传输。</li><li>电子邮件（SMTP, POP3, IMAP）：确保邮件数据的准确性和可靠性。</li><li>实时通信（如WebRTC）：需要稳定和可靠的数据传输以保证通信质量。</li></ul></li><li>UDP的应用场景：<ul><li>实时多媒体应用（如视频游戏、直播）：容忍部分数据丢失，但要求低延迟。</li><li>DNS解析：快速响应域名查询，允许偶尔的丢包。</li><li>网络时间同步（NTP）：频繁的小数据包传输，对实时性有高要求。</li><li>广播和多播应用：一对多或多对多的数据传递，如视频会议和流媒体分发。</li></ul></li></ul><h3 id=4-tcp三次握手>4. TCP三次握手</h3><blockquote><p>心法: TCP三次握手</p></blockquote><ul><li>三次握手：建立一个TCP连接时，需要客户端和服务端总共发送3个报文包：<ul><li>SYN报文：用于标识该数据包用于建立连接，该标识存在报文头中。</li><li>ACK报文：用于标识该数据包用于确认请求，该标识存在报文头中。</li><li>FIN报文：用于标识该数据包用于断开连接，该标识存在报文头中。</li></ul></li><li>SEQ序号：用于标识一个数据包，该标识存在报文头中。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+	客户端 -&gt;&gt; 服务端: 发送请求包（喂？能听见吗？）&lt;br/&gt;SYN=1, SEQ=x
+	    note over 客户端: 进入 SYN_SENT 同步发送状态，等待服务端回复&lt;br/&gt;超时未回复或对方反馈数据丢失，都会进行重传
+	    note over 服务端: SYN=1: 客户端想要连接
+	服务端 -&gt;&gt; 客户端: 发送确认包（哎！能听见！你能听见我说话吗？）&lt;br/&gt;SYN=1, ACK=x+1, SEQ=y
+		note over 服务端: 进入 SYN_RCVD 同步接收状态，等待客户端回复&lt;br/&gt;超时未回复或对方反馈数据丢失，都会进行重传
+		note over 客户端: SYN=1: 服务端想要连接&lt;br/&gt;ACK=x+1: 该包为自己的确认包
+	客户端 -&gt;&gt; 服务端: 发送确认包（能听见）&lt;br/&gt;ACK=y+1
+		note over 服务端: ACK=y+1: 该包为自己的确认包
+	客户端 -&gt; 服务端: 双方进入 ESTABLISHED 已建立连接状态状态&lt;br/&gt;双方开始通话（我跟你说 balabalabala..）
+</code></pre><blockquote><p>心法：为何要三次握手？</p></blockquote><ul><li>避免服务端资源浪费，毕竟在不确定对方能否听见自己声音的时候，你应该不会继续讲述你的故事吧？</li></ul><h3 id=5-tcp四次挥手>5. TCP四次挥手</h3><blockquote><p>心法: TCP四次挥手</p></blockquote><ul><li>客户端或服务端均可主动发起挥手动作，如在Socket编程中，任何一方执行 <code>close()</code> 操作即可产生挥手动作。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+	客户端 -&gt;&gt; 服务端: 发送断连包（我话说完了，你还有没有什么要说的？） &lt;br/&gt;FIN=1, seq=x
+		note over 客户端: 客户端进入 FIN-WAIT-1 终止等待状态
+		note over 服务端: FIN=1: 客户端想要断连
+	服务端 -&gt;&gt; 客户端: 发送确认包（收到，稍等，我还有一句话没说完！）&lt;br/&gt;ACK=x+1
+	    note over 服务端: 服务端进入 CLOSE-WAIT 关闭等待状态
+	    note over 客户端: ACK=x+1: 该包为自己的确认包
+	    note over 客户端: 客户端进入 FIN-WAIT-2 终止等待状态
+	服务端 -&gt;&gt; 客户端: 发送断连包（我话也说完了，那我挂了？）&lt;br/&gt;FIN=1, seq=y
+		note over 服务端: 服务端进入 LAST-ACK 最终确认状态
+		note over 客户端: FIN=1: 服务端想要断连
+	客户端 -&gt;&gt; 服务端: 发送确认包（行，挂了吧！） &lt;br/&gt;ACK=y+1
+		note over 客户端: 客户端进入 TIME-WAIT 等待状态
+		note over 服务端: ACK=y+1: 该包为自己的确认包
+		note over 服务端: 服务端进入 CLOSED 结束状态
+		note over 客户端: 客户端进入 CLOSED 结束状态
+	客户端 -&gt; 服务端: 通话彻底结束
+</code></pre><blockquote><p>心法：最后一次客户端为何要进入TIME-WAIT状态，而不是直接进入CLOSED状态？</p></blockquote><ul><li>为了防止最后一个ACK包丢失：<ul><li>在挥手的最后一个包的发送过程中，若客户端向服务端发送了ACK包，结果这个ACK包丢失了，则服务端会不断地向客户端重复发送上一个FIN包。</li><li>所以设计让客户端发送完最后一个ACK包后，进入一个2MSL的等待时间，若该时间内未曾接收到服务端的FIN包，则说明最后一个ACK并未丢失，那么客户端就可以安心的进入 CLOSED 结束状态了。</li><li>但若在2MSL时间内，客户端又收到了一个FIN包，则标识最后一个ACK丢失了，那么需要重新发送一个ACK包过去，然后再等待2MSL时间，直到服务端不再返回FIN包为止。</li></ul></li><li>MSL时间：<code>Maximum Segment Lifetime</code> 指一个片段在网络中最大的存活时间：<ul><li>2MSL时间就是2倍的MSL时间，就是一个发送和一个回复所需的最大时间。</li></ul></li></ul><h3 id=6-tcp保证可靠>6. TCP保证可靠</h3><blockquote><p>心法：TCP 如何保证可靠性</p></blockquote><ol><li>序号与确认机制：TCP在传输数据时会对每个数据包进行编号，接收端在收到数据包后会发送确认消息给发送端，告知发送端已成功接收。如果发送端在一定时间内未收到确认消息，就会重新发送数据包，以确保数据的可靠传输。</li><li>数据校验：TCP使用校验和字段来检测数据在传输过程中是否发生了损坏。接收端会对接收到的数据进行校验，如果校验和出现错误，数据包将被丢弃并要求重新发送。</li><li>数据重传：TCP具有数据重传机制，即在发生丢包或损坏时，发送端会重新发送丢失或损坏的数据包，直到接收端成功接收。</li><li>流量控制：TCP通过滑动窗口协议实现流量控制，确保发送方和接收方之间的数据传输速率合理，避免数据包丢失和网络拥塞。</li><li>拥塞控制：TCP通过拥塞窗口、慢启动等机制来避免网络拥塞，从而提高网络的稳定性和可靠性。</li></ol><h3 id=7-tcp拥塞控制>7. TCP拥塞控制</h3><blockquote><p>心法：TCP 拥塞控制</p></blockquote><ul><li>TCP拥塞控制机制是TCP协议中，通过动态调整拥塞窗口大小来避免网络拥塞并优化网络性能的一种机制，主要包括：<ul><li>慢启动 <code>Slow Start</code>：TCP连接建立后，发送方逐渐扩大拥塞窗口，逐渐增加发送速率，避免网络拥塞。</li><li>快速重传 <code>Fast Retransmit</code>：发送方连续收到三个重复确认时，立即重传丢失的数据包，提高传输效率。</li><li>快速恢复 <code>Fast Recovery</code>：执行快速重传后，发送方减半拥塞窗口并继续发送数据，以快速恢复发送速率，避免回退到慢启动阶段。</li></ul></li><li>TCP拥塞控制机制用于帮助TCP在网络中找到合适的发送速率，避免造成网络拥塞，同时也保证了数据完整性。</li></ul><blockquote><p>心法：假设我们要从服务器下载一个文件，初始时，客户端和服务器建立了TCP连接。发送方（客户端）将初始拥塞窗口设置为一个较小的值，比如4个数据包大小。</p></blockquote><ol><li>慢启动： 开始时，发送方只发送4个数据包，并等待确认：<ol><li>一旦收到确认，拥塞窗口会加倍，变为8个数据包大小。</li><li>然后再发送8个数据包，并等待确认。</li><li>这样不断重复，拥塞窗口指数级增长，发送方逐渐提高发送速率，直到达到网络的拥塞点。</li></ol></li><li>快速重传： 在文件下载过程中，某个数据包由于网络拥塞或其他原因丢失了：<ol><li>当接收方收到连续的重复确认时，它发现有一个数据包丢失了。</li><li>接收方会立即发送一个重复确认给发送方，告知丢失的数据包的序号。</li><li>发送方收到连续的重复确认后，知道该数据包可能丢失，便立即重传该数据包，而不必等待超时定时器的触发。</li></ol></li><li>快速恢复： 在执行快速重传后，发送方进入快速恢复状态：<ol><li>此时，发送方将拥塞窗口减半，并继续发送数据。</li><li>但与慢启动不同的是，发送方并不会回退到初始的慢启动阶段，而是以拥塞避免算法来增加拥塞窗口的大小。</li><li>发送方会继续发送数据，并且每收到一个确认时，拥塞窗口会线性增加，直到达到拥塞窗口的一半，然后继续以拥塞避免算法增加。</li></ol></li></ol><h2 id=e04-网络层>E04. 网络层</h2><blockquote><p>心法: 网络层用于建立IP地址到IP地址的通信</p></blockquote><ul><li>互联网由无数个相互隔离的局域网组成，以太网 + Mac地址 + 广播的通信方式只适用于局域网，若需要跨广播域通信，则必须通过路由进行转发，而网络层的作用，就是引入一套新的网络地址来区分不同的局域网（子网）：<ul><li>Mac地址只能唯一标识一张网卡，它是无法区分局域网的，所以才需要网络层来使用新的方式来进行区分。</li></ul></li><li>网络层的网络服务协议有 IP, ICMP, RIP, IGMP等等。</li></ul><h3 id=1-工作内容-2>1. 工作内容</h3><blockquote><p>心法：网络层负责使用IP协议对数据进行路由和转发</p></blockquote><ol><li>确定目标IP地址：网络层需要知道数据包的最终目的地，即目标IP地址。</li><li>拆分数据（可选）：当数据段过大时，会将其拆成小块分别进行传输：<ol><li>这些小块被称为 <code>Network Packet</code> 网络数据包，也叫IP包。</li></ol></li><li>为IP包添加首部。</li><li>根据目标IP地址，选择一条最佳路径将数据包传递到目标网络：<ol><li>通常涉及到路由器的选择、路由表的维护和路由算法等。</li></ol></li><li>然后发送给链路层。</li></ol><h3 id=2-首部内容-2>2. 首部内容</h3><table><thead><tr><th>内容</th><th>描述</th></tr></thead><tbody><tr><td>协议版本</td><td>IP协议的版本号，目前使用的是IPv4</td></tr><tr><td>首部长度</td><td>IP协议的首部通常为20字节，但也可能扩展</td></tr><tr><td>协议类型</td><td>IP包的协议类型，如TCP、UDP、ICMP等</td></tr><tr><td>总长度</td><td>IP包的总长度，包括IP包首部和数据部分</td></tr><tr><td>标识</td><td>唯一标识IP包，以便在传输过程中进行路由和识别</td></tr><tr><td>标志</td><td>用于控制数据包的分段和重传</td></tr><tr><td>校验和</td><td>用于检测数据在传输过程中是否丢失或损坏的方法，已确保数据的完整传输</td></tr><tr><td>分片偏移量</td><td>标识数据包的分片偏移量</td></tr><tr><td>生存时间</td><td>数据包每经过一个路由器，TTL减1，当TTL为0时，数据包将被丢弃</td></tr><tr><td>首部校验和</td><td>用于检测数据在传输过程中是否丢失或损坏的方法，已确保数据的完整传输</td></tr><tr><td>源IP地址</td><td>发送方的IP地址</td></tr><tr><td>目标IP地址</td><td>接收方的IP地址</td></tr></tbody></table><h3 id=3-ip地址>3. IP地址</h3><blockquote><p>心法: IP协议与IP地址</p></blockquote><ul><li>IP协议：约定网络地址的协议。</li><li>IP地址：通过IP协议定义的地址叫做IP地址，由32为二进制数表示，可唯一标识一台计算机。<ul><li>IP地址范围：<code>0.0.0.0 ~ 255.255.255.255</code>，分为网段部分和主机部分。</li><li>A类地址：1字节网段 + 3字节主机，范围 <code>1.0.0.0 ~ 126.0.0.0</code>。</li><li>B类地址：2字节网段 + 2字节主机，范围 <code>128.0.0.0 ~ 191.255.255.255</code>。</li><li>C类地址：3字节网段 + 1字节主机，范围 <code>192.0.0.0 ~ 223.255.255.255</code>。</li><li>D类地址和E类地址：保留地址。</li><li>全0地址：<code>0.0.0.0</code>，对应本机地址，允许远程访问。</li><li>回环地址：<code>127.0.0.1</code>，对应本机地址，不允许远程访问。</li><li>全1地址：<code>255.255.255.255</code>，当前子网的广播地址。</li></ul></li></ul><h3 id=4-子网掩码>4. 子网掩码</h3><blockquote><p>心法：子网掩码由32为二进制数表示，网段部分均为1，主机部分均为0，主要用来计算多台主机是否处于同一网络</p></blockquote><ul><li>假设主机A的IP地址为 <code>172.16.10.1</code>，对应二进制为 <code>10101100.00010000.00001010.00000001</code>。</li><li>假设主机A的子网掩码为 <code>255.255.255.0</code>，对应二进制为 <code>11111111.11111111.11111111.00000000</code>。</li><li>主机A的 <code>IP地址 & 子网掩码 = 10101100.00010000.00001010.00000001</code>，即 <code>172.16.10.0</code>。</li><li>假设主机B的IP地址为 <code>172.16.10.2</code>，对应二进制为 <code>10101100.00010000.00001010.00000010</code>。</li><li>假设主机B的子网掩码为 <code>255.255.255.0</code>，对应二进制为 <code>11111111.11111111.11111111.00000000</code>。</li><li>主机B的 <code>IP地址 & 子网掩码 = 10101100.00010000.00001010.00000001</code>，即 <code>172.16.10.0</code>。</li><li>结论：主机A和主机B在同一个子网络。</li></ul><h3 id=5-ip数据包>5. IP数据包</h3><ul><li>报头：范围20~60字节，包括来源IP地址，目标IP地址等数据。</li><li>数据：范围0~65515字节。</li></ul><h2 id=e05-链路层>E05. 链路层</h2><blockquote><p>心法: 链路层用于建立Mac地址到Mac地址的通信</p></blockquote><ul><li>链路层全名数据链路层，用于对物理层的电信号进行分组，即规定多少个电信号为1组，表示什么意思。</li><li>链路层最终的分组协议为以太网协议 <code>ethernet</code>。</li><li>太网协议规定01：一组电信号构成一个帧数据包，每个帧都由报头和数据两部分组成：<ul><li>报头：固定18个字节，包括6字节的来源Mac地址，6字节的目标Mac地址和6字节的数据类型。</li><li>数据：范围46~1500字节，超出最大限制的时候会分片发送。</li></ul></li><li>以太网协议规定02：每个接入因特网的设备都必须具备一块网卡，且该网卡要拥有全世界独一无二的Mac地址：<ul><li>Mac地址：表示为12位十六进制数如 <code>00-15-5D-FD-1A-79</code>，前6位是厂商编号，后6位是流水号。</li><li>查看本机Mac地址: <code>ipconfig /all | findstr 物理地址</code> 或 <code>ipconfig /all | findstr ether</code></li></ul></li><li>以太网协议规定03：同一网络内的主机之间是通过广播的方式进行通信的，即通信基本靠吼：<ul><li>假设主机A要向主机B发送数据包，则主机A先将数据进行广播，此时同一网络内的全部主机都会接收到这个数据包，若拆包后发现数据包中的目标地址并不指向自己，则直接将数据丢弃，反之则进行响应。</li></ul></li></ul><h2 id=e06-物理层>E06. 物理层</h2><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph LR
+物理主机A --光缆，电缆，双绞线，无线电波--&gt; 物理主机B
+</code></pre><ul><li>物理层主要是基于电器特性来发送高低电压，即电信号，高压对应1，低压对应0。</li></ul><h1 id=ch02-同步非阻塞流>CH02. 同步非阻塞流</h1><h2 id=ep01-流操作底层流程>EP01. 流操作底层流程</h2><blockquote><p>心法: IO流的底层流程</p></blockquote><ul><li>操作系统可以执行所有的CPU指令，包括很多危险操作，所以为了程序的健壮性，CPU指令一般被分为2类:<ul><li>内核态指令: 位于内核内存空间，由操作系统直接使用。</li><li>用户态指令: 位于用户内存空间，如果想访问内核态指令，必须向操作系统申请。</li></ul></li><li>IO流的底层流程:<ul><li>先将磁盘上的数据读取到内核空间，然后再读取到用户空间的程序中。</li></ul></li></ul><h2 id=ep02-常见流操作模型>EP02. 常见流操作模型</h2><blockquote><p>心法: IO流的常见模型</p></blockquote><table><thead><tr><th>IO流模型</th><th>IO流特点</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td><code>BIO</code><code>Block IO</code></td><td>同步阻塞</td><td>当用户发起一个read请求后，必须等到出了结果才可以去做别的事情</td><td>赵四用的是最老式的鱼竿，得一直守着，等到鱼上钩了再拉杆</td></tr><tr><td><code>NIO</code><code>Non-Block IO</code></td><td>同步非阻塞</td><td>当用户发起一个read请求后，立刻返回目标硬盘数据是否已经加载到内核空间:若已经加载了，则开始从内核空间读取数据到用户空间，此过程阻塞用户进程若还未加载到，则间隔轮询，即每隔一段时间就重新询问一遍</td><td>刘能的鱼竿有个显示屏，能显示是否有鱼上钩，于是他和旁边MM聊天，每隔一会就检查一次，若有鱼上钩，则迅速拉杆</td></tr><tr><td><code>Multiplexing IO</code><code>Event Driven IO</code></td><td>多路复用</td><td>用户先发送select请求，阻塞住整个进程，同时内核监视起对应的全部的socket当任何一个socket中的数据准备好了，select就返回然后用户再发送read请求，将硬盘数据从内核拷贝到用户进程</td><td>广坤的鱼竿和赵四的鱼竿一样，也拥有显示屏，广坤同时放好几根鱼竿，然后守在旁边，一旦显示有鱼上钩，就将对应的鱼竿拉起来</td></tr><tr><td><code>AIO</code><code>Asynchronous IO</code></td><td>异步非阻塞</td><td>当用户发起一个read请求后，立刻返回目标硬盘数据是否已经加载到内核空间此时用户可以立刻去做其它的事，然后内核去异步执行后续的操作一切完成后，内核会给用户进程发送一个signal，告诉它read操作完成了</td><td>大拿直接雇了一个人帮他钓鱼，一旦那个人把鱼钓上来了，就给大拿发个短信</td></tr></tbody></table><blockquote><p>心法: 同步非阻塞IO模型 <code>Non-Block IO</code>，简称NIO</p></blockquote><ul><li>NIO是从JDK1.4版本开始引入的，自带缓冲区，可以进行更加高效的文件读写操作。</li><li>NIO可以替代标准的BIO模型:<ul><li>NIO与BIO有同样的作用和目的，但是使用的方式完全不同。</li><li>BIO面向流，是单向的，一个流要么读，要么写，不可兼用。</li><li>NIO面向缓冲区，是双向的，一个NIO实例，既可以用来读，也可以用来写。</li></ul></li></ul><h2 id=ep03-缓冲区两种类型>EP03. 缓冲区两种类型</h2><blockquote><p>心法: NIO核心缓冲区 <code>Buffer</code></p></blockquote><ul><li>Buffer是NIO的核心之一，可以保存多个相同类型的数据，且支持双向操作。</li><li>八大基本数据类型除布尔类型外，均有对应的Buffer子类，如 <code>IntBuffer/CharBuffer</code> 等。</li></ul><table><thead><tr><th>Buffer类型</th><th>内存消耗</th><th>传输效率</th><th>内存回收</th></tr></thead><tbody><tr><td><code>DirectBuffer</code><code>直接缓冲区</code></td><td>1. 位于本地内存，与JVM无关2. 创建和销毁的开销比较大3. 不容易被控制</td><td>本地内存和内核空间都在同一OS中可以直接和本机OS的内核空间传输数据所以传输效率高</td><td>自己想办法解决</td></tr><tr><td><code>HeapBuffer</code><code>堆缓冲区</code><code>非直接缓冲区</code></td><td>1. 位于JVM的堆内存中2. 创建和销毁的开销比较小3. 容易控制</td><td>JVM属于另一块虚拟的OS想要和本机OS的内核空间传输数据需要先开辟一块本地内存作为中间缓冲区所以传输效率低</td><td>由JVM的GC管理</td></tr></tbody></table><blockquote><p>武技: 测试Buffer的堆缓冲区</p></blockquote><ol><li>开发测试方法 <code>BufferTest -> testBuild()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BufferTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBuild</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区: 初始容量1024字节</span>
+</span></span><span style=display:flex><span>        ByteBuffer heapBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(heapBuffer.<span style=color:#a6e22e>isDirect</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;直接缓冲区&#34;</span> : <span style=color:#e6db74>&#34;堆缓冲区&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建直接缓冲区: 初始容量1024字节</span>
+</span></span><span style=display:flex><span>        ByteBuffer directBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocateDirect</span>(1024);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(directBuffer.<span style=color:#a6e22e>isDirect</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;直接缓冲区&#34;</span> : <span style=color:#e6db74>&#34;堆缓冲区&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-缓冲区四个属性>EP04. 缓冲区四个属性</h2><blockquote><p>心法: 缓冲区四个属性</p></blockquote><ul><li>四个核心值的大小关系为: <code>0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity</code>:</li></ul><table><thead><tr><th>核心属性</th><th>理解</th><th>默认值</th><th>获取</th></tr></thead><tbody><tr><td><code>capacity</code><code>初始容量</code></td><td>你必须存放N个字节的数据初始会填满N个字节的空格</td><td>无</td><td>设置: 必须在构造器中指定，且指定后不能被改变获取: <code>buffer.capacity()</code></td></tr><tr><td><code>limit</code><code>操作上限</code></td><td>你只能操作N个字节的数据</td><td>同初始容量</td><td>设置: <code>buffer.limit(int pos)</code>获取: <code>buffer.limit()</code></td></tr><tr><td><code>position</code><code>当前位置</code></td><td>你已经操作到了指定的位置</td><td>0</td><td>设置: <code>buffer.position(int pos)</code>获取: <code>buffer.position()</code></td></tr><tr><td><code>mark</code><code>位置备份</code></td><td>你在这个位置做了备份标记该属性标记为-1时表示失效</td><td>0</td><td>备份: <code>buffer.mark()</code>: 将当前位置备份给mark属性恢复: <code>buffer.reset()</code>: 移动当前位置到mark位置</td></tr></tbody></table><blockquote><p>武技: 测试缓冲区四个属性</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.buffer;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BufferTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBufferField</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区: 初始容量1024字节</span>
+</span></span><span style=display:flex><span>        ByteBuffer byteBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置当前位置0，操作上限1024字节</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>position</span>(0).<span style=color:#a6e22e>limit</span>(1024);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;初始容量: &#34;</span> <span style=color:#f92672>+</span> byteBuffer.<span style=color:#a6e22e>capacity</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;当前位置: &#34;</span> <span style=color:#f92672>+</span> byteBuffer.<span style=color:#a6e22e>position</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;操作上限: &#34;</span> <span style=color:#f92672>+</span> byteBuffer.<span style=color:#a6e22e>limit</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向缓冲区写入数据 &#34;Hello&#34;</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>.<span style=color:#a6e22e>getBytes</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 备份了当前位置: mark = position</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>mark</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;备份: &#34;</span> <span style=color:#f92672>+</span> byteBuffer.<span style=color:#a6e22e>position</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;号位置&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向缓冲区写入数据 &#34;World&#34;</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;World&#34;</span>.<span style=color:#a6e22e>getBytes</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 恢复到备份的位置: position = mark</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>reset</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;跳回: &#34;</span> <span style=color:#f92672>+</span> byteBuffer.<span style=color:#a6e22e>position</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;号位置&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 向缓冲区写入数据 &#34;Java&#34;</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Java&#34;</span>.<span style=color:#a6e22e>getBytes</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将缓冲区中的数据转为字节数组后打印，该操作不移动position</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;查看: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>new</span> String(byteBuffer.<span style=color:#a6e22e>array</span>()));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 读写翻转: limit = position, position = 0, mark = -1</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 在指定位置，读取缓冲区中的元素，该操作不会改变 position</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;读取: &#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>(5));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>(6));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从起始位置，读取缓冲区中的元素，该操作会自增 position</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\n&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 倒带重读: position = 0, mark = -1</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>rewind</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;倒带: &#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\n&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark = -1</span>
+</span></span><span style=display:flex><span>        byteBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;重置: &#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历堆缓冲区中的全部数据</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> byteBuffer.<span style=color:#a6e22e>limit</span>(); i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> data <span style=color:#f92672>=</span> (<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 空格不输出</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (data <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#39;\u0000&#39;</span>) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(data);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-连接缓存的通道>EP05. 连接缓存的通道</h2><blockquote><p>心法: 连接缓存的通道 <code>Channel</code></p></blockquote><ul><li>BIO两端分别是 <code>App</code> 和 <code>硬盘数据</code>，通过 <code>j.io</code> 包类进行通信。</li><li>NIO两端分别是App中的 <code>Buffer</code> 和 <code>硬盘数据</code>，通过 <code>j.nio.channels</code> 包类进行通信。</li></ul><table><thead><tr><th>通道类型</th><th>描述</th></tr></thead><tbody><tr><td><code>FileChannel</code></td><td>Channel的文件NIO实现类，负责文件读写，对应 <code>FileChannel</code> 类</td></tr><tr><td><code>SocketChannel</code></td><td>Channel的Socket实现类，负责连接TCP客户端的通道，对应 <code>ServerSocketChannel</code> 类</td></tr></tbody></table><blockquote><p>武技: 测试FileChannel</p></blockquote><ol><li>在本地开发一个 <code>D:\\idea\\workspace\\..\\nio\\HelloWorld.java</code> 文件，内容随意。</li><li>开发测试方法 <code>FileChannelTest -> testFileChannel()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.channel.file;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FileChannelTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 源文件路径 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String SRC_PATH <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;D:\\idea\\workspace\\..\\nio\\HelloWorld.java&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 目标文件路径 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String DEST_PATH <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;D:\\idea\\workspace\\..\\nio\\HiWorld.java&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 复制 `HelloWorld.java` 中的内容到 `HiWorld.java` */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testFileChannel</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 文件输入流，文件输出流，文件输入流通道，文件输出流通道</span>
+</span></span><span style=display:flex><span>        FileInputStream fis <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileInputStream(SRC_PATH);
+</span></span><span style=display:flex><span>        FileOutputStream fos <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileOutputStream(DEST_PATH);
+</span></span><span style=display:flex><span>        FileChannel fisChannel <span style=color:#f92672>=</span> fis.<span style=color:#a6e22e>getChannel</span>();
+</span></span><span style=display:flex><span>        FileChannel fosChannel <span style=color:#f92672>=</span> fos.<span style=color:#a6e22e>getChannel</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区</span>
+</span></span><span style=display:flex><span>        ByteBuffer byteBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 缓冲区读取文件输入流中的数据</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (fisChannel.<span style=color:#a6e22e>read</span>(byteBuffer) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span>1) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 读写翻转: 将缓冲区切换为写模式</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将缓冲区中的数据写入文件输出流通道</span>
+</span></span><span style=display:flex><span>            fosChannel.<span style=color:#a6e22e>write</span>(byteBuffer);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark = -1</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关流</span>
+</span></span><span style=display:flex><span>        fosChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        fisChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        fis.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        fos.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;拷贝成功&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试ServerSocketChannel</p></blockquote><ol><li>开发Socket服务端类 <code>BlockSocketServer</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.channel.socket;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BlockSocketServer</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 端口号 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> PORT <span style=color:#f92672>=</span> 9999;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 打开一个Socket服务端通道，并绑定Socket地址</span>
+</span></span><span style=display:flex><span>        ServerSocketChannel serverSocketChannel <span style=color:#f92672>=</span> ServerSocketChannel.<span style=color:#a6e22e>open</span>();
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>bind</span>(<span style=color:#66d9ef>new</span> InetSocketAddress(PORT));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务端准备接受数据...&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Socket服务端通道等待接收数据，该方法会阻塞当前线程</span>
+</span></span><span style=display:flex><span>        SocketChannel socketChannel <span style=color:#f92672>=</span> serverSocketChannel.<span style=color:#a6e22e>accept</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区: 初始容量1024字节</span>
+</span></span><span style=display:flex><span>        ByteBuffer byteBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建UTF8编码实例</span>
+</span></span><span style=display:flex><span>        CharsetDecoder charsetDecoder <span style=color:#f92672>=</span> StandardCharsets.<span style=color:#a6e22e>UTF_8</span>.<span style=color:#a6e22e>newDecoder</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 缓冲区读取Socket服务端通道中的数据</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (socketChannel.<span style=color:#a6e22e>read</span>(byteBuffer) <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span>1) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 读写翻转: 将缓冲区切换为写模式</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 解码缓冲区中的数据</span>
+</span></span><span style=display:flex><span>            CharBuffer charBuffer <span style=color:#f92672>=</span> charsetDecoder.<span style=color:#a6e22e>decode</span>(byteBuffer);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 读取堆缓冲区中的全部数据</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> charBuffer.<span style=color:#a6e22e>limit</span>(); i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(charBuffer.<span style=color:#a6e22e>get</span>());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark=-1</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭通道</span>
+</span></span><span style=display:flex><span>        socketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发Socket客户端类 <code>BlockSocketClient</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.channel.socket;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BlockSocketClient</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** IP地址 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>static</span> String IP <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;localhost&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 端口号 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span> PORT <span style=color:#f92672>=</span> 9999;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 打开一个客户端通道并连接到指定Socket地址</span>
+</span></span><span style=display:flex><span>        SocketChannel socketChannel <span style=color:#f92672>=</span> SocketChannel.<span style=color:#a6e22e>open</span>(<span style=color:#66d9ef>new</span> InetSocketAddress(IP, PORT));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区</span>
+</span></span><span style=display:flex><span>        CharBuffer charBuffer <span style=color:#f92672>=</span> CharBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;输入消息...&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从控制台接收数据</span>
+</span></span><span style=display:flex><span>        BufferedReader br <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BufferedReader(<span style=color:#66d9ef>new</span> InputStreamReader(System.<span style=color:#a6e22e>in</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建UTF8编码实例</span>
+</span></span><span style=display:flex><span>        CharsetEncoder charsetEncoder <span style=color:#f92672>=</span> StandardCharsets.<span style=color:#a6e22e>UTF_8</span>.<span style=color:#a6e22e>newEncoder</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历从控制台接收到的数据</span>
+</span></span><span style=display:flex><span>        String str;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> ((str <span style=color:#f92672>=</span> br.<span style=color:#a6e22e>readLine</span>()) <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 缓冲区读取从控制台接收到的数据</span>
+</span></span><span style=display:flex><span>            charBuffer.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;=&gt; &#34;</span> <span style=color:#f92672>+</span> str);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 读写翻转: 将缓冲区切换为写模式</span>
+</span></span><span style=display:flex><span>            charBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将缓冲区中的数据编码后，写入Socket客户端通道</span>
+</span></span><span style=display:flex><span>            socketChannel.<span style=color:#a6e22e>write</span>(charsetEncoder.<span style=color:#a6e22e>encode</span>(charBuffer));
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark=-1</span>
+</span></span><span style=display:flex><span>            charBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关流</span>
+</span></span><span style=display:flex><span>        br.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        socketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-缓存通道选择器>EP06. 缓存通道选择器</h2><blockquote><p>心法: 缓存通道选择器 <code>Selector</code></p></blockquote><ul><li>Selector可以监控多个Channel状态并作出对应处理，是设计NIO模型的最佳选择。</li></ul><table><thead><tr><th>Channel对应状态</th><th>状态描述</th></tr></thead><tbody><tr><td><code>CONNECT</code></td><td>Channel已经准备好完成连接序列了，此时IP，端口等均已搭建完成</td></tr><tr><td><code>ACCEPT</code></td><td>Channel可以调用 <code>accept()</code> 了</td></tr><tr><td><code>READ</code></td><td>Channel可以调用 <code>read()</code> 了</td></tr><tr><td><code>WRITE</code></td><td>Channel可以调用 <code>write()</code> 了</td></tr></tbody></table><blockquote><p>武技: 测试缓存通道选择器</p></blockquote><ol><li>开发Socket服务端类 <code>NonBlockSocketServer</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.selector;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NonBlockSocketServer</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 端口号 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> PORT <span style=color:#f92672>=</span> 9002;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 打开一个Socket服务端通道，绑定Socket地址，配置非阻塞</span>
+</span></span><span style=display:flex><span>        ServerSocketChannel serverSocketChannel <span style=color:#f92672>=</span> ServerSocketChannel.<span style=color:#a6e22e>open</span>();
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>bind</span>(<span style=color:#66d9ef>new</span> InetSocketAddress(PORT));
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>configureBlocking</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;服务端准备接受数据...&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 开启一个Selector选择器实例</span>
+</span></span><span style=display:flex><span>        Selector selector <span style=color:#f92672>=</span> Selector.<span style=color:#a6e22e>open</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将服务端通道注册到指定的Selector，并配置关注的状态为 `ACCEPT`</span>
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>register</span>(selector, SelectionKey.<span style=color:#a6e22e>OP_ACCEPT</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        SocketChannel socketChannel <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回Selector中已经处于就绪状态，即已准备好进行IO操作的通道个数</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (selector.<span style=color:#a6e22e>select</span>() <span style=color:#f92672>&gt;</span> 0) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 返回Selector中就绪的Channel集合</span>
+</span></span><span style=display:flex><span>            Iterator<span style=color:#f92672>&lt;</span>SelectionKey<span style=color:#f92672>&gt;</span> channels <span style=color:#f92672>=</span> selector.<span style=color:#a6e22e>selectedKeys</span>().<span style=color:#a6e22e>iterator</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 遍历Selector中就绪的Channel集合</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (channels.<span style=color:#a6e22e>hasNext</span>()) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 获Channel标识</span>
+</span></span><span style=display:flex><span>                SelectionKey selectionKey <span style=color:#f92672>=</span> channels.<span style=color:#a6e22e>next</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 通道处于 `ACCEPT` 状态: 等待接收数据</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (selectionKey.<span style=color:#a6e22e>isAcceptable</span>()) {
+</span></span><span style=display:flex><span>                    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;通道处于 `ACCEPT` 状态&#34;</span>);
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 准备接收数据，配置Channel非阻塞</span>
+</span></span><span style=display:flex><span>                    socketChannel <span style=color:#f92672>=</span> serverSocketChannel.<span style=color:#a6e22e>accept</span>();
+</span></span><span style=display:flex><span>                    socketChannel.<span style=color:#a6e22e>configureBlocking</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 将服务端通道注册到指定的Selector，并配置关注的状态为 `READ`</span>
+</span></span><span style=display:flex><span>                    socketChannel.<span style=color:#a6e22e>register</span>(selector, SelectionKey.<span style=color:#a6e22e>OP_READ</span>);
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 通道处于 `READ` 状态: 读取数据</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (selectionKey.<span style=color:#a6e22e>isReadable</span>()) {
+</span></span><span style=display:flex><span>                    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;通道处于 `READ` 状态&#34;</span>);
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 获取当前状态对应的Channel</span>
+</span></span><span style=display:flex><span>                    socketChannel <span style=color:#f92672>=</span> (SocketChannel) selectionKey.<span style=color:#a6e22e>channel</span>();
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 创建堆缓冲区: 初始容量1024字节</span>
+</span></span><span style=display:flex><span>                    ByteBuffer byteBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 缓冲区读取Socket服务端通道中的数据</span>
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>while</span> (socketChannel.<span style=color:#a6e22e>read</span>(byteBuffer) <span style=color:#f92672>&gt;</span> 0) {
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 读写翻转: 将缓冲区切换为写模式</span>
+</span></span><span style=display:flex><span>                        byteBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 读取堆缓冲区中的全部数据</span>
+</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> byteBuffer.<span style=color:#a6e22e>limit</span>(); i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>((<span style=color:#66d9ef>char</span>) byteBuffer.<span style=color:#a6e22e>get</span>());
+</span></span><span style=display:flex><span>                        }
+</span></span><span style=display:flex><span>                        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark = -1</span>
+</span></span><span style=display:flex><span>                        byteBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 删除通道</span>
+</span></span><span style=display:flex><span>                channels.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关流</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (socketChannel <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            socketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        serverSocketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发Socket客户端类 <code>NonBlockSocketClient</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> nio.selector;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NonBlockSocketClient</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** IP地址 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String IP <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;localhost&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 端口号 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> PORT <span style=color:#f92672>=</span> 9002;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 打开一个客户端通道并连接到指定Socket地址，并设置非阻塞</span>
+</span></span><span style=display:flex><span>        SocketAddress socketAddress <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> InetSocketAddress(IP, PORT);
+</span></span><span style=display:flex><span>        SocketChannel socketChannel <span style=color:#f92672>=</span> SocketChannel.<span style=color:#a6e22e>open</span>(socketAddress);
+</span></span><span style=display:flex><span>        socketChannel.<span style=color:#a6e22e>configureBlocking</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建堆缓冲区</span>
+</span></span><span style=display:flex><span>        ByteBuffer byteBuffer <span style=color:#f92672>=</span> ByteBuffer.<span style=color:#a6e22e>allocate</span>(1024);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;输入消息...&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从控制台接收数据</span>
+</span></span><span style=display:flex><span>        BufferedReader br <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BufferedReader(<span style=color:#66d9ef>new</span> InputStreamReader(System.<span style=color:#a6e22e>in</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 遍历从控制台接收到的数据</span>
+</span></span><span style=display:flex><span>        String str;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> ((str <span style=color:#f92672>=</span> br.<span style=color:#a6e22e>readLine</span>()) <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 缓冲区读取从控制台接收到的数据</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>put</span>((<span style=color:#e6db74>&#34;=&gt; &#34;</span> <span style=color:#f92672>+</span> str).<span style=color:#a6e22e>getBytes</span>());
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 读写翻转: 将缓冲区切换为写模式</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>flip</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将缓冲区中的数据编码后，写入Socket客户端通道</span>
+</span></span><span style=display:flex><span>            socketChannel.<span style=color:#a6e22e>write</span>(byteBuffer);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 重置归零: position = 0, limit = capacity, mark=-1</span>
+</span></span><span style=display:flex><span>            byteBuffer.<span style=color:#a6e22e>clear</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关流</span>
+</span></span><span style=display:flex><span>        br.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        socketChannel.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch03-socket网络编程>CH03. Socket网络编程</h1></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

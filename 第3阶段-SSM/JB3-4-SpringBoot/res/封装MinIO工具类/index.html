@@ -1,0 +1,125 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>lsx2216</title>
+<meta name=description content="S01. 封装MinIO工具类 开发常量属性 Constant: package com.lsx.constant; /** @author lsx */ public interface MinioConst { /** 端点 */ String END_POINT = …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85MinIO%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta property="og:type" content="website"><meta property="og:title" content="lsx2216"><meta property="og:description" content="S01. 封装MinIO工具类 开发常量属性 Constant: package com.lsx.constant; /** @author lsx */ public interface MinioConst { /** 端点 */ String END_POINT = …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="lsx2216"><meta name=twitter:description content="S01. 封装MinIO工具类 开发常量属性 Constant: package com.lsx.constant; /** @author lsx */ public interface MinioConst { /** 端点 */ String END_POINT = …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85MinIO%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85MinIO%E5%B7%A5%E5%85%B7%E7%B1%BB/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/res/%E5%B0%81%E8%A3%85MinIO%E5%B7%A5%E5%85%B7%E7%B1%BB/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1></h1></div><div class=post-content><h1 id=s01-封装minio工具类>S01. 封装MinIO工具类</h1><ol><li>开发常量属性 <code>Constant</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.constant;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>MinioConst</span> {  
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 端点 */</span>  
+</span></span><span style=display:flex><span>    String END_POINT <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://192.168.40.77:9001&#34;</span>;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 公钥 */</span>  
+</span></span><span style=display:flex><span>    String ACCESS_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;20tW6cOfZjzqOn2EtVKE&#34;</span>;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 私钥 */</span>  
+</span></span><span style=display:flex><span>    String SECRET_KEY <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;eCY0zJQ6t7FoQfiKovFcjfrrOAdVvf7MMhE5jJJb&#34;</span>;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 桶名 */</span>  
+</span></span><span style=display:flex><span>	String BUCKET_NAME <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lesson-bucket&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>封装MinIO工具类 <code>MinioUtil</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Slf4j</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MinioUtil</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Minio客户端 */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> MinioClient minioClient;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> {  
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 创建MinIO客户端  </span>
+</span></span><span style=display:flex><span>            minioClient <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MinioClient(MinioConst.<span style=color:#a6e22e>END_POINT</span>, MinioConst.<span style=color:#a6e22e>ACCESS_KEY</span>, MinioConst.<span style=color:#a6e22e>SECRET_KEY</span>);  
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>catch</span> (Exception e) {  
+</span></span><span style=display:flex><span>            log.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#34;MinioClient实例化失败: {}&#34;</span>, e.<span style=color:#a6e22e>getMessage</span>());  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 根据文件对象获取随机文件名称  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param file 文件对象  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 随机文件名称，格式为 &#34;UUID后10位 + 当前时间戳 + 原始文件后缀&#34;  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>    
+</span></span><span style=display:flex><span>     <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>randomFilename</span>(MultipartFile file) {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验文件对象  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ObjectUtil.<span style=color:#a6e22e>isNull</span>(file)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件上传失败: 文件为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取原始文件名  </span>
+</span></span><span style=display:flex><span>        String filename <span style=color:#f92672>=</span> file.<span style=color:#a6e22e>getOriginalFilename</span>();  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验原始文件名  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StrUtil.<span style=color:#a6e22e>isBlank</span>(filename)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件上传失败: 原始文件名为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 生成随机文件名并返回  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> UUID.<span style=color:#a6e22e>randomUUID</span>().<span style=color:#a6e22e>toString</span>().<span style=color:#a6e22e>substring</span>(26) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;-&#34;</span>  
+</span></span><span style=display:flex><span>                <span style=color:#f92672>+</span> System.<span style=color:#a6e22e>currentTimeMillis</span>()  
+</span></span><span style=display:flex><span>                <span style=color:#f92672>+</span> filename.<span style=color:#a6e22e>substring</span>(filename.<span style=color:#a6e22e>lastIndexOf</span>(<span style=color:#e6db74>&#34;.&#34;</span>));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 将文件上传到MinIO对象存储服务中
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param file       文件对象  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param filename   文件名称  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param dir        文件存储目录  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param bucketName MinIO桶名  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>upload</span>(MultipartFile file, String filename, String dir, String bucketName) {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验数据桶是否存在  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>minioClient.<span style=color:#a6e22e>bucketExists</span>(bucketName)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件上传失败: MinIO桶不存在&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验上传目录  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StrUtil.<span style=color:#a6e22e>isBlank</span>(dir)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件上传失败: 文件上传目录为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用putObject上传文件到指定Bucket  </span>
+</span></span><span style=display:flex><span>        minioClient.<span style=color:#a6e22e>putObject</span>(bucketName, dir <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> filename,  
+</span></span><span style=display:flex><span>                file.<span style=color:#a6e22e>getInputStream</span>(),  
+</span></span><span style=display:flex><span>                file.<span style=color:#a6e22e>getContentType</span>());  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 从MinIO中删除指定文件  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param filename   文件名  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param dir        文件存储目录  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param bucketName MinIO桶名  
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>(String filename, String dir, String bucketName) {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验数据桶是否存在  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>minioClient.<span style=color:#a6e22e>bucketExists</span>(bucketName)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件上传失败: MinIO桶不存在&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验上传目录  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StrUtil.<span style=color:#a6e22e>isBlank</span>(filename)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件删除失败: 文件名为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 校验上传目录  </span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StrUtil.<span style=color:#a6e22e>isBlank</span>(dir)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;MinIO文件删除失败: 文件上传目录为空&#34;</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>        minioClient.<span style=color:#a6e22e>removeObject</span>(bucketName, dir <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> filename);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

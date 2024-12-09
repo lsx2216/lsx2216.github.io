@@ -1,0 +1,164 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>lsx2216</title>
+<meta name=description content="WebFlux编程 心法: 响应式编程思维
+假设一个请求需要做三件事ABC，非响应式的编程思路是这样的: ABC三个任务需要分配三个线程，T1，T2和T3。 T1抢到资源，执行任务A，其余任务阻塞。 任务A执行完毕，得到相应结果，但等待。 T3抢到资源，执行任务C，其余任务阻塞。 任务C执行完毕，得到相应结果，但等待。 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-WebFlux/"><meta property="og:type" content="website"><meta property="og:title" content="lsx2216"><meta property="og:description" content="WebFlux编程 心法: 响应式编程思维
+假设一个请求需要做三件事ABC，非响应式的编程思路是这样的: ABC三个任务需要分配三个线程，T1，T2和T3。 T1抢到资源，执行任务A，其余任务阻塞。 任务A执行完毕，得到相应结果，但等待。 T3抢到资源，执行任务C，其余任务阻塞。 任务C执行完毕，得到相应结果，但等待。 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="lsx2216"><meta name=twitter:description content="WebFlux编程 心法: 响应式编程思维
+假设一个请求需要做三件事ABC，非响应式的编程思路是这样的: ABC三个任务需要分配三个线程，T1，T2和T3。 T1抢到资源，执行任务A，其余任务阻塞。 任务A执行完毕，得到相应结果，但等待。 T3抢到资源，执行任务C，其余任务阻塞。 任务C执行完毕，得到相应结果，但等待。 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-WebFlux/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-WebFlux/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-WebFlux/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1></h1></div><div class=post-content><h1 id=webflux编程>WebFlux编程</h1><blockquote><p>心法: 响应式编程思维</p></blockquote><ul><li>假设一个请求需要做三件事ABC，非响应式的编程思路是这样的:<ul><li>ABC三个任务需要分配三个线程，T1，T2和T3。</li><li>T1抢到资源，执行任务A，其余任务阻塞。</li><li>任务A执行完毕，得到相应结果，但等待。</li><li>T3抢到资源，执行任务C，其余任务阻塞。</li><li>任务C执行完毕，得到相应结果，但等待。</li><li>T2抢到资源，执行任务B，得到相应结果。</li><li>此时ABC三个任务都有了结果，一并将其返回，客户端一次性得到结果。</li><li>共消耗3个线程资源。</li></ul></li><li>假设一个请求需要做三件事ABC，响应式的编程思路是这样的:<ul><li>ABC三个任务需要仅需要一个线程T1。</li><li>T1抢到资源，执行任务A，提交任务后立刻得到结果，如 &ldquo;任务A执行中，请等待&mldr;"。</li><li>T1继续执行任务B，提交任务后立刻得到结果，如 &ldquo;任务B执行中，请等待&mldr;"。</li><li>T1继续执行任务C，提交任务后立刻得到结果，如 &ldquo;任务C执行中，请等待&mldr;"。</li><li>可以发现ABC三个任务是不阻塞的。</li><li>任务A执行完毕，得到结果，可以流数据形式直接返回。</li><li>任务B执行完毕，得到结果，可以流数据形式直接返回。</li><li>任务C执行完毕，得到结果，可以流数据形式直接返回。</li><li>客户端看到的是一部分部分的流数据。</li><li>总耗时不变，但仅消耗1个线程资源（提升了线程伸缩性）。</li></ul></li><li>总结: 响应式编程可利用较少的线程数或硬件资源来处理任务，提高系统的伸缩性，但不会让程序运行的更快。</li></ul><blockquote><p>心法: <a href=https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-features.html#boot-features-webflux>WebFlux</a></p></blockquote><ul><li>WebFlux是Spring5中的异步非阻塞响应式编程框架。</li><li>WebFlux不依赖servlet，不能部署为war包，不使用webapp目录。</li><li>WebFlux使用 <code>ServletRequest</code> 请求对象和 <code>ServletResponse</code> 响应对象。</li></ul><blockquote><p>武技: 创建 <code>springboot-webflux</code> 子项目: 用于测试webflux效果</p></blockquote><ol><li>添加三方依赖:<ul><li><code>spring-boot-starter-webflux</code> 比 <code>spring-boot-starter-web</code> 优先级低，共存时失效。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-webflux--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-webflux<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--reactor-property--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>io.projectreactor<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>reactor-property<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;scope&gt;</span>property<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;optional&gt;</span>true<span style=color:#f92672>&lt;/optional&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-property--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-property<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;scope&gt;</span>property<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发启动类 <code>WebFluxApp</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>WebFluxApp</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(WebFluxApp.<span style=color:#a6e22e>class</span>, args);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>启动项目: 若启动方式由tomcat同步容器变为netty异步容器时表示成功引入webflux。</li><li>开发实体类 <code>User</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.entity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@AllArgsConstructor</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@NoArgsConstructor</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>User</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer userId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String name;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发业务接口 <code>UserService</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按User主键查询一条User记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param userId User主键
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 异步不阻塞地返回单条User数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    Mono<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 查询全部User记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 异步不阻塞地返回多条User数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    Flux<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>list</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>开发业务实现类 <code>UserServiceImpl</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.service.impl;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceImpl</span> <span style=color:#66d9ef>implements</span> UserService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> List<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> users;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        users <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>        users.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> User(1, <span style=color:#e6db74>&#34;zhaosi&#34;</span>));
+</span></span><span style=display:flex><span>        users.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> User(2, <span style=color:#e6db74>&#34;liuneng&#34;</span>));
+</span></span><span style=display:flex><span>        users.<span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>new</span> User(3, <span style=color:#e6db74>&#34;guangkun&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Mono<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(Integer userId) {
+</span></span><span style=display:flex><span>        User result <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (User user : users) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (user.<span style=color:#a6e22e>getUserId</span>().<span style=color:#a6e22e>equals</span>(userId)) {
+</span></span><span style=display:flex><span>                result <span style=color:#f92672>=</span> user;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回Mono实例，参数为null或为空时返回MonoEmpty实例</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Mono.<span style=color:#a6e22e>justOrEmpty</span>(result);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Flux<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>list</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回Flux集合实例</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Flux.<span style=color:#a6e22e>fromIterable</span>(users);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=7><li>开发控制器 <code>UserController</code>: 控制方法可直接返回 <code>Mono/Flux</code> 实例。</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/webflux&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> UserService userService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/select-by-user-id/{user-id}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Mono<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByUserId</span>(<span style=color:#a6e22e>@PathVariable</span>(<span style=color:#e6db74>&#34;user-id&#34;</span>) Integer userId) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userService.<span style=color:#a6e22e>selectByUserId</span>(id);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/list&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 开启流响应模式</span>
+</span></span><span style=display:flex><span>            produces <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;application/stream+json&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Flux<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>list</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应流速为2秒一次</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> userService.<span style=color:#a6e22e>list</span>().<span style=color:#a6e22e>delayElements</span>(Duration.<span style=color:#a6e22e>ofSeconds</span>(2));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=8><li>开发测试类 <code>UserControllerTest</code>:<ul><li>使用WebClient模拟发送webflux请求:</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserControllerTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testWebClientMono</span>() {
+</span></span><span style=display:flex><span>        String url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://localhost:8080/api/v1/webflux/select-by-user-id/1&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*Mono&lt;User&gt; userMono = WebClient.create()
+</span></span></span><span style=display:flex><span><span style=color:#75715e>                .get().uri(&#34;http://localhost:8080/api/webflux/select-by-id?id={id}&#34;, 1)
+</span></span></span><span style=display:flex><span><span style=color:#75715e>                .retrieve().bodyToMono(User.class);*/</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建并配置webflux的GET请求</span>
+</span></span><span style=display:flex><span>        Mono<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> userMono <span style=color:#f92672>=</span> WebClient.<span style=color:#a6e22e>create</span>(url).<span style=color:#a6e22e>get</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 将响应数据提取到Mono对象中</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>retrieve</span>().<span style=color:#a6e22e>bodyToMono</span>(User.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 立刻取出Mono中的数据并打印</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userMono.<span style=color:#a6e22e>block</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testWebClientFlux</span>() {
+</span></span><span style=display:flex><span>        String url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://localhost:8080/api/v1/webflux/list&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建并配置webflux的GET请求</span>
+</span></span><span style=display:flex><span>        Flux<span style=color:#f92672>&lt;</span>User<span style=color:#f92672>&gt;</span> userFlux <span style=color:#f92672>=</span> WebClient.<span style=color:#a6e22e>create</span>(url).<span style=color:#a6e22e>get</span>()
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 将响应数据提取到Flux对象中</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>retrieve</span>().<span style=color:#a6e22e>bodyToFlux</span>(User.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将Flux中的数据收集到list中并打印</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(userFlux.<span style=color:#a6e22e>collectList</span>().<span style=color:#a6e22e>block</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

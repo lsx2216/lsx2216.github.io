@@ -1,0 +1,1143 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB1-2-基础启航</title>
+<meta name=description content="[!NOTE] Java道经第1卷 - 第2阶 - 基础启航 v1-2-basic-start (JAR)
+CH01. 文档化编程思想 心法: 注释
+注释是对代码的一种文字说明，提高可读性，不参与编译过程，尽量少写废话。 允许在任何注释中使用 TODO 前缀来标记一个待做事项。 EP01. 代码的基本注释 心法: 代码 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/"><meta property="og:type" content="website"><meta property="og:title" content="JB1-2-基础启航"><meta property="og:description" content="[!NOTE] Java道经第1卷 - 第2阶 - 基础启航 v1-2-basic-start (JAR)
+CH01. 文档化编程思想 心法: 注释
+注释是对代码的一种文字说明，提高可读性，不参与编译过程，尽量少写废话。 允许在任何注释中使用 TODO 前缀来标记一个待做事项。 EP01. 代码的基本注释 心法: 代码 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB1-2-基础启航"><meta name=twitter:description content="[!NOTE] Java道经第1卷 - 第2阶 - 基础启航 v1-2-basic-start (JAR)
+CH01. 文档化编程思想 心法: 注释
+注释是对代码的一种文字说明，提高可读性，不参与编译过程，尽量少写废话。 允许在任何注释中使用 TODO 前缀来标记一个待做事项。 EP01. 代码的基本注释 心法: 代码 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB1-2-基础启航</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第1卷 - 第2阶 - 基础启航
+v1-2-basic-start (JAR)</p></blockquote><h1 id=ch01-文档化编程思想>CH01. 文档化编程思想</h1><blockquote><p>心法: 注释</p></blockquote><ul><li>注释是对代码的一种文字说明，提高可读性，不参与编译过程，尽量少写废话。</li><li>允许在任何注释中使用 <code>TODO</code> 前缀来标记一个待做事项。</li></ul><h2 id=ep01-代码的基本注释>EP01. 代码的基本注释</h2><blockquote><p>心法: 代码的基本注释 - 用于描述代码</p></blockquote><table><thead><tr><th>类别</th><th>开始符号</th><th>结束符号</th><th>位置</th><th>示例</th></tr></thead><tbody><tr><td>单行注释</td><td><code>//</code></td><td>无</td><td>写在方法内，独占1行，尽量规避行尾注释</td><td><code>// 我是单行注释</code></td></tr><tr><td>多行注释</td><td><code>/*</code></td><td><code>*/</code></td><td>写在方法内，独占1或N行，尽量规避行尾注释</td><td><code>/* 我是多行注释 */</code></td></tr></tbody></table><h2 id=ep02-产品的文档注释>EP02. 产品的文档注释</h2><blockquote><p>心法: 产品的文档注释 - 用于描述产品</p></blockquote><ul><li>文档注释的意义:<ul><li>每个产品都应该配一套独立的文档说明。</li></ul></li><li>文档注释的格式:<ul><li>在类，方法，属性之上使用 <code>/** xxx */</code> 格式编写文档注释。</li><li>文档注释中可以使用 <code>&lt;h1></code>，<code>&lt;p></code> 等HTML标签进行美化。</li></ul></li></ul><blockquote><p>心法: 文档注释的优点</p></blockquote><table><thead><tr><th>文档注释的优点</th><th>描述</th></tr></thead><tbody><tr><td>易修改</td><td>文档注释和代码处于同一个Java文件中，修改代码的同时，顺便就修改了文档</td></tr><tr><td>易统一</td><td>文档注释有固定的格式和功能注解，保证了所有文档的统一性和通用性</td></tr><tr><td>可提取</td><td>允许使用JavaDoc工具提取出代码中的文档注释，并生成真正的HTML文档</td></tr></tbody></table><blockquote><p>心法: 文档注释中的常用注解</p></blockquote><table><thead><tr><th>文档注释中的常用注解</th><th>描述</th><th>作用域</th></tr></thead><tbody><tr><td><code>@version 1.0</code></td><td>描述所在类的当前版本号</td><td>类</td></tr><tr><td><code>@author lsx</code></td><td>描述所在类的作者名</td><td>类/方法</td></tr><tr><td><code>@deprecated 本方法已过时，请使用xxx替代</code></td><td>描述所在类或所在方法已过时</td><td>类/方法</td></tr><tr><td><code>@see java.lang.Math</code></td><td>描述所在类或所在方法的参考链接类</td><td>类/方法</td></tr><tr><td><code>@param money 购买苹果的钱数</code></td><td>描述所在方法的参数</td><td>方法</td></tr><tr><td><code>@return 一个苹果</code></td><td>描述所在方法的回值</td><td>方法</td></tr><tr><td><code>@throws/@exception 购买苹果的钱数不能小于0</code></td><td>描述所在方法的异常</td><td>方法</td></tr></tbody></table><blockquote><p>武技: 编写文档注释并使用IDEA提取HTML文档</p></blockquote><ol><li>开发类 <code>JavaDocDemo</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.comment;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * &lt;h2&gt;本类仅用于测试JavaDoc文档注释&lt;/h2&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * &lt;p&gt;单行注释，多行注释，TODO注释都不参与JavaDoc的提取过程
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @author lsx
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @version 1.0
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @see java.lang.System
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @see java.lang.String
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JavaDocDemo</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 本方法用于购买苹果
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @deprecated 本方法已过时，请使用 buyApplePro() 方法替代
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>buyApple</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 买苹果业务开始</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;买苹果方法调用开始&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 买苹果的具体工作流程，共分7个步骤:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 其中前4步骤: 属于前期任务
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 其中第5步骤: 属于核心任务
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 其中后2步骤: 属于后期任务
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第1步: 带好钱包&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第2步: 走出家门&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第3步: 寻找超市&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第4步: 进入超市&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第5步: 选购苹果&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第6步: 付款走人&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;第7步: 购买成功&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 买苹果业务结束</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;买苹果方法调用结束&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 本方法用于购买苹果（升级版）
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param money 购买苹果的钱数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 一个苹果
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>buyApplePro</span>(<span style=color:#66d9ef>int</span> money) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// TODO 判断money够不够买一个苹果</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;苹果&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>打开 <code>Tools -> Generate JavaDoc...</code> 界面:<ol><li>勾选 <code>Whole project/Module 'xxx'</code>: 表示提取操作作用于整个项目/指定模块。</li><li>浏览 <code>Output directory</code>: 选择文档生成位置，建议路径末尾多指定一层目录。</li><li>勾选 <code>@author</code>: 表示生成的文档中包含作者信息。</li><li>勾选 <code>@version</code>: 表示生成的文档中包含版本信息。</li><li>在 <code>Other command line arguments</code> 栏填入 <code>-encoding UTF-8 -charset UTF-8</code> 以配置编码。</li></ol></li><li>点击OK完成文档生成，进入对应目录中，双击首页 <code>index.html</code> 以查看文档。</li></ol><h1 id=ch02-输出与特殊字符>CH02. 输出与特殊字符</h1><blockquote><p>心法: 输出语句</p></blockquote><ul><li>输出语句用于将指定的内容显示在控制台上。</li></ul><h2 id=ep01-换行与同行输出>EP01. 换行与同行输出</h2><blockquote><p>心法: 输出语句 - 换行输出与同行输出</p></blockquote><ul><li>换行输出语句:<ul><li><code>System.out.println(内容)</code>: 换行且允许空输出。</li></ul></li><li>同行输出语句:<ul><li><code>System.out.print(内容)</code>: 不换行且不允许空输出。</li></ul></li></ul><blockquote><p>武技: 测试输出语句的换行输出和同行输出效果</p></blockquote><ol><li>开发测试方法 <code>PrintTest -> testPrint()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PrintTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 换行输出和同行输出 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testPrint</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 换行输出: 行尾换行，允许空输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;中&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;国&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 同行输出: 行尾不换行，不允许空输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;中&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// System.out.print(); // error</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(<span style=color:#e6db74>&#34;国&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-格式化输出语句>EP02. 格式化输出语句</h2><blockquote><p>心法: 格式化输出语句</p></blockquote><ul><li>格式化输出语句:<ul><li><code>System.out.printf("模板", 不定长参数)</code>: 不换行且不允许空输出。</li></ul></li><li>格式化输出语句模板中的占位符:<ul><li><code>%s</code>: 字符串模板中对字符串进行占位。</li><li><code>%d/%o/%x</code>: 字符串模板中对十进制/八进制/十六进制整数进行占位。</li><li><code>%.2f</code>: 字符串模板中对浮点数进行占位，保留2位小数。</li></ul></li></ul><blockquote><p>武技: 测试输出语句的格式化输出效果</p></blockquote><ol><li>开发测试方法 <code>PrintTest -> testPrintF()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PrintTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 格式化输出 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testPrintF</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// %s : 表示占位，一个字符串类型占位</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// %d : 表示占位，一个数字类型的占位</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// %.2f: 表示占位，一个浮点数的占位，保留两位小数（四舍五入）</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// \n: 表示一个换行</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;我叫%s，今年%d岁，体重是%.2f公斤！\n&#34;</span>, <span style=color:#e6db74>&#34;赵四&#34;</span>, 18, 66.<span style=color:#a6e22e>666</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-输出基础表达式>EP03. 输出基础表达式</h2><blockquote><p>心法: 输出基础表达式</p></blockquote><ul><li>表达式输出: 输出语句中允许直接使用表达式。</li><li>字符串拼接:<ul><li>若 <code>+</code> 任意一端出现字符串则变为拼接效果。</li></ul></li></ul><blockquote><p>武技: 测试输出语句的表达式输出效果</p></blockquote><ol><li>开发测试方法 <code>PrintTest -> testPlusCharacters()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PrintTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 表达式输出 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testPlusCharacters</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 输出语句中允许直接使用表达式</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1 <span style=color:#f92672>+</span> 2 <span style=color:#f92672>+</span> 3 <span style=color:#f92672>+</span> 4 <span style=color:#f92672>+</span> 5 <span style=color:#f92672>+</span> 6);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 加号任意一端出现字符串则变为拼接效果</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1 <span style=color:#f92672>+</span> 2 <span style=color:#f92672>+</span> 3 <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;4&#34;</span> <span style=color:#f92672>+</span> 5 <span style=color:#f92672>+</span> 6);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;1&#34;</span> <span style=color:#f92672>+</span> 2 <span style=color:#f92672>+</span> 3 <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;4&#34;</span> <span style=color:#f92672>+</span> 5 <span style=color:#f92672>+</span> 6);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1 <span style=color:#f92672>+</span> (2 <span style=color:#f92672>+</span> 3) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;4&#34;</span> <span style=color:#f92672>+</span> (5 <span style=color:#f92672>+</span> 6));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-输出特殊的字符>EP04. 输出特殊的字符</h2><blockquote><p>心法: 输出语句中的特殊的字符</p></blockquote><ul><li>特殊字符指的是在输出语句中具有自己独特含义的字符:</li></ul><table><thead><tr><th>特殊字符</th><th>名称</th><th>功能</th></tr></thead><tbody><tr><td><code>\n</code></td><td>换行符 <code>newLine</code></td><td>立刻将光标置于下一行的首位</td></tr><tr><td><code>\r</code></td><td>回行符 <code>return</code></td><td>立刻将光标置于本行的首位</td></tr><tr><td><code>\t</code></td><td>制表符 <code>table</code></td><td>对前一个字符串补充1-4个空格，使其字节数为4的整数倍一个英文字母或符号占1字节，一个UTF8字符占2字节</td></tr><tr><td><code>\u0020</code></td><td>编码符 <code>Unicode</code></td><td>Unicode编码中某个字符对应的16进制数</td></tr><tr><td><code>\</code></td><td>转义符 <code>escape</code></td><td>废除紧随其后的一个字符的功能，使其变成一个纯文本</td></tr></tbody></table><blockquote><p>武技: 测试输出语句中的特殊字符</p></blockquote><ol><li>开发测试方法 <code>PrintTest -> testSpecialCharacters()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PrintTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 特殊字符与转义字符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSpecialCharacters</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 换行符: 立刻将光标置于下一行的首位</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;世\n界&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 回行符: 立刻将光标置于本行的首位</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;东\r方&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 制表符: 对前一个字符串补充1-4个空格，使其字节数为4的整数倍
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * eq: 一个UTF8字符 &#34;亚&#34; 占2字节，`\t` 会补充2个空格到4字节
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * eq: &#34;亚y&#34; 占3字节，`\t` 会补充1个空格到4字节
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * eq: &#34;亚ya&#34; 占4字节，`\t` 会补充4个空格到8字节（因为至少补充1个空格）
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;亚\t洲&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;亚y\t洲&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;亚ya\t洲&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 编码符: &#34;\u0020&#34; 是Unicode编码中空格的16进制数</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;中\u0020国&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 转义符: &#34;\&#34; 可以抵消紧随其后的一个符号的功能</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\\n是换行符&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\\r是回行符&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\\t是制表符&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\\u0020是空格的unicode编码的16进制数&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\\是转义字符&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;\&#34;\&#34;是双引号&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch03-常量与特殊进制>CH03. 常量与特殊进制</h1><blockquote><p>心法: 常量</p></blockquote><ul><li>在整个运行过程中都不可以发生变化的量叫常量。</li></ul><h2 id=ep01-先天与后天常量>EP01. 先天与后天常量</h2><blockquote><p>心法: 先天常量与后天常量</p></blockquote><ul><li>先天常量: 天生就没有改变的能力，如 <code>数字120/字符串abc/科学计数法10E3</code> 等。</li><li>后天常量: 使用 <code>final</code> 修饰的变量可以视为常量，只能被赋值一次。</li></ul><blockquote><p>武技: 测试先天常量与后天常量</p></blockquote><ol><li>开发测试方法 <code>ConstantTest -> testConstant()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConstantTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 先天常量和后天常量 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testConstant</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 先天常量可以直接输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(123);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(3e2);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 后天常量: final修饰的变量只能被赋值一次</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>int</span> money <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// money = 200; // error</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(money);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-特殊进制的常量>EP02. 特殊进制的常量</h2><blockquote><p>心法: 特殊进制的常量</p></blockquote><ul><li>输出语句在输出特殊进制的字面量之前，会先自动转为十进制字面量:</li></ul><table><thead><tr><th>特殊进制</th><th>使用方式</th><th>示例</th><th>其他</th></tr></thead><tbody><tr><td>二进制</td><td>在数值字面量前添加 <code>0b</code> 或 <code>0B</code> 作为前缀</td><td><code>0b1001</code></td><td>支持正负号</td></tr><tr><td>八进制</td><td>在数值字面量前添加 <code>0</code> 作为前缀</td><td><code>0100</code></td><td>支持正负号</td></tr><tr><td>十六进制</td><td>在数值字面量前添加 <code>0x</code> 或 <code>0X</code> 作为前缀</td><td><code>0x100</code></td><td>支持正负号</td></tr></tbody></table><blockquote><p>武技: 测试特殊进制常量</p></blockquote><ol><li>开发测试方法 <code>ConstantTest -> testSpecialConstant()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConstantTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 特殊进制常量 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSpecialConstant</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 二进制数: 在数值前添加 `0b` 或 `0B` 作为前缀，支持正负号</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 输出语句会将八进制的值转换为十进制后再输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(0b100);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>-</span>0b100);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 八进制数: 在数值前添加 `0` 作为前缀，支持正负号</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 输出语句会将八进制的值转换为十进制后再输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(0123);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>-</span>0123);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 十六进制数: 在数值前添加 `0x` 或 `0X` 作为前缀，支持正负号</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 输出语句会将十六进制的值转换为十进制后再输出</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(0x123);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>-</span>0X123);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-计算机计算原理>EP03. 计算机计算原理</h2><blockquote><p>心法: 计算机计算原理</p></blockquote><ul><li>计算机底层计算时，先将操作数都转为补码，然后再计算，最后将计算结果转回原码并输出其真值。</li><li>原码: 一个数字的二进制形式，也叫机器数，原码最高位为符号位，0正1负。</li><li>真值: 原码对应的十进制值。</li><li>反码: 正数的反码同原码，负数的反码是其原码按位取反的结果，符号位不变。</li><li>补码: 正数的补码同原码，负数的补码是其反码加1的结果，符号位不参与进位:<ul><li>补码的补码就是原码。</li><li>可以使用 <code>Integer.toBinaryString()</code> 来查看一个数的补码。</li></ul></li></ul><blockquote><p>武技: 测试4 + 6底层计算原理</p></blockquote><ol><li>开发测试方法 <code>ConstantTest -> test4Plus6()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConstantTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 4 + 6 过程分析 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>test4Plus6</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4的补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(4));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;6的补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(6));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 模拟: 4 + 6 过程分析
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 原码: 00000000 .. 00000100: 4原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 00000000 .. 00000100: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 00000000 .. 00000100: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 原码: 00000000 .. 00000110: 6原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 00000000 .. 00000110: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 00000000 .. 00000110: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 计算: 00000000 .. 00001010: 4的补码和6的补码相加的结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 00000000 .. 00001010: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 00000000 .. 00001010: 正数同原码
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 真值: 10
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(4 <span style=color:#f92672>+</span> 6);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch04-变量与代码沼泽>CH04. 变量与代码沼泽</h1><blockquote><p>心法: 变量</p></blockquote><ul><li>在整个运行过程中可以发生变化的量叫变量。</li></ul><h2 id=ep01-变量的声明方式>EP01. 变量的声明方式</h2><blockquote><p>心法: 变量的声明方式</p></blockquote><ul><li>变量声明就是在JVM内存中申请一块指定类型，指定名称的区域（盒子）的过程:<ul><li>声明格式: <code>变量类型 变量名</code></li><li>Java是一门强（调）类型语言，所以在声明时必须指定变量类型。</li></ul></li><li>相同类型的变量可以在同一行声明，用逗号分隔。</li><li>仅声明未赋值的变量不能输出和计算。</li></ul><blockquote><p>武技: 测试变量的声明</p></blockquote><ol><li>开发测试方法 <code>VariableTest -> testVariableDeclaration()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VariableTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 变量的声明 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testVariableDeclaration</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 在JVM内存中申请一块区域，类型是int（整数），名字叫money</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> money;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 当输出语句输出变量的时候，表示输出变量中的常量值</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 所以若一个变量未被赋值，是无法直接输出的</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// System.out.println(money); // error</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 相同类型的变量，可以在同一行进行声明</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a, b, c, d, e;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-变量的赋值方式>EP02. 变量的赋值方式</h2><blockquote><p>心法: 变量的赋值方式</p></blockquote><ul><li>变量赋值就是向变量申请的区域（盒子）中存放常量的过程:<ul><li>赋值格式: <code>变量名 = 变量值</code></li></ul></li><li>变量的声明和赋值可以在同一行，也可以不在同一行。</li><li>对同一变量的多次赋值操作会发生覆盖。</li></ul><blockquote><p>武技: 测试变量的赋值</p></blockquote><ol><li>开发测试方法 <code>VariableTest -> testVariableAssignment()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>VariableTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 变量的赋值 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testVariableAssignment</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 赋值就是向变量申请的区域中存放常量的过程</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将100这个值扔到JVM内存中的一个名字叫money，类型是int的盒子中</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> money <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 赋值会发生覆盖</span>
+</span></span><span style=display:flex><span>        money <span style=color:#f92672>=</span> 200;
+</span></span><span style=display:flex><span>        money <span style=color:#f92672>=</span> 300;
+</span></span><span style=display:flex><span>        money <span style=color:#f92672>=</span> 400;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果是: &#34;</span> <span style=color:#f92672>+</span> money);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-变量的命名规范>EP03. 变量的命名规范</h2><blockquote><p>心法: 变量的命名规范</p></blockquote><ul><li>变量名只能由数字/字母/下划线和$符号组成，数字不能开头。</li><li>变量名不能使用关键字: Java系统自己用的，官方的，有着特殊功能和意义的单词，如 <code>public/static</code> 等。</li><li>变量名不能使用保留字: Java系统没有使用到，但是也不让我们使用的单词，如 <code>const/goto</code> 等。</li><li>Java中的3个直接量也不能使用，包括 <code>true/false/null</code>。</li><li>方法名: 小驼峰，一般使用动词，如 <code>getName()/setName()/getAge()/setGender()</code>。</li><li>变量名: 小驼峰，一般使用名词，如 <code>name/age/gender</code>。</li><li>只要像一个正常人一样去起名，就不会错！</li></ul><h2 id=ep04-代码的整洁之道>EP04. 代码的整洁之道</h2><blockquote><p>心法: 代码沼泽困境</p></blockquote><ul><li>糟糕的代码带来的困境就是代码沼泽，花时间保持代码整洁不但有关效率，还有关生存。</li></ul><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/3f6fd24cc3aef95eea7ccdbedf8ac0b6.png alt=代码沼泽流程图></p><blockquote><p>心法: 代码的整洁之道</p></blockquote><ul><li>命名的时候多费心，且一旦发现有更好的名字，就换掉旧的。</li><li>言到意到，见名知意: 如果你起的名字还得需要用到注释来补充说明的话，那它就不怎么合格。</li><li>别在乎变量名的长度: 变量名越长描述的信息越多，但有趣的是只要短名称足够清楚，就比长的好。</li><li>避免误导性的名字，如用userList来指定一组用户，无论该变量是不是List类型，改成users都会更好。</li><li>别在变量名中使用 <code>l</code>，<code>I</code> 和 <code>O</code>，容易和数字 <code>1</code> 和 <code>0</code> 混淆。</li><li>单词 <code>variable</code> 永远不该出现在你变量名中，单词 <code>table</code> 永远不应该出现在表名中。</li><li>尽量别为变量名添加前后缀，因为快速阅读代码时，大脑根本就看不见前缀后缀。</li><li>使用能读出口的变量名，避免 <code>yyyy_MM_dd_hh_mm_ss</code> 这种变量名。</li></ul><h1 id=ch05-基本数据的类型>CH05. 基本数据的类型</h1><blockquote><p>心法: 基本数据类型</p></blockquote><ul><li>Java中的基本数据类型一共有8个。</li><li>JDK11版本支持使用 <code>var</code> 自动推断局部变量基本/引用类型，建议在Lambda表达式中使用。</li></ul><h2 id=ep01-基本类型之整数>EP01. 基本类型之整数</h2><blockquote><p>心法: 基本数据类型 - 整数型</p></blockquote><ul><li>整数型包括 <code>byte(1)/short(2)/int(4)/long(8)</code> 四种。</li><li>整数常量默认为int型，为整数常量附加 <code>l/L</code> 后缀可使其默认为long型。</li><li>整数常量赋值前需要接受JavaC的范围检查，通过可直接赋值，即满足范围的整数可直接赋值给byte/short型变量。</li><li>若整数常量本身超出了其默认类型的存值范围，则JavaC直接报错。</li><li>long型值可以使用 <code>_</code> 作为千分位分隔符，不影响值本身。</li></ul><blockquote><p>武技: 测试基本数据类型 - 整数型</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testInteger()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 4个整数类型 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testInteger</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 字节型: 占1字节，存值范围 -2^7 ~ 2^7-1 (-128 ~ 127)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span> numA <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numA);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 短整型: 占2字节，存值范围 -2^15 ~ 2^15-1</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>short</span> numB <span style=color:#f92672>=</span> 10000;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 整数型: 占4字节，默认值，存值范围 -2^31 ~ 2^31-1 (-2147483648 ~ 2147483647)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> numC <span style=color:#f92672>=</span> 10000000;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numC);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 长整型: 占8字节，存值范围 -2^63 ~ 2^63-1</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 为整数常量附加 `l/L` 后缀可使其默认为long型</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> numD <span style=color:#f92672>=</span> 200000000L;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numD);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 100000000000: 整数默认为int型常量，但该值已经超出int型的最大存储范围，报错</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 100000000000L: 通知javac我是一个long型常量，该值未超出long型的最大存储范围，通过</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(100000000000L);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// long型值可以使用 `_` 作为千分位分隔符，不影响值本身</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(100_000_000_000L);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-基本类型之浮点>EP02. 基本类型之浮点</h2><blockquote><p>心法: 基本数据类型 - 浮点型</p></blockquote><ul><li>因为Java支持科学计数法，所有小数点的位置是可以随意浮动的，故而成为浮点数:<ul><li>如 <code>3.5e1</code> 等于 <code>0.35e2</code> 等于 <code>0.035e3</code> 等。</li></ul></li><li>浮点型包括 <code>float(4)/double(8)</code> 两种:<ul><li>浮点常量默认为double型，为浮点常量附加 <code>f/F</code> 后缀可使其默认为float型。</li></ul></li><li>浮点数常量天生不精确，所以赋值前无法接受JavaC的范围检查:<ul><li>即所有的浮点数都无法直接被float型变量接收。</li></ul></li></ul><blockquote><p>武技: 测试基本数据类型 - 浮点型</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testFloat()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 2个浮点数类型 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testFloat</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 浮点是天生不准确: 精度受损</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(2.<span style=color:#a6e22e>00</span> <span style=color:#f92672>-</span> 1.<span style=color:#a6e22e>10</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 如果需要高精度的计算则需要使用BigDecimal中的subtract()方法</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#66d9ef>new</span> BigDecimal(<span style=color:#e6db74>&#34;2.00&#34;</span>).<span style=color:#a6e22e>subtract</span>(<span style=color:#66d9ef>new</span> BigDecimal(<span style=color:#e6db74>&#34;1.10&#34;</span>)));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>double</span> numA <span style=color:#f92672>=</span> 1.<span style=color:#a6e22e>5</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numA);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 浮点数无法范围检查，即所有的double型数据，都无法直接被float型变量接收</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// F表示告诉javac，我是一个float型数据，而非double型数据</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>float</span> numB <span style=color:#f92672>=</span> 3.<span style=color:#a6e22e>14F</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numB);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-基本类型之字符>EP03. 基本类型之字符</h2><blockquote><p>心法: 基本数据类型 - 字符型</p></blockquote><ul><li>字符型包括 <code>char(2)</code> 一种。</li><li>Java中的字符型变量仅可以存储一个Unicode字符。</li><li>Java中字符型值需要使用单引号进行标注。</li><li>char类型可直接赋值整数并在赋值前接受0-65535的范围检查，范围通过则直接赋值，此时存储的是其字符编号。</li></ul><blockquote><p>武技: 测试基本数据类型 - 字符型</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testChar()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 1个字符类型 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testChar</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// java中字符型值需要使用单引号进行标注</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> wordA <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;a&#39;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(wordA);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// char类型可以直接赋值整数，表示其在编码中的位置</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// unicode中一共有65536个字符</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> wordB <span style=color:#f92672>=</span> 97;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(wordB);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-基本类型之布尔>EP04. 基本类型之布尔</h2><blockquote><p>心法: 基本数据类型 - 布尔型</p></blockquote><ul><li>布尔型包括 <code>boolean(1)</code> 一种。</li><li>Java中的布尔型变量仅可以存储 <code>false/true</code> 这两个值。</li><li>布尔型实际上只占用一个字节中的符号位，其余7位都是0，处于无用状态。</li></ul><blockquote><p>武技: 测试基本数据类型 - 布尔型</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testBoolean()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 1个布尔类型 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBoolean</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// boolean类型只存true和false两种值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>boolean</span> flag <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(flag);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        flag <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(flag);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-基本类型的转换>EP05. 基本类型的转换</h2><blockquote><p>心法: 基本数据类型的转换</p></blockquote><ul><li>八大基本数据类型之间，除了boolean之外，都是可以互相转换的:<ul><li>口诀: 由小到大自动转，由大到小需强转。</li><li>格式: <code>B b = (B)A</code></li></ul></li><li>浮点数转成整数时，会对浮点数向下取整。</li><li>整数转成浮点数时，会在整数后面补充 <code>.0</code> 作为小数部分。</li><li>char类型可以使用其Unicode字符编号来参与转换。</li></ul><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/0c3db0a33525a223d763d3aa5aed3c32.png alt=Java基本类型转换图></p><blockquote><p>武技: 测试基本数据类型转换</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testTypeConversion()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 基本类型的转换: boolean类型无法参与类型转换过程 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testTypeConversion</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 由小到大自动转</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// int(4) -&gt; long(8)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> numA <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numA);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 由大到小需强转（需要在代码中强调转成什么类型）</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// long(8) -&gt; int(4)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> numB <span style=color:#f92672>=</span> (<span style=color:#66d9ef>int</span>) 100L;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 整数转成浮点数时，会在整数后面补充 `.0` 作为小数部分</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// int(4) -&gt; double(8)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>double</span> numC <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numC);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 浮点数转成整数时，会对浮点数向下取整</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// double(8) -&gt; int(4)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> numD <span style=color:#f92672>=</span> (<span style=color:#66d9ef>int</span>) 3.<span style=color:#a6e22e>99</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numD);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// char类型可以使用其字符编号来参与转换</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// char(2) -&gt; int(4) -&gt; double(8)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>double</span> word <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;a&#39;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(word);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-跨类型计算原则>EP06. 跨类型计算原则</h2><blockquote><p>心法: 跨类型计算原则</p></blockquote><ul><li>不同类型之间计算，结果一定返回最大类型。</li><li>char类型可以使用其字符编号来参与计算。</li></ul><blockquote><p>武技: 测试跨数据类型计算原则</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testCalculation()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 跨数据类型计算原则 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testCalculation</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 不同类型之间计算，结果一定返回最大类型</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10 <span style=color:#f92672>/</span> 4);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10.<span style=color:#a6e22e>0</span> <span style=color:#f92672>/</span> 4);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10 <span style=color:#f92672>/</span> 4.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10.<span style=color:#a6e22e>0</span> <span style=color:#f92672>/</span> 4.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// char类型可以使用其字符编号来参与计算</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#f92672>+</span> 3);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep07-计算结果的溢出>EP07. 计算结果的溢出</h2><blockquote><p>心法: 计算结果的溢出现象</p></blockquote><ul><li>当计算结果超出了变量所能存储的最大值时，会发生物极必反的现象。</li><li>最大值加1变最小值，最小值减1变最大值。</li></ul><blockquote><p>武技: 测试数值溢出现象</p></blockquote><ol><li>开发测试方法 <code>BasicTypeTest -> testOverflow()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BasicTypeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 数值溢出问题 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testOverflow</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> maxValueOfInt <span style=color:#f92672>=</span> 2147483647;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> minValueOfInt <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>2147483648;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 模拟: 2147483647 + 1 的过程
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 原码: 01111111 11111111 11111111 11111111
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 01111111 11111111 11111111 11111111: 与原码相同
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 01111111 11111111 11111111 11111111: 与原码相同
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 加一: 10000000 00000000 00000000 00000000: 计算会影响符号位，
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *       toBinaryString()方法会打印该值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 11111111 11111111 11111111 11111111: 符号位不动，其余按位取反
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 10000000 00000000 00000000 00000000: 反码 + 1，符号位不参与补码进位
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 真值: -2147483648: int最小值。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * */</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;最大值加1: &#34;</span> <span style=color:#f92672>+</span> (maxValueOfInt <span style=color:#f92672>+</span> 1));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 模拟: -2147483648 - 1 的过程
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 原码: 10000000 00000000 00000000 00000000
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 11111111 11111111 11111111 11111111，符号位不动，其余按位取反
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 10000000 00000000 00000000 00000000，反码 + 1，符号位不参与补码进位
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 减一: 01111111 11111111 11111111 11111111，计算会影响符号位，
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *       toBinaryString()方法会打印该值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 反码: 01111111 11111111 11111111 11111111，与原码相同
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 补码: 01111111 11111111 11111111 11111111，与原码相同
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 真值: 2147483647: int最大值
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * */</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;最小值减1: &#34;</span> <span style=color:#f92672>+</span> (minValueOfInt <span style=color:#f92672>-</span> 1));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch06-引用数据的类型>CH06. 引用数据的类型</h1><blockquote><p>心法: 引用数据类型</p></blockquote><ul><li>除了基本数据类型之外，都是引用数据类型，如类，数组，接口等。</li><li>引用数据类型使用 <code>A a = new A()</code> 格式进行声明赋值。</li></ul><h2 id=ep01-引用类型字符串>EP01. 引用类型字符串</h2><blockquote><p>心法: 引用类型字符串 <code>java.lang.String</code></p></blockquote><ul><li>String底层是char数组，表示一串字符，字符串值需要使用双引号包裹起来:<ul><li>字符串所属 <code>java.lang</code> 包，该包下的所有类在使用时都无需导包，可直接使用。</li><li>GBK编码下，一个中文字符占2字节，一个英文字符占1字节。</li><li>UTF-8编码下，一个中文字符占3字节，一个英文字符占1字节。</li><li>UTF-16编码下，一个中文字符占4字节，一个英文字符占4字节。</li></ul></li><li>String声明赋值:<ul><li>标准声明格式: <code>String 变量名 = new String("变量值")</code></li><li>简易声明格式: <code>String 变量名 = "变量值"</code></li></ul></li></ul><blockquote><p>武技: 测试String字符串的声明赋值</p></blockquote><ol><li>开发测试方法 <code>StringTest -> testBuild()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StringTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 创建一个String实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBuild</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 标准格式: `String 变量名 = new String(&#34;变量值&#34;)`</span>
+</span></span><span style=display:flex><span>        String strA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(<span style=color:#e6db74>&#34;hello strA!!!!&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(strA);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 简易格式: `String 变量名 = &#34;变量值&#34;`</span>
+</span></span><span style=display:flex><span>        String strB <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;hello strB!!!!&#34;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(strB);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试不同编码下，一个字符串所占字节数 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSize</span>() <span style=color:#66d9ef>throws</span> Exception {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;a&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;GBK&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;中&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;GBK&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;a&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;UTF-8&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;中&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;UTF-8&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;a&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;UTF-16&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;中&#34;</span>.<span style=color:#a6e22e>getBytes</span>(<span style=color:#e6db74>&#34;UTF-16&#34;</span>).<span style=color:#a6e22e>length</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-字符串编程接口>EP02. 字符串编程接口</h2><blockquote><p>心法: 应用程序编程接口 <code>Application Programming Interface</code>，简称API</p></blockquote><table><thead><tr><th>相似概念</th><th>全称</th><th>描述</th></tr></thead><tbody><tr><td>API</td><td>应用程序编程接口</td><td>本质是提供给调用方的一组方法</td></tr><tr><td>API文档</td><td>应用程序编程接口文档</td><td>本质是一个HTML文档，可以理解为API的说明书，如 <a href=https://docs.oracle.com/en/java/javase/11/docs/api/index.html>JDK11官网API文档</a></td></tr></tbody></table><blockquote><p>心法: API文档的使用流程</p></blockquote><ol><li>看方法名称: 代码中需要使用方法名来调用方法:<ul><li>Java中使用分量符 <code>.</code> 进行方法的调用。</li></ul></li><li>看形式参数: 方法要求我们传入怎样的形参，就传入什么类型的变量。</li><li>看返回类型: 方法返回给我们什么类型，就用什么类型的变量去接收，void方法不接收:<ul><li>IDEA中可以使用 <code>alt + enter > enter</code> 快速补全返回值。</li></ul></li><li>看静态修饰: 非静态方法需要使用实例调用，静态方法直接使用类名调用。</li><li>看方法作用: 必须做到心中有数。</li></ol><blockquote><p>武技: 测试字符串常用API方法</p></blockquote><ol><li>开发测试方法 <code>StringTest -> testApi()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StringTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testApi</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回指定该字符串的长度（char的个数）</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;length():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;china中国\n\n&#34;</span>.<span style=color:#a6e22e>length</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;length():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#34;</span>.<span style=color:#a6e22e>length</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 当且仅当该字符串长度为0时，才返回true</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;isEmpty():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>isEmpty</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;isEmpty():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#34;</span>.<span style=color:#a6e22e>isEmpty</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回该字符串指定索引处的字符，索引越界爆发 StringIndexOutOfBoundsException 异常</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;charAt():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>charAt</span>(1));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将该字符串与指定字符串进行比较</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;equals():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>equals</span>(<span style=color:#e6db74>&#34;HELLOWORLD&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 不考虑大小写，将该字符串与指定的字符串进行比较</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;equalsIgnoreCase():\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>equalsIgnoreCase</span>(<span style=color:#e6db74>&#34;HELLOWORLD&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试该字符串是否以指定的字符串前缀开头</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;startsWith():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>startsWith</span>(<span style=color:#e6db74>&#34;Hello&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试该字符串是否以指定的字符串后缀结尾</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;endsWith():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>endsWith</span>(<span style=color:#e6db74>&#34;World&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回第一次出现的指定子字符串在该字符串中的索引，不存在返回-1</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;indexOf():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>indexOf</span>(<span style=color:#e6db74>&#34;o&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回最后一次出现的指定子字符串在该字符串内的索引，不存在返回-1</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;lastIndexOf():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>lastIndexOf</span>(<span style=color:#e6db74>&#34;o&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从指定位置截取该字符串，并返回一个子字符串，顾头不顾尾</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;substring():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>substring</span>(0, 5));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将指定的字符串连接到该字符串的末尾</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;concat():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>concat</span>(<span style=color:#e6db74>&#34;~~~&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用newChar替换该字符串中所有的oldChar，并返回最终的字符串</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;replace():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>&#34;o&#34;</span>, <span style=color:#e6db74>&#34;*&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 当且仅当该字符串包含指定的字符串时，才返回true</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;contains():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;He&#34;</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按指定的字符进行分割，分割结果中不包含指定字符</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;split():\t\t\t&#34;</span> <span style=color:#f92672>+</span> Arrays.<span style=color:#a6e22e>toString</span>(<span style=color:#e6db74>&#34;Hello World !!!&#34;</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#34; &#34;</span>)));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将该字符串中的所有字符转换为小写</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;toLowerCase():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>toLowerCase</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将该字符串中的所有字符转换为大写</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;toUpperCase():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;HelloWorld&#34;</span>.<span style=color:#a6e22e>toUpperCase</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 对字符串两端去半角空格</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;trim():\t\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;  hello world  &#34;</span>.<span style=color:#a6e22e>trim</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 对字符串两端去半角/全角空格</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;strip():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;  hello world  &#34;</span>.<span style=color:#a6e22e>strip</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 对字符串头部去半角/全角空格</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;stripLeading():\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;  hello world  &#34;</span>.<span style=color:#a6e22e>stripLeading</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 对字符串尾部去半角/全角空格</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;stripTrailing():\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;  hello world  &#34;</span>.<span style=color:#a6e22e>stripTrailing</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 判断字符串是否为空白字符串，仅包含空格的字符串也视为空白字符</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;isBlank():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#34;</span>.<span style=color:#a6e22e>isBlank</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;isBlank():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;    &#34;</span>.<span style=color:#a6e22e>isBlank</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用指定的格式和参数对该字符串进行格式化，并返回最终的字符串</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;format():\t\t\t&#34;</span> <span style=color:#f92672>+</span> String.<span style=color:#a6e22e>format</span>(<span style=color:#e6db74>&#34;我叫%s，我今年%d岁了&#34;</span>, <span style=color:#e6db74>&#34;赵四&#34;</span>, 58));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回参数的字符串表示形式，相当于 (param + &#34;&#34;) 操作</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;valueOf():\t\t\t&#34;</span> <span style=color:#f92672>+</span> String.<span style=color:#a6e22e>valueOf</span>(120) <span style=color:#f92672>+</span> 1);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将指定字符串重复拼接10遍后返回</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;repeat():\t\t\t&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;hello&#34;</span>.<span style=color:#a6e22e>repeat</span>(10));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-正则表达式专题>EP03. 正则表达式专题</h2><blockquote><p>心法: 正则表达式 <code>Regular Expression (RE)</code></p></blockquote><ul><li>正则表达式是一个字符串表达式，用于对字符串进行匹配，对空格敏感。</li><li>RE正则字符:<ul><li>普通字符: 基础字符，包含数字和字母等，必须被 <code>[]</code> 包裹。</li><li>特殊字符: 具有功能的特殊字符，java字符串中使用时需要进行转义。</li><li>限定字符: 限定表达式出现的次数。</li></ul></li><li>RE正则匹配:<ul><li><code>str.matches("RE")</code>: 对字符串str进行RE匹配，返回布尔型结果。</li></ul></li><li>RE正则替换:<ul><li><code>str.replaceAll("RE", "*")</code>: 将字符串str中满足RE规则的内容全部替换为 <code>"*"</code> 并返回替换后的字符串。</li></ul></li><li>RE正则切割:<ul><li><code>str.split("RE")</code>: 将字符串str按照RE规则拆分成字符串数组，结果中不含RE内容。</li></ul></li></ul><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/6e5ac4fba97a9426f8e6e163d69a0645.png alt=正则表达式模板></p><blockquote><p>武技: 测试RE正则匹配</p></blockquote><ol><li>开发测试方法 <code>RegularExpressionTest -> testMatches()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RegularExpressionTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RE匹配 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testMatches</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试普通字符</span>
+</span></span><span style=display:flex><span>        String regexA <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[ab][^c][e-h][^a-c]&#34;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;abfd&#34;</span>.<span style=color:#a6e22e>matches</span>(regexA));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试特殊字符</span>
+</span></span><span style=display:flex><span>        String regexB <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;.\\d\\D\\n\\t\\r\\w\\W&#34;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;A9a\n\t\r_$&#34;</span>.<span style=color:#a6e22e>matches</span>(regexB));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试限定字符</span>
+</span></span><span style=display:flex><span>        String regexC <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;\\d{2}[a-c]+[h-k]?&#34;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;14aaaah&#34;</span>.<span style=color:#a6e22e>matches</span>(regexC));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试RE正则替换</p></blockquote><ol><li>开发测试方法 <code>RegularExpressionTest -> testReplaceAll()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RegularExpressionTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RE替换 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testReplaceAll</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将str中满足RE规则的内容全部替换为 &#34;*&#34;</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;My Name Is 9527&#34;</span>.<span style=color:#a6e22e>replaceAll</span>(<span style=color:#e6db74>&#34;[a-z]&#34;</span>, <span style=color:#e6db74>&#34;*&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试RE正则切割</p></blockquote><ol><li>开发测试方法 <code>RegularExpressionTest -> testSpilt()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RegularExpressionTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RE切割 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSpilt</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将str按照RE规则拆分成字符串数组</span>
+</span></span><span style=display:flex><span>        String str <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Test A. Test B. Test C.&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 数组必须使用 Arrays.toString(数组) 查看</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Arrays.<span style=color:#a6e22e>toString</span>(str.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#34;\\. &#34;</span>)));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Arrays.<span style=color:#a6e22e>toString</span>(str.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#34;\\. *&#34;</span>)));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-运行时数据区域>EP04. 运行时数据区域</h2><blockquote><p>心法: 运行时数据区域 <code>Runtime Data Area</code></p></blockquote><ul><li>运行时数据区是JVM中的一块内存区域:<ul><li>Java程序在运行的时候，绝大部分的数据都在运行时数据区中活动。</li></ul></li><li>运行时数据区在逻辑上又被划分成 <code>Stack</code> 和 <code>Heap</code> 两块区域:</li></ul><table><thead><tr><th>逻辑分区</th><th>中文</th><th>描述</th><th>空间</th><th>功能</th><th>访问</th><th>存储内容</th></tr></thead><tbody><tr><td><code>Java Stack</code></td><td>Java栈</td><td>相当于小区中的物业室</td><td>小</td><td>少</td><td>方便</td><td>1. 八大基本数据类型的真正值2. 引用数据类型的内存地址，也称为引用</td></tr><tr><td><code>Java Heap</code></td><td>Java堆</td><td>相当于小区中的住宅区</td><td>大</td><td>多</td><td>麻烦</td><td>1. 引用数据类型的真正值</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/5b0f66d2e22614d528a57740b57ee26a.png alt=Java运行时数据区内存分布图></p><blockquote><p>武技: 测试引用数据类型的内存地址</p></blockquote><ol><li>开发测试方法 <code>RuntimeDataAreaTest -> testAddress()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RuntimeDataAreaTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 变量中存储的是基本类型的值和引用类型的地址 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testAddress</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 基本类型变量中存储的是数值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> money <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(money);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 引用类型变量中存储的是内存地址</span>
+</span></span><span style=display:flex><span>        RuntimeDataAreaTest runtimeDataAreaTest <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RuntimeDataAreaTest();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(runtimeDataAreaTest);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-引用的比较方式>EP05. 引用的比较方式</h2><blockquote><p>心法: 比较内存地址的两种方式</p></blockquote><table><thead><tr><th>符号/方法</th><th>描述</th></tr></thead><tbody><tr><td><code>==</code></td><td>用来比较基本类型的数值和引用类型的内存地址</td></tr><tr><td><code>equals()</code></td><td>来自Object类，原本也是比较内存地址，而String类将其重写为比较内容</td></tr></tbody></table><blockquote><p>武技: 测试 <code>==</code> 和 <code>equals()</code> 的区别</p></blockquote><ol><li>开发测试方法 <code>RuntimeDataAreaTest -> testCompare()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RuntimeDataAreaTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 基本数据类型和引用数据类型的比较 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testCompare</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 基本数据类型的 ==，比较的是数值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>double</span> numA <span style=color:#f92672>=</span> 100.<span style=color:#a6e22e>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> numB <span style=color:#f92672>=</span> 50 <span style=color:#f92672>*</span> 2;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(numA <span style=color:#f92672>==</span> numB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 引用数据类型的 ==，比较的是内存地址</span>
+</span></span><span style=display:flex><span>        String strA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        String strB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(strA <span style=color:#f92672>==</span> strB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 引用数据类型使用equals比较值</span>
+</span></span><span style=display:flex><span>        String strC <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        String strD <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(strC.<span style=color:#a6e22e>equals</span>(strD));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-装箱和拆箱过程>EP06. 装箱和拆箱过程</h2><blockquote><p>心法: 装箱和拆箱过程</p></blockquote><ul><li>包装类: 八个基本数据类型都有相对应的引用数据类型，称为包装类。</li><li>装箱: 基本类型转成对应包装类的过程，JDK1.5后是自动装箱的。</li><li>拆箱: 包装类转成对应基本类型的过程，JDK1.5后是自动拆箱的:<ul><li>对包装类进行数学计算的时候会自动触发拆箱操作。</li></ul></li></ul><table><thead><tr><th>基本数据类型</th><th>对应的包装类</th><th>手动装箱</th><th>手动拆箱</th></tr></thead><tbody><tr><td><code>byte</code></td><td><code>java.lang.Byte</code></td><td><code>new Byte(基本类型变量)</code></td><td><code>包装类型变量.byteValue()</code></td></tr><tr><td><code>short</code></td><td><code>java.lang.Short</code></td><td><code>new Short(基本类型变量)</code></td><td><code>包装类型变量.shortValue()</code></td></tr><tr><td><code>int</code></td><td><code>java.lang.Integer</code></td><td><code>new Integer(基本类型变量)</code></td><td><code>包装类型变量.intValue()</code></td></tr><tr><td><code>long</code></td><td><code>java.lang.Long</code></td><td><code>new Long(基本类型变量)</code></td><td><code>包装类型变量.longValue()</code></td></tr><tr><td><code>float</code></td><td><code>java.lang.Float</code></td><td><code>new Float(基本类型变量)</code></td><td><code>包装类型变量.floatValue()</code></td></tr><tr><td><code>double</code></td><td><code>java.lang.Double</code></td><td><code>new Double(基本类型变量)</code></td><td><code>包装类型变量.doubleValue()</code></td></tr><tr><td><code>boolean</code></td><td><code>java.lang.Boolean</code></td><td><code>new Boolean(基本类型变量)</code></td><td><code>包装类型变量.booleanValue()</code></td></tr><tr><td><code>char</code></td><td><code>java.lang.Character</code></td><td><code>new Character(基本类型变量)</code></td><td><code>包装类型变量.charValue()</code></td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/1d84611c716b8a8814caffa7686320a7.png alt=装箱拆箱流程图></p><blockquote><p>武技: 测试自动装箱和自动拆箱</p></blockquote><ol><li>开发测试方法 <code>RuntimeDataAreaTest -> testBoxing()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RuntimeDataAreaTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 自动装箱拆箱 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBoxing</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 自动装箱: 基本类型 -&gt; 引用类型（包装类）</span>
+</span></span><span style=display:flex><span>        Byte bigByte <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        Short bigShort <span style=color:#f92672>=</span> 200;
+</span></span><span style=display:flex><span>        Integer bigInt <span style=color:#f92672>=</span> 300;
+</span></span><span style=display:flex><span>        Long bigLong <span style=color:#f92672>=</span> 400L;
+</span></span><span style=display:flex><span>        Float bigFloat <span style=color:#f92672>=</span> 1.<span style=color:#a6e22e>0F</span>;
+</span></span><span style=display:flex><span>        Double bigDouble <span style=color:#f92672>=</span> 1.<span style=color:#a6e22e>1</span>;
+</span></span><span style=display:flex><span>        Boolean bigBoolean <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>        Character bigChar <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Z&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 自动拆箱: 引用类型（包装类） -&gt; 基本类型</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span> smallByte <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Byte((<span style=color:#66d9ef>byte</span>) 100);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>short</span> smallShort <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Short((<span style=color:#66d9ef>short</span>) 200);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> smallInt <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Integer(300);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span> smallLong <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Long(400L);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>float</span> smallFloat <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Float(1.<span style=color:#a6e22e>0F</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>double</span> smallDouble <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Double(1.<span style=color:#a6e22e>1</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>boolean</span> smallBoolean <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Boolean(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> smallChar <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Character(<span style=color:#e6db74>&#39;Z&#39;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch07-常用运算符专题>CH07. 常用运算符专题</h1><h2 id=ep01-数学相关运算符>EP01. 数学相关运算符</h2><blockquote><p>心法: 数学相关运算符</p></blockquote><table><thead><tr><th>运算符</th><th>中文描述</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>+</code></td><td>加法运算</td><td>1. 若 <code>+</code> 任意一端出现字符串则变为字符串拼接效果2. 对一个数据类型的最大值加1后，会变为该类型的最小值</td></tr><tr><td><code>-</code></td><td>减法运算</td><td>1. 对一个数据类型的最小值减1后，会变为该类型的最大值</td></tr><tr><td><code>*</code></td><td>乘法运算</td><td>无</td></tr><tr><td><code>/</code></td><td>除法运算</td><td>1. 若操作数都是整数，则除法运算的结果也是必然是一个整数2. 任何数除以 <code>0</code> 都会抛出异常3. 任何数除以 <code>0.0</code> 的结果都为无穷大，在Java中显示为 <code>Infinity</code> 内容</td></tr><tr><td><code>%</code></td><td>取余运算</td><td>1. <code>0</code> 取余任何数都等于 <code>0</code> 2. 取余运算结果的正负号，只和第一操作数保持一致</td></tr></tbody></table><blockquote><p>武技: 测试数学相关运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testMath()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 数学运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testMath</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 除法运算中，如果操作数都是整数，则结果也是整数</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10 <span style=color:#f92672>/</span> 4);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(10.<span style=color:#a6e22e>0</span> <span style=color:#f92672>/</span> 4);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 0取余任数都为0</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(0 <span style=color:#f92672>%</span> 3);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 取余的结果的正负号只和左边的操作数一致</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>-</span>5 <span style=color:#f92672>%</span> 3);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>-</span>5 <span style=color:#f92672>%</span> <span style=color:#f92672>-</span>3);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(5 <span style=color:#f92672>%</span> <span style=color:#f92672>-</span>3);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 任何数除以0.0都等于无穷大</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1 <span style=color:#f92672>/</span> 0.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 除数为0时会抛异常</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1 <span style=color:#f92672>%</span> 0);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-赋值相关运算符>EP02. 赋值相关运算符</h2><blockquote><p>心法: 赋值相关运算符</p></blockquote><ul><li>赋值运算优先级最低。</li></ul><table><thead><tr><th>运算符</th><th>中文描述</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>=</code></td><td>赋值符号</td><td>将 <code>=</code> 符号后的字面量或变量中的常量赋值给 <code>=</code> 符号前的变量中</td></tr><tr><td><code>+=</code></td><td>追加符号</td><td><code>a += b</code> 等价于 <code>a = a + b</code>，即将 <code>a + b</code> 的结果重新赋值给 <code>a</code> 变量</td></tr><tr><td><code>-=</code></td><td>追减符号</td><td><code>a -= b</code> 等价于 <code>a = a - b</code>，即将 <code>a - b</code> 的结果重新赋值给 <code>a</code> 变量</td></tr><tr><td><code>*=</code></td><td>追乘符号</td><td><code>a *= b</code> 等价于 <code>a = a * b</code>，即将 <code>a * b</code> 的结果重新赋值给 <code>a</code> 变量</td></tr><tr><td><code>/=</code></td><td>追除符号</td><td><code>a /= b</code> 等价于 <code>a = a / b</code>，即将 <code>a / b</code> 的结果重新赋值给 <code>a</code> 变量</td></tr><tr><td><code>%=</code></td><td>追取余符号</td><td><code>a %= b</code> 等价于 <code>a = a % b</code>，即将 <code>a % b</code> 的结果重新赋值给 <code>a</code> 变量</td></tr></tbody></table><blockquote><p>武技: 测试赋值相关运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testAssign()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 赋值运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testAssign</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> 1;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// a+=1 =&gt; a=a+1 =&gt; ++a</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>+=</span> 5);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>-=</span> 4);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>*=</span> 3);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>/=</span> 5);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>%=</span> 7);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-自我相关运算符>EP03. 自我相关运算符</h2><blockquote><p>心法: 自我相关运算符，简称自运算符</p></blockquote><ul><li>自运算优先级最高，且计算过程中不发生任何类型转换:</li></ul><table><thead><tr><th>运算符</th><th>中文描述</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>++</code></td><td>自增符号</td><td><code>a++</code> 等价于 <code>a = a + 1</code>，分为 <code>a++</code> 先用后加和 <code>++a</code> 先加后用</td></tr><tr><td><code>--</code></td><td>自减符号</td><td><code>a--</code> 等价于 <code>a = a - 1</code>，分为 <code>a--</code> 先用后减和 <code>--a</code> 先减后用</td></tr></tbody></table><blockquote><p>武技: 测试自我相关运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testSelf()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 自运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSelf</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> 1;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 先用后加</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a<span style=color:#f92672>++</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 先加后用</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>++</span>a);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 自运算不发生任何类型转换</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>short</span> num <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>        num <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>num;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(num);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-关系相关运算符>EP04. 关系相关运算符</h2><blockquote><p>心法: 关系相关运算符</p></blockquote><ul><li>关系运算符不支持连续比较。</li></ul><table><thead><tr><th>运算符</th><th>中文描述</th><th>返回结果的类型</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>==</code></td><td>比较符号</td><td>布尔类型</td><td>用来比较基本类型的数值和引用类型的内存地址</td></tr><tr><td><code>></code></td><td>大于符号</td><td>布尔类型</td><td>大于等于符号使用 <code>>=</code> 即可</td></tr><tr><td><code>&lt;</code></td><td>小于符号</td><td>布尔类型</td><td>小于等于符号使用 <code>&lt;=</code> 即可</td></tr><tr><td><code>!=</code></td><td>不等符号</td><td>布尔类型</td><td>Java中不支持 <code>&lt;></code> 的不等符号写法</td></tr></tbody></table><blockquote><p>武技: 测试关系相关运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testRelation()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 关系运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testRelation</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> 9;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 不等式的关系运算符不允许连算</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>&gt;</span> 11);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>==</span> 11);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>!=</span> 11);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>&lt;</span> 11);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>&lt;=</span> 11);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>&gt;=</span> 11);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-逻辑相关运算符>EP05. 逻辑相关运算符</h2><blockquote><p>心法: 逻辑相关运算符</p></blockquote><ul><li>逻辑运算优先级: 非 > 与 > 或。</li></ul><table><thead><tr><th>运算符</th><th>中文描述</th><th>返回结果的类型</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>&&</code></td><td>逻辑与符号</td><td>布尔类型</td><td>与中有假则假，与中全真才真，会发生短路现象</td></tr><tr><td>||</td><td>逻辑或符号</td><td>布尔类型</td><td>或中有真则真，或中全假才假，会发生短路现象</td></tr><tr><td><code>!</code></td><td>逻辑非符号</td><td>布尔类型</td><td>非真即假，非假即真</td></tr></tbody></table><blockquote><p>武技: 测试逻辑相关运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testLogic()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 逻辑运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testLogic</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> 7;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 与中有假则假，与中全真才真</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>&lt;</span> 9 <span style=color:#f92672>&amp;&amp;</span> a <span style=color:#f92672>==</span> 7);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 或中有真则真，或中全假才假</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>==</span> 9 <span style=color:#f92672>||</span> a <span style=color:#f92672>!=</span> 7);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 非真则假，非假则真</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#f92672>!</span>(a <span style=color:#f92672>==</span> 9));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 与的优先级高于或</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#f92672>!=</span> 9 <span style=color:#f92672>||</span> a <span style=color:#f92672>==</span> 1 <span style=color:#f92672>&amp;&amp;</span> a <span style=color:#f92672>==</span> 8);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>((a <span style=color:#f92672>!=</span> 9 <span style=color:#f92672>||</span> a <span style=color:#f92672>==</span> 1) <span style=color:#f92672>&amp;&amp;</span> a <span style=color:#f92672>==</span> 8);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 逻辑运算有短路现象</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#66d9ef>false</span> <span style=color:#f92672>&amp;&amp;</span> a<span style=color:#f92672>++</span> <span style=color:#f92672>==</span> 0);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-比特相关运算符>EP06. 比特相关运算符</h2><blockquote><p>心法: 比特相关运算符，也叫位运算符</p></blockquote><table><thead><tr><th>运算符</th><th>中文描述</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td><code>&</code></td><td>位与符号</td><td>与中有0则0，与中全1才1，不会发生短路现象</td></tr><tr><td>|</td><td>位或符号</td><td>或中有1则1，或中全0才0，不会发生短路现象</td></tr><tr><td><code>~</code></td><td>按位取反符号</td><td>0变1，1变0，包括符号位</td></tr><tr><td><code>^</code></td><td>按位异或符号</td><td>1. 相同为0，不同为12. 按位异或操作等效于按位无进位相加3. 按位异或操作满足交换律，即 <code>a ^ b ^ c = a ^ c ^ b</code> 4. 按位异或操作满足结合律，即 <code>(a ^ b) ^ c = a ^ (b ^ c)</code> 5. 按位异或操作中规定 <code>N ^ 0 = N</code> 以及 <code>N ^ N = 0</code></td></tr><tr><td><code>&lt;&lt;</code></td><td>按位左移动符号</td><td>溢出忽略，用0右补，左移N位相当于乘以2的N次方</td></tr><tr><td><code>>></code></td><td>按位右移动符号</td><td>溢出忽略，用符号位左补，右移N位相当于除以2的N次方</td></tr><tr><td><code>>>></code></td><td>按位无符号右移动</td><td>溢出忽略，用0左补</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/08feb74ec16d803a0264312890651977.png alt=Java位运算流程图></p><blockquote><p>武技: 测试位运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testBit()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 位运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBit</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 位运算符也可以用于逻辑判断，但不会发生短路现象</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> 1;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#66d9ef>false</span> <span style=color:#f92672>&amp;</span> a<span style=color:#f92672>++</span> <span style=color:#f92672>==</span> 0);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按位与有0则0</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 &amp; 6计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(4 <span style=color:#f92672>&amp;</span> 6));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 &amp; 6计算真值: &#34;</span> <span style=color:#f92672>+</span> (4 <span style=color:#f92672>&amp;</span> 6));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按位或有1则1</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 | 6计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(4 <span style=color:#f92672>|</span> 6));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 | 6计算真值: &#34;</span> <span style=color:#f92672>+</span> (4 <span style=color:#f92672>|</span> 6));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按位取反: 0变1，1变0</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;~4 计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(<span style=color:#f92672>~</span>4));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;~4 计算真值: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#f92672>~</span>4);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 按位异或: 相同为0，不同为1</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 ^ 6计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(4 <span style=color:#f92672>^</span> 6));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;4 ^ 6计算真值: &#34;</span> <span style=color:#f92672>+</span> (4 <span style=color:#f92672>^</span> 6));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 左移动: 溢出忽略，右边用0补位</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &lt;&lt; 3计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(<span style=color:#f92672>-</span>2 <span style=color:#f92672>&lt;&lt;</span> 3));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &lt;&lt; 3计算真值: &#34;</span> <span style=color:#f92672>+</span> (<span style=color:#f92672>-</span>2 <span style=color:#f92672>&lt;&lt;</span> 3));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 带符号右移动: 溢出忽略，左边用符号位补位</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &gt;&gt; 3计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(<span style=color:#f92672>-</span>2 <span style=color:#f92672>&gt;&gt;</span> 3));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &gt;&gt; 3计算真值: &#34;</span> <span style=color:#f92672>+</span> (<span style=color:#f92672>-</span>2 <span style=color:#f92672>&gt;&gt;</span> 3));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 无符号右移动: 溢出忽略，左边用0补位</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &gt;&gt;&gt; 3计算补码: &#34;</span> <span style=color:#f92672>+</span> Integer.<span style=color:#a6e22e>toBinaryString</span>(<span style=color:#f92672>-</span>2 <span style=color:#f92672>&gt;&gt;&gt;</span> 3));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;-2 &gt;&gt;&gt; 3计算真值: &#34;</span> <span style=color:#f92672>+</span> (<span style=color:#f92672>-</span>2 <span style=color:#f92672>&gt;&gt;&gt;</span> 3));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep07-三目逻辑运算符>EP07. 三目逻辑运算符</h2><blockquote><p>心法: 三目运算符，也叫三元运算符或三步运算符</p></blockquote><ul><li>三目运算符可以进行嵌套。</li></ul><table><thead><tr><th>运算符</th><th>公式</th><th>公式描述</th><th>运算符使用时的细节点</th></tr></thead><tbody><tr><td>三目运算符</td><td><code>X ? Y : Z</code></td><td>当 <code>X</code> 为 <code>true</code> 时返回 <code>Y</code>当 <code>X</code> 为 <code>false</code> 时返回 <code>Z</code></td><td>1. 公式中的 <code>Y</code> 和 <code>Z</code> 的类型必须一致2. 三目运算符的返回值类型为 <code>Y</code> 或 <code>Z</code> 的返回值类型</td></tr></tbody></table><blockquote><p>武技: 测试三目逻辑运算符</p></blockquote><ol><li>开发测试方法 <code>OperatorTest -> testTernary()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> basic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OperatorTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 三目运算符 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testTernary</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> num <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>1;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 公式: X ? Y : Z</span>
+</span></span><span style=display:flex><span>        String result <span style=color:#f92672>=</span> num <span style=color:#f92672>&gt;</span> 0 <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;大于等于零&#34;</span> : <span style=color:#e6db74>&#34;小于零&#34;</span>;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(result);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch08-流控之选择结构>CH08. 流控之选择结构</h1><blockquote><p>心法: 选择结构</p></blockquote><ul><li>选择结构也叫分支结构，表示多选一。</li><li>当 <code>{}</code> 中仅一行代码时，可以省略 <code>{}</code>，但是并不建议这么写。</li></ul><h2 id=ep01-选择之范围匹配>EP01. 选择之范围匹配</h2><blockquote><p>心法: 选择之范围匹配 - IF</p></blockquote><ul><li>IF的基本结构:<ul><li><code>if (条件) {} else if(条件) {} else {}</code>:</li></ul></li></ul><table><thead><tr><th>组成部分</th><th>描述</th><th>允许存在的数量</th></tr></thead><tbody><tr><td><code>if ( 条件 ) { 代码块 }</code></td><td>当满足 <code>条件</code> 时进入 <code>代码块</code></td><td>必须有，而且只能有一个</td></tr><tr><td><code>else if ( 条件 ) { 代码块 }</code></td><td>当满足 <code>条件</code> 时进入 <code>代码块</code></td><td>可以有N个，N>=0</td></tr><tr><td><code>else { 代码块 }</code></td><td>当全部 <code>条件</code> 都不满足时进入 <code>代码块</code></td><td>要么只有一个，要么没有</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/9b7a20454554f00c65cc8fb29ef16cd0.png alt=IF选择结构></p><blockquote><p>武技: 测试IF/ELSE选择结构</p></blockquote><ol><li>开发测试方法 <code>ChooseTest -> testIf()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @author lsx
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ChooseTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** IF选择结构 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testIf</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> score <span style=color:#f92672>=</span> 60;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// if(条件){满足条件时执行的代码}</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (score <span style=color:#f92672>&gt;=</span> 60) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你及格了...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// if(条件){满足条件时执行的代码} else {其他情况}</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (score <span style=color:#f92672>&gt;=</span> 60) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你及格了...&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你没及格...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// if(条件){满足条件时执行的代码} else if(条件) {满足条件时执行的代码} else {其他情况}</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (score <span style=color:#f92672>&gt;=</span> 80) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你很优秀...&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (score <span style=color:#f92672>&gt;=</span> 60) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你及格了...&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (score <span style=color:#f92672>&gt;=</span> 0) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你没及格...&#34;</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;分数异常...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-选择之定值匹配>EP02. 选择之定值匹配</h2><blockquote><p>心法: 选择之定值匹配 - SWITCH</p></blockquote><ul><li>SWITCH的基本结构:<ul><li><code>switch (定值) { case 匹配值: break; case 匹配值: break; default: break; }</code></li></ul></li><li>SWITCH的穿透现象:<ul><li>若 <code>case</code> 后无 <code>break</code> 则不会跳出，会继续按顺序向下执行，直到遇到 <code>break</code> 或所有代码执行完为止。</li></ul></li></ul><table><thead><tr><th>组成部分</th><th>描述</th></tr></thead><tbody><tr><td><code>switch (定值)</code></td><td>定值可选 <code>byte/short/int/char/String</code> 类型变量，表达式以及枚举类型</td></tr><tr><td><code>case 匹配值: 代码块 break;</code></td><td>当 <code>定值</code> 匹配到 <code>匹配值</code> 时，进入 <code>代码块</code></td></tr><tr><td><code>default: 代码块 break;</code></td><td>当全部 <code>匹配值</code> 都匹配失败时，进入 <code>代码块</code></td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/bb970ff7a58db6725d181b3de139d2ee.png alt=SWITCH选择结构></p><blockquote><p>武技: 测试SWITCH选择结构</p></blockquote><ol><li>开发测试方法 <code>ChooseTest -> testSwitch()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ChooseTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** SWITCH选择结构 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSwitch</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> num <span style=color:#f92672>=</span> 1;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 括号中是表达式而不是条件</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>switch</span> (num <span style=color:#f92672>+</span> 1) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> 1:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你的数字是0...&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> 2:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你的数字是1...&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> 3:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你的数字是2...&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> 4:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你的数字是3...&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> 5:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;你的数字是4...&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>default</span>:
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;数字不是1234中的一个...&#34;</span>);
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch09-流控之循环结构>CH09. 流控之循环结构</h1><blockquote><p>心法: 选循环结构</p></blockquote><ul><li>循环就是重复性做事，但必须是有逻辑有规律的事情才可使用循环。</li><li>当 <code>{}</code> 中仅一行代码时，可以省略 <code>{}</code>，但是并不建议这么写。</li></ul><blockquote><p>心法: 初判变法则</p></blockquote><ul><li>无论那种循环，都满足 <code>初判变</code> 法则。</li><li>初: 初始化变量（只执行一遍）。</li><li>判: 循环判断条件（只有满足条件的时候才执行循环）。</li><li>变: 每次循环体结束之后将执行变量的变化。</li></ul><h2 id=ep01-仅知结束的条件>EP01. 仅知结束的条件</h2><blockquote><p>心法: 仅知结束的条件时可选择的循环结构</p></blockquote><table><thead><tr><th>循环结构</th><th>格式</th><th>特点</th></tr></thead><tbody><tr><td>WHILE</td><td><code>while( 条件 ) { 代码块 }</code></td><td>先判断后循环，当条件不满足时，循环体一次都不会执行</td></tr><tr><td>DO-WHILE</td><td><code>do { 代码块 } while ( 条件 );</code></td><td>先循环后判断，即使条件不满足，循环体也会先执行一次</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/2079f4c0e558a239a60a26d6caa7625f.png alt=仅知结束条件时的循环结构></p><blockquote><p>武技: 测试WHILE循环结构</p></blockquote><ol><li>开发测试方法 <code>LoopTest -> testWhile()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoopTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** while结构: 先判断后循环 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testWhile</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 初</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 1;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 判</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (i <span style=color:#f92672>&lt;=</span> 10) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(i);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 变</span>
+</span></span><span style=display:flex><span>            i<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试 DO-WHILE循环结构</p></blockquote><ol><li>开发测试方法 <code>LoopTest -> testDoWhile()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoopTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** doWhile结构: 先循环后判断 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testDoWhile</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 初</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 100;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>do</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(i);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 变</span>
+</span></span><span style=display:flex><span>            i<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 判</span>
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>while</span> (i <span style=color:#f92672>&lt;=</span> 10);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-仅知循环的次数>EP02. 仅知循环的次数</h2><blockquote><p>心法: 仅知循环的次数时可选择的循环结构</p></blockquote><table><thead><tr><th>循环结构</th><th>格式</th><th>特点</th></tr></thead><tbody><tr><td>FOR</td><td><code>for(初; 判; 变){ 代码块 }</code></td><td>循环的 <code>初/判/变</code> 三要素均在一行编写，简单明了</td></tr></tbody></table><blockquote><p>武技: 测试FOR循环结构</p></blockquote><ol><li>开发测试方法 <code>LoopTest -> testFor()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoopTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** for结构: 知起止 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testFor</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// fori + tab</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 1; i <span style=color:#f92672>&lt;=</span> 10; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(i);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-循环流控关键字>EP03. 循环流控关键字</h2><blockquote><p>心法: 循环流控关键字</p></blockquote><table><thead><tr><th>流控关键字</th><th>关键字描述</th></tr></thead><tbody><tr><td><code>continue</code></td><td>立即结束本次循环，并开启下一次循环</td></tr><tr><td><code>break</code></td><td>立即结束所有轮次的循环，可配合循环别名如 <code>out:</code> 跳出指定某一层循环</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/image/e010c2110fb060ad35404b11e170417c.png alt=流控关键字></p><blockquote><p>武技: 测试continue流控关键字</p></blockquote><ol><li>开发测试方法 <code>LoopTest -> testContinue()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoopTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** continue关键字: 立即结束本次循环，并开启下一次循环 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testContinue</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 10; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (i <span style=color:#f92672>==</span> 3) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(i);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试break流控关键字</p></blockquote><ol><li>开发测试方法 <code>LoopTest -> testBreak()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> structure;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoopTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** break关键字: 结束当前它所在的循环 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testBreak</span>() {
+</span></span><span style=display:flex><span>        out:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 3; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> 0; j <span style=color:#f92672>&lt;</span> 3; j<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (i <span style=color:#f92672>==</span> 2) {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span> out;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(i);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch10-数据结构之数组>CH10. 数据结构之数组</h1><blockquote><p>心法: 数据结构之数组</p></blockquote><ul><li>数组是heap内存中一段内存连续的线性数据结构，属于引用数据类型:<ul><li>数组的下标从0开始，支持使用 <code>数组[索引]</code> 的格式来操作数组元素。</li><li>数组中的每个最底层元素都具有默认值，如 <code>0, 0.0, false, \u0000, null</code> 等。</li><li>数组在创建的时候，要么指定内容，要么指定长度，但二者不可同时指定。</li></ul></li><li>数组增删慢:<ul><li>数组长度不可改变，导致增删操作必须使用创新数组，效率低。</li></ul></li><li>数据查询快:<ul><li>数组中每个元素的内存地址连续可计算，所以在明确位置的情况下，查询效率更高。</li></ul></li></ul><h2 id=ep01-单维度数组结构>EP01. 单维度数组结构</h2><blockquote><p>心法: 单维度数组结构，简称一维数组</p></blockquote><ul><li>一维数组中的每个元素都是一个单一数据类型，且全部元素的数据类型必须一致：<ul><li>栈变量中存放的是数组中，第一元素的内存地址，即数组首地址。</li></ul></li><li>一维字符数组类型的变量存放的是元素值，其余数组类型的变量中存放的是内存地址。<ul><li>对一维字符数组拼接空串或调用其 <code>toString()</code> 可获取其内存地址。</li></ul></li></ul><p>![[第1阶段-BASIC/JB1-2-基础启航/draw/一维数组内存分布.md#^group=9jvE23UZBwEMMw0WZYhSo|100%]]</p><blockquote><p>心法: 一维数组创建方式</p></blockquote><ul><li>声明方式 <code>int[] arr / int []arr / int arr[]</code> 效果相同。</li></ul><table><thead><tr><th>创建方式</th><th>示例</th></tr></thead><tbody><tr><td>仅指定长度</td><td><code>int[] arr = new int[5]</code></td></tr><tr><td>仅指定内容</td><td><code>int[] arr = new int[]{5, 2, 77}</code></td></tr><tr><td>仅指定内容（简化版）</td><td><code>int[] arr = {5, 2, 77}</code></td></tr></tbody></table><blockquote><p>武技: 测试一维数组的创建</p></blockquote><ol><li>开发测试方法 <code>OneArrayTest -> testOneArray()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> array;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OneArrayTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 一维数组的创建 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testOneArray</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建数组: 要么指定内容，要么指定长度，但不可同时指定</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> arrA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span>{5, 2, 77};
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span><span style=color:#f92672>[]</span> arrB <span style=color:#f92672>=</span> {1L, 3L, 5L, 7L, 9L};
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span><span style=color:#f92672>[]</span> arrC <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>char</span><span style=color:#f92672>[</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;B&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;O&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>2<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Y&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 直接对非字符数组进行打印，输出的是数组的内存地址</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrA);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用数组的索引取值</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrA<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrB<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 仅字符数组可以直接输出值，对其拼接字符串或调用toString()方法，可以获得内存地址</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrC);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;&#34;</span> <span style=color:#f92672>+</span> arrC);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrC.<span style=color:#a6e22e>toString</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-单维度数组遍历>EP02. 单维度数组遍历</h2><blockquote><p>心法: 单维度数组遍历方式</p></blockquote><table><thead><tr><th>遍历方式</th><th>代码结构</th><th>适用场景</th></tr></thead><tbody><tr><td>ForI遍历</td><td><code>for(int i = 0, j &lt; 数组.length; i &lt; j; i++){</code>    <code>System.out.println(数组[i]);</code><code>}</code></td><td>遍历过程中需要操作索引变量</td></tr><tr><td>ForE遍历</td><td><code>for(元素类型 e: 数组){</code>    <code>System.out.println(e);</code><code>}</code></td><td>遍历过程中无需操作索引变量</td></tr><tr><td>Arrays工具</td><td><code>Arrays.toString(数组)</code></td><td>仅查看数组中的全部元素</td></tr></tbody></table><blockquote><p>武技: 测试一维数组的遍历</p></blockquote><ol><li>开发测试方法 <code>OneArrayTest -> testOneArrayIterator()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> array;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OneArrayTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 一维数组的遍历 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testOneArrayIterator</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        String<span style=color:#f92672>[]</span> arr <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;你好&#34;</span>, <span style=color:#e6db74>&#34;世界&#34;</span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 数组.length 返回数组中有多少个元素</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 利用普通的for循环进行遍历</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> arr.<span style=color:#a6e22e>length</span>; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(i <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;-&#34;</span> <span style=color:#f92672>+</span> arr<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\t&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 如果需要从头到尾遍历，可以使用for-each循环</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (String e : arr) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(e <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\t&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用Arrays工具类查看数组中的元素</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Arrays.<span style=color:#a6e22e>toString</span>(arr));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-多维度数组结构>EP03. 多维度数组结构</h2><blockquote><p>心法: 多维度数组结构，以二维数组为例</p></blockquote><ul><li>二维数组的本质也是一维数组，只不过其中的每个元素都是一个一维数组类型：<ul><li>二维数组中元素的类型必须一致，但元素的长度可以不同。</li><li>二维数组本身是内存连续的，但其指向的N个一维数组未必是内存连续的。</li></ul></li><li>直接输出二维数组，打印的是该数组的内存地址，即使是字符数组也一样。</li></ul><p>![[第1阶段-BASIC/JB1-2-基础启航/draw/二维数组内存分布.md#^group=9jvE23UZBwEMMw0WZYhSo|100%]]</p><blockquote><p>心法: 二维数组的创建方式</p></blockquote><ul><li>声明方式 <code>int[][] arr / int[] []arr / int[] arr[] / int [][]arr / int arr[][]</code> 效果相同。</li></ul><table><thead><tr><th>创建方式</th><th>示例</th></tr></thead><tbody><tr><td>仅指定长度</td><td><code>int[][] arr = new int[3][2]</code>: 3行2列</td></tr><tr><td>仅指定内容</td><td><code>int[][] arr = new int[][]{ {5, 2}, {77} }</code>: 2行2列</td></tr><tr><td>仅指定内容（简化版）</td><td><code>int[][] arr = { {5, 2}, {77} }</code>: 2行2列</td></tr></tbody></table><blockquote><p>武技: 测试二维数组的创建</p></blockquote><ol><li>开发测试方法 <code>TwoArrayTest -> testTwoArray()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> array;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TwoArrayTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testTwoArray</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建数组: 要么指定内容，要么指定长度，但不可同时指定</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[][]</span> arrA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>byte</span><span style=color:#f92672>[][]</span>{{3, 1, 3}, {5}, {2, 77}};
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>long</span><span style=color:#f92672>[][]</span> arrB <span style=color:#f92672>=</span> {{3L, 1L, 3L}, {5L}, {2L, 77L}};
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span><span style=color:#f92672>[][]</span> arrC <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>char</span><span style=color:#f92672>[</span>2<span style=color:#f92672>][</span>3<span style=color:#f92672>]</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>0<span style=color:#f92672>][</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;H&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>0<span style=color:#f92672>][</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;I&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>1<span style=color:#f92672>][</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;B&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>1<span style=color:#f92672>][</span>1<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;O&#39;</span>;
+</span></span><span style=display:flex><span>        arrC<span style=color:#f92672>[</span>1<span style=color:#f92672>][</span>2<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Y&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 直接输出二维数组，打印的是该数组的内存地址，即使是字符数组也一样</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrA);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrB);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrC);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用数组的索引取值</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrA<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrB<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrC<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrA<span style=color:#f92672>[</span>0<span style=color:#f92672>][</span>0<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrB<span style=color:#f92672>[</span>0<span style=color:#f92672>][</span>1<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arrC<span style=color:#f92672>[</span>0<span style=color:#f92672>][</span>2<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-多维度数组遍历>EP04. 多维度数组遍历</h2><blockquote><p>心法: 多维度数组遍历方式</p></blockquote><table><thead><tr><th>遍历方式</th><th>代码结构</th><th>适用场景</th></tr></thead><tbody><tr><td>ForI遍历</td><td><code>for(int i = 0, j &lt; 数组.length; i &lt; j; i++){</code>    <code>System.out.println(数组[i]);</code><code>}</code></td><td>遍历过程中需要操作索引变量</td></tr><tr><td>ForE遍历</td><td><code>for(元素类型 e: 数组){</code>    <code>System.out.println(e);</code><code>}</code></td><td>遍历过程中无需操作索引变量</td></tr><tr><td>Arrays工具</td><td><code>Arrays.deepToString(数组)</code></td><td>仅查看数组中的全部元素</td></tr></tbody></table><blockquote><p>武技: 测试二维数组的遍历</p></blockquote><ol><li>开发测试方法 <code>TwoArrayTest -> testTwoArrayIterator()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> array;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TwoArrayTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 二维数组的遍历 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testTwoArrayIterator</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span><span style=color:#f92672>[][]</span> arr <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>                {3, 1, 3, 1, 44, 5, 6, 788, 3, 12},
+</span></span><span style=display:flex><span>                {5, 2, 13, 4, 5, 56, 7},
+</span></span><span style=display:flex><span>                {2, 77, 5, 45, 1, 3, 13}
+</span></span><span style=display:flex><span>        };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用ForI遍历二维数组</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0, j <span style=color:#f92672>=</span> arr.<span style=color:#a6e22e>length</span>; i <span style=color:#f92672>&lt;</span> j; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> m <span style=color:#f92672>=</span> 0, n <span style=color:#f92672>=</span> arr<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span>.<span style=color:#a6e22e>length</span>; m <span style=color:#f92672>&lt;</span> n; m<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(arr<span style=color:#f92672>[</span>i<span style=color:#f92672>][</span>m<span style=color:#f92672>]</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\t&#34;</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;---------divider---------&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用ForE遍历二维数组</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> e1 : arr) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> e2 : e1) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>print</span>(e2 <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;\t&#34;</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用Arrays工具类查看数组中的元素</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(Arrays.<span style=color:#a6e22e>deepToString</span>(arr));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

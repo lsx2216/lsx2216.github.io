@@ -1,0 +1,459 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB5-4-服务网关</title>
+<meta name=description content="[!NOTE] Java道经第5卷 - 第4阶 - 服务网关 v5-4-alibaba-gateway
+S01. Gateway概念入门 E01. 网关基本概念 心法: 网关概念
+API网关是所有请求的公共入口，为客户端提供统一服务。 API网关可实现一些如认证，鉴权，监控，路由转发等与业务本身无关的公共逻辑。 1.  …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/"><meta property="og:type" content="website"><meta property="og:title" content="JB5-4-服务网关"><meta property="og:description" content="[!NOTE] Java道经第5卷 - 第4阶 - 服务网关 v5-4-alibaba-gateway
+S01. Gateway概念入门 E01. 网关基本概念 心法: 网关概念
+API网关是所有请求的公共入口，为客户端提供统一服务。 API网关可实现一些如认证，鉴权，监控，路由转发等与业务本身无关的公共逻辑。 1.  …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB5-4-服务网关"><meta name=twitter:description content="[!NOTE] Java道经第5卷 - 第4阶 - 服务网关 v5-4-alibaba-gateway
+S01. Gateway概念入门 E01. 网关基本概念 心法: 网关概念
+API网关是所有请求的公共入口，为客户端提供统一服务。 API网关可实现一些如认证，鉴权，监控，路由转发等与业务本身无关的公共逻辑。 1.  …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/JB5-4-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB5-4-服务网关</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第5卷 - 第4阶 - 服务网关
+v5-4-alibaba-gateway</p></blockquote><h1 id=s01-gateway概念入门>S01. Gateway概念入门</h1><h2 id=e01-网关基本概念>E01. 网关基本概念</h2><blockquote><p>心法: 网关概念</p></blockquote><ul><li>API网关是所有请求的公共入口，为客户端提供统一服务。</li><li>API网关可实现一些如认证，鉴权，监控，路由转发等与业务本身无关的公共逻辑。</li></ul><h3 id=1-网关优势>1. 网关优势</h3><blockquote><p>心法: 当微服务加入网关功能之后</p></blockquote><ul><li>微服务不再需要管理和记录其他微服务的地址和端口，统一由API网关进行管理和路由转发。</li><li>不需要为每个微服务配置认证和鉴权代码，统一由API网关进行配置。</li><li>更容易解决跨域请求问题。</li></ul><h3 id=2-gateway>2. Gateway</h3><blockquote><p>心法: SpringCloud-Gateway，简称Gateway</p></blockquote><ul><li>Gateway是Spring公司为了替换Zuul而开发的网关服务。</li><li>Gateway基于Filter链提供了网关基本的功能如安全，监控和限流等。</li><li>Gateway性能强劲，是第一代网关Zuul的1.6倍。</li><li>Gateway功能强大，内置了很多实用功能，如路由转发，监控，限流等。</li><li>Gateway学习成本高，其实现依赖Netty与WebFlux，而非传统的Servlet编程模型。</li><li>Gateway依赖springboot2.0+版本，且无法将其部署在web容器中运行，只能打成jar包执行。</li></ul><h2 id=e02-开发订单服务>E02. 开发订单服务</h2><blockquote><p>武技: 创建 <code>v5-4-alibaba-gateway</code> 子项目，以及 <code>gateway-order</code> 子项目</p></blockquote><h3 id=1-引入三方依赖>1. 引入三方依赖</h3><ol><li>在父项目中锁定版本：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;spring-boot-version&gt;</span>2.3.12.RELEASE<span style=color:#f92672>&lt;/spring-boot-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-version&gt;</span>Hoxton.SR12<span style=color:#f92672>&lt;/spring-cloud-version&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-cloud-alibaba-version&gt;</span>2.2.9.RELEASE<span style=color:#f92672>&lt;/spring-cloud-alibaba-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖：</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-parent--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-parent<span style=color:#f92672>&lt;/artifactId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-boot-version}<span style=color:#f92672>&lt;/version&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>  
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-alibaba-dependencies--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-alibaba-dependencies<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>${spring-cloud-alibaba-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;type&gt;</span>pom<span style=color:#f92672>&lt;/type&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>import<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-alibaba-nacos-discovery--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发启动类>2. 开发启动类</h3><p><code>com.lsx.GatewayOrderApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GatewayOrderApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(GatewayOrderApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-开发配置类>3. 开发配置类</h3><ol><li>开发Nacos配置类：</li></ol><p><code>com.lsx.config.NacosConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableDiscoveryClient</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NacosConfig</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发主配项>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8089</span> <span style=color:#75715e># 端口号  </span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gateway-order</span> <span style=color:#75715e># 项目名称  </span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>main</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>web-application-type</span>: <span style=color:#ae81ff>reactive</span> <span style=color:#75715e># 响应式web启动，不需要Servlet服务器，跨域必配</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nacos</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>server-addr</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>8848</span> <span style=color:#75715e># Nacos服务地址，集群用逗号分隔</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:  
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>locator</span>:  
+</span></span><span style=display:flex><span>          <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span> <span style=color:#75715e># 允许发现Nacos中的其它服务  </span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># 跨域相关配置</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>globalcors</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>add-to-simple-url-handler-mapping</span>: <span style=color:#66d9ef>true</span>  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cors-configurations</span>:  
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#39;[/**]&#39;</span>:  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-origins</span>: <span style=color:#e6db74>&#34;*&#34;</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-methods</span>: <span style=color:#e6db74>&#34;*&#34;</span>   
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-headers</span>: <span style=color:#e6db74>&#34;*&#34;</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allow-credentials</span>: <span style=color:#66d9ef>true</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>max-age</span>: <span style=color:#ae81ff>360000</span>
+</span></span></code></pre></div><h3 id=5-开发控制器>5. 开发控制器</h3><p><code>com.lsx.controller.StartController -> hello()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/start&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StartController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/hello&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>hello</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;hello gateway!&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=6-启动微服务>6. 启动微服务</h3><ul><li>启动项目，<a href=http://192.168.40.77:8848/nacos>访问Nacos</a>，在 <code>服务管理 -> 服务列表</code> 中观察微服务是否注册成功。</li></ul><h2 id=e03-开发网关服务>E03. 开发网关服务</h2><blockquote><p>武技: 创建 <code>v5-4-alibaba-gateway</code> 子项目，以及 <code>gateway</code> 子项目</p></blockquote><h3 id=1-引入三方依赖-1>1. 引入三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>  
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-alibaba-nacos-discovery--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-cloud-starter-gateway--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.cloud<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-cloud-starter-gateway<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发启动类-1>2. 开发启动类</h3><p><code>com.lsx.GatewayApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>GatewayApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(GatewayApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-开发配置类-1>3. 开发配置类</h3><ol><li>开发Nacos配置类：</li></ol><p><code>com.lsx.config.NacosConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@EnableDiscoveryClient</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NacosConfig</span> { }
+</span></span></code></pre></div><h3 id=4-开发主配项-1>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8000</span> <span style=color:#75715e># 端口号</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gateway</span> <span style=color:#75715e># 服务名</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>main</span>:  
+</span></span><span style=display:flex><span>    <span style=color:#f92672>web-application-type</span>: <span style=color:#ae81ff>reactive</span> <span style=color:#75715e># 响应式web启动，不需要Servlet服务器，跨域必配</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>nacos</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>server-addr</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>8848</span> <span style=color:#75715e># Nacos注册中心地址</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:  
+</span></span><span style=display:flex><span>      <span style=color:#f92672>discovery</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>locator</span>:  
+</span></span><span style=display:flex><span>          <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span> <span style=color:#75715e># 允许发现Nacos中的其它服务  </span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># 跨域相关配置</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>globalcors</span>:  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>add-to-simple-url-handler-mapping</span>: <span style=color:#66d9ef>true</span>  
+</span></span><span style=display:flex><span>        <span style=color:#f92672>cors-configurations</span>:  
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#39;[/**]&#39;</span>:  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-origins</span>: <span style=color:#e6db74>&#34;*&#34;</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-methods</span>: <span style=color:#e6db74>&#34;*&#34;</span>   
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allowed-headers</span>: <span style=color:#e6db74>&#34;*&#34;</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>allow-credentials</span>: <span style=color:#66d9ef>true</span>  
+</span></span><span style=display:flex><span>            <span style=color:#f92672>max-age</span>: <span style=color:#ae81ff>360000</span>
+</span></span></code></pre></div><h3 id=5-启动微服务>5. 启动微服务</h3><blockquote><p>心法：网关访问格式</p></blockquote><ul><li><code>http://API网关地址:API网关端口/微服务名/请求地址</code></li></ul><h2 id=e04-基本路由配置>E04. 基本路由配置</h2><blockquote><p>心法: Gateway网关路由</p></blockquote><ul><li>路由 <code>route</code> 是Gateway中最基本的组件之一，用于当请求满足指定条件时将其转发到指定微服务。</li></ul><table><thead><tr><th>路由配置项</th><th>简述</th><th>详述</th><th>示例</th></tr></thead><tbody><tr><td><code>id</code></td><td>路由唯一标识</td><td>名称随意，不重复即可</td><td><code>gateway-order-route</code></td></tr><tr><td><code>uri</code></td><td>路由目标地址</td><td>直接地址写法：<code>http://localhost:8070</code>负载均衡写法：<code>lb://微服务名</code></td><td><code>lb://gateway-order</code></td></tr><tr><td><code>order</code></td><td>路由优先级</td><td>数字越小级别越高</td><td><code>1</code></td></tr><tr><td><code>predicates</code></td><td>断言条件</td><td>只有满足条件才会转发，其值是一个数组</td><td><code>Path=/order-app/**</code></td></tr><tr><td><code>filters</code></td><td>过滤器</td><td>转发前的一些修改操作，其值是一个数组</td><td><code>StripPrefix=1</code></td></tr></tbody></table><blockquote><p>武技: 在 <code>gateway</code> 中对 <code>gateway-order</code> 微服务进行路由配置</p></blockquote><h3 id=1-开发主配项>1. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>	<span style=color:#f92672>gateway</span>:
+</span></span><span style=display:flex><span>	  <span style=color:#f92672>routes</span>:  
+</span></span><span style=display:flex><span>	    - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>gateway-order-route</span> <span style=color:#75715e># 订单微服务路由唯一标识，名称随意，不重复即可  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>uri</span>: <span style=color:#ae81ff>lb://gateway-order</span> <span style=color:#75715e># 设置转发到订单微服务，`lb://` 表示负载均衡  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>order</span>: <span style=color:#ae81ff>1</span> <span style=color:#75715e># 设置路由优先级，数字越小级别越高  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>predicates</span>: <span style=color:#75715e># 设置断言，即转发前的条件判断，其值是一个数组  </span>
+</span></span><span style=display:flex><span>		    - <span style=color:#ae81ff>Path=/order-app/**</span> <span style=color:#75715e># URL请求满足此格式时，断言的相关配置才能生效  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>filters</span>: <span style=color:#75715e># 设置过滤器，即转发前的一些修改，其值是一个数组  </span>
+</span></span><span style=display:flex><span>			- <span style=color:#ae81ff>StripPrefix=1</span> <span style=color:#75715e># 转发前去掉端口后的1层路径，即order-app，然后添加uri配置的gateway-order</span>
+</span></span></code></pre></div><h3 id=2-启动微服务>2. 启动微服务</h3><ul><li>使用网关访问<a href=http://localhost:8000/order-app/api/v1/start/hello>订单微服务</a></li></ul><h1 id=s02-gateway网关断言>S02. Gateway网关断言</h1><blockquote><p>心法: Gateway网关断言</p></blockquote><ul><li>断言 <code>Predicate</code> 用于隔离非法请求，只有断言项全部返回真才会放行请求。</li><li>断言对应的主配是 <code>spring.cloud.gateway.routes</code> 路由数组中的 <code>predicates</code> 项，其值也是一个数组。</li></ul><h2 id=e01-内置的断言>E01. 内置的断言</h2><table><thead><tr><th>配置项</th><th>描述</th></tr></thead><tbody><tr><td><code>Path=/order-app/**</code></td><td>URL请求满足此格式时，断言配置才能生效</td></tr><tr><td><code>After=2020-05-05T00:00:00.000+08:00</code></td><td>请求时间必须在指定的时间之后</td></tr><tr><td><code>Before=2020-05-05T00:00:00.000+08:00</code></td><td>请求时间必须在指定的时间之前</td></tr><tr><td><code>Between=T1,T2</code></td><td>请求时间必须在两个指定时间之间，T1和T2都是同上的格式</td></tr><tr><td><code>RemoteAddr=192.168.1.1/24</code></td><td>请求主机地址必须在指定的IP地址段中</td></tr><tr><td><code>Cookie=a, \d+</code></td><td>请求Cookie中必须得有a，且值必须满足指定正则表达式</td></tr><tr><td><code>Header=X-Request-Id, \d+</code></td><td>请求头中必须得有满足指定正则的 <code>X-Request-Id</code> 项</td></tr><tr><td><code>Method=GET</code></td><td>请求必须是GET类型</td></tr><tr><td><code>Query=a, \d+</code></td><td>请求参数必须携带a，且值必须满足指定正则表达式</td></tr></tbody></table><blockquote><p>武技: 在 <code>gateway</code> 中对 <code>gateway-order</code> 微服务配置内置断言</p></blockquote><h3 id=1-开发主配项-1>1. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>routes</span>:
+</span></span><span style=display:flex><span>        - <span style=color:#f92672>id</span>: <span style=color:#ae81ff>gateway-order-route</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>predicates</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>Path=/order-app/**</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>Query=a, \d+</span> <span style=color:#75715e># 请求参数必须携带a，且值必须满足指定正则表达式</span>
+</span></span></code></pre></div><h3 id=2-启动微服务-1>2. 启动微服务</h3><ol><li>使用网关访问 <code>gateway-order</code> 微服务：<ol><li><a href=http://localhost:8000/gateway-order/api/v1/start/hello>访问微服务</a>：不满足断言路径，断言不生效，放行。</li><li><a href="http://localhost:8000/order-app/api/v1/start/hello?a=name">访问微服务</a>：携带正确查询串，断言成功，放行。</li><li><a href=http://localhost:8000/order-app/api/v1/start/hello>访问微服务</a>：未携带查询串，断言失败，返回404。</li></ol></li></ol><h2 id=e02-自定义断言>E02. 自定义断言</h2><blockquote><p>心法：自定义断言类要求</p></blockquote><ol><li>类名必须是 <code>自定义断言配置的key值 + RoutePredicateFactory</code> 的格式：<ol><li>如 <code>AgeRoutePredicateFactory</code>，<code>NameRoutePredicateFactory</code> 等。</li></ol></li><li>类必须继承 <code>o.s.c.g.h.p.AbstractRoutePredicateFactory&lt;外部类名.内部配置类></code> 类。</li><li>开发内部配置类 <code>Config</code>: 用于接收主配断言配置中的 <code>Age</code> 值。</li><li>重写构造器，将内部配置类传递给父类进行处理。</li></ol><blockquote><p>武技: 开发自定义断言，设置请求若携带了age参数，则其值必须在16到60之间，不携带age直接放行</p></blockquote><h3 id=1-开发断言类>1. 开发断言类</h3><p><code>com.lsx.predicate.AgeRoutePredicateFactory</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AgeRoutePredicateFactory</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>extends</span> AbstractRoutePredicateFactory<span style=color:#f92672>&lt;</span>AgeRoutePredicateFactory.<span style=color:#a6e22e>Config</span><span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 用于接收主配断言配置中的 `Age` 值 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Config</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 接收主配中配置的最小年龄 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Integer minAge;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 接收主配中配置的最大年龄 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Integer maxAge;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将内部配置类传递给父类进行处理 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>AgeRoutePredicateFactory</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>super</span>(Config.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-重写shortcutfieldorder>2. 重写shortcutFieldOrder</h3><ul><li><code>shortcutFieldOrder()</code> 方法用于规定配置的顺序，以防止配置顺序混乱：<ul><li>如将 <code>Age=16,60</code> 配置中的 <code>16</code> 对应到内部类 <code>Config</code> 中的 <code>minAge</code> 属性。</li><li>如将 <code>Age=16,60</code> 配置中的 <code>60</code> 对应到内部类 <code>Config</code> 中的 <code>maxAge</code> 属性。</li></ul></li></ul><p><code>com.lsx.predicate.AgeRoutePredicateFactory -> shortcutFieldOrder()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 用于将主配断言配置中的 `Age` 值赋值给内部类属性 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>shortcutFieldOrder</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 对位赋值</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;minAge&#34;</span>, <span style=color:#e6db74>&#34;maxAge&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-重写apply>3. 重写apply</h3><ul><li><code>apply()</code> 方法用于规定断言逻辑，方法返回true表示放行，false表示阻止，爆发404。</li></ul><p>`com.lsx.predicate.AgeRoutePredicateFactory -> apply()</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> com.alibaba.nacos.shaded.com.google.common.base.Predicate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 用于配置断言逻辑，即判断请求是否满足断言条件 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Predicate<span style=color:#f92672>&lt;</span>ServerWebExchange<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>apply</span>(Config config) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 函数式接口 `Predicate` 可以直接使用lambda表达式返回</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> serverWebExchange <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 获取首个请求参数age</span>
+</span></span><span style=display:flex><span>		String ageStr <span style=color:#f92672>=</span> serverWebExchange.<span style=color:#a6e22e>getRequest</span>().<span style=color:#a6e22e>getQueryParams</span>().<span style=color:#a6e22e>getFirst</span>(<span style=color:#e6db74>&#34;age&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 若请求中没有携带age参数，则直接放行</span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>null</span> <span style=color:#f92672>==</span> ageStr) {
+</span></span><span style=display:flex><span>			<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>		}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 判断age是否符合要求（在主配中配置的范围），符合则放行</span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>int</span> age <span style=color:#f92672>=</span> Integer.<span style=color:#a6e22e>parseInt</span>(ageStr);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> age <span style=color:#f92672>&gt;</span> config.<span style=color:#a6e22e>getMinAge</span>() <span style=color:#f92672>&amp;&amp;</span> age <span style=color:#f92672>&lt;</span> config.<span style=color:#a6e22e>getMaxAge</span>();
+</span></span><span style=display:flex><span>	};
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发主配项-2>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>routes</span>:
+</span></span><span style=display:flex><span>		- <span style=color:#f92672>id</span>: <span style=color:#ae81ff>gateway-order-route</span> <span style=color:#75715e># 订单微服务路由唯一标识，名称随意，不重复即可  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>uri</span>: <span style=color:#ae81ff>lb://gateway-order</span> <span style=color:#75715e># 设置转发到订单微服务，`lb://` 表示负载均衡  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>order</span>: <span style=color:#ae81ff>1</span> <span style=color:#75715e># 设置路由优先级，数字越小级别越高  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>predicates</span>: <span style=color:#75715e># 设置断言，即转发前的条件判断，其值是一个数组  </span>
+</span></span><span style=display:flex><span>		    - <span style=color:#ae81ff>Path=/order-app/**</span> <span style=color:#75715e># URL请求满足此格式时，断言的相关配置才能生效  </span>
+</span></span><span style=display:flex><span>		    - <span style=color:#ae81ff>Age=16,60  </span>
+</span></span><span style=display:flex><span>		  <span style=color:#f92672>filters</span>: <span style=color:#75715e># 设置过滤器，即转发前的一些修改，其值是一个数组  </span>
+</span></span><span style=display:flex><span>		    - <span style=color:#ae81ff>StripPrefix=1</span> <span style=color:#75715e># 转发前去掉端口后的1层路径，即order-app，然后添加uri配置的gateway-order</span>
+</span></span></code></pre></div><h3 id=5-启动微服务-1>5. 启动微服务</h3><ol><li>使用网关访问 <code>gateway-order</code> 微服务：<ol><li><a href="http://localhost:8000/order-app/api/v1/start/hello?age=18">访问微服务</a>：携带正确查询串 <code>age</code>，断言成功，放行。</li><li><a href=http://localhost:8000/order-app/api/v1/start/hello>访问微服务</a>：未携带查询串 <code>age</code>，直接放行。</li><li><a href="http://localhost:8000/order-app/api/v1/start/hello?age=100">访问微服务</a>：未携带查询串，断言失败，返回404。</li></ol></li></ol><h1 id=s03-gateway网关过滤>S03. Gateway网关过滤</h1><blockquote><p>心法: Gateway网关过滤</p></blockquote><ul><li>当断言全部成功后，会将请求放行到API网关的过滤器链中。</li><li>过滤器也可以根据某些条件来阻止请求，但一般更常用于在路由前后对请求进行二次操作。</li></ul><h2 id=e01-内置过滤器>E01. 内置过滤器</h2><blockquote><p>心法: Gateway内置的过滤器</p></blockquote><table><thead><tr><th>配置项</th><th>描述</th></tr></thead><tbody><tr><td><code>StripPrefix=1</code></td><td>从端口之后，删除1请求的路径，一般用于去掉项目名</td></tr><tr><td><code>AddRequestHeader=a,1</code></td><td>为原请求添加Header键值对a=1</td></tr><tr><td><code>AddRequestParameter=b,2</code></td><td>为原请求添加请求参数键值对b=2</td></tr><tr><td><code>AddResponseHeader=c,3</code></td><td>为原响应添加Header键值对c=3</td></tr><tr><td><code>RemoveRequestHeader=d</code></td><td>为原请求删除Header中的d键</td></tr><tr><td><code>RemoveResponseHeader=f</code></td><td>为原响应删除Header中的f键</td></tr><tr><td><code>SetResponseHeader=g,4</code></td><td>修改原响应Header中g的值为4</td></tr><tr><td><code>RequestSize=10</code></td><td>设置请求包大小，超过10字节时返回413错误，默认5M</td></tr><tr><td><code>SetStatus=2000</code></td><td>修改原始响应的状态码</td></tr></tbody></table><blockquote><p>武技: 在 <code>gateway</code> 中对 <code>gateway-order</code> 微服务配置内置过滤器</p></blockquote><h3 id=1-开发主配项-2>1. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>routes</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>filters</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>StripPrefix=1</span> <span style=color:#75715e># 从端口之后，删除1层原请求的路径，一般用于去掉项目名</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>AddRequestHeader=a,1</span> <span style=color:#75715e># 为原请求添加Header键值对a=1</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>AddRequestParameter=b,2</span> <span style=color:#75715e># 为原请求添加请求参数键值对b=2</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>AddResponseHeader=c,3</span> <span style=color:#75715e># 为原响应添加Header键值对c=3</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>SetResponseHeader=d,4</span> <span style=color:#75715e># 修改原响应Header中d的值为4</span>
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>SetStatus=2000</span> <span style=color:#75715e># 修改原始响应的状态码为2000</span>
+</span></span></code></pre></div><h3 id=2-启动微服务-2>2. 启动微服务</h3><ol><li>使用网关<a href=http://localhost:8000/gateway-order/api/v1/start/hello>访问订单微服务</a>。</li><li>浏览器F12观察网络：<ol><li>可以观察到过滤器对响应相关数据的改动，如 <code>AddResponseHeader</code>，<code>SetResponseHeader</code>，<code>SetStatus</code> 等。</li><li>但来不及观察到过滤器多响应相关数据的改动，如 <code>AddRequestHeader</code> 和 <code>AddRequestParameter</code> 等，因为对请求的修改是在浏览器发送请求之后操作的。</li></ol></li></ol><h2 id=e02-局部过滤器>E02. 局部过滤器</h2><blockquote><p>心法: 局部过滤器 <code>GatewayFilter</code></p></blockquote><ul><li>局部过滤器仅作用在某一个或某一组路由上。</li><li>局部过滤器类要求类名必须是 <code>自定义过滤配置的key值 + GatewayFilterFactory</code> 格式，如 <code>ReqGatewayFilterFactory</code> 等，且类必须继承 <code>o.s.c.g.f.f.AbstractGatewayFilterFactory&lt;外部类名.内部配置类></code> 类并重写 <code>apply()</code> 方法。</li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart TB
+
+m[&#34;启动&lt;br/&gt;网关项目&#34;]
+--&gt; m1[&#34;加载局部&lt;br/&gt;过滤器类&#34;]
+--&gt; m2[&#34;根据方法&lt;br/&gt;shortcutFieldOrder&#34;]
+	m2--&gt;m2a[&#34;将Req配置的0号值true赋给&lt;br/&gt;Config.requestHeader属性&#34;]
+	m2--&gt;m2b[&#34;将Req配置的1号值true赋给&lt;br/&gt;Config.requestParam属性&#34;]
+m2a &amp; m2b --&gt; m3[&#34;根据构造器&lt;br/&gt;将Config类传递给父类&#34;]
+--&gt; m4[&#34;父类会自动将Config类&lt;br/&gt;作为参数传递给方法apply&#34;]
+
+n[&#34;客户端向网关&lt;br/&gt;发送请求&#34;]
+--&gt; n1[&#34;网关断言&lt;br/&gt;通过&#34;]
+--&gt; n2[&#34;经过内置过滤器&lt;br/&gt;添加请求头a=1&#34;]
+--&gt; n3[&#34;经过内置过滤器&lt;br/&gt;添加请求参数b=2&#34;]
+--&gt; n4[&#34;经过局部过滤器&lt;br/&gt;Req=true,true&#34;]
+--&gt; n5[&#34;调用方法apply&lt;br/&gt;执行过滤器逻辑&#34;]
+</code></pre><blockquote><p>武技: 开发局部过滤器，读取内置过滤器AddRequestHeader和AddRequestParameter中配置的值</p></blockquote><h3 id=1-开发过滤器类>1. 开发过滤器类</h3><p><code>com.lsx.filter.ReqGatewayFilterFactory</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ReqGatewayFilterFactory</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>extends</span> AbstractGatewayFilterFactory<span style=color:#f92672>&lt;</span>ReqGatewayFilterFactory.<span style=color:#a6e22e>Config</span><span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 用于接收和存储Reg的两个值: requestHeader和requestParam */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Config</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 接收主配中配置的请求头查看开关 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Boolean requestHeader;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 接收主配中配置的请求参数查看开关 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Boolean requestParam;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将内部配置类传递给父类进行处理 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>ReqGatewayFilterFactory</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>super</span>(Config.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-重写shortcutfieldorder-1>2. 重写shortcutFieldOrder</h3><ul><li><code>shortcutFieldOrder()</code> 方法用于规定配置的顺序，以防止配置顺序混乱：<ul><li>如将 <code>Req=true,false</code> 配置中的 <code>true</code> 对应到内部类 <code>Config</code> 中的 <code>requestHeader</code> 属性。</li><li>如将 <code>Req=true,false</code> 配置中的 <code>false</code> 对应到内部类 <code>Config</code> 中的 <code>requestParam</code> 属性。</li></ul></li></ul><p><code>com.lsx.filter.ReqGatewayFilterFactory -> shortcutFieldOrder</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 负责读取主配中的Req值，并且对位赋值给Config类的两个属性 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> List<span style=color:#f92672>&lt;</span>String<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>shortcutFieldOrder</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 将主配中的Req属性的第1个值，对位赋值给内部类的requestHeader属性</span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 将主配中的Req属性的第2个值，对位赋值给内部类的requestParam属性</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> Arrays.<span style=color:#a6e22e>asList</span>(<span style=color:#e6db74>&#34;requestHeader&#34;</span>, <span style=color:#e6db74>&#34;requestParam&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-重写apply-1>3. 重写apply</h3><ul><li><code>apply()</code> 方法用于规定过滤逻辑，方法返回 <code>chain.filter(exchange)</code> 表示放行。</li></ul><p><code>com.lsx.filter.ReqGatewayFilterFactory -> apply()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 配置过滤逻辑 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> GatewayFilter <span style=color:#a6e22e>apply</span>(Config config) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 函数式接口 `GatewayFilter` 可以直接使用lambda表达式返回</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> (exchange, chain) <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取当前的请求</span>
+</span></span><span style=display:flex><span>        ServerHttpRequest request <span style=color:#f92672>=</span> exchange.<span style=color:#a6e22e>getRequest</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取指定请求头中的值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (config.<span style=color:#a6e22e>getRequestHeader</span>()) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求头中a的值为&#34;</span> <span style=color:#f92672>+</span> request.<span style=color:#a6e22e>getHeaders</span>().<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#34;a&#34;</span>));
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取指定请求参数中的值</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (config.<span style=color:#a6e22e>getRequestParam</span>()) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求参数中b的值为&#34;</span> <span style=color:#f92672>+</span> request.<span style=color:#a6e22e>getQueryParams</span>().<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#34;b&#34;</span>));
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 放行请求到下一个过滤器</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> chain.<span style=color:#a6e22e>filter</span>(exchange);
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发主配项-3>4. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cloud</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>gateway</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>routes</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>filters</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#ae81ff>Req=true,true</span> <span style=color:#75715e># 自定义过滤器配置</span>
+</span></span></code></pre></div><h3 id=5-启动微服务-2>5. 启动微服务</h3><ol><li>使用网关访问 <code>gateway-order</code> 微服务：<ol><li><a href=http://localhost:8000/order-app/api/v1/start/hello>访问微服务</a>：控制台输出请求头中的 <code>a</code> 和请求参数中的 <code>b</code> 的值。</li></ol></li></ol><h2 id=e03-全局过滤器>E03. 全局过滤器</h2><blockquote><p>心法: 全局过滤器 <code>GlobalFilter</code></p></blockquote><ul><li>全局过滤器会作用所有路由上。</li><li>全局过滤器类的类名无要求。</li><li>全局过滤器必须实现 <code>o.s.c.g.f.GlobalFilter</code> 接口并重写 <code>filter()</code> 方法。</li><li>全局过滤器必须实现 <code>o.s.c.Ordered</code> 接口并重写 <code>getOrder()</code> 方法。</li></ul><blockquote><p>武技: 开发全局过滤器，若请求未携带token标识，则直接响应401</p></blockquote><h3 id=1-开发过滤器类-1>1. 开发过滤器类</h3><p><code>com.lsx.filter.TokenGlobalFilter</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TokenGlobalFilter</span> <span style=color:#66d9ef>implements</span> GlobalFilter, Ordered {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-重写filter>2. 重写filter</h3><ul><li><code>filter()</code> 方法用于规定过滤逻辑，方法返回 <code>chain.filter(exchange)</code> 表示放行。</li></ul><p><code>com.lsx.filter.TokenGlobalFilter -> filter()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> Mono<span style=color:#f92672>&lt;</span>Void<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filter</span>(ServerWebExchange exchange, GatewayFilterChain chain) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取响应</span>
+</span></span><span style=display:flex><span>    ServerHttpResponse response <span style=color:#f92672>=</span> exchange.<span style=color:#a6e22e>getResponse</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从请求参数中获取token字符串</span>
+</span></span><span style=display:flex><span>    String token <span style=color:#f92672>=</span> exchange.<span style=color:#a6e22e>getRequest</span>().<span style=color:#a6e22e>getQueryParams</span>().<span style=color:#a6e22e>getFirst</span>(<span style=color:#e6db74>&#34;token&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 判断token字符串是否为空白字符</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (StringUtils.<span style=color:#a6e22e>isBlank</span>(token)) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 记录错误日志</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;请求中未携带token&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应的状态码为401: 401表示未认证</span>
+</span></span><span style=display:flex><span>        response.<span style=color:#a6e22e>setStatusCode</span>(HttpStatus.<span style=color:#a6e22e>UNAUTHORIZED</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 直接执行响应操作，相当于阻止程序运行</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> response.<span style=color:#a6e22e>setComplete</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 放行请求</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> chain.<span style=color:#a6e22e>filter</span>(exchange);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-重写getorder>3. 重写getOrder</h3><p><code>com.lsx.filter.TokenGlobalFilter -> getOrder()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 配置过滤器的优先级
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 值越小，优先级越高
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getOrder</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> 0;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-启动微服务>4. 启动微服务</h3><ol><li>使用网关访问 <code>gateway-order</code> 微服务：<ol><li><a href="http://localhost:8000/order-app/api/v1/start/hello?token=123">访问微服务</a>：请求中携带token参数，过滤器放行。</li><li><a href=http://localhost:8000/order-app/api/v1/start/hello>访问微服务</a>：请求中未携带token参数，过滤器阻止，响应401。</li><li><a href="http://localhost:8000/order-app/api/v1/start/hello?token=">访问微服务</a>：请求中携带空白token参数，过滤器阻止，响应401。</li></ol></li></ol><h1 id=s04-gateway网关限流>S04. Gateway网关限流</h1><blockquote><p>心法: Gateway网关限流</p></blockquote><ul><li>Gateway网关可以配合Sentinel在网关处使用过滤器对某一组请求进行限流。</li></ul><h2 id=e01-网关限流器>E01. 网关限流器</h2><blockquote><p>武技: 开发网关限流功能</p></blockquote><h3 id=1-引入三方依赖-2>1. 引入三方依赖</h3><ul><li>在网关中引入相关依赖：</li></ul><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--sentinel-spring-cloud-gateway-adapter--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>com.alibaba.csp<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>sentinel-spring-cloud-gateway-adapter<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发限流配置类>2. 开发限流配置类</h3><ul><li>限流配置类名称随意。</li></ul><p><code>com.lsx.config.SentinelConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SentinelConfig</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 视图解析器列表: 用于展示限流之后的响应内容 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> List<span style=color:#f92672>&lt;</span>ViewResolver<span style=color:#f92672>&gt;</span> viewResolvers;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 读写器: 用于操作请求和响应 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> ServerCodecConfigurer serverCodecConfigurer;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 有参构造器
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param provider 对象提供者实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param serverCodecConfigurer 请求读写器
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>SentinelConfig</span>(ObjectProvider<span style=color:#f92672>&lt;</span>List<span style=color:#f92672>&lt;</span>ViewResolver<span style=color:#f92672>&gt;&gt;</span> provider,
+</span></span><span style=display:flex><span>                          ServerCodecConfigurer serverCodecConfigurer) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 在构造器中，获取视图解析器列表并上升作用域</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>viewResolvers</span> <span style=color:#f92672>=</span> provider.<span style=color:#a6e22e>getIfAvailable</span>(Collections::emptyList);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将请求读写器直接上升作用域</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>serverCodecConfigurer</span> <span style=color:#f92672>=</span> serverCodecConfigurer;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-管理全局过滤器>3. 管理全局过滤器</h3><ul><li><code>SentinelGatewayFilter</code> 是 <code>sentinel-spring-cloud-gateway-adapter</code> 依赖中提供的限流功能过滤器，是 <code>GlobalFilter</code> 的一种实现。</li></ul><p><code>com.lsx.config.FlowConfig -> sentinelGatewayFilter()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 管理一个全局过滤器，配置最高优先级，返回值和方法名固定 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Order</span>(Ordered.<span style=color:#a6e22e>HIGHEST_PRECEDENCE</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> GlobalFilter <span style=color:#a6e22e>sentinelGatewayFilter</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> SentinelGatewayFilter();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-管理异常处理器>4. 管理异常处理器</h3><ul><li><code>SentinelGatewayBlockExceptionHandler</code> 处理器用于处理限流异常。</li></ul><p><code>com.lsx.config.SentinelConfig -> SentinelGatewayBlockExceptionHandler()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 管理一个全局限流异常处理器，配置最高优先级，返回值和方法名固定 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Order</span>(Ordered.<span style=color:#a6e22e>HIGHEST_PRECEDENCE</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> SentinelGatewayBlockExceptionHandler <span style=color:#a6e22e>sentinelGatewayBlockExceptionHandler</span>() {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=5-开发异常响应>5. 开发异常响应</h3><ul><li><code>GatewayCallbackManager.setBlockHandler()</code> 方法用于设置当系统发生限流时的响应数据。</li></ul><p><code>com.lsx.config.SentinelConfig -> initExceptionResponse()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 在执行过滤器之前，对API网关发生限流时的响应内容进行配置，方法名随意 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@PostConstruct</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initExceptionResponse</span>() {
+</span></span><span style=display:flex><span>	GatewayCallbackManager.<span style=color:#a6e22e>setBlockHandler</span>((exchange, throwable) <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 响应</span>
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> ServerResponse
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 设置200响应状态</span>
+</span></span><span style=display:flex><span>				.<span style=color:#a6e22e>status</span>(HttpStatus.<span style=color:#a6e22e>OK</span>)
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 设置响应MIME类型为JSON格式</span>
+</span></span><span style=display:flex><span>				.<span style=color:#a6e22e>contentType</span>(MediaType.<span style=color:#a6e22e>APPLICATION_JSON</span>)
+</span></span><span style=display:flex><span>				<span style=color:#75715e>// 将Map数据转为JSON并设置到响应体中</span>
+</span></span><span style=display:flex><span>				.<span style=color:#a6e22e>body</span>(BodyInserters.<span style=color:#a6e22e>fromValue</span>(Map.<span style=color:#a6e22e>of</span>(
+</span></span><span style=display:flex><span>						<span style=color:#e6db74>&#34;code&#34;</span>, 500, 
+</span></span><span style=display:flex><span>						<span style=color:#e6db74>&#34;message&#34;</span>, <span style=color:#e6db74>&#34;QPS过高，API网关执行限流操作&#34;</span>
+</span></span><span style=display:flex><span>				)));
+</span></span><span style=display:flex><span>	});
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=6-对api接口分组>6. 对API接口分组</h3><ul><li>在执行过滤器之前，对API请求进行分组，方法名随意，不同的API分组使用不同的限流规则。</li></ul><p><code>com.lsx.config.SentinelConfig -> initApiDefinition()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 在执行过滤器之前，对API请求进行分组，方法名随意 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@PostConstruct</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initApiDefinition</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 设置两个分组，分别起名 `groupA` 和 `groupB`</span>
+</span></span><span style=display:flex><span>	ApiDefinition groupA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ApiDefinition(<span style=color:#e6db74>&#34;groupA&#34;</span>);  
+</span></span><span style=display:flex><span>	ApiDefinition groupB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ApiDefinition(<span style=color:#e6db74>&#34;groupB&#34;</span>);  
+</span></span><span style=display:flex><span>	  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 凡是 `/order-app/api/v1/**` 开头的请求，都默认归于A组  </span>
+</span></span><span style=display:flex><span>	ApiPathPredicateItem predicateItemA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ApiPathPredicateItem();  
+</span></span><span style=display:flex><span>	predicateItemA.<span style=color:#a6e22e>setPattern</span>(<span style=color:#e6db74>&#34;/order-app/api/v1/**&#34;</span>);  
+</span></span><span style=display:flex><span>	predicateItemA.<span style=color:#a6e22e>setMatchStrategy</span>(SentinelGatewayConstants.<span style=color:#a6e22e>URL_MATCH_STRATEGY_PREFIX</span>);  
+</span></span><span style=display:flex><span>	groupA.<span style=color:#a6e22e>setPredicateItems</span>(<span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;</span>() {{  
+</span></span><span style=display:flex><span>	    add(predicateItemA);  
+</span></span><span style=display:flex><span>	}});  
+</span></span><span style=display:flex><span>	  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 将完全匹配 `/order-app/api/v0/test` 的请求视为B组  </span>
+</span></span><span style=display:flex><span>	ApiPathPredicateItem predicateItemB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ApiPathPredicateItem();  
+</span></span><span style=display:flex><span>	predicateItemB.<span style=color:#a6e22e>setPattern</span>(<span style=color:#e6db74>&#34;/order-app/api/v0/gateway-test&#34;</span>);  
+</span></span><span style=display:flex><span>	groupB.<span style=color:#a6e22e>setPredicateItems</span>(<span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;</span>() {{  
+</span></span><span style=display:flex><span>	    add(predicateItemB);  
+</span></span><span style=display:flex><span>	}});  
+</span></span><span style=display:flex><span>	  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 将自定义分组信息加载到API网关的API分组中  </span>
+</span></span><span style=display:flex><span>	Set<span style=color:#f92672>&lt;</span>ApiDefinition<span style=color:#f92672>&gt;</span> definitions <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;</span>();  
+</span></span><span style=display:flex><span>	definitions.<span style=color:#a6e22e>add</span>(groupA);  
+</span></span><span style=display:flex><span>	definitions.<span style=color:#a6e22e>add</span>(groupB);  
+</span></span><span style=display:flex><span>	GatewayApiDefinitionManager.<span style=color:#a6e22e>loadApiDefinitions</span>(definitions);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=7-开发限流规则>7. 开发限流规则</h3><ul><li>在执行过滤器之前，对API的每一组设置限流规则，方法名随意，不同的API分组使用不同的限流规则。</li><li>GatewayFlowRule类用于设置限流规则。</li></ul><table><thead><tr><th>GatewayFlowRule相关属性</th><th>描述</th></tr></thead><tbody><tr><td><code>String resource</code></td><td>资源名，即限流规则的作用对象，可以是自定义API的名称</td></tr><tr><td><code>int resourceMode</code></td><td>资源模式，默认值为路由Id</td></tr><tr><td><code>int grade</code></td><td>限流阈值类型，可选QPS或线程数默认为QPS，即 <code>RuleConstant.FLOW_GRADE_QPS</code></td></tr><tr><td><code>double count</code></td><td>限流阈值</td></tr><tr><td><code>long intervalSec</code></td><td>统计时间窗口，单位是秒，默认是1秒</td></tr><tr><td><code>int controlBehavior</code></td><td>流量控制模式，可选直接，预热和排队定默认为直接，即 <code>RuleConstant.CONTROL_BEHAVIOR_DEFAULT</code></td></tr><tr><td><code>int burst</code></td><td>应对突发请求时额外允许的请求数目</td></tr><tr><td><code>int maxQueueingTimeoutMs</code></td><td>匀速排队模式下的最长排队时间，单位是毫秒仅在匀速排队模式下生效</td></tr><tr><td><code>GatewayParamFlowItem paramItem</code></td><td>用于热点限流规则</td></tr></tbody></table><p><code>com.lsx.config.SentinelConfig -> initGatewayRules()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 在执行过滤器之前，对API的每一组设置限流规则，方法名随意 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@PostConstruct</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>initGatewayRules</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 设置A组的限流规则: 3秒内QPS大于1时立刻限流  </span>
+</span></span><span style=display:flex><span>	GatewayFlowRule ruleA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> GatewayFlowRule(<span style=color:#e6db74>&#34;groupA&#34;</span>);  
+</span></span><span style=display:flex><span>	ruleA.<span style=color:#a6e22e>setCount</span>(1).<span style=color:#a6e22e>setIntervalSec</span>(3);  
+</span></span><span style=display:flex><span>	  
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 设置A组的限流规则: 10秒内QPS大于5时立刻限流  </span>
+</span></span><span style=display:flex><span>	GatewayFlowRule ruleB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> GatewayFlowRule(<span style=color:#e6db74>&#34;groupB&#34;</span>);  
+</span></span><span style=display:flex><span>	ruleB.<span style=color:#a6e22e>setCount</span>(5).<span style=color:#a6e22e>setIntervalSec</span>(10);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// 将限流规则的set集合加载到API网关的规则管理器中</span>
+</span></span><span style=display:flex><span>	Set<span style=color:#f92672>&lt;</span>GatewayFlowRule<span style=color:#f92672>&gt;</span> rules <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashSet<span style=color:#f92672>&lt;&gt;</span>();
+</span></span><span style=display:flex><span>	rules.<span style=color:#a6e22e>add</span>(ruleA);
+</span></span><span style=display:flex><span>	rules.<span style=color:#a6e22e>add</span>(ruleB);
+</span></span><span style=display:flex><span>	GatewayRuleManager.<span style=color:#a6e22e>loadRules</span>(rules);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=8-启动微服务>8. 启动微服务</h3><ol><li>使用网关访问 <code>gateway-order</code> 微服务：<ol><li><a href="http://localhost:8000/order-app/api/v1/start/hello?token=123">访问微服务</a>：URL满足分组A，快速访问，发现QPS超出阈值时被网关限流。</li><li><a href="http://localhost:8000/order-app/api/v0/gateway-test?token=123">访问微服务</a>：URL满足分组B，快速访问，发现即使是404请求，QPS超出阈值时也会被网关限流。</li></ol></li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

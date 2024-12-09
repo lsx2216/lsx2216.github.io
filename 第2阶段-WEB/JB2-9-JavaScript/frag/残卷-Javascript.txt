@@ -1,0 +1,356 @@
+# HTML5
+
+## Canvas画布
+
+- `<canvas>` 是HTML5中的一个画布容器标签，需要借助canvas的API和JS操作来实现画图等操作。
+- `<canvas>` 只有 `width/height` 两个可选属性，默认300px宽，150px高:
+    - 设置画布容器的宽高时，尽量按2比1的比例扩张或者缩放，否则容易发生图形扭曲。
+- `<canvas>` 中的文字或 `<img>` 图片仅在浏览器不支持该标签时才会展示。
+- `<canvas>` 中的元素都以画布的 `[0,0]` 圆点为相对点来设置坐标。
+- 在JS中获取Canvas核心对象:
+    - `document.querySelector('#canvas').getContext('2d')`: 单词 `2d` 不能大写。
+
+> 武技: 在HTML中布局Canvas容器，并在JS中获取Canvas核心对象
+
+```html
+
+<style>
+    .body {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .body canvas {
+        background: wheat;
+    }
+</style>
+
+<section class="body">
+    <canvas id="canvas" width="600" height="300">您的浏览器不支持Canvas画布</canvas>
+</section>
+
+<script>
+    onload = () => {
+        // 获取canvas核心对象
+        let canvas = document.querySelector('#canvas').getContext('2d');
+        if (!canvas) {
+            alert('您的浏览器不支持Canvas画布');
+            return;
+        }
+        console.log('您的浏览器支持Canvas画布')
+    }
+</script>
+```
+
+### 绘制路径
+
+- 路径是图形的核心，从下笔的起点到终点，最终会形成一个闭合图形:
+    - 线段，圆形，多边形等属于路径，需要设置起始/关闭路径。
+    - 矩形，文字，图片等不属于路径，可以不用设置起始/关闭路径，但设置上也无妨。
+- 设置画笔相关参数: 建议在起始路径之前设置:
+    - `canvas.lineWidth`: 画笔宽度。
+    - `canvas.strokeStyle`: 画笔颜色，默认黑色。
+    - `canvas.lineCap`: 线段末端样式，默认butt无末端，可选round圆凸，square方凸，突出高度为一半笔宽。
+    - `canvas.lineJoin`: 线段连接点样式，默认miter尖角，可选round圆角，bevel钝角。
+- 设置填充颜色: 建议在起始路径之前设置:
+    - `canvas.fillStyle = 'red'`: 填充颜色。
+- 起始/关闭路径: 每次的路径都需要一个起始和关闭，否则会干扰下一个路径的绘制:
+    - `canvas.beginPath()`: 起始一条新路径。
+    - `canvas.closePath()`: 闭合上一条路径。
+- 设置画笔起点和终点:
+    - `canvas.moveTo(起点横坐标值, 起点纵坐标值)`: 画笔起点坐标。
+    - `canvas.lineTo(终点横坐标值, 终点纵坐标值)`: 画笔终点坐标。
+- 绘制图形: 描边和填充可以同时设置:
+    - `canvas.stroke()`: 根据下笔的路径进行描边，绘制一个空心的图形轮廓。
+    - `canvas.fill()`: 根据下笔的路径进行填充，绘制一个实心的图形图案。
+
+> 武技: 为画布绘制九宫格分割线
+
+```javascript
+/* 绘制线段*/
+function drawLine(canvas) {
+
+    // 开始一条路径
+    canvas.beginPath();
+
+    // 设置画笔宽度和颜色
+    canvas.lineWidth = 1;
+    canvas.strokeStyle = 'red';
+
+    // 绘制横2条线
+    canvas.moveTo(0, 100);
+    canvas.lineTo(600, 100);
+    canvas.moveTo(0, 200);
+    canvas.lineTo(600, 200);
+
+    // 绘制竖2条线
+    canvas.moveTo(200, 0);
+    canvas.lineTo(200, 300);
+    canvas.moveTo(400, 0);
+    canvas.lineTo(400, 300);
+
+    // 描边
+    canvas.stroke();
+
+    // 闭合一条路径
+    canvas.closePath();
+}
+```
+
+### 绘制线段端点样式
+
+> 武技: 在九宫格第1格绘制绘制线段端点样式
+
+```javascript
+/* 绘制线段端点样式*/
+function drawLineCap(canvas) {
+
+    // 不凸端点
+    canvas.beginPath();
+    canvas.lineWidth = 10;
+    canvas.lineCap = 'butt';
+    canvas.moveTo(10, 30);
+    canvas.lineTo(190, 30);
+    canvas.stroke();
+    canvas.closePath();
+
+    // 圆凸端点
+    canvas.beginPath();
+    canvas.lineWidth = 10;
+    canvas.lineCap = 'round';
+    canvas.moveTo(10, 50);
+    canvas.lineTo(190, 50);
+    canvas.closePath();
+    canvas.stroke();
+
+    // 方凸端点
+    canvas.beginPath();
+    canvas.lineWidth = 10;
+    canvas.lineCap = 'square';
+    canvas.moveTo(10, 70);
+    canvas.lineTo(190, 70);
+    canvas.closePath();
+    canvas.stroke();
+}
+```
+
+### 绘制线段连接点样式
+
+> 武技: 在九宫格第2格绘制线段连接点样式
+
+```javascript
+/* 绘制线段连接点样式*/
+function drawLineJoin(canvas) {
+    canvas.beginPath();
+    canvas.lineWidth = 10;
+    canvas.lineJoin = 'miter';
+    canvas.moveTo(220, 30);
+    canvas.lineTo(240, 80);
+    canvas.lineTo(260, 30);
+    canvas.stroke();
+    canvas.closePath();
+
+    canvas.beginPath();
+    canvas.lineWidth = 10;
+    canvas.lineJoin = 'round';
+    canvas.moveTo(280, 30);
+    canvas.lineTo(300, 80);
+    canvas.lineTo(320, 30);
+    canvas.stroke();
+    canvas.closePath();
+
+    canvas.beginPath();
+    canvas.lineJoin = 'bevel';
+    canvas.moveTo(340, 30);
+    canvas.lineTo(360, 80);
+    canvas.lineTo(380, 30);
+    canvas.stroke();
+    canvas.closePath();
+}
+```
+
+### 绘制三角形
+
+> 武技: 在九宫格第3格绘制三角形
+
+```javascript
+/* 绘制三角形*/
+function drawTriangle(canvas) {
+
+    // 空心三角形
+    canvas.beginPath();
+    canvas.lineWidth = 1;
+    canvas.strokeStyle = 'red';
+    canvas.fillStyle = 'black';
+    canvas.moveTo(450, 10);
+    canvas.lineTo(490, 90);
+    canvas.lineTo(410, 90);
+    canvas.closePath();
+    canvas.stroke();
+
+    // 实心三角形
+    canvas.beginPath();
+    canvas.moveTo(550, 10);
+    canvas.lineTo(590, 90);
+    canvas.lineTo(510, 90);
+    canvas.closePath();
+    canvas.fill();
+}
+```
+
+### 绘制圆形
+
+- 绘制圆形: `弧度 = 角度 * Math.PI / 180`
+    - `canvas.arc(圆心横坐标, 圆心纵坐标, 圆半径, 弧度起点, 弧度终点, 逆时针(true))`
+
+> 武技: 在九宫格第4格绘制一个圆形
+
+```javascript
+/* 绘制圆形
+ * 弧度 = 角度 * PI / 180，圆的最右侧为0度
+ * */
+function drawCircle(canvas) {
+    canvas.beginPath();
+    canvas.strokeStyle = 'green';
+    // 空心圆: 圆心横坐标，圆心纵坐标，圆半径，弧度，false表示顺时针绘画
+    canvas.arc(50, 150, 40, 0, 360 * Math.PI / 180, false);
+    canvas.closePath();
+    canvas.stroke();
+    // 实心圆: 圆心横坐标，圆心纵坐标，圆半径，弧度，true表示逆时针绘画
+    canvas.beginPath();
+    canvas.fillStyle = 'rgba(0, 200, 200, 0.3)';
+    canvas.arc(150, 150, 40, 0, 180 * Math.PI / 180, true);
+    canvas.closePath();
+    canvas.fill();
+}
+```
+
+### 绘制矩形
+
+- 绘制矩形边框: 绘制前可用 `strokeStyle` 调整画笔颜色:
+    - `canvas.strokeRect(左上角横坐标值, 左上角纵坐标值, 矩形宽度值, 矩形高度值)`
+- 绘制填充矩形: 绘制前可用 `fillStyle` 调整填充颜色:
+    - `canvas.fillRect(左上角横坐标值, 左上角纵坐标值, 矩形宽度值, 矩形高度值)`
+- 橡皮擦除矩形: 被擦除的部分会变为透明:
+    - `canvas.clearRect(左上角横坐标值, 左上角纵坐标值, 矩形宽度值, 矩形高度值)`
+
+> 武技: 在九宫格第5格绘制一个矩形
+
+```javascript
+/* 绘制矩形*/
+function drawRectangle(canvas) {
+
+    // 绘制空心矩形: 左上角横坐标，左上角纵坐标，宽度，高度
+    canvas.strokeStyle = 'black';
+    canvas.strokeRect(210, 110, 80, 80);
+    canvas.stroke();
+
+    // 绘制实心矩形: 左上角横坐标，左上角纵坐标，宽度，高度
+    canvas.fillStyle = 'pink';
+    canvas.fillRect(310, 110, 80, 80);
+
+    // 擦除矩形的上半部分
+    canvas.clearRect(310, 110, 80, 40);
+}
+```
+
+### 绘制文字
+
+- 设置文字样式:
+    - `canvas.font = '40px 楷体'`: 字号和字体，默认 `10px sans-serif` 值。
+    - `canvas.textAlign = 'start'`: 文本对齐方式，可选 `start/end/left/right/center` 等。
+- 绘制文字:
+    - `canvas.strokeText(文字内容字符串, 左上角横坐标, 左上角纵坐标)`: 文字描边。
+    - `canvas.fillText(文字内容字符串, 左上角横坐标, 左上角纵坐标)`: 文字填充。
+
+> 武技: 在九宫格第6格绘制一个文字
+
+```javascript
+/* 绘制文字*/
+function drawText(canvas) {
+
+    // 绘制空心文字: 文字内容，左上角横坐标，左上角纵坐标
+    canvas.strokeStyle = 'orange';
+    canvas.font = '40px 楷体';
+    canvas.strokeText('空心', 410, 165);
+
+    // 绘制实心文字: 文字内容，左上角横坐标，左上角纵坐标
+    canvas.fillStyle = 'blue';
+    canvas.font = '40px 楷体';
+    canvas.fillText('实心', 510, 165);
+}
+```
+
+### 插入图片
+
+- 图片元素在JS中使用 `new Image()` 进行实例化，也可以直接捕获DOM树中的 `<img>` 某个标签。
+- 创建图片实例:
+    - `let image = new Image()`: 在JS中实例化一个图片对象，可通过src属性设置图片地址。
+- 绘制图片:
+    - `image.onload = () => {}`: 图片必须在加载完后才能进行绘制。
+    - `canvas.drawImage(图片对象, 左上角横坐标, 左上角纵坐标, 宽度, 高度)`
+
+> 武技: 在九宫格第7格插入图片
+
+```javascript
+/* 插入图片*/
+function drawImage(canvas) {
+    let image = new Image();
+    image.src = '../../image/logo.jpg';
+    // 图片必须在加载完后才能将其显示在canvas中
+    image.onload = () => canvas.drawImage(image, 10, 210, 180, 80);
+}
+```
+
+## validity表单验证
+
+- 为表单元素添加 `required` 和 `pattern` 属性后，可以通过 `validity` 属性获取 `ValidityState` 对象，以获取当前验证属性的验证状态:
+    - `let ipt01_validState = document.getElementById("ipt01").validity;`
+- 验证状态 `ValidityState` 对象包括以下属性:
+    - `valueMissing`: 当表单设置了 `required`，但值为空时返回true。
+    - `typeMismatch`: 当用户输入的内容与表单类型不匹配时返回true。
+    - `patternMismatch`: 当用户输入的内容与表单的 `pattern` 规则比匹配时返回true。
+    - `tooLong`: 当用户输入的内容长度超过了 `maxLength` 的值时，返回true。
+    - `rangeUnderflow`: 当用户输入的内容长度小于 `min` 属性值时返回true。
+    - `rangeOverflow`: 当用户输入的内容长度大于 `max` 属性值时返回true。
+    - `stepMismatch`: 当用于输入的内容不符合 `step` 设置的步长时返回true。
+
+```javascript
+let password_vs = document.getElementById("password").validity;
+if (password_vs.validity.valueMissing === true) {
+    // 自定义错误提示
+    password.setCustomValidity("密码不能为空");
+}
+```
+
+# JavaScript
+
+## JSONP
+
+- JSONP是一种数据调用的方式，允许跨域访问本地的JSON数据（允许但不建议使用其他类型的数据），可以解决AJAX无法跨域调用的问题。
+
+> 武技: 测试JSONP跨域调用
+
+- 开发 `data.json` 文件: 开发 `函数名(数据列表)` 格式的数据:
+    - `getUser({"name": "tom"}, {"name": "jerry"})`: 函数名随意。
+- 开发回调函数: 在 `index.html` 页面中开发一个带参JS函数用于接收响应回来的JSON数据:
+    - `<script> function getUser(respA, respB) {} </script>`: 该函数名要和JSON中的函数名一致。
+- 引入JSON文件: 在 `index.html` 页面中引入 `data.json` 文件:
+    - `<script src="data.json?callback=getUser"/>`: 使用查询串的方式，将JS函数名发送到JSON文件中，查询串的key值随意。
+    - 引入 `data.json` 文件的代码必须写在开发回调函数的代码之后，这个顺序不能乱。
+
+**源码: ** index.html
+
+```html
+
+<!--先开发回调函数-->
+<script>
+    function getUser(jsonDataA, jsonDataB) {
+        console.log(jsonDataA);
+        console.log(jsonDataB);
+    }
+</script>
+
+<!--后引入JSON文件-->
+<script src="data.json?callback=getUser"/>
+```

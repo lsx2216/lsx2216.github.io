@@ -1,0 +1,866 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-1-MyBatis</title>
+<meta name=description content="Java道经第3卷 - 第1阶 - v3-1-ssm-mybatis - MyBatis
+CH01. MyBatis基础入门 心法: MyBatis
+MyBatis是一个底层半封装了JDBC的持久层的开源ORM框架。 MyBatis前身是Apache的iBatis项目，2010年迁移到了GoogleCode并改名 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/JB3-1-MyBatis/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-1-MyBatis"><meta property="og:description" content="Java道经第3卷 - 第1阶 - v3-1-ssm-mybatis - MyBatis
+CH01. MyBatis基础入门 心法: MyBatis
+MyBatis是一个底层半封装了JDBC的持久层的开源ORM框架。 MyBatis前身是Apache的iBatis项目，2010年迁移到了GoogleCode并改名 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-1-MyBatis"><meta name=twitter:description content="Java道经第3卷 - 第1阶 - v3-1-ssm-mybatis - MyBatis
+CH01. MyBatis基础入门 心法: MyBatis
+MyBatis是一个底层半封装了JDBC的持久层的开源ORM框架。 MyBatis前身是Apache的iBatis项目，2010年迁移到了GoogleCode并改名 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/JB3-1-MyBatis/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/JB3-1-MyBatis/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/JB3-1-MyBatis/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-1-MyBatis</h1></div><div class=post-content><blockquote><p>Java道经第3卷 - 第1阶 - v3-1-ssm-mybatis - MyBatis</p></blockquote><hr><h1 id=ch01-mybatis基础入门>CH01. MyBatis基础入门</h1><blockquote><p>心法: <a href=https://mybatis.org/mybatis-3/>MyBatis</a></p></blockquote><ul><li>MyBatis是一个底层半封装了JDBC的持久层的开源ORM框架。</li><li>MyBatis前身是Apache的iBatis项目，2010年迁移到了GoogleCode并改名为MyBatis，2013年11月迁移到Github。</li><li>MyBatis封装了驱动，连接，Statement等业务代码，但不封装SQL语句。</li><li>MyBatis支持注解或XML方式单独开发SQL语句。</li></ul><blockquote><p>武技: 准备MyBatis测试数据</p></blockquote><ol><li>在数据库中创建测试数据库，表以及数据:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>-- db
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>database</span> mybatis character <span style=color:#66d9ef>set</span> utf8mb4; 
+</span></span><span style=display:flex><span>use mybatis;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- table
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>exists</span> mybatis.student;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>exists</span> mybatis.student
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>  student_id  int          auto_increment         <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;学生表主键&#39;</span>,
+</span></span><span style=display:flex><span>  real_name   varchar(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#e6db74>&#39;&#39;</span>    <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;学生真实姓名&#39;</span>,
+</span></span><span style=display:flex><span>  gender      tinyint      <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#ae81ff>0</span>     <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;学生性别，0女，1男，2保密&#39;</span>,
+</span></span><span style=display:flex><span>  phone       char(<span style=color:#ae81ff>11</span>)     <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#e6db74>&#39;&#39;</span>    <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;学生手机号&#39;</span>,
+</span></span><span style=display:flex><span>  fk_clazz_id int                                 <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;班级表外键&#39;</span>,
+</span></span><span style=display:flex><span>  create_time bigint       <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#ae81ff>0</span>     <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;首次创建时间，时间戳&#39;</span>,
+</span></span><span style=display:flex><span>  modify_time bigint       <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#ae81ff>0</span>     <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;最后修改时间，时间戳&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span> (student_id),
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>unique</span> (phone),
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>unique</span> (real_name)
+</span></span><span style=display:flex><span>) <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;学生表&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>exists</span> mybatis.clazz;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>if</span> <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>exists</span> mybatis.clazz
+</span></span><span style=display:flex><span>(
+</span></span><span style=display:flex><span>  clazz_id    int          auto_increment         <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;班级表主键&#39;</span>,
+</span></span><span style=display:flex><span>  clazz_name  varchar(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#e6db74>&#39;&#39;</span>    <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;班级名称&#39;</span>,
+</span></span><span style=display:flex><span>  create_time bigint       <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#ae81ff>0</span>     <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;首次创建时间，时间戳&#39;</span>,
+</span></span><span style=display:flex><span>  modify_time bigint       <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>default</span> <span style=color:#ae81ff>0</span>     <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;最后修改时间，时间戳&#39;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span> (clazz_id),
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>unique</span> (clazz_name)
+</span></span><span style=display:flex><span>) <span style=color:#66d9ef>comment</span> <span style=color:#e6db74>&#39;班级表&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>-- data
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> mybatis.clazz
+</span></span><span style=display:flex><span><span style=color:#66d9ef>values</span> (<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;J2303&#39;</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>), (<span style=color:#ae81ff>2</span>, <span style=color:#e6db74>&#39;J2304&#39;</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> mybatis.student
+</span></span><span style=display:flex><span><span style=color:#66d9ef>values</span> (<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;赵四&#39;</span>, <span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;17700000001&#39;</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>), (<span style=color:#ae81ff>2</span>, <span style=color:#e6db74>&#39;刘能&#39;</span>, <span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;17700000002&#39;</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>);
+</span></span></code></pre></div><h2 id=ep01-mybatis基础配通>EP01. MyBatis基础配通</h2><blockquote><p>心法: MyBatis核心流程</p></blockquote><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/image/ee14142641b7eeed20764ccc39511550.png alt=截图></p><blockquote><p>武技: 在 <code>v3-1-ssm-mybatis</code> 子项目中整合MyBatis框架</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;junit-version&gt;</span>4.13.2<span style=color:#f92672>&lt;/junit-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;hutool-version&gt;</span>5.8.14<span style=color:#f92672>&lt;/hutool-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;mysql-connector-j-version&gt;</span>8.0.33<span style=color:#f92672>&lt;/mysql-connector-j-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;mybatis-version&gt;</span>3.5.0<span style=color:#f92672>&lt;/mybatis-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;druid-version&gt;</span>1.1.6<span style=color:#f92672>&lt;/druid-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${junit-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${hutool-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--mysql-connector-j--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.mysql<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mysql-connector-j<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${mysql-connector-j-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>runtime<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--mybatis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.mybatis<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mybatis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${mybatis-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中引入依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--mysql-connector-j--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.mysql<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mysql-connector-j<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--mybatis--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.mybatis<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>mybatis<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发数据源属性文件 <code>classpath:db.properties</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>jdbc.driver</span><span style=color:#f92672>=</span><span style=color:#e6db74>com.mysql.cj.jdbc.Driver</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.url</span><span style=color:#f92672>=</span><span style=color:#e6db74>jdbc:mysql://192.168.40.77:3306/mybatis?serverTimezone=Asia/Shanghai\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;useUnicode=true&amp;characterEncoding=utf8\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  &amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.username</span><span style=color:#f92672>=</span><span style=color:#e6db74>lsx</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>jdbc.password</span><span style=color:#f92672>=</span><span style=color:#e6db74>lsx</span>
+</span></span></code></pre></div><ol start=5><li>开发主配文件 <code>classpath:mybatis.xml</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE configuration PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--从classpath下引入属性文件，不支持 `classpath:` 前缀，后期由Spring代劳--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;properties</span> <span style=color:#a6e22e>resource=</span><span style=color:#e6db74>&#34;db.properties&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--全局配置--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;settings&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--执行器类型--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;defaultExecutorType&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;SIMPLE&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/settings&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--环境列表标签: 支持配置多环境--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;environments</span> <span style=color:#a6e22e>default=</span><span style=color:#e6db74>&#34;test&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--环境标签: 使用JDBC事务（支持提交回滚）/ 使用POOLED连接池--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;environment</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;test&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--配置该环境使用JDBC事务管理类，此事务支持提交和回滚--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;transactionManager</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;JDBC&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--配置该环境使用POOLED连接池，需注入数据源四项--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;dataSource</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;POOLED&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;driver&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;${jdbc.driver}&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;url&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;${jdbc.url}&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;username&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;${jdbc.username}&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;password&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;${jdbc.password}&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;/dataSource&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/environment&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/environments&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/configuration&gt;</span>
+</span></span></code></pre></div><ol start=6><li>开发测试方法 <code>MyBatisTest -> connection()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> mybatis;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyBatisTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试MyBatis连接是否成功 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>connection</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 主配文件的位置: 在创建会话工厂的时侯，需要读取主配</span>
+</span></span><span style=display:flex><span>        String filePath <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mybatis.xml&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将主配文件转成输入字节流，创建会话工厂的时侯用</span>
+</span></span><span style=display:flex><span>        InputStream resource <span style=color:#f92672>=</span> Resources.<span style=color:#a6e22e>getResourceAsStream</span>(filePath);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过SqlSessionFactoryBuilder创建SqlSessionFactory，创建时必须读取主配文件</span>
+</span></span><span style=display:flex><span>        SqlSessionFactory sessionFactory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> SqlSessionFactoryBuilder()
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>build</span>(resource);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过SqlSessionFactory开启一个具有事务保护的session会话，用于和数据库打交道</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 若使用 `sessionFactory.openSession(true)` 则表示开启一个没有事务保护的session会话</span>
+</span></span><span style=display:flex><span>        SqlSession sqlSession <span style=color:#f92672>=</span> sessionFactory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从SqlSession会话中获取一个连接</span>
+</span></span><span style=display:flex><span>        Connection connection <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 判断连接是否成功</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭会话，清空一级缓存，可使用 `try-with-resource` 结构</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-mybatis工具封装>EP02. MyBatis工具封装</h2><blockquote><p>心法: MyBatis工具封装</p></blockquote><ul><li>封装MyBatis工具时需要考虑的三个核心对象:</li></ul><table><thead><tr><th>核心对象</th><th>描述</th></tr></thead><tbody><tr><td><code>SqlSessionFactoryBuilder</code></td><td>用于创建session工厂，用完即删，建议设置为局部变量</td></tr><tr><td><code>SqlSessionFactory</code></td><td>可以重复使用，但不该被重复创建，建议以单例模式来管理</td></tr><tr><td><code>SqlSession</code></td><td>每个线程都该独享一个session会话，不建议被封装</td></tr></tbody></table><blockquote><p>武技: 封装MyBatisUtil工具类</p></blockquote><ol><li>封装MyBatisUtil工具类 <code>MyBatisUtil</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyBatisUtil</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**开发工厂属性: 饱汉单例不赋初值*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>volatile</span> SqlSessionFactory factory;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 获取单例的session工厂实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param resource 主配文件的classpath位置，字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 单例的session工厂实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> SqlSessionFactory <span style=color:#a6e22e>getFactory</span>(String resource) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 双重检查锁: DCL第1个if检查用于避免后续线程的加锁接锁开销</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (factory <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 双重检查锁: DCL锁用于避免线程争抢，毁坏单例效果</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>synchronized</span> (MyBatisUtil.<span style=color:#a6e22e>class</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 双重检查锁: DCL第2个if检查用于使用饱汉单例模式构建工厂实例</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (factory <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 返回主配的字节流对象，创建Session工厂需要</span>
+</span></span><span style=display:flex><span>                    InputStream inputStream <span style=color:#f92672>=</span> Resources.<span style=color:#a6e22e>getResourceAsStream</span>(resource);
+</span></span><span style=display:flex><span>                    <span style=color:#75715e>// 创建Session工厂</span>
+</span></span><span style=display:flex><span>                    factory <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> SqlSessionFactoryBuilder().<span style=color:#a6e22e>build</span>(inputStream);
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回Session工厂</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> factory;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试方法 <code>MyBatisTest -> myBatisUtil()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> mybatis;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyBatisTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试MyBatisUtil工具 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>myBatisUtil</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 主配文件的位置: 在创建会话工厂的时侯，需要读取主配</span>
+</span></span><span style=display:flex><span>        String filePath <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mybatis.xml&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用MyBatisUtil工具获取一个单例的sessionFactory</span>
+</span></span><span style=display:flex><span>        SqlSessionFactory sessionFactory <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过SqlSessionFactory开启一个具有事务保护的session会话，用于和数据库打交道</span>
+</span></span><span style=display:flex><span>        SqlSession sqlSession <span style=color:#f92672>=</span> sessionFactory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从SqlSession会话中获取一个连接</span>
+</span></span><span style=display:flex><span>        Connection connection <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getConnection</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 判断连接是否成功</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(connection.<span style=color:#a6e22e>isClosed</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;连接失败&#34;</span> : <span style=color:#e6db74>&#34;连接成功&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭会话，清空一级缓存，可使用 `try-with-resource` 结构</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-mybatis实体设计>EP03. MyBatis实体设计</h2><blockquote><p>心法: 实体类设计原则</p></blockquote><ul><li>实体类中的属性必须要有 <code>Setter/Getter</code> 方法，可以直接标记 <code>@Data</code> 注解。</li><li>实体类中的属性不要使用基本数据类型。</li><li>实体类需要实现序列化标记接口 <code>implements Serializable</code>。</li><li>实体类建议重写 <code>toString()/equals()/hashCode()</code> 等方法。</li></ul><blockquote><p>心法: ORM实体类 <code>Object Relation Mapping</code></p></blockquote><ul><li>ORM意为对象关系映射，旨在通过操作Java对象的方式来操作数据库，映射关系如下:</li></ul><table><thead><tr><th>Object是Java对象</th><th>Relation关系型数据库对象</th><th>示例</th></tr></thead><tbody><tr><td>类名 <code>className</code></td><td>数据库表名 <code>table_name</code></td><td>如 <code>User</code> 类对应 <code>user</code> 表</td></tr><tr><td>成员属性名 <code>fieldName</code></td><td>数据库表字段名 <code>column_name</code></td><td>如 <code>realName</code> 属性对应 <code>real_name</code> 字段</td></tr><tr><td>成员属性类型 <code>javaType</code></td><td>数据库表字段类型 <code>jdbc_type</code></td><td>如 <code>java.lang.Integer</code> 类型对应 <code>int</code> 类型如 <code>java.lang.Long</code> 对应 <code>unsign int</code> 类型如 <code>java.lang.String</code> 对应 <code>varchar/char</code> 类型如 <code>java.util.Date</code> 对应 <code>datetime</code> 类型</td></tr><tr><td>类实例 <code>instance</code></td><td>一行数据库表记录 <code>record</code></td><td>如 <code>new User()</code> 一个实例对应 <code>row</code> 一行记录</td></tr></tbody></table><blockquote><p>心法: ORM实体类分层设计方案</p></blockquote><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/image/a3e27c55a5bd037d652ab1e57aba9c55.png alt=截图></p><blockquote><p>武技: 开发对应MyBatis库中全部表的ORM实体类</p></blockquote><ol><li>开发ORM实体类 <code>Student</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.entity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Student</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer studentId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String realName;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer gender;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String phone;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer fkClazzId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long createTime;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long modifyTime;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发ORM实体类 <code>Clazz</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.entity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Clazz</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer clazzId;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String clazzName;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long createTime;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Long modifyTime;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-mybatis别名配置>EP04. MyBatis别名配置</h2><blockquote><p>心法: MyBatis内置别名</p></blockquote><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-1-MyBatis/image/c7f12465bc0716d2fc2b1a155c5421e7.png alt=MyBatis内置别名></p><blockquote><p>武技: 在MyBatis主配 <code>mybatis.xml</code> 中设置全部实体类的别名</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--整包起别名: 别名不区分大小写--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;typeAliases&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;package</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;com.lsx.entity&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/typeAliases&gt;</span>
+</span></span></code></pre></div><h2 id=ep05-mybatis接口开发>EP05. MyBatis接口开发</h2><blockquote><p>心法: MyBatis中的Mapper接口</p></blockquote><ul><li>MyBatis框架中，用于和数据库进行数据交互的数据层分为两部分:<ul><li>Mapper接口: Java文件，用于开发业务层调用的接口方法。</li><li>Mapper配置: XML文件，用于开发和配置SQL语句。</li></ul></li><li>IDEA中对SQL语句默认呈现黄绿色背景，可以按以下方式取消:<ul><li>进入 <code>File -> Settings -> Editor -> Color Scheme -> General</code> 界面。</li><li>选择 <code>Code -> Injected language fragment</code>: 取勾右侧的 <code>Background</code> 选项。</li></ul></li></ul><blockquote><p>武技: 开发ClazzMapper数据层代码</p></blockquote><ol><li>开发Mapper接口 <code>ClazzMapper</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发Mapper配置 <code>com/lsx/mapper/ClazzMapper.xml</code>:<ul><li>目录必须一层一层创建，以保证Mapper配置文件和Mapper接口文件编译后可以同名同包。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE mapper
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--对应接口的类全名--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;mapper</span> <span style=color:#a6e22e>namespace=</span><span style=color:#e6db74>&#34;com.lsx.mapper.ClazzMapper&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/mapper&gt;</span>
+</span></span></code></pre></div><ol start=3><li>开发主配文件 <code>classpath:mybatis.xml</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--全局配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;settings&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--下划线转小驼峰--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;mapUnderscoreToCamelCase&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--控制台打印SQL语句--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;logImpl&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;STDOUT_LOGGING&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/settings&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--接口扫描--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;mappers&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--在Mapper接口和配置文件同名同包时，整包扫描Mapper接口--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;package</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;com.lsx.mapper&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/mappers&gt;</span>
+</span></span></code></pre></div><h1 id=ch02-mybatis单表操作>CH02. MyBatis单表操作</h1><blockquote><p>心法: MyBatis单表DML操作</p></blockquote><ul><li>MyBatis中的DML语句块分别使用 <code>&lt;insert>/&lt;update>/&lt;delete></code> 标签:</li></ul><table><thead><tr><th>属性</th><th>描述</th><th>是否可以省略</th></tr></thead><tbody><tr><td><code>id</code></td><td>指定对应接口的方法名</td><td>不可省略</td></tr><tr><td><code>parameterType</code></td><td>指定对应接口的参数类型/别名</td><td>可以省略</td></tr><tr><td><code>resultType</code></td><td>指定对应接口的返回值类型/别名</td><td>DML操作必须省略，默认返回int型值表示影响条目数</td></tr></tbody></table><h2 id=ep01-mybatis单表添加>EP01. MyBatis单表添加</h2><blockquote><p>心法: MyBatis中的占位符和拼接符</p></blockquote><table><thead><tr><th>符号</th><th>中文</th><th>描述</th><th>是否补充单引号</th><th>是否存在注入漏洞</th></tr></thead><tbody><tr><td><code>#{ xx }</code></td><td>占位符</td><td>获取实体入参中的xx值，支持连调</td><td>自动补单引号</td><td>无漏洞</td></tr><tr><td><code>${ xx }</code></td><td>拼接符</td><td>获取实体入参中的xx值，支持连调</td><td>不会补单引号</td><td>有漏洞</td></tr></tbody></table><blockquote><p>武技: 开发Clazz表的单表添加业务</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> insert()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 添加一条班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param clazz 班级实体
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>insert</span>(Clazz clazz);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;insert id="insert"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--添加一条班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;insert</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;insert&#34;</span> <span style=color:#a6e22e>useGeneratedKeys=</span><span style=color:#e6db74>&#34;true&#34;</span> <span style=color:#a6e22e>keyProperty=</span><span style=color:#e6db74>&#34;clazzId&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    insert into mybatis.clazz (clazz_name, create_time, modify_time)
+</span></span><span style=display:flex><span>    values ( #{clazzName}, #{createTime}, #{modifyTime} )
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/insert&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>ClazzMapperTest -> insert()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ClazzMapperTest</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>        SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>        ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 准备参数</span>
+</span></span><span style=display:flex><span>        Clazz clazz <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>        clazz.<span style=color:#a6e22e>setClazzName</span>(<span style=color:#e6db74>&#34;J12141&#34;</span>);
+</span></span><span style=display:flex><span>        clazz.<span style=color:#a6e22e>setCreateTime</span>(<span style=color:#66d9ef>new</span> Date().<span style=color:#a6e22e>getTime</span>());
+</span></span><span style=display:flex><span>        clazz.<span style=color:#a6e22e>setModifyTime</span>(<span style=color:#66d9ef>new</span> Date().<span style=color:#a6e22e>getTime</span>());
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(clazzMapper.<span style=color:#a6e22e>insert</span>(clazz));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// DML操作需要手动提交事务</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试主键是否自动回注</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(clazz);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-mybatis单表修改>EP02. MyBatis单表修改</h2><blockquote><p>心法: 单表修改方法</p></blockquote><ul><li>SQL中建议使用 <code>&lt;set> + &lt;if></code> 组合或 <code>&lt;trim> + &lt;if></code> 组合来动态生成修改字段。</li><li>当接口存在多个参数时，建议在XML中使用 <code>#{param1.id}</code> 的格式来获取第一个参数中的 <code>id</code> 属性：<ul><li>也可以使用 <code>@Param</code> 对接口参数起别名，但此方式在SQL块之间相互调用时会失效，不推荐。</li></ul></li></ul><table><thead><tr><th>动态标签</th><th>描述</th></tr></thead><tbody><tr><td><code>&lt;where>SQL&lt;/where></code></td><td>仅当查询条件不为空时生成 <code>WHERE</code> 前缀关键字该标签会自动删除第一个 <code>AND</code> 或 <code>OR</code> 关键字</td></tr><tr><td><code>&lt;set>SQL&lt;/set></code></td><td>生成 <code>SET</code> 前缀关键字并删除最后一个逗号</td></tr><tr><td><code>&lt;if test='OGNL'>SQL&lt;/if></code></td><td>仅在条件满足OGNL表达式时拼接指定SQL内容</td></tr><tr><td><code>&lt;choose></code> <code>&lt;when test='OGNL'>SQL&lt;/when></code> <code>&lt;otherwise>SQL&lt;/otherwise></code><code>&lt;/choose></code></td><td>仅在条件满足OGNL表达式时拼接指定SQL内容否则拼接 <code>&lt;otherwise></code> 中的内容</td></tr><tr><td><code>&lt;trim prefix="前缀" suffixOverrides="符号">SQL&lt;/trim></code></td><td>生成指定前缀关键字并删除最后一个指定符号</td></tr></tbody></table><blockquote><p>武技: 开发Clazz表的单表修改业务</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> update()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 按条件修改班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e> *
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param clazz     班级实体，存放修改字段
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param condition 班级实体，存放修改条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>update</span>(Clazz clazz, Clazz condition);
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;update id="update"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件修改班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;update</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;update&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    update mybatis.clazz
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;set&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param1.clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>clazz_id = #{param1.clazzId}, <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param1.clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>clazz_name = #{param1.clazzName}, <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param1.createTime != null&#34;</span><span style=color:#f92672>&gt;</span>create_time = #{param1.createTime}, <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param1.modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>modify_time = #{param1.modifyTime}, <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/set&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param2.clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_id = #{param2.clazzId}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param2.clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_name = #{param2.clazzName}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param2.createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and create_time = #{param2.createTime}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;param2.modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and modify_time = #{param2.modifyTime}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/update&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>ClazzMapperTest -> update()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 准备参数: 修改字段</span>
+</span></span><span style=display:flex><span>    Clazz clazz <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    clazz.<span style=color:#a6e22e>setClazzName</span>(<span style=color:#e6db74>&#34;05245&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 准备参数: 修改条件</span>
+</span></span><span style=display:flex><span>    Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setClazzId</span>(1);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行修改操作</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(clazzMapper.<span style=color:#a6e22e>update</span>(clazz, condition));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// DML操作需要手动提交事务</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-mybatis单表删除>EP03. MyBatis单表删除</h2><blockquote><p>武技: 开发Clazz表的单表删除方法</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> delete()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 按条件删除班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @param condition 班级实体，存放删除条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>delete</span>(Clazz condition);
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;delete id="delete"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件删除班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;delete</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;delete&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    delete from mybatis.clazz 
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzId != null&#34;</span><span style=color:#f92672>&gt;</span> and clazz_id = #{clazzId}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzName != null&#34;</span><span style=color:#f92672>&gt;</span> and clazz_name = #{clazzName}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span> and create_time = #{createTime}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span> and modify_time = #{modifyTime}<span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/delete&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>ClazzMapperTest -> delete()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 准备参数</span>
+</span></span><span style=display:flex><span>    Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setClazzId</span>(4);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(clazzMapper.<span style=color:#a6e22e>delete</span>(condition));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// DML操作需要手动提交事务</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-mybatis批量删除>EP04. MyBatis批量删除</h2><blockquote><p>心法: 批量删除方法</p></blockquote><ul><li>SQL中建议使用 <code>&lt;foreach></code> 遍历Array或List类型的入参并拼接到SQL中:</li></ul><table><thead><tr><th>常用属性</th><th>描述</th></tr></thead><tbody><tr><td><code>collection</code></td><td>被遍历的元素，可以是数组，列表，数组或列表类型的实体类属性，数组或列表类型的Map的key值等若被遍历的元素是一个数组，则固定为 <code>array</code> 关键字，多个参数时替换为 <code>arg0</code> 写法，也可以使用别名若被遍历的元素是一个列表，则固定为 <code>list</code> 关键字，多个参数时替换为 <code>arg0</code> 写法，也可以使用别名</td></tr><tr><td><code>item</code></td><td>设置循环中间变量，如 <code>e</code>，之后在循环内部可以配合使用 <code>${e}</code> 将其取出</td></tr><tr><td><code>open/close</code></td><td>设置循环开始/结束时拼接的字符串SQL代码</td></tr><tr><td><code>separator</code></td><td>设置拼接符，自动忽略SQL语句中多余的拼接符，如最后一个逗号</td></tr></tbody></table><blockquote><p>武技: 使用Array的方式，批量删除Clazz表的数据</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> deleteByClazzIds()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按班级主键数组批量删除班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param clazzIds 班级主键数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByClazzIds</span>(Integer<span style=color:#f92672>[]</span> clazzIds);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;delete id="deleteByClazzIds"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按班级主键数组批量删除班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;delete</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;deleteByClazzIds&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    delete from mybatis.clazz where clazz_id in
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;foreach</span> <span style=color:#a6e22e>collection=</span><span style=color:#e6db74>&#34;array&#34;</span> <span style=color:#a6e22e>item=</span><span style=color:#e6db74>&#34;clazzId&#34;</span> <span style=color:#a6e22e>open=</span><span style=color:#e6db74>&#34;(&#34;</span> <span style=color:#a6e22e>close=</span><span style=color:#e6db74>&#34;)&#34;</span> <span style=color:#a6e22e>separator=</span><span style=color:#e6db74>&#34;,&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        ${clazzId}
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/foreach&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/delete&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>ClazzMapperTest -> deleteByClazzIds()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>deleteByClazzIds</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(clazzMapper.<span style=color:#a6e22e>deleteByClazzIds</span>(<span style=color:#66d9ef>new</span> Integer<span style=color:#f92672>[]</span>{97, 98, 99}));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// DML操作需要手动提交事务</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 使用List的方式，批量删除Student表的数据</p></blockquote><ol><li>开发接口方法 <code>StudentMapper -> deleteByStudentIds()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>StudentMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按学生主键列表批量删除学生记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param studentIds 学生主键列表
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 影响条目数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>deleteByStudentIds</span>(List<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> studentIds);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>StudentMapper -> &lt;delete id="deleteByStudentIds"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按学生主键列表批量删除学生记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;delete</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;deleteByStudentIds&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    delete from mybatis.student where student_id in
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;foreach</span> <span style=color:#a6e22e>collection=</span><span style=color:#e6db74>&#34;list&#34;</span> <span style=color:#a6e22e>item=</span><span style=color:#e6db74>&#34;studentId&#34;</span> <span style=color:#a6e22e>open=</span><span style=color:#e6db74>&#34;(&#34;</span> <span style=color:#a6e22e>close=</span><span style=color:#e6db74>&#34;)&#34;</span> <span style=color:#a6e22e>separator=</span><span style=color:#e6db74>&#34;,&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        ${studentId}
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/foreach&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/delete&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>StudentMapperTest -> deleteByStudentIds()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StudentMapperTest</span> {
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>deleteByStudentIds</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>        SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>        StudentMapper studentMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(StudentMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(studentMapper.<span style=color:#a6e22e>deleteByStudentIds</span>(Arrays.<span style=color:#a6e22e>asList</span>(97, 98, 99)));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// DML操作需要手动提交事务</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch03-mybatis单表查询>CH03. MyBatis单表查询</h1><blockquote><p>心法: select标签常用属性</p></blockquote><ul><li>MyBatis中的DQL语句块均使用 <code>&lt;select></code> 标签，除了通用的 <code>id/paramterType/resultType</code> 外，还有如下可选属性:</li></ul><table><thead><tr><th>属性</th><th>描述</th><th>默认值</th></tr></thead><tbody><tr><td><code>timeout</code></td><td>配置语句块超时时间</td><td>默认值由驱动器决定</td></tr><tr><td><code>fetchSize</code></td><td>配置结果集条目数达到多少时立刻返回一批结果</td><td>默认值由驱动器决定</td></tr><tr><td><code>statementType</code></td><td>配置SQL媒介类型，可选 <code>PREPARED/STATEMENT/CALLABLE</code> 等</td><td>默认PREPARED</td></tr></tbody></table><h2 id=ep01-mybatis单表查询>EP01. MyBatis单表查询</h2><blockquote><p>武技: 开发全部表的单表查询方法，以ClazzMapper为例</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> select()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按条件查询班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param clazz 班级实体
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 符合条件的多条班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Clazz<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>select</span>(Clazz clazz);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;select id="selectByClazzId"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件查询班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;select&#34;</span> <span style=color:#a6e22e>resultType=</span><span style=color:#e6db74>&#34;Clazz&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select c.clazz_id, c.clazz_name, c.create_time, c.modify_time from mybatis.clazz c
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_id = #{clazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_name = #{clazzName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=3><li>测试接口方法 <code>ClazzMapperTest -> select()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>select</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行查询操作</span>
+</span></span><span style=display:flex><span>    Clazz clazz <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    clazzMapper.<span style=color:#a6e22e>select</span>(clazz).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 查询也可以使用提交操作来优化</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-mybatis重用片段>EP02. MyBatis重用片段</h2><blockquote><p>心法: 重用SQL片段</p></blockquote><ul><li>在Mapper配置文件中，相同的SQL代码可以提取到一个 <code>&lt;sql id=""></code> 块中:<ul><li>SQL重用片段中可以使用表达式 <code>${别名}</code> 来引用调用方传递过来的值，可选。</li></ul></li><li>在 <code>&lt;select></code> 块中调用SQL重用片段:<ul><li><code>&lt;include refid="某个SQL标签的ID"></code>: 调用指定的SQL重用片段，<code>refid</code> 属性指向SQL重用片段的id值。</li><li><code>&lt;property name="别名" value="值"/></code> 子标签用于向SQL重用片段传值，可选。</li></ul></li></ul><blockquote><p>武技: 将ClazzMapper中的全查SQL提取到SQL片段中</p></blockquote><ol><li>升级接口配置 <code>ClazzMapper -> &lt;select id="select"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--重用SQL片段: 班级表全查片段--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;sql</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;list&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select c.clazz_id, c.clazz_name, c.create_time, c.modify_time from mybatis.clazz c
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/sql&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件查询班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;select&#34;</span> <span style=color:#a6e22e>resultType=</span><span style=color:#e6db74>&#34;Clazz&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;include</span> <span style=color:#a6e22e>refid=</span><span style=color:#e6db74>&#34;list&#34;</span><span style=color:#f92672>&gt;&lt;/include&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_id = #{clazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_name = #{clazzName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=2><li>测试接口方法 <code>ClazzMapperTest -> select()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>select</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行查询操作</span>
+</span></span><span style=display:flex><span>    Clazz clazz <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    clazzMapper.<span style=color:#a6e22e>select</span>(clazz).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 查询也可以使用提交操作来优化</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-mybatis一级缓存>EP03. MyBatis一级缓存</h2><blockquote><p>心法: MyBatis缓存结构</p></blockquote><ul><li>MyBatis缓存底层为HashMap数据结构:<ul><li>key: 由 <code>hashcode + statementId + sql</code> 组成的字符串。</li><li>value: 查询结果集对应的Java实例。</li></ul></li></ul><blockquote><p>心法: MyBatis一级缓存</p></blockquote><ul><li>所有DQL都默认使用一级缓存，所有DML都会先清空一级缓存</li></ul><table><thead><tr><th>一级缓存</th><th>描述</th></tr></thead><tbody><tr><td>存储位置</td><td>Session中，即来自于同一个Session的全部同类Mapper实例可以共享一级缓存</td></tr><tr><td>开启方式</td><td>默认开启且无法关闭</td></tr><tr><td>相关操作</td><td>1. 在查询块中配置 <code>flushCache = "false"</code> 可以禁止在操作前刷新缓存2. 调用 <code>session.close()</code> 时，会立刻清空一级缓存</td></tr></tbody></table><blockquote><p>武技: 测试MyBatis一级缓存</p></blockquote><ol><li>开发测试方法 <code>CacheTest -> levelOneCache()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>CacheTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 使用DEBUG测试 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>levelOneCache</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取 SessionFactory</span>
+</span></span><span style=display:flex><span>        SqlSessionFactory factory <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取2个不同的 Session</span>
+</span></span><span style=display:flex><span>        SqlSession sessionA <span style=color:#f92672>=</span> factory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>        SqlSession sessionB <span style=color:#f92672>=</span> factory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过 sessionA 获取2个 Mapper</span>
+</span></span><span style=display:flex><span>        ClazzMapper mapperA01 <span style=color:#f92672>=</span> sessionA.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        ClazzMapper mapperA02 <span style=color:#f92672>=</span> sessionA.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 通过 sessionB 获取1个 Mapper</span>
+</span></span><span style=display:flex><span>        ClazzMapper mapperB01 <span style=color:#f92672>=</span> sessionB.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 准备一个查询条件</span>
+</span></span><span style=display:flex><span>        Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>        condition.<span style=color:#a6e22e>setClazzId</span>(1);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 第一次查询，发送SQL，将结果集缓存到 sessionA 的一级缓存中</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(mapperA01.<span style=color:#a6e22e>select</span>(condition));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// mapperA02 和 mapperA01 来自于同一个 session</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 相同查询不发送SQL，而是从 sessionA 的一级缓存中获取数据</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(mapperA02.<span style=color:#a6e22e>select</span>(condition));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// mapperB01 和 mapperA01 来自不同session，无法使用 sessionA 的缓存，仍然发送SQL</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 然后将本次查询结果缓存到 sessionB 的一级缓存中</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(mapperB01.<span style=color:#a6e22e>select</span>(condition));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 释放资源: 立刻清空一级缓存</span>
+</span></span><span style=display:flex><span>        sessionA.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>        sessionB.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-mybatis二级缓存>EP04. MyBatis二级缓存</h2><blockquote><p>心法: MyBatis二级缓存</p></blockquote><table><thead><tr><th>二级缓存</th><th>描述</th></tr></thead><tbody><tr><td>存储位置</td><td>Mapper中，即同类Mapper实例之间共享二级缓存，无论它们是否来自于同一个Session</td></tr><tr><td>开启方式</td><td>默认关闭，需要在主配的全局配置中使用 <code>&lt;setting name="cacheEnabled" value="true"/></code> 开启</td></tr><tr><td>相关操作</td><td>1. 在查询块中配置 <code>useCache = "false"</code> 以使自己不被二级缓存，默认为 <code>true</code>2. 调用 <code>session.commit()</code> 时，会将一级缓存数据移动到二级缓存，然后清空一级缓存</td></tr></tbody></table><ul><li>必须在对应Mapper配置文件中使用 <code>&lt;cache></code> 来配置二级缓存的相关参数，否则二级缓存失效。</li></ul><table><thead><tr><th><code>&lt;cache></code> 常用属性</th><th>描述</th><th>可选值与默认值</th></tr></thead><tbody><tr><td><code>eviction</code></td><td>缓存逐出机制</td><td><code>LRU</code>: 表示逐出最长时间未被使用的缓存，默认<code>FIFO</code>: 表示逐出年龄最大的缓存</td></tr><tr><td><code>flushInterval</code></td><td>缓存刷新间隔的毫秒数</td><td>默认不设置，表示缓存仅调用语句时刷新</td></tr><tr><td><code>readOnly</code></td><td>读写模式</td><td><code>true</code>: 对调用者返回缓存本体，不能修改，提升效率，默认<code>false</code>: 表示对调用者返回一个缓存拷贝，可以修改，提升安全性</td></tr><tr><td><code>size</code></td><td>缓存大小</td><td>默认1024个，表示缓存最多存储1024个结果集或对象的引用</td></tr><tr><td><code>type</code></td><td>mybatis缓存机制</td><td>第三方/自定义缓存类全名，用于覆盖mybatis默认的缓存机制</td></tr></tbody></table><blockquote><p>武技: 测试MyBatis二级缓存</p></blockquote><ol><li>在MyBatis主配 <code>mybaits.xml -> &lt;settings></code> 中开启二级缓存:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--开启二级缓存--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;cacheEnabled&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在ClazzMapper配置中使用 <code>&lt;cache></code> 配置二级缓存:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--二级缓存配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;cache</span> <span style=color:#a6e22e>readOnly=</span><span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在其它Mapper配置中引入ClazzMapper的二级缓存配置:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--引入ClazzMapper的二级缓存配置--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;cache-ref</span> <span style=color:#a6e22e>namespace=</span><span style=color:#e6db74>&#34;com.lsx.mapper.ClazzMapper&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发测试方法 <code>CacheTest -> levelTwoCache()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** 使用DEBUG测试 */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>levelTwoCache</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取 SessionFactory</span>
+</span></span><span style=display:flex><span>    SqlSessionFactory factory <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 获取2个不同的 Session</span>
+</span></span><span style=display:flex><span>    SqlSession sessionA <span style=color:#f92672>=</span> factory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    SqlSession sessionB <span style=color:#f92672>=</span> factory.<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 通过 sessionA 获取1个 Mapper</span>
+</span></span><span style=display:flex><span>    ClazzMapper mapperA01 <span style=color:#f92672>=</span> sessionA.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 通过 sessionB 获取1个 Mapper</span>
+</span></span><span style=display:flex><span>    ClazzMapper mapperB01 <span style=color:#f92672>=</span> sessionB.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 准备一个查询条件</span>
+</span></span><span style=display:flex><span>    Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setClazzId</span>(1);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 第一次查询，发送SQL，将结果集缓存到 sessionA 的一级缓存中</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(mapperA01.<span style=color:#a6e22e>select</span>(condition));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 将 sessionA 中的缓存结果移动到 ClazzMapper 的二级缓存中，然后清空 sessionA 的一级缓存</span>
+</span></span><span style=display:flex><span>    sessionA.<span style=color:#a6e22e>commit</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// mapperB01 无法从 sessionA 或 sessionB 的一级缓存中获取数据</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 但 mapperB01 也是 ClazzMapper 类型，可以使用 ClazzMapper 的二级缓存，不发送SQL</span>
+</span></span><span style=display:flex><span>    System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(mapperB01.<span style=color:#a6e22e>select</span>(condition));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 释放资源</span>
+</span></span><span style=display:flex><span>    sessionA.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    sessionB.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch04-mybatis多表联查>CH04. MyBatis多表联查</h1><blockquote><p>心法: DQL多表联查方式</p></blockquote><table><thead><tr><th>是否必须</th><th>级联查询</th><th>分步查询</th></tr></thead><tbody><tr><td>在SQL语句中使用 <code>JOIN</code> 联查</td><td>是，SQL复杂度较高</td><td>否，SQL复杂度较低</td></tr><tr><td>一次查询过程中多次访问数据库</td><td>否，仅发一条SQL，IO次数较少</td><td>是，需发多条SQL，IO次数较多</td></tr><tr><td>映射 <code>同名字段</code> ，如 <code>userId -> user_id</code></td><td>是，开发复杂度较高</td><td>否，开发复杂度较低</td></tr><tr><td>映射 <code>异名字段</code> ，如 <code>userId -> uid</code></td><td>是</td><td>是</td></tr><tr><td>映射 <code>主键字段</code> ，如 <code>userId -> user_id</code></td><td>建议映射，可以提升查询效率</td><td>建议映射，可以提升查询效率</td></tr><tr><td>映射 <code>关联字段</code> ，如 <code>fkUserId -> fk_user_id</code></td><td>建议映射，否则外键字段为空</td><td>建议映射，否则外键字段为空</td></tr></tbody></table><h2 id=ep01-一对一级联查询>EP01. 一对一级联查询</h2><blockquote><p>心法: 一对一级联查询流程</p></blockquote><ol><li>在Mapper配置中开发一个独立的映射块:<ul><li><code>&lt;resultMap id="唯一标识", type="最终返回类型"></code></li></ul></li><li>在映射块中使用 <code>&lt;id></code> 映射ORM主键字段，仅用于提高联表查询效率:<ul><li><code>&lt;id property="属性名" column="列名" javaType="属性类型" jdbcType="列类型" /></code></li><li><code>javaType</code> 可以省略，支持别名，如 <code>int/string/date</code> 等。</li><li><code>jdbcType</code> 可以省略，本质是枚举属性，所以必须全大写，如 <code>INTEGER/VARCHAR/DATE</code> 等。</li></ul></li><li>在映射块中使用 <code>&lt;result></code> 映射全部非主键字段:<ul><li><code>&lt;result property="属性名" column="列名" javaType="属性类型" jdbcType="列类型" /></code></li></ul></li><li>在映射块中使用 <code>&lt;association></code> 映射一对一关联字段，4个属性同上:<ul><li><code>&lt;association property="属性名" column="列名" javaType="属性类型" jdbcType="列类型">&lt;/association></code></li><li>其内部需要将关联表的全部字段也映射一遍，即使同名。</li></ul></li><li>在 <code>&lt;select></code> 查询块中使用 <code>resultMap</code> 替换 <code>resultType</code> 并指向某个 <code>&lt;resultMap></code> 映射块的 <code>id</code> 值:<ul><li>SQL语句中使用 <code>LEFT JOIN</code> 进行联表查询。</li></ul></li></ol><blockquote><p>武技: 测试Student表对Clazz表的一对一级联查询</p></blockquote><ol><li>在实体类 <code>Student</code> 中埋一个 <code>Clazz</code> 属性:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Student</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 1对1关系: 一个学生只能拥有一个班级 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Clazz clazz;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口方法 <code>StudentMapper -> selectByJoin()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>StudentMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按条件查询学生记录，级联查询班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param condition 学生实体，存放查询条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 多条学生记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Student<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByJoin</span>(Student condition);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发接口配置 <code>StudentMapper -> &lt;select id="selectByJoin"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--级联映射块--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;resultMap</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByJoinMap&#34;</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;Student&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;studentId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;student_id&#34;</span> <span style=color:#a6e22e>javaType=</span><span style=color:#e6db74>&#34;int&#34;</span> <span style=color:#a6e22e>jdbcType=</span><span style=color:#e6db74>&#34;INTEGER&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;realName&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;real_name&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;gender&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;gender&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;phone&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;phone&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;fkClazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;fk_clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;createTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;s_create_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;modifyTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;s_modify_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;association</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazz&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazzName&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_name&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;createTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;c_create_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;modifyTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;c_modify_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/association&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/resultMap&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件查询学生记录，级联查询班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByJoin&#34;</span> <span style=color:#a6e22e>resultMap=</span><span style=color:#e6db74>&#34;selectByJoinMap&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select s.student_id, s.real_name, s.gender, s.phone, s.fk_clazz_id,
+</span></span><span style=display:flex><span>           s.create_time s_create_time, s.modify_time s_modify_time,
+</span></span><span style=display:flex><span>           c.clazz_id, c.clazz_name, c.create_time c_create_time, 
+</span></span><span style=display:flex><span>           c.modify_time c_modify_time
+</span></span><span style=display:flex><span>    from mybatis.student s 
+</span></span><span style=display:flex><span>    left join mybatis.clazz c on s.fk_clazz_id = c.clazz_id
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;studentId != null&#34;</span><span style=color:#f92672>&gt;</span> and s.student_id = #{studentId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;realName != null&#34;</span><span style=color:#f92672>&gt;</span> and s.real_name = #{realName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;gender != null&#34;</span><span style=color:#f92672>&gt;</span> and s.gender = #{gender} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;phone != null&#34;</span><span style=color:#f92672>&gt;</span> and s.phone = #{phone} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;fkClazzId != null&#34;</span><span style=color:#f92672>&gt;</span> and s.fk_clazz_id = #{fkClazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span> and s.create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span> and s.modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试接口方法 <code>StudentMapperTest -> selectByJoin()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectByJoin</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    StudentMapper studentMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(StudentMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行查询操作</span>
+</span></span><span style=display:flex><span>    Student condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Student();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setStudentId</span>(1);
+</span></span><span style=display:flex><span>    studentMapper.<span style=color:#a6e22e>selectByJoin</span>(condition).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-一对多级联查询>EP02. 一对多级联查询</h2><blockquote><p>心法: 一对多级联查询流程</p></blockquote><ul><li>在映射块中使用 <code>&lt;collection></code> 映射一对多关联字段:<ul><li>使用 <code>ofType</code> 属性替换 <code>javaType</code> 属性以指定属性类型的泛型。</li></ul></li><li>其余流程和一对一级联查询的流程一模一样。</li></ul><blockquote><p>武技: 测试Clazz对Student表的一对多级联查询</p></blockquote><ol><li>在实体类 <code>Clazz</code> 中埋一个 <code>List&lt;Student></code> 属性:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Clazz</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 一对多: 一个班级可以拥有很多个学生 */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Student<span style=color:#f92672>&gt;</span> students;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口方法 <code>ClazzMapper -> listDetailByJoin()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按条件查询班级记录，级联查询学生记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param condition 班级实体，存放查询条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 多条班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Clazz<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByJoin</span>(Clazz condition);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发接口配置 <code>ClazzMapper -> &lt;select id="selectByJoin"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--级联映射块--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;resultMap</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByJoinMap&#34;</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;Clazz&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazzName&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_name&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;createTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;c_create_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;modifyTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;c_modify_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;collection</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;students&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span> <span style=color:#a6e22e>ofType=</span><span style=color:#e6db74>&#34;Student&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;studentId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;student_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;realName&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;real_name&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;gender&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;gender&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;phone&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;phone&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;fkClazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;fk_clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;createTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;s_create_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;modifyTime&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;s_modify_time&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/collection&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/resultMap&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件查询班级记录，级联查询学生记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByJoin&#34;</span> <span style=color:#a6e22e>resultMap=</span><span style=color:#e6db74>&#34;selectByJoinMap&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select c.clazz_id, c.clazz_name, c.create_time c_create_time, c.modify_time c_modify_time,
+</span></span><span style=display:flex><span>           s.student_id, s.real_name, s.gender, s.phone, s.fk_clazz_id, s.create_time s_create_time, 
+</span></span><span style=display:flex><span>           s.modify_time s_modify_time
+</span></span><span style=display:flex><span>    from mybatis.clazz c 
+</span></span><span style=display:flex><span>    left join mybatis.student s on s.fk_clazz_id = c.clazz_id
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_id = #{clazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_name = #{clazzName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试接口方法 <code>ClazzMapper -> selectByJoin()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectByJoin</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作并打印操作结果</span>
+</span></span><span style=display:flex><span>    Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setClazzId</span>(1);
+</span></span><span style=display:flex><span>    clazzMapper.<span style=color:#a6e22e>selectByJoin</span>(condition).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-一对一分步查询>EP03. 一对一分步查询</h2><blockquote><p>心法: 一对一分步查询流程</p></blockquote><ul><li>在映射块中使用 <code>&lt;association select="工作空间.SQL块id"></code> 映射并传递一对一关联字段:<ul><li>分步查询时，只需要映射异名ORM字段和关联字段，不需要映射同名字段。</li><li>关联字段需要额外使用 <code>&lt;result></code> 配置一遍，否则为空。</li></ul></li><li>其余流程和一对一级联查询的流程一模一样。</li></ul><blockquote><p>武技: 测试Student表对Clazz表的一对一分步查询</p></blockquote><ol><li>开发接口方法 <code>StudentMapper -> selectByStep()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>StudentMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按条件查询学生记录，分步查询班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param condition 学生实体，存放查询条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 多条学生记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Student<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByStep</span>(Student condition);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>ClazzMapper -> &lt;select id="selectByClazzId"></code>:<ul><li>这个方法是分步查询的第二步SQL调用，不用对应接口方法，也无法使用 <code>@Param</code> 别名。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按班级主键查询班级记录（分步专用）--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByClazzId&#34;</span> <span style=color:#a6e22e>resultType=</span><span style=color:#e6db74>&#34;Clazz&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select c.clazz_id, c.clazz_name, c.create_time, c.modify_time 
+</span></span><span style=display:flex><span>    from mybatis.clazz c
+</span></span><span style=display:flex><span>    where clazz_id = #{param1}
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=3><li>开发接口配置 <code>StudentMapper -> &lt;select id="selectByStep"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--分步映射块--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;resultMap</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByStepMap&#34;</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;Student&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;studentId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;student_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;result</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;fkClazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;fk_clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;association</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazz&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;fk_clazz_id&#34;</span> 
+</span></span><span style=display:flex><span>                 <span style=color:#a6e22e>select=</span><span style=color:#e6db74>&#34;com.lsx.mapper.ClazzMapper.selectByClazzId&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/resultMap&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--按条件查询班学生记录，分步查询班级记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByStep&#34;</span> <span style=color:#a6e22e>resultMap=</span><span style=color:#e6db74>&#34;selectByStepMap&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select s.student_id, s.real_name, s.gender, s.phone, s.fk_clazz_id, s.create_time, s.modify_time
+</span></span><span style=display:flex><span>    from mybatis.student s
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;studentId != null&#34;</span><span style=color:#f92672>&gt;</span>and s.student_id = #{studentId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;realName != null&#34;</span><span style=color:#f92672>&gt;</span>and s.real_name = #{realName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;gender != null&#34;</span><span style=color:#f92672>&gt;</span>and s.gender = #{gender} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;phone != null&#34;</span><span style=color:#f92672>&gt;</span>and s.phone = #{phone} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;fkClazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and s.fk_clazz_id = #{fkClazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and s.create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and s.modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=4><li>测试接口方法 <code>StudentMapperTest -> selectByStep()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectByStep</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>    SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>    StudentMapper studentMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(StudentMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 调用Mapper接口方法，进行查询操作</span>
+</span></span><span style=display:flex><span>    Student condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Student();
+</span></span><span style=display:flex><span>    condition.<span style=color:#a6e22e>setStudentId</span>(1);
+</span></span><span style=display:flex><span>    studentMapper.<span style=color:#a6e22e>selectByStep</span>(condition).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>    sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-一对多分步查询>EP04. 一对多分步查询</h2><blockquote><p>心法: 一对多分步查询流程</p></blockquote><ul><li>在映射块中使用 <code>&lt;collection select="工作空间.SQL块id"></code> 映射并传递一对多关联字段:<ul><li>使用 <code>ofType</code> 属性替换 <code>javaType</code> 属性以指定属性类型的泛型。</li><li>分步查询时，只需要映射异名ORM字段和关联字段，不需要映射同名字段。</li></ul></li><li>其余流程和一对多级联查询的流程一模一样。</li></ul><blockquote><p>武技: 测试Student表对Clazz表的一对多分步查询</p></blockquote><ol><li>开发接口方法 <code>ClazzMapper -> selectByStep()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ClazzMapper</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 按条件查询班级记录，分步查询学生记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param condition 班级实体，存放查询条件
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 多条班级记录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    List<span style=color:#f92672>&lt;</span>Clazz<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>selectByStep</span>(Clazz condition);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发接口配置 <code>StudentMapper -> &lt;select id="selectByClazzId"></code>:<ul><li>这个方法是分步查询的第二步SQL调用，不用对应接口方法，也无法使用 <code>@Param</code> 别名。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--按班级主键查询学生记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByClazzId&#34;</span> <span style=color:#a6e22e>resultType=</span><span style=color:#e6db74>&#34;Student&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select s.student_id, s.real_name, s.gender, s.phone, s.fk_clazz_id, s.create_time, s.modify_time
+</span></span><span style=display:flex><span>    from mybatis.student s
+</span></span><span style=display:flex><span>    where s.fk_clazz_id = #{param1}
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=3><li>开发接口配置 <code>ClazzMapper -> &lt;select id="selectByStep"></code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--查询全部班级记录 - 分步映射块--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;resultMap</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByStepMap&#34;</span> <span style=color:#a6e22e>type=</span><span style=color:#e6db74>&#34;Clazz&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;id</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;clazzId&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;collection</span> <span style=color:#a6e22e>property=</span><span style=color:#e6db74>&#34;students&#34;</span> <span style=color:#a6e22e>column=</span><span style=color:#e6db74>&#34;clazz_id&#34;</span> <span style=color:#a6e22e>ofType=</span><span style=color:#e6db74>&#34;Student&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>select=</span><span style=color:#e6db74>&#34;com.lsx.mapper.StudentMapper.selectByClazzId&#34;</span> <span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/resultMap&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--查询全部班级记录，分步查询每个班级中的全部学生记录--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;select</span> <span style=color:#a6e22e>id=</span><span style=color:#e6db74>&#34;selectByStep&#34;</span> <span style=color:#a6e22e>resultMap=</span><span style=color:#e6db74>&#34;selectByStepMap&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    select c.clazz_id, c.clazz_name, c.create_time, c.modify_time 
+</span></span><span style=display:flex><span>    from mybatis.clazz c
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;where&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzId != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_id = #{clazzId} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;clazzName != null&#34;</span><span style=color:#f92672>&gt;</span>and clazz_name = #{clazzName} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;createTime != null&#34;</span><span style=color:#f92672>&gt;</span>and create_time = #{createTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;if</span> <span style=color:#a6e22e>test=</span><span style=color:#e6db74>&#34;modifyTime != null&#34;</span><span style=color:#f92672>&gt;</span>and modify_time = #{modifyTime} <span style=color:#f92672>&lt;/if&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/where&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/select&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发测试方法 <code>ClazzMapperTest -> selectByStep()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> mapper;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ClazzMapperTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>selectByStep</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用 MyBatisUtil 工具获取会话工厂，并通过会话工厂获取一个会话</span>
+</span></span><span style=display:flex><span>        SqlSession sqlSession <span style=color:#f92672>=</span> MyBatisUtil.<span style=color:#a6e22e>getFactory</span>(<span style=color:#e6db74>&#34;mybatis.xml&#34;</span>).<span style=color:#a6e22e>openSession</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从会话中获取Mapper接口（因为主配中已经扫描了所有Mapper接口，所以可以直接获取）</span>
+</span></span><span style=display:flex><span>        ClazzMapper clazzMapper <span style=color:#f92672>=</span> sqlSession.<span style=color:#a6e22e>getMapper</span>(ClazzMapper.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用Mapper接口方法，进行添加操作并打印操作结果</span>
+</span></span><span style=display:flex><span>        Clazz condition <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Clazz();
+</span></span><span style=display:flex><span>        condition.<span style=color:#a6e22e>setClazzId</span>(1);
+</span></span><span style=display:flex><span>        clazzMapper.<span style=color:#a6e22e>selectByStep</span>(condition).<span style=color:#a6e22e>forEach</span>(System.<span style=color:#a6e22e>out</span>::println);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭会话，释放资源</span>
+</span></span><span style=display:flex><span>        sqlSession.<span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-分步查询懒加载>EP05. 分步查询懒加载</h2><blockquote><p>心法: 懒加载</p></blockquote><ul><li>MyBatis支持开启懒加载以解决分步查询中一次主查询可能会附带N次子查询的 <code>N+1</code> 问题。</li></ul><blockquote><p>武技: 测试懒加载效果</p></blockquote><ol><li>在主配的全局配置 <code>&lt;settings></code> 中开启分步查询懒加载:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--开启延迟加载--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;lazyLoadingEnabled&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;true&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--关闭积极加载--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;setting</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;aggressiveLazyLoading&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;false&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=2><li>使用debug测试任一方法的懒加载效果。</li></ol><h1 id=ch05-mybatis注解开发>CH05. MyBatis注解开发</h1><blockquote><p>心法: MyBatis注解开发方式</p></blockquote><ul><li>MyBatis支持使用注解替代XML配置，虽然提高配置代码和JAVA代码的耦合度，但极大简化了开发过程:<ul><li>MyBatis的相关配置如别名包扫描，二级缓存等，直接在SpringBoot主配中配置。</li><li>SQL语句直接在注解中开发，动态标签需要在SQL两端包裹 <code>&lt;script>&lt;/script></code> 标签。</li></ul></li><li>实际开发中建议二者混用，简单SQL使用注解方式，复杂SQL使用XML配置方式。</li></ul><table><thead><tr><th>MyBatis注解</th><th>对应的XML标签</th></tr></thead><tbody><tr><td><code>@Select / @Insert / @Update / @Delete</code></td><td><code>&lt;select> / &lt;insert> / &lt;update> / &lt;delete></code></td></tr><tr><td><code>@Options(timeout = 1000, useCache = false)</code></td><td><code>&lt;select timeout="1000" useCache=false></code></td></tr><tr><td><code>@Options(useGeneratedKeys = true, keyProperty = "")</code></td><td><code>&lt;insert useGeneratedKeys="true" keyProperty=""></code></td></tr><tr><td><code>@Results(id = "", value = { @Result() })</code></td><td><code>&lt;resultMap id = ""> -> &lt;result></code></td></tr><tr><td><code>@Result(property = "", column = "",</code> <code>javaType = "", jdbcType = "",</code> <code>one = @One(), many = @Many() )</code></td><td><code>&lt;result property = "" column = ""</code> <code>javaType = "" jdbcType = ""</code> <code>one = "" many = "" ></code></td></tr><tr><td><code>@ResultMap("xxx")</code></td><td><code>&lt;select id = "" resultMap = "xxx"></code></td></tr></tbody></table></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

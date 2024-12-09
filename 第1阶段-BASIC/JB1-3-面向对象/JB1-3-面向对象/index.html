@@ -1,0 +1,986 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB1-3-面向对象</title>
+<meta name=description content="[!NOTE] Java道经第1卷 - 第3阶 - 面向对象 v1-3-basic-oop (JAR)
+CH01. OOP抽象思想 EP01. 万物皆为对象 心法: 对象 Object
+对象一词是19世纪的现象学大师胡塞尔提出并定义的，他认为: 对象是世界中的物体在人脑中的映像。 对象是人的意识之所以为意识的反映。 对 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><meta property="og:type" content="website"><meta property="og:title" content="JB1-3-面向对象"><meta property="og:description" content="[!NOTE] Java道经第1卷 - 第3阶 - 面向对象 v1-3-basic-oop (JAR)
+CH01. OOP抽象思想 EP01. 万物皆为对象 心法: 对象 Object
+对象一词是19世纪的现象学大师胡塞尔提出并定义的，他认为: 对象是世界中的物体在人脑中的映像。 对象是人的意识之所以为意识的反映。 对 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB1-3-面向对象"><meta name=twitter:description content="[!NOTE] Java道经第1卷 - 第3阶 - 面向对象 v1-3-basic-oop (JAR)
+CH01. OOP抽象思想 EP01. 万物皆为对象 心法: 对象 Object
+对象一词是19世纪的现象学大师胡塞尔提出并定义的，他认为: 对象是世界中的物体在人脑中的映像。 对象是人的意识之所以为意识的反映。 对 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB1-3-面向对象</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第1卷 - 第3阶 - 面向对象
+v1-3-basic-oop (JAR)</p></blockquote><h1 id=ch01-oop抽象思想>CH01. OOP抽象思想</h1><h2 id=ep01-万物皆为对象>EP01. 万物皆为对象</h2><blockquote><p>心法: 对象 <code>Object</code></p></blockquote><ul><li>对象一词是19世纪的现象学大师胡塞尔提出并定义的，他认为:<ul><li>对象是世界中的物体在人脑中的映像。</li><li>对象是人的意识之所以为意识的反映。</li><li>对象是作为一种概念而存在的先念的东西。</li></ul></li><li>举例说明:<ul><li>比如当我们认识到一种新的物体，它叫树，于是在我们的意识当中就形成了树的概念。</li><li>这个概念会一直存在于我们的思维当中，并不会因为这棵树被砍掉而消失。</li><li>这个概念就是现实世界当中的物体在我们意识当中的映象，就是一个对象。</li></ul></li></ul><blockquote><p>心法: 对象的三大特点</p></blockquote><ol><li>万事万物皆对象，如一个苹果，一项政策，一种心情等。</li><li>对象具有唯一性，即使是同一个模子刻出来的，也不会互相影响。</li><li>对象可以具有属性和方法，属性用来描述对象的静态信息，方法用来描述对象的动态行为。</li></ol><h2 id=ep02-面向对象编程>EP02. 面向对象编程</h2><blockquote><p>心法: 面向对象编程 <code>Object Oriented Programming (OOP)</code>，简称OOP</p></blockquote><ul><li>OOP是一种编程思想，在考虑问题时以具体的对象为单位，考虑其属性和方法，而不关心其具体的实现流程。</li></ul><blockquote><p>心法: 面向对象编程 VS 面向过程编程</p></blockquote><ul><li>宏观上使用面向对象进行设计，但微观上仍然需要使用面向过程进行实现:</li></ul><table><thead><tr><th>编程思想</th><th>关注点</th><th>关键字</th><th>适用场景</th><th>示例</th></tr></thead><tbody><tr><td>面向过程编程</td><td>具体的实现流程</td><td>步骤</td><td>简单的，无需复杂协作的微观场景</td><td>把大象放进冰箱的步骤</td></tr><tr><td>面向对象编程</td><td>对象的属性方法</td><td>调用</td><td>复杂的，需要高度协作的宏观场景</td><td>设计一款高性能的冰箱</td></tr></tbody></table><h2 id=ep03-抽象编程思想>EP03. 抽象编程思想</h2><blockquote><p>心法: 抽象</p></blockquote><ul><li>抽象即抽出相象的部分，也叫提取，提炼，归纳或总结，即抽选出一些我们比较关注的属性和方法的过程。</li></ul><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/image/5c8a6791fc955840e34b551efb2a164d.png alt=截图></p><h1 id=ch02-oop封装机制>CH02. OOP封装机制</h1><blockquote><p>心法: 封装机制 <code>Encapsulation</code></p></blockquote><ul><li>封装是一个先装后封的过程:</li></ul><table><thead><tr><th>封装动作</th><th>描述</th><th>其他</th></tr></thead><tbody><tr><td>装</td><td>将抽象出来的一些属性和方法打包到类中</td><td>1. 类 <code>class</code> 通过实例化 <code>new</code> 得到实例 <code>instance</code>2. 实例<code>instance</code> 通过抽象封装得到类 <code>class</code></td></tr><tr><td>封</td><td>隐藏属性和方法的实现过程以保护对象隐私，隔离变化</td><td>1. <code>public</code>: 同项目中的类均可访问我2. <code>protected</code>: 同类，同包中的类，或不同包的父子类均可访问我3. <code>friendly</code>: 同类或同包中的类均可访问我，该关键字不能显示使用4. <code>private</code>: 仅同类可访问我</td></tr></tbody></table><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/image/b023b8fa40c80ea15b8a0c91b51f17eb.png alt=OOP封装></p><h2 id=ep01-封装最终产物>EP01. 封装最终产物</h2><blockquote><p>心法: Java类 <code>Class</code></p></blockquote><ul><li>Java类是封装过程的产物，包含属性和方法:</li></ul><table><thead><tr><th>Class分类</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>public class A {}</code></td><td>公共类</td><td>同项目中的类均可访问我</td></tr><tr><td><code>class A {}</code></td><td>友元类</td><td>同类或同包中的类均可访问我</td></tr><tr><td><code>static class A {}</code></td><td>静态类</td><td>静态类只能写在其他类内部，且额外支持4种访问权限修饰符</td></tr></tbody></table><blockquote><p>武技: 测试封装的产物 - Java类</p></blockquote><ol><li>开发测试方法 <code>EncapsulationTest -> testClassMember()</code></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EncapsulationTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 类的普通成员 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 属性尽量使用最小封装权限，使用文档注释 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String name;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 属性类型都推荐使用包装类，以避免默认值影响 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Integer age;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 设置这只猫的姓名 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setName</span>(String name) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// this表示当前类里的</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> name;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 获得这只猫的姓名 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getName</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> name;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 设置这只猫的年龄 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setAge</span>(Integer age) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> age;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 获得这只猫的年龄 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> Integer <span style=color:#a6e22e>getAge</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> age;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 类的普通成员 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testClassMember</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 实例化</span>
+</span></span><span style=display:flex><span>        Cat beiBei <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>        beiBei.<span style=color:#a6e22e>setName</span>(<span style=color:#e6db74>&#34;贝贝&#34;</span>);
+</span></span><span style=display:flex><span>        beiBei.<span style=color:#a6e22e>setAge</span>(3);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beiBei.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(beiBei.<span style=color:#a6e22e>getAge</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 实例具有唯一性</span>
+</span></span><span style=display:flex><span>        Cat baoBao <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(baoBao.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(baoBao.<span style=color:#a6e22e>getAge</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-类的属性分类>EP02. 类的属性分类</h2><blockquote><p>心法: 类的属性 <code>Field</code></p></blockquote><ul><li>类中的属性，负责存储数据，拥有默认值，如 <code>0 / 0.0 / false / null</code> 等。</li></ul><table><thead><tr><th>Field分类</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>public String name</code></td><td>公共成员属性</td><td>同项目中的类均可访问我</td></tr><tr><td><code>protected String name</code></td><td>保护成员属性</td><td>同类，同包中的类，或不同包的父子类均可访问我</td></tr><tr><td><code>String name</code></td><td>友元成员属性</td><td>同类或同包中的类均可访问我</td></tr><tr><td><code>private String name</code></td><td>私有成员属性</td><td>仅同类可访问我</td></tr><tr><td><code>static String name</code></td><td>静态属性</td><td>1. 静态属性共享，唯一，先行，额外支持4种访问权限修饰符2. 静态属性属于类而不属于某个实例，可以直接使用类名进行调用</td></tr><tr><td><code>final String name</code></td><td>常值属性</td><td>1. 常值属性不可二次赋值属性，所以必须赋初始值2. 常值属性建议变量名全大写，如 <code>PI</code> 等3. 常值属性额外支持4种访问权限修饰符</td></tr></tbody></table><blockquote><p>武技: 测试类中的属性</p></blockquote><ol><li>开发测试方法 <code>FieldTest -> testField()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FieldTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 使用 alt + insert 可以快速生成指定属性的setter/getter */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>final</span> String TYPE <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;animal&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>double</span> weight;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>boolean</span> isBoy;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String owner;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** final修饰的属性，不支持setter方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getTYPE</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> TYPE;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getName</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> name;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setName</span>(String name) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> name;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getAge</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> age;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setAge</span>(<span style=color:#66d9ef>int</span> age) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> age;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>getWeight</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> weight;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setWeight</span>(<span style=color:#66d9ef>double</span> weight) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>weight</span> <span style=color:#f92672>=</span> weight;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** boolean类型的getter方法，是以is作为前缀的 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>isBoy</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> isBoy;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setBoy</span>(<span style=color:#66d9ef>boolean</span> boy) {
+</span></span><span style=display:flex><span>            isBoy <span style=color:#f92672>=</span> boy;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>getOwner</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> owner;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setOwner</span>(String owner) {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 静态方法中不支持this关键字</span>
+</span></span><span style=display:flex><span>            Cat.<span style=color:#a6e22e>owner</span> <span style=color:#f92672>=</span> owner;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 属性的设计与调用 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testField</span>() {
+</span></span><span style=display:flex><span>        Cat cat <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name: &#34;</span> <span style=color:#f92672>+</span> cat.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;age: &#34;</span> <span style=color:#f92672>+</span> cat.<span style=color:#a6e22e>getAge</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;weight: &#34;</span> <span style=color:#f92672>+</span> cat.<span style=color:#a6e22e>getWeight</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(cat.<span style=color:#a6e22e>isBoy</span>() <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;一只公猫&#34;</span> : <span style=color:#e6db74>&#34;一只母猫&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;type: &#34;</span> <span style=color:#f92672>+</span> cat.<span style=color:#a6e22e>getTYPE</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;owner: &#34;</span> <span style=color:#f92672>+</span> Cat.<span style=color:#a6e22e>getOwner</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-类的方法分类>EP03. 类的方法分类</h2><blockquote><p>心法: 类的方法 <code>Method</code></p></blockquote><ul><li>类中的方法，负责操作数据，用于提高代码重用性:</li></ul><table><thead><tr><th>Method分类</th><th>中文</th><th>描述</th></tr></thead><tbody><tr><td><code>public void m(){}</code></td><td>公共成员方法</td><td>同项目中的类均可访问我</td></tr><tr><td><code>protected void m(){}</code></td><td>保护成员方法</td><td>同类，同包中的类，或不同包的父子类均可访问我</td></tr><tr><td><code>void m(){}</code></td><td>友元成员方法</td><td>同类或同包中的类均可访问我</td></tr><tr><td><code>private void m(){}</code></td><td>私有成员方法</td><td>仅同类可访问我</td></tr><tr><td><code>static void m(){}</code></td><td>静态方法</td><td>1. 静态方法共享，唯一，先行，额外支持4种访问权限修饰符2. 静态方法属于类而不属于某个实例，可以直接使用类名进行调用3. 静态方法中无法访问非静态属性，且无法使用this关键字</td></tr><tr><td><code>final void m(){}</code></td><td>常值方法</td><td>常值方法不可被重写</td></tr></tbody></table><blockquote><p>武技: 测试类中的方法</p></blockquote><ol><li>开发测试方法 <code>MethodTest -> testMethod()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MethodTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 无参无返回值方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>m1</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;m1方法: 无参无返&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 无参有返回值方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>m2</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;m2方法: 无参有返&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;我是m2的返回值&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 有参无返回值方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>m3</span>(<span style=color:#66d9ef>int</span> num) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;m3方法: 有参有返，参数为: &#34;</span> <span style=color:#f92672>+</span> num);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 有参有返回值方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>m4</span>(<span style=color:#66d9ef>int</span> num) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;m4方法: 有参有返，参数为: &#34;</span> <span style=color:#f92672>+</span> num);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;我是m4的返回值&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 静态方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>m5</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;m5方法: 静态方法&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 方法的设计与调用 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testMethod</span>() {
+</span></span><span style=display:flex><span>        Cat cat <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>        cat.<span style=color:#a6e22e>m1</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(cat.<span style=color:#a6e22e>m2</span>());
+</span></span><span style=display:flex><span>        cat.<span style=color:#a6e22e>m3</span>(333);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(cat.<span style=color:#a6e22e>m4</span>(444));
+</span></span><span style=display:flex><span>        Cat.<span style=color:#a6e22e>m5</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-方法传参内容>EP04. 方法传参内容</h2><blockquote><p>心法: 方法传参内容</p></blockquote><ul><li>当传递的参数是基本数据类型时，代表传递副本。</li><li>当传递的参数是引用数据类型时，代表传递引用。</li></ul><blockquote><p>武技: 测试方法传参内容</p></blockquote><ol><li>开发测试方法 <code>ParameterTest -> testPassParam()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ParameterTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 测试方法传参特性
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param num 一个基本类型的参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param arr 一个引用类型的参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>m6</span>(<span style=color:#66d9ef>int</span> num, <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> arr) {
+</span></span><span style=display:flex><span>        num <span style=color:#f92672>=</span> 1000;
+</span></span><span style=display:flex><span>        arr<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span> <span style=color:#f92672>=</span> 1000;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试: 方法传参 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testPassParam</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> num <span style=color:#f92672>=</span> 10;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> arr <span style=color:#f92672>=</span> {1, 2};
+</span></span><span style=display:flex><span>        m6(num, arr);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(num);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(arr<span style=color:#f92672>[</span>0<span style=color:#f92672>]</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-方法递归调用>EP05. 方法递归调用</h2><blockquote><p>心法: 方法递归调用</p></blockquote><ul><li>方法递归就是自己调用自己。</li><li>递归虽然简单，但比较耗时耗力，且所有递归都可以使用循环来替代，所以不到万不得已的时候，不要使用递归。</li><li>递归必须要有出口，否则就是一个死递归，会导致爆发 <code>StackOverflowError</code> 堆栈溢出异常。</li></ul><p><img src=/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-3-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/image/2af3604d3227ebff9b386e64a618dbeb.png alt=方法递归></p><blockquote><p>武技: 测试方法递归调用</p></blockquote><ol><li>开发测试方法 <code>RecursionTest -> testRecursion()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RecursionTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/* 测试递归 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testRecursion</span>() {
+</span></span><span style=display:flex><span>        m7(5);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 递归测试方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>m7</span>(<span style=color:#66d9ef>int</span> num) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(num);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 递归出口</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (num <span style=color:#f92672>==</span> 1) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> 1;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> m7(<span style=color:#f92672>--</span>num);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep06-类的初始化块>EP06. 类的初始化块</h2><blockquote><p>心法: 类的初始化块</p></blockquote><ul><li>类的初始化块包括构造器，动态代码块和静态代码块。</li><li>JVM在创建类和使用类之间，会依次执行静态块，动态块和构造器。</li></ul><table><thead><tr><th>初始化块</th><th>作用</th><th>特点</th><th>格式</th></tr></thead><tbody><tr><td>构造器构造方法</td><td>对类进行实例化</td><td>1. 每实例化一次，构造器就会被调用一次2. 构造器可以被重载成多个，但运行时只会调用其中的某一个3. 每个类都默认存在一个隐式无参的构造器4. 显示地声明一个构造器时会自动覆盖类中默认的隐式构造器5. 在构造器首行使用 <code>this()</code> 可以调用本类中的其他构造器</td><td><code>类名(参数){}</code></td></tr><tr><td>动态块</td><td>划分代码作用域</td><td>1. 每实例化一次，动态块就会被调用一次2. 动态块可以编写多个，按编写顺序依次执行</td><td><code>{}</code></td></tr><tr><td>静态块</td><td>初始化静态代码</td><td>1. 无论实例化多少次，静态块仅被调用一次2. 静态块可以编写多个，按编写顺序依次执行3. 静态块中只能访问静态属性或静态方法</td><td><code>static {}</code></td></tr></tbody></table><blockquote><p>武技: 测试类的构造器</p></blockquote><ol><li>开发测试方法 <code>InitBlockTest -> testConstructor()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InitBlockTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 本类用于测试构造器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Dog</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Dog</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>(<span style=color:#e6db74>&#34;25&#34;</span>);
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(1);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Dog</span>(<span style=color:#66d9ef>int</span> age) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(2);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Dog</span>(String name) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>(25);
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(3);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 构造器 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testConstructor</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Dog();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Dog();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试类的动态块</p></blockquote><ol><li>开发测试方法 <code>InitBlockTest -> testDynamicBlock()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InitBlockTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 本类用于测试动态块 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Bird</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Bird类的动态块01&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Bird类的动态块02&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 动态块 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testDynamicBlock</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Bird();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Bird();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试类的静态块</p></blockquote><ol><li>开发测试方法 <code>InitBlockTest -> testStaticBlock()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> encapsulation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InitBlockTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 本类用于测试静态块 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Cat类的静态块01&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Cat类的静态块02&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 静态块 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testStaticBlock</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Cat();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch03-oop继承机制>CH03. OOP继承机制</h1><h2 id=ep01-继承基本原则>EP01. 继承基本原则</h2><blockquote><p>心法: 继承机制 <code>extends</code></p></blockquote><ul><li>继承的意义: 用于提高代码可重用性:<ul><li>因为子类可以直接使用父类的非 <code>private</code> 成员，但不包括构造器。</li><li>若父子类之间存在同名的成员，则优先调用自己的成员，其次调用父类的成员。</li></ul></li><li>继承的原则:<ul><li>一个类如果没有指定父类，则默认继承自 <code>java.lang.Object</code> 类。</li><li>被 <code>final</code> 修饰的类不能被继承，且 <code>final</code> 类中的所有属性也都是 <code>final</code> 的。</li><li>Java中，大部分的类仅支持单继承，少部分的特殊类，如接口等，支持多继承。</li></ul></li></ul><blockquote><p>武技: 测试继承效果</p></blockquote><ol><li>开发测试方法 <code>ExtendTest -> testExtends()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> extend;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ExtendTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 父类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Father</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>protected</span> String name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Father类的name属性&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>protected</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>method</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;Father类的method方法&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 子类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Son</span> <span style=color:#66d9ef>extends</span> Father {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Son类的name属性&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>exe</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 子类中存在name属性，则就近原则调用</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 子类中不存在method()方法，则调用父类中的对应方法</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>method</span>();
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// this关键字可以省略</span>
+</span></span><span style=display:flex><span>            method();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testExtends</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> Son().<span style=color:#a6e22e>exe</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-父子类间调用>EP02. 父子类间调用</h2><blockquote><p>心法: 子类调用父类成员</p></blockquote><ul><li>子类中可在任意的位置使用 <code>super.属性</code> 强制调用父类的成员属性。</li><li>子类中可在任意的位置使用 <code>super.方法()</code> 强制调用父类的成员方法。</li><li>子类中可在构造器首行使用 <code>super()</code> 强制调用父类的构造器:<ul><li>子类构造器首行默认存在一个隐式的 <code>super()</code>。</li><li>所以子类在实例化之前，都是先调其父类构造器，然后再调用自己的构造器。</li></ul></li></ul><blockquote><p>武技: 开发员工经理案例</p></blockquote><ol><li>开发测试方法 <code>EmployeeTest -> testTotal()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> extend;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EmployeeTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 员工类（父类） */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Employee</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 工资 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Double sal;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Employee</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;父类构造器: Employee()...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 经理类（子类） */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@EqualsAndHashCode</span>(callSuper <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Manager</span> <span style=color:#66d9ef>extends</span> Employee {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 奖金 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Double bonus;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>Manager</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 子类构造器首行默认 `super()`，即实例化任何类时，都一定是先调其父类构造器，再调用子类构造器。</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;子类构造器: Manager()...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 计算月总工资的方法
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * @return 月总工资
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> Double <span style=color:#a6e22e>total</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 子类中可使用 `super.方法()` 调用父类的普通方法。</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>bonus</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>getSal</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试继承: 计算经理的月总工资 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testTotal</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建一个子类</span>
+</span></span><span style=display:flex><span>        Manager zhaosi <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Manager();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 子类可以直接调用父类的方法</span>
+</span></span><span style=display:flex><span>        zhaosi.<span style=color:#a6e22e>setSal</span>(5000.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 子类也可以调用自己的方法</span>
+</span></span><span style=display:flex><span>        zhaosi.<span style=color:#a6e22e>setBonus</span>(2000.<span style=color:#a6e22e>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 计算一个经理的月总工资</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;赵四的月总工资为 &#34;</span> <span style=color:#f92672>+</span> zhaosi.<span style=color:#a6e22e>total</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; 元&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch04-oop多态机制>CH04. OOP多态机制</h1><blockquote><p>心法: 多态机制 <code>polymorphic</code></p></blockquote><ul><li>多态表示一种类型多种形态，在Java表现为方法的重载和重写。</li></ul><h2 id=ep01-多态具体实现>EP01. 多态具体实现</h2><blockquote><p>心法: 多态具体实现</p></blockquote><ul><li>Java中，多态机制的具体实现有2种:</li></ul><table><thead><tr><th>多态实现</th><th>中文</th><th>要求</th></tr></thead><tbody><tr><td><code>Overload</code></td><td>方法重载</td><td>1. 方法重载现象需要发生在同个类中2. 方法重载要求方法同名但不同参，其它如返回值，是否静态等均无要求</td></tr><tr><td><code>Override</code></td><td>方法重写</td><td>1. 方法重写现象需要发生在父子类中2. 方法重写要求方法同名且要同参，修饰符越写越大，异常和返回值越写越小3. 被 <code>final/private</code> 修饰的方法，不能被重写4. 重写的方法建议对标记 <code>@Override</code> 注解</td></tr></tbody></table><blockquote><p>武技: 测试方法重载</p></blockquote><ol><li>开发测试方法 <code>OverloadTest -> testAdd()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> polymorphic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OverloadTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 该类用户测试方法重载 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Demo</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Integer <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> a <span style=color:#f92672>+</span> b;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Double <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>double</span> b) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> a <span style=color:#f92672>+</span> b;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Double <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>double</span> a, <span style=color:#66d9ef>int</span> b) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> a <span style=color:#f92672>+</span> b;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Double <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>double</span> a, <span style=color:#66d9ef>double</span> b) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> a <span style=color:#f92672>+</span> b;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 重载方法add() */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testAdd</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> Demo.<span style=color:#a6e22e>add</span>(1, 1));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> Demo.<span style=color:#a6e22e>add</span>(1, 2.<span style=color:#a6e22e>5</span>));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> Demo.<span style=color:#a6e22e>add</span>(2.<span style=color:#a6e22e>5</span>, 1));
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> Demo.<span style=color:#a6e22e>add</span>(2.<span style=color:#a6e22e>5</span>, 1.<span style=color:#a6e22e>5</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试方法重写</p></blockquote><ol><li>开发测试方法 <code>OverrideTest -> testMethodA()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> polymorphic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OverrideTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Fu</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>method</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Fu中的method()&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Zi</span> <span style=color:#66d9ef>extends</span> Fu {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>method</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是Zi中的method()&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 重写的方法methodA() */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testMethodA</span>() {
+</span></span><span style=display:flex><span>        Zi zi <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Zi();
+</span></span><span style=display:flex><span>        zi.<span style=color:#a6e22e>method</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-动态绑定机制>EP02. 动态绑定机制</h2><blockquote><p>心法: 动态绑定机制</p></blockquote><ul><li>动态绑定: 子类的实例可以使用父类类型接收:<ul><li>父子类中的同名属性以等号左边为主，同名方法以等号右边为主。</li></ul></li><li>Java中使用 <code>instanceof</code> 关键字来判断子类归属:<ul><li><code>实例 instanceof 类名/接口名</code>: 返回该实例是否是该类/接口的实例或其子类。</li></ul></li><li>动态绑定机制下的类型转换:<ul><li>若父类变量中存放的是子类A的实例，则该变量仅能向下转型回子类A。</li><li>强转回子类B就会爆发 <code>ClassCastException</code> 类转换异常。</li></ul></li></ul><blockquote><p>武技: 测试动态绑定机制</p></blockquote><ol><li>开发测试方法 <code>InstanceOfTest -> testInstanceOf()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> polymorphic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InstanceOfTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Fu</span> {
+</span></span><span style=display:flex><span>        String name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;父类的属性&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>info</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;父类的方法&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Zi</span> <span style=color:#66d9ef>extends</span> Fu {
+</span></span><span style=display:flex><span>        String name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;子类的属性&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>info</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;子类的方法&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 动态绑定机制 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testInstanceOf</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 多态写法中，属性看左边，方法看右边</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 由小到大自动转换</span>
+</span></span><span style=display:flex><span>        Fu a <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Zi();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;name: &#34;</span> <span style=color:#f92672>+</span> a.<span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;info(): &#34;</span> <span style=color:#f92672>+</span> a.<span style=color:#a6e22e>info</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// A instanceof B: 表示判断A是不是B的实例或其子类</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#66d9ef>instanceof</span> Zi <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;a属于Zi&#34;</span> : <span style=color:#e6db74>&#34;a不属于Zi&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(a <span style=color:#66d9ef>instanceof</span> Fu <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;a属于Fu&#34;</span> : <span style=color:#e6db74>&#34;a不属于Fu&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 由大到小需要强转: 必须父类本身就是由子类new出来时才可强转回</span>
+</span></span><span style=display:flex><span>        Fu b <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Zi();
+</span></span><span style=display:flex><span>        Fu c <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Fu();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;b: &#34;</span> <span style=color:#f92672>+</span> (Zi) b);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;c: &#34;</span> <span style=color:#f92672>+</span> (Zi) c);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch05-oop特殊类型>CH05. OOP特殊类型</h1><h2 id=ep01-特殊之抽象类>EP01. 特殊之抽象类</h2><blockquote><p>心法: 抽象类 <code>Abstract Class</code></p></blockquote><ul><li>抽象类需要被 <code>abstract</code> 关键字修饰，建议命名以 <code>Base</code> 开头。</li><li>拥有抽象方法的类一定是抽象类，但抽象类不一定拥有抽象方法。</li><li>抽象类有构造器，但不能直接调用，需要依靠子类进行实例化，并重写其全部的抽象方法:<ul><li>所以抽象类不能被 <code>final</code> 修饰。</li></ul></li><li>若子类只重写了父类中一部分抽象方法，则子类也必须被声明为抽象的。</li></ul><blockquote><p>武技: 测试抽象类</p></blockquote><ol><li>开发测试方法 <code>AbstractClassTest -> testAbstractClass()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AbstractClassTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 父类（抽象类）: 因类中存在抽象方法，所以类必须被声明为抽象的 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>abstract</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BaseCar</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 抽象方法: 没有方法体的方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>abstract</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>info</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Audi</span> <span style=color:#66d9ef>extends</span> BaseCar {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 实现父类中的抽象方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>info</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是奥迪...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AuTo</span> <span style=color:#66d9ef>extends</span> BaseCar {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 实现父类中的抽象方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>info</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;我是奥拓...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 抽象类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testAbstractClass</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 抽象类不能直接实例化</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// BaseCar baseCar = new BaseCar();</span>
+</span></span><span style=display:flex><span>        BaseCar carA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Audi();
+</span></span><span style=display:flex><span>        carA.<span style=color:#a6e22e>info</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        BaseCar carB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> AuTo();
+</span></span><span style=display:flex><span>        carB.<span style=color:#a6e22e>info</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-特殊之接口类>EP02. 特殊之接口类</h2><blockquote><p>心法: 接口类 <code>Interface</code></p></blockquote><ul><li>接口类由 <code>interface</code> 关键字定义，简称接口:<ul><li>接口中的属性都是默认被 <code>public static final</code> 修饰的。</li><li>接口中的方法都是默认被 <code>public abstract</code> 修饰的。</li><li>接口中允许存在完整的静态方法和 <code>default</code> 方法。</li></ul></li><li>接口没有构造器，需要依靠子类实现类通过 <code>implements</code> 来实现:<ul><li>接口实现类命名建议使用 <code>Impl</code> 作为后缀。</li><li>Java类支持多实现，即可以同时实现多个接口。</li></ul></li><li>接口不能继承其他类，不能实现其它接口，但可以多继承其它接口。</li></ul><blockquote><p>武技: 测试接口类</p></blockquote><ol><li>开发测试方法 <code>InterfaceClassTest -> testUserService()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InterfaceClassTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 用户服务接口 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 添加一名用户 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 删除一名用户 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 修改一名用户 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 查询一名用户 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>select</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>default</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>defaultMethod</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;default 方法被执行...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>staticMethod</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;static 方法被执行...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 用户服务接口的实现类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserServiceImpl</span> <span style=color:#66d9ef>implements</span> UserService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加成功...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;删除成功...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;修改成功...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>select</span>() {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;查询成功...&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 测试用户服务 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testUserService</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用多态写法</span>
+</span></span><span style=display:flex><span>        UserService userService <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> UserServiceImpl();
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>select</span>();
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>update</span>();
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>delete</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 接口中的default可以使用实现类实例调用</span>
+</span></span><span style=display:flex><span>        userService.<span style=color:#a6e22e>defaultMethod</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 接口中的static方法可以直接使用接口调用</span>
+</span></span><span style=display:flex><span>        UserService.<span style=color:#a6e22e>staticMethod</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep03-特殊之枚举类>EP03. 特殊之枚举类</h2><blockquote><p>心法: 枚举类 <code>Enum Class</code></p></blockquote><ul><li>由 <code>enum</code> 定义的类叫做枚举类，默认继承 <code>j.l.Enum&lt;E></code>，编译后仍是一个class文件。</li><li>枚举属性建议使用全大写，且必须写在枚举类的首行，其余属性和方法必须在其后编写。</li><li>每个枚举属性都映射到其父类的唯一构造器，该构造器只能由javac默认调用，但可以覆盖。</li><li>枚举属性使用枚举类名直接调用，枚举方法需要使用枚举属性来调用。</li></ul><blockquote><p>武技: 测试枚举类</p></blockquote><ol><li>开发测试方法 <code>EnumTest -> testWeek()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EnumTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 枚举类: 星期类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>enum</span> Week {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 星期一到星期日枚举属性，相当于调用了7次Enum类的构造器代码: 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Enum&lt;Week&gt;(&#34;MON&#34;, 0);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Enum&lt;Week&gt;(&#34;TUE&#34;, 1);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * ..
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Enum&lt;Week&gt;(&#34;SUN&#34;, 6);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        MON, TUE, WED {
+</span></span><span style=display:flex><span>            <span style=color:#75715e>/** toString()默认返回的是枚举属性的变量名，支持修改 */</span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>toString</span>() {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;星期三&#34;</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }, THU, FRI, SAT, SUN
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 枚举类Week */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testWeek</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回该枚举属性名（枚举类型）</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;MON枚举属性: &#34;</span> <span style=color:#f92672>+</span> Week.<span style=color:#a6e22e>MON</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 支持直接在枚举属性后重写toString()</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;WED枚举属性: &#34;</span> <span style=color:#f92672>+</span> Week.<span style=color:#a6e22e>WED</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回该枚举属性名（字符串），等效于Week.THU.toString()</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;THU的名字: &#34;</span> <span style=color:#f92672>+</span> Week.<span style=color:#a6e22e>THU</span>.<span style=color:#a6e22e>name</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回枚举属性ordinal序号，从0开始</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;FRI的序号: &#34;</span> <span style=color:#f92672>+</span> Week.<span style=color:#a6e22e>FRI</span>.<span style=color:#a6e22e>ordinal</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回两个枚举对象的ordinal序号差</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;SAT和SUN的序号差是: &#34;</span> <span style=color:#f92672>+</span> Week.<span style=color:#a6e22e>SAT</span>.<span style=color:#a6e22e>compareTo</span>(Week.<span style=color:#a6e22e>SUN</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// values()用于获取枚举类中所有的枚举属性组成的枚举数组</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// values()方法只有在编译java文件时，才会自动生成</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (Week week : Week.<span style=color:#a6e22e>values</span>()) {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;遍历: &#34;</span> <span style=color:#f92672>+</span> week.<span style=color:#a6e22e>toString</span>());
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试自定义构造器的枚举类</p></blockquote><ol><li>开发测试方法 <code>EnumTest -> testRgb()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EnumTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 重写构造器-枚举类: RGB三原色类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>enum</span> Rgb {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * RGB三原色枚举属性
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * &lt;hr/&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 因重写了Rgb的构造器，所以上面的枚举属性相当于调用了3次: 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Rgb(&#34;the-red&#34;, 1);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Rgb(&#34;the-green&#34;, 2);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * new Rgb(&#34;the-blue&#34;, 3);
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        RED(<span style=color:#e6db74>&#34;the-red&#34;</span>, 1),
+</span></span><span style=display:flex><span>        GREEN(<span style=color:#e6db74>&#34;the-green&#34;</span>, 2),
+</span></span><span style=display:flex><span>        BLUE(<span style=color:#e6db74>&#34;the-blue&#34;</span>, 3);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>int</span> ordinal;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 重写了Rgb的构造器
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * @param name    枚举名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * @param ordinal 枚举序号
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        Rgb(String name, <span style=color:#66d9ef>int</span> ordinal) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> name;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>ordinal</span> <span style=color:#f92672>=</span> ordinal;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getName</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> name;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>getOrdinal</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> ordinal;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 枚举类Rgb */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testRgb</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;RED枚举属性: &#34;</span> <span style=color:#f92672>+</span> Rgb.<span style=color:#a6e22e>RED</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;GREEN的名字: &#34;</span> <span style=color:#f92672>+</span> Rgb.<span style=color:#a6e22e>GREEN</span>.<span style=color:#a6e22e>getName</span>());
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;BLUE的序号: &#34;</span> <span style=color:#f92672>+</span> Rgb.<span style=color:#a6e22e>BLUE</span>.<span style=color:#a6e22e>getOrdinal</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep04-特殊之内部类>EP04. 特殊之内部类</h2><blockquote><p>心法: 内部类 <code>Inner Class</code></p></blockquote><ul><li>将一个类写在另一个类中称为内部类写法。</li><li>内部类可以访问外部类成员，包括私有成员，但外部类不可以访问内部类的任何成员。</li><li>内部类产生的class文件的格式为 <code>外部类$内部类.class</code>。</li><li>内部类实例建议使用 <code>外部类.内部类</code> 的格式类型接收，无需导包。</li></ul><table><thead><tr><th>内部类分类</th><th>特点</th><th>内部类实例获取方式</th><th>访问外部类属性的方式</th></tr></thead><tbody><tr><td>成员内部类</td><td>1. 不能拥有静态属性2. 不能拥有静态方法或静态块</td><td><code>new 外部类().new 内部类()</code></td><td>1. <code>new 外部类().成员属性</code>2. <code>外部类.this.成员属性</code></td></tr><tr><td>静态内部类</td><td>1. 可以拥有静态属性2. 可以拥有静态方法或静态块</td><td><code>new 外部类.内部类()</code></td><td>1. <code>new 外部类().成员属性</code>2. <code>外部类.静态属性</code></td></tr><tr><td>匿名内部类</td><td>一般用于快速实现抽象类/接口中的抽象方法</td><td><code>new 抽象类/接口名(){ 实现 }</code></td><td>同上</td></tr></tbody></table><blockquote><p>武技: 测试成员内部类</p></blockquote><ol><li>开发测试方法 <code>InnerClassTest -> testMemberInnerClass()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InnerClassTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 调用成员内部类的方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testMemberInnerClass</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取成员内部类实例</span>
+</span></span><span style=display:flex><span>        MemberOuter.<span style=color:#a6e22e>MemberInner</span> inner <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MemberOuter().<span style=color:#a6e22e>new</span> MemberInner();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;inner: &#34;</span> <span style=color:#f92672>+</span> inner);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用成员内部类方法</span>
+</span></span><span style=display:flex><span>        inner.<span style=color:#a6e22e>memberInnerMethod</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 本类用于测试成员内部类 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemberOuter</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 外部类成员属性 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String field <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;member-field-outer&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 本类用于测试成员内部类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemberInner</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 内部类成员属性 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String field <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;member-field-inner&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 内部类成员方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>memberInnerMethod</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 根据就近原则，同名情况下，优先打印内部类的成员属性</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;访问内部类的field: &#34;</span> <span style=color:#f92672>+</span> field);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 调用外部类中的成员属性，方法1: new 外部类().外部类属性</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;访问外部类的field: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>new</span> MemberOuter().<span style=color:#a6e22e>field</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 调用外部类中的成员属性，方法2: 外部类.this.外部类属性</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;访问外部类的field: &#34;</span> <span style=color:#f92672>+</span> MemberOuter.<span style=color:#a6e22e>this</span>.<span style=color:#a6e22e>field</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试静态内部类</p></blockquote><ol><li>开发测试方法 <code>InnerClassTest -> testStaticInnerClass()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InnerClassTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 调用静态内部类的方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testStaticInnerClass</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取静态内部类实例: new 外部类.内部类()</span>
+</span></span><span style=display:flex><span>        StaticOuter.<span style=color:#a6e22e>StaticInner</span> inner <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> StaticOuter.<span style=color:#a6e22e>StaticInner</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;inner: &#34;</span> <span style=color:#f92672>+</span> inner);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 调用静态内部类方法: 外部类.内部类.方法()</span>
+</span></span><span style=display:flex><span>        StaticOuter.<span style=color:#a6e22e>StaticInner</span>.<span style=color:#a6e22e>staticInnerMethod</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 本类用于测试静态内部类 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StaticOuter</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 外部类静态属性 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String field <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;static-field-outer&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 静态内部类 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StaticInner</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 内部类静态属性 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String field <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;static-field-inner&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 内部类静态方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>staticInnerMethod</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 根据就近原则，同名情况下，优先打印内部类的静态属性</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;访问内部类的field: &#34;</span> <span style=color:#f92672>+</span> field);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 调用外部类中的静态属性</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;访问外部类的field: &#34;</span> <span style=color:#f92672>+</span> StaticOuter.<span style=color:#a6e22e>field</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试匿名内部类</p></blockquote><ol><li>开发测试方法 <code>InnerClassTest -> testAnonymousInnerClass()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InnerClassTest</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 调用匿名内部类的方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testAnonymousInnerClass</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> UserService() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>create</span>() {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;添加...&#34;</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>() {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;修改...&#34;</span>);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        }.<span style=color:#a6e22e>run</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** 本接口用于测试匿名内部类，抽象类同理 */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>UserService</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>create</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>default</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        create();
+</span></span><span style=display:flex><span>        update();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep05-特殊之注解类>EP05. 特殊之注解类</h2><blockquote><p>心法: 注解类 <code>Annotation Class</code></p></blockquote><ul><li>注解类是从JDK5开始引入的一种可以对包/类/方法/属性进行标记的特殊的类。</li></ul><table><thead><tr><th>Java内置注解</th><th>描述</th></tr></thead><tbody><tr><td><code>@Override</code></td><td>用于标记重写方法，检查重写方法是否有问题</td></tr><tr><td><code>@Deprecated</code></td><td>用于标记已过期的方法，过期方法仍可以使用</td></tr><tr><td><code>@SuppressWarnings("all")</code></td><td>用于镇压所有Javac产生警告信息</td></tr></tbody></table><blockquote><p>心法: 开发自定义注解的流程</p></blockquote><ol><li>开发自定义注解类:<ul><li>注解类以 <code>public @interface 注解名 { }</code> 的方式被定义。</li><li>自定义注解自动继承 <code>java.lang.annotation.Annotaion</code> 接口。</li></ul></li><li>使用元注解，即注解的注解来配置自定义注解:<ul><li>必选 <code>@Target</code> 配置注解的使用范围，如 <code>ElementType.TYPE/ElementType.METHOD</code> 等。</li><li>必选 <code>@Retention</code> 配置注解的生命周期，如 <code>RetentionPolicy.RUNTIME</code> 等。</li><li>可选 <code>@Documented</code> 配置该注解是否会成为JavaDoc的一部分。</li><li>可选 <code>@Inherited</code> 配置该注解是否会被子类继承。</li></ul></li><li>开发注解参数:<ul><li>格式: <code>参数类型 参数名() defalut 默认值;</code></li><li>默认值可以省略，数组类型的的默认值需要使用 <code>{}</code> 包裹。</li></ul></li><li>使用自定义注解:<ul><li>注解类以 <code>@注解名( K = V ) / @注解名( { K = V, K = V ...} )</code> 的格式被使用。</li><li>使用名为 <code>value</code> 的参数时，可以将 <code>value</code> 省略。</li></ul></li></ol><blockquote><p>武技: 开发并使用自定义注解</p></blockquote><ol><li>开发注解类 <code>AnnotationTest -> CustomAnnotation</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> specialclass;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AnnotationTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 自定义注解 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Documented</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Target</span>({ElementType.<span style=color:#a6e22e>TYPE</span>, ElementType.<span style=color:#a6e22e>METHOD</span>})
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Retention</span>(RetentionPolicy.<span style=color:#a6e22e>RUNTIME</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@interface</span> CustomAnnotation {
+</span></span><span style=display:flex><span>        String <span style=color:#a6e22e>name</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>age</span>() <span style=color:#66d9ef>default</span> 18;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        String<span style=color:#f92672>[]</span> <span style=color:#a6e22e>course</span>() <span style=color:#66d9ef>default</span> {<span style=color:#e6db74>&#34;语文&#34;</span>, <span style=color:#e6db74>&#34;数学&#34;</span>};
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 使用自定义注解 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@CustomAnnotation</span>(name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;赵四&#34;</span>, course <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;语文&#34;</span>, <span style=color:#e6db74>&#34;英语&#34;</span>})
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Student</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>@CustomAnnotation</span>(name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;刘能&#34;</span>, age <span style=color:#f92672>=</span> 18)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>method</span>() {
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=ch06-oop代码优化>CH06. OOP代码优化</h1><h2 id=ep01-龙目岛工具类>EP01. 龙目岛工具类</h2><blockquote><p>心法: 龙目岛工具类，即 <a href=https://projectlombok.org/>Lombok工具</a></p></blockquote><ul><li>Lombok是一个通过注解来简化那些必须有但很臃肿的Java代码的工具，在编译时可以生成对应的Java代码。</li></ul><table><thead><tr><th>Lombok注解</th><th>描述</th></tr></thead><tbody><tr><td><code>@AllArgsConstructor</code></td><td>为类提供一个全参构造器</td></tr><tr><td><code>@NoArgsConstructor</code></td><td>为类提供一个无参构造器</td></tr><tr><td><code>@Data</code></td><td>为类中的全部属性生成对应的 <code>getter/setter/equals/hashCode/toString</code> 等方法注意: <code>final</code> 修饰的属性无法生成 <code>setter</code> 方法</td></tr><tr><td><code>@Slf4j</code></td><td>为类提供一个 <code>private static final Logger log</code> 属性该变量的值为 <code>LoggerFactory.getLogger(当前类.class)</code></td></tr><tr><td><code>@SneakyThrow</code></td><td>偷偷帮我们使用 <code>try-catch</code> 结构抛出一个 <code>Throw</code> 对象</td></tr></tbody></table><blockquote><p>武技: IDEA整合Lombok工具</p></blockquote><ol><li>在IDEA中安装Lombok插件:<ol><li>进入 <code>Plugin -> Marketplace -> Lombok</code> 页面。</li><li>搜索 <code>Lombok</code> 并点击 <code>install</code> 进行下载。</li><li>在IDEA中启用注解处理:</li><li>进入 <code>Build, Execution, Deployment -> Compiler -> Annotation Processors</code> 页面。</li><li>勾选 <code>Enable annotation processing</code> 选项。</li></ol></li><li>在父项目 <code>javabook</code> 中设置Lombok依赖版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--全局属性--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;properties&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/properties&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在父项目 <code>javabook</code> 中管理Lombok依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--依赖管理--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencyManagement&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencyManagement&gt;</span>
+</span></span></code></pre></div><ol start=4><li>在子项目 <code>v1-3-basic-oop</code> 中引入Lombok依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><blockquote><p>武技: 测试Lombok常用注解</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> optimization;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LombokTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@AllArgsConstructor</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@NoArgsConstructor</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>User</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> Integer age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String gender;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>private</span> String info;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testLombok</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试构造器</span>
+</span></span><span style=display:flex><span>        User userA <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> User();
+</span></span><span style=display:flex><span>        User userB <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> User(<span style=color:#e6db74>&#34;赵四&#34;</span>, 18, <span style=color:#e6db74>&#34;男&#34;</span>, <span style=color:#e6db74>&#34;亚洲舞王&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试toString()</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;userA: &#34;</span> <span style=color:#f92672>+</span> userA);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;userB: &#34;</span> <span style=color:#f92672>+</span> userB);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 测试异常处理</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Exception(<span style=color:#e6db74>&#34;异常测试&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=ep02-拉姆达表达式>EP02. 拉姆达表达式</h2><blockquote><p>心法: 函数式接口</p></blockquote><ul><li>若某接口中仅有一个抽象方法，则该接口可被称为函数式接口。</li></ul><blockquote><p>心法: 拉姆达表达式，即Lambda表达式</p></blockquote><ul><li>Lambda表达式是JDK8中为了简化函数式接口的实现过程而设计的。</li><li>Lambda表达式结构: <code>返回值 = (参数列表) -> {方法体}</code>: 其中 <code>-></code> 代表传递。</li></ul><table><thead><tr><th>组成部分</th><th>描述</th></tr></thead><tbody><tr><td><code>(参数列表)</code></td><td>若参数只有一个，可以省略 <code>()</code>，若没有参数，不能省略 <code>()</code></td></tr><tr><td><code>{方法体}</code></td><td>当方法体仅一行代码时可以省略 <code>{}</code> 和 <code>return</code> 关键字</td></tr><tr><td><code>返回值</code></td><td>Lambda返回值必须是函数式接口，JDK8在 <code>j.u.function</code> 包中提供了4种函数式接口:1. 消费型 <code>Consumer&lt;T> -> void accept(T t)</code>: 有参数，无返回值2. 供给型 <code>Supplier&lt;T> -> T get()</code>: 无参数，有返回值，且返回值为指定类型3. 函数型 <code>Function&lt;T, R> -> R apply(T t)</code>: 有参数，有返回值，且返回值为指定类型4. 断言型 <code>Predicate&lt;T> -> boolean test(T t)</code>: 有参数，有返回值，且返回值为布尔类型</td></tr></tbody></table><blockquote><p>武技: 测试Lambda表达式</p></blockquote><ol><li>开发测试方法 <code>LambdaTest -> testLambda()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> optimization;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LambdaTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 用于测试Lambda的函数式接口 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>AddService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/** 两个int数相加的方法 */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>int</span> numA, <span style=color:#66d9ef>int</span> numB);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** lambda语法结构 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testLambda</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 使用Lambda表达式实现函数式接口AddService的add()</span>
+</span></span><span style=display:flex><span>        AddService addServiceA <span style=color:#f92672>=</span> (numA, numB) <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;开始进行计算&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> numA <span style=color:#f92672>+</span> numB;
+</span></span><span style=display:flex><span>        };
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果为: &#34;</span> <span style=color:#f92672>+</span> addServiceA.<span style=color:#a6e22e>add</span>(1, 2));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 当方法体仅一行代码时可以省略大括号，且必须省略return（若有）。</span>
+</span></span><span style=display:flex><span>        AddService addServiceB <span style=color:#f92672>=</span> (numA, numB) <span style=color:#f92672>-&gt;</span> numA <span style=color:#f92672>+</span> numB;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果为: &#34;</span> <span style=color:#f92672>+</span> addServiceB.<span style=color:#a6e22e>add</span>(3, 4));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>武技: 测试Lambda表达式的四种函数式接口</p></blockquote><ol><li>开发测试方法 <code>LambdaTest -> testLambdaReturnValue()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> optimization;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LambdaTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Java提供的四种Lambda返回值类型 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testLambdaReturnValue</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 有参无返消费型</span>
+</span></span><span style=display:flex><span>        Consumer<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> consumer <span style=color:#f92672>=</span> num <span style=color:#f92672>-&gt;</span> System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> num <span style=color:#f92672>+</span> 1);
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>accept</span>(100);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 无参有返供给型</span>
+</span></span><span style=display:flex><span>        Supplier<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> supplier <span style=color:#f92672>=</span> () <span style=color:#f92672>-&gt;</span> 100;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> supplier.<span style=color:#a6e22e>get</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 有参有返函数型</span>
+</span></span><span style=display:flex><span>        Function<span style=color:#f92672>&lt;</span>Integer, Integer<span style=color:#f92672>&gt;</span> function <span style=color:#f92672>=</span> num <span style=color:#f92672>-&gt;</span> num <span style=color:#f92672>+</span> 1;
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> function.<span style=color:#a6e22e>apply</span>(100));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 有参有返，并且返回值的类型布尔返断言型</span>
+</span></span><span style=display:flex><span>        Predicate<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> predicate <span style=color:#f92672>=</span> num <span style=color:#f92672>-&gt;</span> num.<span style=color:#a6e22e>equals</span>(100);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;结果: &#34;</span> <span style=color:#f92672>+</span> predicate.<span style=color:#a6e22e>test</span>(100));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

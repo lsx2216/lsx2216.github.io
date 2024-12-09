@@ -1,0 +1,595 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB3-3-SpringMVC</title>
+<meta name=description content="[!NOTE] Java道经第3卷 - 第3阶 - SpringMVC v3-3-ssm-springmvc
+S01. SpringMVC基础入门 心法: SpringMVC
+SpringMVC是Spring框架的控制层技术，本质是一个Servlet组件。 SpringMVC …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-3-SpringMVC/JB3-3-SpringMVC/"><meta property="og:type" content="website"><meta property="og:title" content="JB3-3-SpringMVC"><meta property="og:description" content="[!NOTE] Java道经第3卷 - 第3阶 - SpringMVC v3-3-ssm-springmvc
+S01. SpringMVC基础入门 心法: SpringMVC
+SpringMVC是Spring框架的控制层技术，本质是一个Servlet组件。 SpringMVC …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB3-3-SpringMVC"><meta name=twitter:description content="[!NOTE] Java道经第3卷 - 第3阶 - SpringMVC v3-3-ssm-springmvc
+S01. SpringMVC基础入门 心法: SpringMVC
+SpringMVC是Spring框架的控制层技术，本质是一个Servlet组件。 SpringMVC …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-3-SpringMVC/JB3-3-SpringMVC/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-3-SpringMVC/JB3-3-SpringMVC/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-3-SpringMVC/JB3-3-SpringMVC/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB3-3-SpringMVC</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第3卷 - 第3阶 - SpringMVC
+v3-3-ssm-springmvc</p></blockquote><h1 id=s01-springmvc基础入门>S01. SpringMVC基础入门</h1><blockquote><p>心法: SpringMVC</p></blockquote><ul><li>SpringMVC是Spring框架的控制层技术，本质是一个Servlet组件。</li><li>SpringMVC核心是前端控制器 <code>org.springframework.web.servlet.DispatcherServlet</code></li><li>DispatcherServlet负责管理和调用其它组件以处理用户的HTTP请求，降低组件间的耦合度。</li></ul><h2 id=e01-springmvc底层流程>E01. SpringMVC底层流程</h2><blockquote><p>心法: SpringMVC底层流程</p></blockquote><ul><li>当浏览器请求符合前端控制器规则时，WEB服务器会将其转交给前端控制器。</li><li>前端控制器调用处理器映射器 <code>HandlerMapping</code>，该组件主要负责查找:<ul><li>根据请求URL找到某自定义Handler，将其和拦截器（若有）封装成执行链并返回。</li><li>全名 <code>org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping</code></li></ul></li><li>前端控制器调用处理器适配器 <code>HandlerAdapter</code>，该组件主要负责执行:<ul><li>依次执行执行链中拦截器和Handler并返回一个ModelAndView对象。</li><li>全名 <code>org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter</code></li></ul></li><li>前端控制器调用视图解析器 <code>ViewResolver</code>，该组件主要负责解析结果:<ul><li>将ModelAndView中的逻辑视图名拼接前后缀后解析为物理视图名，并返回View对象。</li><li>全名 <code>org.springframework.web.servlet.view.InternalResourceViewResolver</code></li></ul></li><li>前端控制器根据View组装HTML页面响应给浏览器，浏览器渲染页面:<ul><li>渲染: 浏览器解析HTML，构建DOM树，整合CSS和JS，布局，绘制等过程。</li></ul></li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph LR
+
+B((浏览器)) --发送请求--&gt; f{分析请求&lt;br/&gt;是否指向&lt;br/&gt;Handler};
+f --是--&gt; DS(前端控制器&lt;br/&gt;DispatcherServlet);
+f --否--&gt; RES(静态资源) --响应--&gt; B;
+DS --传递请求--&gt; HM(处理器映射器HandlerMapping&lt;br/&gt;负责寻找Handler，封装HandlerChain);
+HM --返回HandlerChain--&gt; DS;
+DS --传递HandlerChain--&gt; HA(处理器适配器HandlerAdapter&lt;br/&gt;负责执行HandlerChain);
+HA --返回ModelAndView--&gt; DS;
+DS --传递ModelAndView--&gt; VR(视图解析器ViewResolver&lt;br/&gt;负责根据ModelAndView解析出View对象);
+VR --返回View对象--&gt; DS;
+DS --响应--&gt; B;
+</code></pre><p><img src=/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-3-SpringMVC/image/af073e7aa024fc05b94a0848bccdcabf.png alt=截图></p><h2 id=e02-springmvc基础配通>E02. SpringMVC基础配通</h2><blockquote><p>武技: 在子项目中整合SpringMVC框架</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;junit-version&gt;</span>4.13.2<span style=color:#f92672>&lt;/junit-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;lombok-version&gt;</span>1.18.24<span style=color:#f92672>&lt;/lombok-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;hutool-version&gt;</span>5.8.14<span style=color:#f92672>&lt;/hutool-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;servlet-version&gt;</span>3.1.0<span style=color:#f92672>&lt;/servlet-version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;spring-version&gt;</span>5.2.15.RELEASE<span style=color:#f92672>&lt;/spring-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${junit-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${lombok-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${hutool-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--javax.servlet-api--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>javax.servlet<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>javax.servlet-api<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${servlet-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-webmvc--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-webmvc<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${spring-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中添加依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--hutool-all--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>cn.hutool<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>hutool-all<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--javax.servlet-api--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>javax.servlet<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>javax.servlet-api<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-webmvc--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>spring-webmvc<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>在子项目的 <code>web.xml</code> 文件中配置编码过滤器: 用于解决全局POST请求的中文乱码问题:<ul><li>爆红处理: <code>Project Structure -> Modules -> 项目 -> Dependencies + -> Library -> Tomcat9</code></li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--编码过滤器--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;filter&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配对名，可随意更改--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;filter-name&gt;</span>characterEncodingFilter<span style=color:#f92672>&lt;/filter-name&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--过滤器类全名--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;filter-class&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span style=color:#f92672>&lt;/filter-class&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;init-param&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-name&gt;</span>encoding<span style=color:#f92672>&lt;/param-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-value&gt;</span>UTF-8<span style=color:#f92672>&lt;/param-value&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/init-param&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/filter&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;filter-mapping&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配对名，可随意更改--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;filter-name&gt;</span>characterEncodingFilter<span style=color:#f92672>&lt;/filter-name&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--拦截全部请求且严格区分后缀，即 `/a.html` 和 `/a` 是不同的两种请求--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;url-pattern&gt;</span>/*<span style=color:#f92672>&lt;/url-pattern&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/filter-mapping&gt;</span>
+</span></span></code></pre></div><ol start=5><li>在子项目的 <code>web.xml</code> 文件中配置SpringMVC前端控制器:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--SpringMVC前端控制器--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;servlet&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配对名，可随意更改--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;servlet-name&gt;</span>dispatcherServlet<span style=color:#f92672>&lt;/servlet-name&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--前端控制器类全名--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span style=color:#f92672>&lt;/servlet-class&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;init-param&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-name&gt;</span>contextConfigLocation<span style=color:#f92672>&lt;/param-name&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--SpringMVC主配: 默认寻找 `/WEB-INF/配对名-servlet.xml`--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;param-value&gt;</span>classpath:springmvc.xml<span style=color:#f92672>&lt;/param-value&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/init-param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--Servlet加载顺序--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;load-on-startup&gt;</span>1<span style=color:#f92672>&lt;/load-on-startup&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/servlet&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;servlet-mapping&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--配对名，可随意更改--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;servlet-name&gt;</span>dispatcherServlet<span style=color:#f92672>&lt;/servlet-name&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--拦截全部请求并忽略后缀，比如将 `/a.html` 视为 `/a` 请求--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;url-pattern&gt;</span>/<span style=color:#f92672>&lt;/url-pattern&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/servlet-mapping&gt;</span>
+</span></span></code></pre></div><ol start=6><li>在子项目的 <code>web.xml</code> 文件中配置项目首页列表:<ul><li>自行开发 <code>webapp/index.html</code> 替换默认的 <code>webapp/index.jsp</code> 首页。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--首页文件列表: 缺省自动寻找index.html--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;welcome-file-list&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;welcome-file&gt;</span>index.html<span style=color:#f92672>&lt;/welcome-file&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/welcome-file-list&gt;</span>
+</span></span></code></pre></div><ol start=7><li>开发SpringMVC主配: <code>classpath:springmvc.xml</code>:<ul><li>管理SpringMVC的三个组件类: 映射器，适配器和解析器。</li><li>放行静态资源目录，让SpringMVC不处理 <code>css/js/html/图片/视频</code> 等静态资源。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--根标签--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;beans</span> <span style=color:#a6e22e>xmlns=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/beans&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xmlns:xsi=</span><span style=color:#e6db74>&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xmlns:mvc=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/mvc&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xmlns:context=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/context&#34;</span>
+</span></span><span style=display:flex><span>       <span style=color:#a6e22e>xsi:schemaLocation=</span><span style=color:#e6db74>&#34;http://www.springframework.org/schema/beans
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>           http://www.springframework.org/schema/beans/spring-beans.xsd 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>           http://www.springframework.org/schema/mvc 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>           http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>           http://www.springframework.org/schema/context 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>           http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--注解驱动: 管理映射器和适配器，即自动生成两个组件的bean配置--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;mvc:annotation-driven/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--管理视图解析器类--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;bean</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--响应视图的前缀--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;prefix&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;/view/&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--响应视图的后缀--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;suffix&#34;</span> <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;.html&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/bean&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--让SpringMVC不处理css/js/html/图片/视频等静态资源--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;mvc:default-servlet-handler/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/beans&gt;</span>
+</span></span></code></pre></div><ol start=8><li>配置Tomcat服务，部署项目，启动服务器。</li><li>访问 <a href=http://localhost:8010/index.html>项目首页</a>：url中的 <code>index.html</code> 可以省略。</li></ol><h2 id=e03-springmvc控制器类>E03. SpringMVC控制器类</h2><blockquote><p>心法: Controller控制器常用注解</p></blockquote><ul><li><code>@RequestMapping</code>: 处理器映射器会映射和寻找标记了该注解的控制方法:<ul><li>若该注解标记在控制器类上，则视为该类中全部控制方法的URL前缀。</li></ul></li><li><code>@ResponseBody</code>: 该注解标记的方法不会进行页面跳转，而是直接响应数据:<ul><li>若该注解标记在控制器类上，则视为对该类中的全部控制方法生效。</li><li><code>@RestController = @Controller + @ResponseBody</code></li><li>当使用 <code>@ResponseBody</code> 注解时，表示方法的返回值直接作为响应体输出，而不是作为视图名称进行解析。因此，在这种情况下，ViewResolver视图解析器将不会被调用。</li></ul></li></ul><table><thead><tr><th>@RequestMapping属性</th><th>描述</th></tr></thead><tbody><tr><td><code>value</code></td><td>设置1或N个方法URL接口，支持 <code>?, *, **</code> 三种模糊匹配占位符</td></tr><tr><td><code>method</code></td><td>限定1或N种请求方式，如 <code>RequestMethod.GET, RequestMethod.POST</code> 等<code>@GetMapping = @RequestMapping(method = RequestMethod.GET)</code><code>@PostMapping = @RequestMapping(method = RequestMethod.POST)</code></td></tr><tr><td><code>produces</code></td><td>限定响应数据的MIME类型，如 <code>application/json;charset=utf8</code> 等一般用于解决控制方法在直接返回纯字符串数据时出现的中文乱码问题</td></tr></tbody></table><blockquote><p>武技: 测试SpringMVC控制器类</p></blockquote><ol><li>在SpringMVC主配中扫描controller包中的 <code>@Component</code> 注解:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--扫描指定包及其子包下的 @Component 注解--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;context:component-scan</span> <span style=color:#a6e22e>base-package=</span><span style=color:#e6db74>&#34;com.lsx.controller&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>StartController</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/api/v1/start&#34;</span>, produces <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;application/json;charset=utf8&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>StartController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(value <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;/test00&#34;</span>, <span style=color:#e6db74>&#34;/test01&#34;</span>}, method <span style=color:#f92672>=</span> RequestMethod.<span style=color:#a6e22e>GET</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>test01</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;test01 访问成功!&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;{name: 广坤, age: 19}&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/test02&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>test02</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;test02 访问成功!&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;{name: 刘能, age: 20}&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8010/api/v1/start/test00>访问控制方法 test00</a></li><li><a href=http://localhost:8010/api/v1/start/test01>访问控制方法 test01</a></li><li><a href=http://localhost:8010/api/v1/start/test02>访问控制方法 test02</a></li></ol><h2 id=e04-springmvc序列框架>E04. SpringMVC序列框架</h2><blockquote><p>心法: Jackson框架</p></blockquote><ul><li>Jackson是一个JSON序列化开源框架，简单易用，速度快，占用内存低，性能好，支持扩展和定制:<ul><li>JSON: 目前最理想的前后端数据交换格式，轻量，高效。</li><li>序列化: 将 <code>List/Map/Set/Entity</code> 等类型的数据序列化为JSON字符串。</li><li>反序列化: 将 <code>JSON字符串</code> 反序列化为 <code>List/Map/Set/Entity</code> 等类型的数据。</li></ul></li><li>使用Jackson框架的好处:<ul><li>控制方法可以直接对Entity，Map，List等类型的数据进行响应，Jackson框架会自动对响应数据进行转换，规避转换异常。</li><li>在Entity类型的响应数据中可以使用一些Jackson注解，如 <code>@JsonProperty, @JsonIgnore</code> 等，更简单，更灵活地处理响应数据。</li></ul></li></ul><table><thead><tr><th>Jackson常用注解</th><th>标记位置</th><th>描述</th></tr></thead><tbody><tr><td><code>@JsonIgnoreProperties({"", ""})</code></td><td>类或属性</td><td>设置哪些属性不参与序列化和回写过程，仅作用于回写数据</td></tr><tr><td><code>@JsonNaming(策略类.class)</code></td><td>类或属性</td><td>指定命名的策略，同时作用于JSON请求参数和JSON回写数据<code>PropertyNamingStrategy.class</code>: 不转换，默认值<code>PropertyNamingStrategy.SnakeCaseStrategy.class</code>: 转为下划线格式<code>PropertyNamingStrategy.UpperCamelCaseStrategy.class</code>: 转为大驼峰格式<code>PropertyNamingStrategy.LowerCaseStrategy.class</code>: 转为全小写格式<code>PropertyNamingStrategy.KebabCaseStrategy.class</code>: 转为连字符格式<code>PropertyNamingStrategy.LowerDotCaseStrategy.class</code>: 转为点连接格式</td></tr><tr><td><code>@JsonProperty("")</code></td><td>属性</td><td>为实体类属性起别名，同时作用于JSON请求参数和JSON回写数据</td></tr><tr><td><code>@JsonFormat(pattern = "", timezone = "")</code></td><td>属性</td><td>为实体类中的日期型属性设置转换格式和时区</td></tr><tr><td><code>@JsonIgnore</code></td><td>属性</td><td>设置该属性不参与序列化和回写过程，仅作用于回写数据</td></tr></tbody></table><blockquote><p>武技: 在子项目中整合Jackson框架</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;jackson-version&gt;</span>2.11.4<span style=color:#f92672>&lt;/jackson-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--jackson-databind--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.fasterxml.jackson.core<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>jackson-databind<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${jackson-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中添加依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--jackson-databind--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.fasterxml.jackson.core<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>jackson-databind<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发实体类 <code>User</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.entity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@JsonIgnoreProperties</span>(<span style=color:#e6db74>&#34;password&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@JsonNaming</span>(PropertyNamingStrategy.<span style=color:#a6e22e>KebabCaseStrategy</span>.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>User</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer userId;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@JsonProperty</span>(<span style=color:#e6db74>&#34;uname&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String username;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String password;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@JsonIgnore</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String idCard;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@JsonFormat</span>(pattern <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;yyyy年MM月dd日&#34;</span>, timezone <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Asia/Shanghai&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Date birthday;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发控制方法 <code>JacksonController</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/jackson&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>JacksonController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/map&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>map</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 整合Jackson后，控制方法可以直接返回Map, List, Entity等类型的数据</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;name&#34;</span>,<span style=color:#e6db74>&#34;赵四&#34;</span>,<span style=color:#e6db74>&#34;age&#34;</span>,18);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/entity&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>entity</span>(){
+</span></span><span style=display:flex><span>        User user <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> User();
+</span></span><span style=display:flex><span>        user.<span style=color:#a6e22e>setUserId</span>(1);
+</span></span><span style=display:flex><span>        user.<span style=color:#a6e22e>setUsername</span>(<span style=color:#e6db74>&#34;zhaosi&#34;</span>);
+</span></span><span style=display:flex><span>        user.<span style=color:#a6e22e>setPassword</span>(<span style=color:#e6db74>&#34;1234&#34;</span>);
+</span></span><span style=display:flex><span>        user.<span style=color:#a6e22e>setBirthday</span>(<span style=color:#66d9ef>new</span> Date());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> user;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li><a href=http://localhost:8010/api/v1/jackson/map>访问控制方法 map</a></li><li><a href=http://localhost:8010/api/v1/jackson/entity>访问控制方法 entity</a></li></ol><h2 id=e05-springmvc日志框架>E05. SpringMVC日志框架</h2><blockquote><p>心法: <a href=https://logback.qos.ch/index.html>Logback日志</a></p></blockquote><ul><li>Logback是由log4j创始人设计的另一个基于slf4j的开源日志框架，性能比log4j要好。</li><li>日志级别: <code>TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; ALL</code>，不区分大小写。</li></ul><table><thead><tr><th>Logback模板占位符</th><th>解析</th><th>输出结果示例</th></tr></thead><tbody><tr><td><code>%d{yyyy-MM-dd HH:mm:ss.SSS}</code></td><td>什么时间记录的该条日志</td><td><code>2023-07-27 11:08:21.133</code></td></tr><tr><td><code>%-5p</code></td><td>日志级别</td><td><code>INFO</code></td></tr><tr><td><code>%4.15(%t)</code></td><td>线程名，最少4个字符，最多15个字符</td><td><code>main</code></td></tr><tr><td><code>%c{1}.%M.%L</code></td><td>包名.类名.方法名.行号，包名折叠为1字符</td><td><code>c.j.StartController.exe:15</code></td></tr><tr><td><code>%msg</code></td><td>日志信息</td><td><code>添加了一条用户记录</code></td></tr><tr><td><code>%n</code></td><td>换行符</td><td>-</td></tr></tbody></table><blockquote><p>武技: 在子项目中整合Logback日志框架</p></blockquote><ol><li>在父项目中锁定版本:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;logback-version&gt;</span>1.2.3<span style=color:#f92672>&lt;/logback-version&gt;</span>
+</span></span></code></pre></div><ol start=2><li>在父项目中管理依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--logback-classic--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>ch.qos.logback<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>logback-classic<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>${logback-version}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=3><li>在子项目中添加依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--logback-classic--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>ch.qos.logback<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>logback-classic<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol start=4><li>开发日志配置文件 <code>classpath:logback.xml</code>: 名称和位置固定:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;configuration&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--定义通用日志格式模板--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;LOG_PATTERN&#34;</span> 
+</span></span><span style=display:flex><span>              <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %4.15(%t) %c{1}.%M:%L %msg%n&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--定义日志文件: 相对位置从父项目开始，支持使用绝对路径--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;LOG_FILE&#34;</span> 
+</span></span><span style=display:flex><span>              <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;D:\\idea\\workspace\\java-book\\log\\v3-3-ssm-springmvc.log&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--定义日志文件拆分名模板--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        1. 当日期变化时，对 `%d` 进行滚动:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        1.1 先将昨天的日志文件重命名为 `文件名.昨天.0.log`
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        1.2 再创建新的日志文件 `文件名.log` 用于记录今天的日志
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        2. 当单个日志文件超出最大值时，对 `%i` 进行滚动:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        2.1 先将当前的日志文件重命名为 `文件名.今天.0.log`
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        2.2 若 `文件名.今天.0.log` 已存在，则创建 `文件名.今天.1.log`, 依此类推
+</span></span></span><span style=display:flex><span><span style=color:#75715e>        2.3 再创建新的日志文件 `文件名.log` 用于记录后续的日志
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    --&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;property</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;FILE_NAME_PATTERN&#34;</span> 
+</span></span><span style=display:flex><span>              <span style=color:#a6e22e>value=</span><span style=color:#e6db74>&#34;D:\\idea\\workspace\\java-book\\log\\v3-3-ssm-springmvc.%d.%i.log&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--控制台Appender: 将日志输出在控制台--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;appender</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;CONSOLE&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;ch.qos.logback.core.ConsoleAppender&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置日志格式: 控制台编码是GBK的，不要设置UTF-8--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;encoder&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;pattern&gt;</span>${LOG_PATTERN}<span style=color:#f92672>&lt;/pattern&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/encoder&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/appender&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--文件Appender: 将日志输出到指定的日志文件中--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;appender</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;FILE&#34;</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;ch.qos.logback.core.rolling.RollingFileAppender&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置日志文件位置--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;file&gt;</span>${LOG_FILE}<span style=color:#f92672>&lt;/file&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--配置日志格式和编码--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;encoder&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;pattern&gt;</span>${LOG_PATTERN}<span style=color:#f92672>&lt;/pattern&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;charset&gt;</span>UTF-8<span style=color:#f92672>&lt;/charset&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/encoder&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--日志文件滚动策略--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;rollingPolicy</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--日志文件拆分名模板--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;fileNamePattern&gt;</span>${FILE_NAME_PATTERN}<span style=color:#f92672>&lt;/fileNamePattern&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--日志文件最长时效，单位根据日志文件拆分名自动识别，超时立刻删除多余日志--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;maxHistory&gt;</span>30<span style=color:#f92672>&lt;/maxHistory&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--全部日志文件最大值，如100MB，超出100MB则立刻删除多余日志--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;totalSizeCap&gt;</span>100MB<span style=color:#f92672>&lt;/totalSizeCap&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--每个日志文件拆分阈值，默认10MB，表示日志文件超过10M则立刻切分--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>&lt;!--此处可设置为2KB以测试滚动效果--&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;maxFileSize&gt;</span>10MB<span style=color:#f92672>&lt;/maxFileSize&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/rollingPolicy&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!--过滤器: 阻止INFO级别的日志--&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;filter</span> <span style=color:#a6e22e>class=</span><span style=color:#e6db74>&#34;ch.qos.logback.classic.filter.LevelFilter&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;level&gt;</span>INFO<span style=color:#f92672>&lt;/level&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;onMatch&gt;</span>DENY<span style=color:#f92672>&lt;/onMatch&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&lt;onMismatch&gt;</span>ACCEPT<span style=color:#f92672>&lt;/onMismatch&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;/filter&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/appender&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--根日志记录器: 对全局的启动日志和运行时日志进行记录，最低级别为INFO--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;root</span> <span style=color:#a6e22e>level=</span><span style=color:#e6db74>&#34;INFO&#34;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;appender-ref</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;CONSOLE&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;appender-ref</span> <span style=color:#a6e22e>ref=</span><span style=color:#e6db74>&#34;FILE&#34;</span><span style=color:#f92672>/&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/root&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/configuration&gt;</span>
+</span></span></code></pre></div><ol start=5><li>开发控制方法 <code>LogBackController -> test()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Slf4j</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/logback&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LogBackController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/test&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>test</span>() {
+</span></span><span style=display:flex><span>        log.<span style=color:#a6e22e>debug</span>(<span style=color:#e6db74>&#34;DEBUG级别的一条日志&#34;</span>);
+</span></span><span style=display:flex><span>        log.<span style=color:#a6e22e>info</span>(<span style=color:#e6db74>&#34;INFO级别的一条日志&#34;</span>);
+</span></span><span style=display:flex><span>        log.<span style=color:#a6e22e>warn</span>(<span style=color:#e6db74>&#34;WARN级别的一条日志&#34;</span>);
+</span></span><span style=display:flex><span>        log.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#34;ERROR级别的一条日志&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;success&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li><a href=http://localhost:8010/api/v1/logback/test>访问控制方法 test</a></li></ol><h1 id=s02-springmvc响应方案>S02. SpringMVC响应方案</h1><table><thead><tr><th></th><th>请求次数</th><th>地址栏是否变化</th><th>关键</th><th>是否可以使用前后缀</th><th>防刷新</th></tr></thead><tbody><tr><td>请求转发</td><td>浏览器只发送一次请求</td><td>无变化</td><td><code>forward</code></td><td>可以用，也可以不用</td><td>不防刷新</td></tr><tr><td>重定向</td><td>浏览器至少发送两次请求</td><td>有变化</td><td><code>redirect</code></td><td>不能用</td><td>防刷新</td></tr></tbody></table><h2 id=e01-springmvc请求转发>E01. SpringMVC请求转发</h2><blockquote><p>心法: SpringMVC请求转发</p></blockquote><ul><li>请求转发模式下，浏览器只向服务器发送一次请求，且地址栏不会发生变化：<ul><li><code>return "路径"</code>: 自动拼接视图解析器的前后缀。</li><li><code>return "forward:路径"</code>: 不拼接视图解析器的前后缀，支持查询串。</li></ul></li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+	浏览器 -&gt;&gt; 服务器: 请求 
+	服务器 -&gt;&gt; 资源: 转发 
+	资源 -&gt;&gt; 服务器: 返回
+	服务器 -&gt;&gt; 浏览器: 响应
+</code></pre><blockquote><p>武技: 测试SpringMVC请求转发</p></blockquote><ol><li>开发HTML页面 <code>webapp/view/forward-test.html</code>: 仅用于请求转发测试:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zh-cmn-Hans&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;请求转发测试页面&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h1</span>&gt;请求转发测试成功&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>ForwardController -> test01() & test02()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Controller</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/forward&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ForwardController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;test01&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>test01</span>() {          
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;forward-test&#34;</span>;  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;test02&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>test02</span>() {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;forward:/view/test/forward-test.html&#34;</span>;          
+</span></span><span style=display:flex><span>    } 
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8010/api/v1/forward/test01>访问控制方法 test01</a></li><li><a href=http://localhost:8010/api/v1/forward/test02>访问控制方法 test02</a></li></ol><h2 id=e02-springmvc重定地址>E02. SpringMVC重定地址</h2><blockquote><p>心法: SpringMVC请求重定向</p></blockquote><ul><li>重定向模式下，浏览器需要向服务器发送至少两次请求，地址栏会发生变化。<ul><li><code>return "redirect:路径"</code>: 不拼接视图解析器的前后缀，不支持查询串。</li></ul></li></ul><pre tabindex=0><code class=language-mermaid data-lang=mermaid>sequenceDiagram
+	浏览器 -&gt;&gt; 服务器: 请求资源 
+	服务器 -&gt;&gt; 浏览器: 返回资源地址 
+	浏览器 -&gt;&gt; 资源: 请求资源
+	资源 -&gt;&gt; 浏览器: 返回
+</code></pre><blockquote><p>武技: 测试SpringMVC请求重定向</p></blockquote><ol><li>开发HTML页面 <code>webapp/view/redirect-test.html</code>: 仅用于重定向测试:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zh-cmn-Hans&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;重定向测试页面&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h1</span>&gt;重定向测试成功&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>RedirectController -> test()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Controller</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/redirect&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RedirectController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;test&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>test</span>() {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;redirect:/view/redirect-test.html&#34;</span>;  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8010/api/v1/redirect/test>访问控制方法</a></li></ol><h2 id=e03-springmvc响应封装>E03. SpringMVC响应封装</h2><blockquote><p>心法: Result响应类封装</p></blockquote><ul><li>统一控制方法的返回数据格式是一种良好的开发习惯，旨在加快开发效率以及形成团队良好的代码规范。</li></ul><blockquote><p>武技: 统一包装响应</p></blockquote><ol><li><a href=res/%E5%B0%81%E8%A3%85Result%E5%93%8D%E5%BA%94%E7%B1%BB.md>封装Result响应类</a></li><li>开发控制方法 <code>ResultController</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/result&#34;</span>) 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ResultController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;success&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>success</span>() {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;username&#34;</span>, <span style=color:#e6db74>&#34;赵四&#34;</span>, <span style=color:#e6db74>&#34;password&#34;</span>, <span style=color:#e6db74>&#34;赵四123&#34;</span>));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;fail&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>fail</span>() {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(ResultCode.<span style=color:#a6e22e>FAILED</span>);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;failWithData&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>failWithData</span>() {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(ResultCode.<span style=color:#a6e22e>TOKEN_EXPIRING_SOON</span>, <span style=color:#e6db74>&#34;新的Token&#34;</span>);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8010/api/v1/result/success>访问控制方法 success</a></li><li><a href=http://localhost:8010/api/v1/result/fail>访问控制方法 fail</a></li><li><a href=http://localhost:8010/api/v1/result/failWithData>访问控制方法 failWithData</a></li></ol><h1 id=s03-springmvc接值方案>S03. SpringMVC接值方案</h1><h2 id=e01-不使用注解接值>E01. 不使用注解接值</h2><blockquote><p>心法: SpringMVC不使用注解接值</p></blockquote><ul><li>SpringMVC可以直接在控制方法的参数中接收请求参数，且接收参数时，可以不使用任何注解:</li></ul><table><thead><tr><th>参数类型</th><th>描述</th></tr></thead><tbody><tr><td><code>Integer</code></td><td>直接接收一个Integer类型的参数，其余整数类型同理</td></tr><tr><td><code>String</code></td><td>直接接收一个String类型的参数</td></tr><tr><td><code>Date</code></td><td>直接接收一个Date类型的参数，默认格式为 <code>yyyy/MM/dd</code></td></tr><tr><td><code>Boolean</code></td><td>直接接收一个Boolean类型的参数，可自动将 <code>1/0</code> 转为 <code>true/false</code></td></tr><tr><td><code>String[]</code></td><td>直接接收一个String组类型的参数，其他类型的数组同理</td></tr><tr><td><code>LoginDTO</code></td><td>使用实体类接收请求参数，保持属性名和请求参数同名即可，支持分量符连调</td></tr></tbody></table><blockquote><p>武技: 测试SpringMVC接收简单类型参数</p></blockquote><ol><li>创建DTO实体类 <code>LoginDTO</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.dto;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/**  @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoginDTO</span> <span style=color:#66d9ef>implements</span> Serializable {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String username;  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String password;  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>SimpleParamController -> *()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/simpleParam&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SimpleParamController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/numberParam&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>numberParam</span>(Byte b, Short s, Integer i, Long l, Float f, Double d) {  
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(6);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Byte参数&#34;</span>, b);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Short参数&#34;</span>, s);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Integer参数&#34;</span>, i);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Long参数&#34;</span>, l);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Float参数&#34;</span>, f);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;Double参数&#34;</span>, d);  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(resultMap);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/stringParam&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>stringParam</span>(String str) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;String参数&#34;</span>, str));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/dateParam&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>dateParam</span>(Date date) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;Date参数&#34;</span>, date.<span style=color:#a6e22e>toString</span>()));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/booleanParam&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>booleanParam</span>(Boolean bool) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;Boolean参数&#34;</span>, bool));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/arrayParam&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>arrayParam</span>(Integer<span style=color:#f92672>[]</span> array) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;Array参数&#34;</span>, Arrays.<span style=color:#a6e22e>toString</span>(array)));  
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/dtoParam&#34;</span>)  
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>dtoParam</span>(LoginDTO loginDTO){  
+</span></span><span style=display:flex><span>	    Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);  
+</span></span><span style=display:flex><span>	    resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;账号&#34;</span>, loginDTO.<span style=color:#a6e22e>getUsername</span>());  
+</span></span><span style=display:flex><span>	    resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;密码&#34;</span>, loginDTO.<span style=color:#a6e22e>getPassword</span>());  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(resultMap);  
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li><a href="http://localhost:8010/api/v1/simpleParam/numberParam?b=1&amp;s=2&amp;i=3&amp;l=4&amp;f=5.0&amp;d=6.0">访问控制方法 numberParam</a></li><li><a href="http://localhost:8010/api/v1/simpleParam/stringParam?str=hello">访问控制方法 stringParam</a></li><li><a href="http://localhost:8010/api/v1/simpleParam/dateParam?date=1999/09/09">访问控制方法 dateParam</a></li><li><a href="http://localhost:8010/api/v1/simpleParam/booleanParam?bool=1">访问控制方法 booleanParam</a></li><li><a href="http://localhost:8010/api/v1/simpleParam/arrayParam?array=1&amp;array=2">访问控制方法 arrayParam</a></li><li><a href="http://localhost:8010/api/v1/simpleParam/dtoParam?username=admin&amp;password=123">访问控制方法 dtoParam</a></li></ol><h2 id=e02-requestparam接值>E02. @RequestParam接值</h2><blockquote><p>心法: @RequestParam注解</p></blockquote><ul><li>注解 <code>@RequestParam</code> 需要标记在控制方法参数前，用于配置如何接收请求参数。</li><li>注解 <code>@RequestParam</code> 不能对实体类参数进行标记。</li></ul><table><thead><tr><th>@RequestParam属性</th><th>描述</th></tr></thead><tbody><tr><td><code>value = ""</code></td><td>为请求参数起别名，传参时候只能使用别名，缺省表示使用参数名</td></tr><tr><td><code>required = true</code></td><td>必须传递该参数，否则报错，默认为 <code>true</code></td></tr><tr><td><code>defaultValue = ""</code></td><td>设置属性默认值，一般和 <code>required = false</code> 同时使用</td></tr></tbody></table><blockquote><p>武技: 测试@RequestParam注解</p></blockquote><ol><li>开发控制方法 <code>RequestParamController -> *()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/requestParam&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RequestParamController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/valueField&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>valueField</span>(<span style=color:#a6e22e>@RequestParam</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;uname&#34;</span>) String name) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求参数uname&#34;</span>, name));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/requiredField&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>requiredField</span>(<span style=color:#a6e22e>@RequestParam</span>(required <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>) String name) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ObjectUtil.<span style=color:#a6e22e>isNull</span>(name)) {  
+</span></span><span style=display:flex><span>		    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(ResultCode.<span style=color:#a6e22e>VALIDATE_FAILED</span>);  
+</span></span><span style=display:flex><span>		} 
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求参数name&#34;</span>, name));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/defaultValueField&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>defaultValueField</span>(<span style=color:#a6e22e>@RequestParam</span>(required <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>, defaultValue <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;赵四&#34;</span>) String name) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求参数name&#34;</span>, name));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li><a href="http://localhost:8010/api/v1/requestParam/valueField?uname=lsx">访问控制方法 valueField</a></li><li><a href=http://localhost:8010/api/v1/requestParam/requiredField>访问控制方法 requiredField</a></li><li><a href=http://localhost:8010/api/v1/requestParam/defaultValueField>访问控制方法 defaultValueField</a></li></ol><h2 id=e03-pathvariable接值>E03. @PathVariable接值</h2><blockquote><p>心法: @PathVariable注解</p></blockquote><ul><li>注解 <code>@PathVariable</code> 需要标记在控制方法参数前，用于从 <code>@RequestMapping</code> 映射的URL路径中获取参数。<ul><li>URL路径中需要使用 <code>{名称}</code> 作为占位符，支持多级占位，如 <code>/api/v1/select/{id}/{name}</code> 等。</li><li>占位符 <code>{名称}</code> 中的名称必须和 <code>@PathVariable</code> 的别名保持一致，否则无法正确接参。</li></ul></li></ul><table><thead><tr><th>@PathVariable属性</th><th>描述</th></tr></thead><tbody><tr><td><code>value = ""</code></td><td>为请求参数起别名，必须和URL路径中的占位符名称保持一致，缺省表示使用参数名</td></tr><tr><td><code>required = true</code></td><td>必须传递该参数，否则500报错，默认为 <code>true</code>，设置为 <code>false</code> 时模板上的 <code>{}</code> 也要省略</td></tr></tbody></table><blockquote><p>武技: 测试@PathVariable注解</p></blockquote><ol><li>开发控制方法 <code>PathVariableController -> valueField()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/api/v1/pathVariable&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>PathVariableController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/valueField/{id}/{uname}&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>valueField</span>(<span style=color:#a6e22e>@PathVariable</span> String id, <span style=color:#a6e22e>@PathVariable</span>(<span style=color:#e6db74>&#34;uname&#34;</span>) String name) {  
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> resultMap <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求参数id&#34;</span>, id);  
+</span></span><span style=display:flex><span>        resultMap.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;请求参数name&#34;</span>, name);  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(resultMap);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/requiredField&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>requiredField</span>(<span style=color:#a6e22e>@PathVariable</span>(required <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>) String id) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ObjectUtil.<span style=color:#a6e22e>isNull</span>(id)) {  
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(ResultCode.<span style=color:#a6e22e>VALIDATE_FAILED</span>);  
+</span></span><span style=display:flex><span>        }  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求参数id&#34;</span>, id));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li><a href=http://localhost:8010/api/v1/pathVariable/valueField/1/zhaosi>访问控制方法 valueField</a></li><li><a href=http://localhost:8010/api/v1/pathVariable/requiredField>访问控制方法 requiredField</a></li></ol><h2 id=e04-requestbody接值>E04. @RequestBody接值</h2><blockquote><p>心法: @RequestBody注解</p></blockquote><ul><li>注解 <code>@RequestBody</code> 需要标记在控制方法参数前，用于接收JSON格式的实体类参数:<ul><li>该注解只能在POST请求中使用。</li><li>该注解会使用Jackson序列化注解所设置的相关策略。</li></ul></li></ul><table><thead><tr><th>@RequestBody属性</th><th>描述</th></tr></thead><tbody><tr><td><code>required</code></td><td>必须传递该参数，否则报错，默认为 <code>true</code></td></tr></tbody></table><blockquote><p>武技: 测试@RequestBody注解</p></blockquote><ol><li>开发DTO实体类 <code>UserInsertDTO</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.entity.param;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@JsonNaming</span>(PropertyNamingStrategy.<span style=color:#a6e22e>KebabCaseStrategy</span>.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UserInsertDTO</span> <span style=color:#66d9ef>implements</span> Serializable {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String username;  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String password;  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String realname;  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer age;  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Integer gender;  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>RequestBodyController -> insert()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/requestBody&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RequestBodyController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@PostMapping</span>(<span style=color:#e6db74>&#34;/insert&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>insert</span>(<span style=color:#a6e22e>@RequestBody</span> UserInsertDTO dto) {  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求参数&#34;</span>, dto));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>访问控制方法 insert:<ul><li>这里必须使用POST请求来测试 <code>@RequestBody</code> 注解的效果，所以无法使用浏览器进行测试。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>### 访问控制方法 insert
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>POST http://localhost:8010/api/v1/requestBody/insert  
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>Content-Type: application/json  
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>  
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>{  
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>   &#34;username&#34;: &#34;zhaosi&#34;,   
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>   &#34;password&#34;: &#34;123&#34;,   
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>   &#34;realname&#34;: &#34;赵四&#34;,  
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>   &#34;age&#34;: 18,   
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>   &#34;gender&#34;: 1
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>}
+</span></span></span></code></pre></div><h2 id=e05-requestheader接值>E05. @RequestHeader接值</h2><blockquote><p>心法: @RequestHeader注解</p></blockquote><ul><li>注解 <code>@RequestHeader</code> 需要标记在控制方法参数前，用于接收请求头中的指定参数。</li></ul><table><thead><tr><th>@RequestHeader属性</th><th>描述</th></tr></thead><tbody><tr><td><code>required</code></td><td>必须传递该参数，否则报错，默认为 <code>true</code></td></tr><tr><td><code>defaultValue</code></td><td>设置属性默认值，一般和 <code>required = false</code> 同时使用</td></tr></tbody></table><blockquote><p>武技: 测试@RequestHeader注解</p></blockquote><ol><li>开发控制方法 <code>RequestHeaderController -> getHost()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/requestHeader&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RequestHeaderController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getHost&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>getHost</span>(<span style=color:#a6e22e>@RequestHeader</span>(<span style=color:#e6db74>&#34;host&#34;</span>) String host){  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;请求头参数host&#34;</span>, host));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li><a href=http://localhost:8010/api/v1/requestHeader/getHost>访问控制方法 getHost</a></li></ol><h2 id=e06-使用servlet原生接值>E06. 使用Servlet原生接值</h2><blockquote><p>心法: 在SpringMVC中使用Servlet原生对象</p></blockquote><ul><li>SpringMVC控制方法中可以直接获取Servlet原生对象，如 <code>HttpServletRequest</code> 请求对象, <code>HttpServletResponse</code> 响应对象和 <code>HttpSession</code> 会话对象。</li></ul><blockquote><p>武技: 在SpringMVC中获取并使用Servlet原生对象</p></blockquote><ol><li>开发控制方法 <code>ServletController -> *()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/servlet&#34;</span>)  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ServletController</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getRequest&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>getRequest</span>(HttpServletRequest req){  
+</span></span><span style=display:flex><span>        String uri <span style=color:#f92672>=</span> req.<span style=color:#a6e22e>getRequestURI</span>();  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;uri&#34;</span>, uri));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getResponse&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>getResponse</span>(HttpServletResponse resp){  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> status <span style=color:#f92672>=</span> resp.<span style=color:#a6e22e>getStatus</span>();  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;status&#34;</span>, status));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/getSession&#34;</span>)  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Result <span style=color:#a6e22e>getSession</span>(HttpSession session){  
+</span></span><span style=display:flex><span>        String sessionId <span style=color:#f92672>=</span> session.<span style=color:#a6e22e>getId</span>();  
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Result(Map.<span style=color:#a6e22e>of</span>(<span style=color:#e6db74>&#34;sessionId&#34;</span>, sessionId));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li><a href=http://localhost:8010/api/v1/servlet/getRequest>访问控制方法 getRequest</a></li><li><a href=http://localhost:8010/api/v1/servlet/getResponse>访问控制方法 getResponse</a></li><li><a href=http://localhost:8010/api/v1/servlet/getSession>访问控制方法 getSession</a></li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Excalidraw on lsx2216</title><link>https://lsx2216.netlify.app/tags/excalidraw/</link><description>Recent content in Excalidraw on lsx2216</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://lsx2216.netlify.app/tags/excalidraw/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/draw/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/draw/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements eg: int[] arr = { 1, 2, 3, 33, 105 }; ^pSbajkBV
+Stack ^v6NCjE5V
+0x100 ^7rqc71bQ
+2 ^N4zaFf0S
+105 ^Ys1iIy6h
+arr ^BKmzWkXG
+0X100 ^VLjZzF2l
+0X104 ^kY2JkKeh
+内存地址 + 4(int型占4字节) = 下一个元素的内存地址 ^VCxit9CP
+Heap ^504a8vqW
+0X108 ^HT9wLusU
+3 ^xQM7utNr
+0X112 ^KuUl7qLk
+33 ^remcFmIi
+1 ^S27VN11m
+0 ^sSaO1Ivl
+1 ^CBZWI1Lw
+2 ^Cj0SiafB
+3 ^tiaXpdDV
+数组下标 ^8mBU1ANF</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/draw/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-2-%E5%9F%BA%E7%A1%80%E5%90%AF%E8%88%AA/draw/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements eg: int[][] arr = { {1,2,3}, {33,44,2,13}, {105} }; ^pSbajkBV
+Stack ^v6NCjE5V
+0xA01 ^7rqc71bQ
+0X001 ^2BPAvWDk
+0X521 ^N4zaFf0S
+0xAA0 ^Ys1iIy6h
+105 ^hdddstKz
+33 ^Laf9u4pa
+44 ^0cOyuYtQ
+2 ^0Kv1sfrB
+13 ^2VkKkBKr
+arr ^BKmzWkXG
+0XA01 ^VLjZzF2l
+0XA05 ^kY2JkKeh
+0XA09 ^VCxit9CP
+0X521 ^nPs5jZC6
+0X525 ^pjWspjaJ
+0X529 ^2SK3WZOC
+0X533 ^4HLWba64
+0xAA0 ^7YfKC1rc
+Heap ^504a8vqW
+0X001 ^hRP3taNn
+0X005 ^S4gUu19d</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ArrayBlockingQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ArrayBlockingQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements ArrayBlockingQueue ^D34fOHsu
+获取可重入锁 ^h20THk0r
+E ^sMYGxJE3
+E ^dzTjrjdP
+E ^VUI5Z60Z
+入队 ^enuxeCLZ
+put(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+take() ^nh2vkAQd
+获取可重入锁 ^IrV6RtZX
+队列已满时阻塞等待 ^iDmLmpOM
+E ^MQPZumf1
+E ^SwzznZ2j
+E ^ZG0NsZnA
+队列为空时阻塞等待 ^5ODiO4kX
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 390, &amp;#34;versionNonce&amp;#34;: 1075668358, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;Y4MeJO0jTIt-6S5Hme7Wu&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;id&amp;#34;: &amp;#34;T9Lfgq-8bByOD1_Mn9UrU&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713682136578, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 162, &amp;#34;versionNonce&amp;#34;: 1727667674, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -380.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CAS%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CAS%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 线程A ^2qTJDx9k
+共享资源 volatile num = 3 ^LvbRpQEP
+比较 Compare ^yzb5BkqC
+交换 swap ^ZWYzfBIW
+主存 ^dEG3fZZ8
+获取 资源 ^VrwxvZA2
+预期值：3 真实值：3 ^ggNwXGm5
+CAS过程是原子的 ^fsat6yoQ
+修改 num = 4 ^fQRDsSFT
+线程B ^v2pwYf9f
+比较 Compare ^chZKXhtb
+交换 swap ^axbOkDyM
+预期值：3 真实值：4 ^WuZu0rPr
+获取 资源 ^aOr4xG4z
+共享资源 volatile num = 4 ^KtdgYddT
+重新 获取 资源 ^6tLThhKr
+%%</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CompletableFuture%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CompletableFuture%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements void taskF() ^a2QnPHwB
+耗3秒 ^UakMCz6o
+准备6个任务方法 ^B9Oy7sBx
+String taskB() ^eRDio6D4
+String taskC() ^C9poGHbt
+void taskE() ^HrEECLdn
+void taskD() ^8TeeVJ5C
+耗2秒 ^ATcyKYuR
+耗3秒 ^WyGiwdx9
+耗1秒 ^ZpNHKSjb
+耗2秒 ^LuOKHA0W
+耗1秒 ^vNRO3u40
+String taskA() ^N8KB0MeI
+每个调用均返回一个 Future 实例
+ComplateableFuture.runAsync(this::taskD) ComplateableFuture.runAsync(this::taskE) ComplateableFuture.runAsync(this::taskF) ^3gsfrD17
+异步调用3个无返回值的任务方法 ^z6g17Eqm
+CompletableFuture.allOf(fA, fB, fC, fD, fE, fF) ^nfoGUGQi
+每个调用均返回一个 Future 实例
+ComplateableFuture.supplyAsync(this::taskA) ComplateableFuture.supplyAsync(this::taskB) ComplateableFuture.supplyAsync(this::taskC) ^wJlCGwQz</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ConcurrentLinkedQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ConcurrentLinkedQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements ConcurrentLinkedQueue ^D34fOHsu
+CAS出队，保证安全 ^h20THk0r
+Node(E) ^sMYGxJE3
+Node(E) ^dzTjrjdP
+Node(E) ^VUI5Z60Z
+入队 ^enuxeCLZ
+add(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+poll() ^nh2vkAQd
+创建新节点Node(E) ^UakMCz6o
+CAS入队，保证安全 ^IrV6RtZX
+队列为空时直接返回null ^iDmLmpOM
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 386, &amp;#34;versionNonce&amp;#34;: 1422769030, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;O8IrQr8wIGjGha06Bs8i3&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;id&amp;#34;: &amp;#34;T9Lfgq-8bByOD1_Mn9UrU&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713594261499, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 155, &amp;#34;versionNonce&amp;#34;: 1956784090, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -382.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Condition%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Condition%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements Condition队列A ^OHmoAQUx
+线程01 ^w0WhlixR
+线程02 ^5HWEnlMz
+A.signal() A.signalAll() ^tKZeca0k
+其他线程 ^ChAQgoxc
+B.await() ^CncGKOQK
+线程04 ^kyMozPMv
+线程03 ^DjkRZvO3
+B.signal() B.signalAll() ^cfZJmfDA
+B.await() ^c8l7Jp8g
+Condition队列B ^JIbADBSl
+其他线程 ^a99406fK
+A.await() ^QWKBDMwS
+B.await() ^iZ7Lp5rx
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34;, &amp;#34;version&amp;#34;: 1095, &amp;#34;versionNonce&amp;#34;: 1030719810, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;sb4foQMxOMu0P48fDgVJL&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -299, &amp;#34;y&amp;#34;: -59.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CyclicBarrier%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/CyclicBarrier%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 线程98 ^WjWjU1tG
+await() ^Y981JvbI
+await() ^p93xAK3F
+线程11 ^VIFWaBL4
+线程12 ^fJD7blw9
+线程13 ^i2VSGpvv
+await() ^G9Q7xxLc
+线程97 ^eBo40W9K
+await() ^NqNp3XCP
+CyclicBarrier(3) ^D34fOHsu
+await() ^rLhjcRs0
+资源 ^ZNePuoyq
+await() ^0IfcwhyW
+线程01 ^h20THk0r
+线程02 ^tbEhULnG
+线程03 ^SGofBPu4
+await() ^arQbAsxW
+await() ^hd6qiskj
+第二批 放行3个 ^pbeacwk5
+第一批 放行3个 ^WXdtVTdz
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34;, &amp;#34;version&amp;#34;: 2043, &amp;#34;versionNonce&amp;#34;: 131723806, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;Ojkartur46M6hP-m-mooL&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -299.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/DelayQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/DelayQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements DelayQueue ^D34fOHsu
+队列为空时阻塞等待 ^h20THk0r
+队列内部会根据延迟时间戳进行排序 ^sMYGxJE3
+put(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+take() ^nh2vkAQd
+获取可重入锁 ^UakMCz6o
+仅支持存储 Delayed 接口的实现类，且存储时需要设置延迟时间戳 ^DKPqvImy
+获取可重入锁 ^6ytEMycW
+入队 ^l2NbJYO2
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 390, &amp;#34;versionNonce&amp;#34;: 1683243590, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;kp1RAGMf12-mkfS7UPn1f&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;TDH5S2yXg24AdrfqoYifX&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713598072465, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 164, &amp;#34;versionNonce&amp;#34;: 1807510810, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -380.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Exchanger%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Exchanger%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements exchanger(&amp;quot; 面包 &amp;ldquo;) ^arQbAsxW
+线程 01 ^tQGWiKih
+线程02 ^lcsWFdSD
+Exchanger ^xyZ8XNI4
+攒够两个 exchange() ^HQ8dprlh
+返回 &amp;ldquo;10元&amp;rdquo; ^tFX7sylE
+开始交换数据 ^gxa56jBo
+exchanger(&amp;rdquo; 10元 &amp;ldquo;) ^8FcDDgOc
+返回 &amp;ldquo;面包&amp;rdquo; ^wz9W3GFJ
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 425, &amp;#34;versionNonce&amp;#34;: 155367042, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;Yfkml9ZdwA5p-Sb-5qbWi&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -300, &amp;#34;y&amp;#34;: -1000, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 40, &amp;#34;height&amp;#34;: 200, &amp;#34;seed&amp;#34;: 511417502, &amp;#34;groupIds&amp;#34;: [ &amp;#34;u2FVUxwbm4BN3dY0ZAGIC&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;tQGWiKih&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;caFnoNqGLlLo8x1igf87B&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;48OZMXUoCiWf_oPaohaQo&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713082677314, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 181, &amp;#34;versionNonce&amp;#34;: 709585566, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;tQGWiKih&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -290, &amp;#34;y&amp;#34;: -937.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedBlockingDeque%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedBlockingDeque%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements LinkedBlockingDeque ^D34fOHsu
+队列为空时阻塞等待 ^h20THk0r
+Node(E) ^sMYGxJE3
+Node(E) ^dzTjrjdP
+Node(E) ^VUI5Z60Z
+takeFirst(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+takeLast() ^nh2vkAQd
+获取可重入锁 ^UakMCz6o
+创建新节点Node(E) ^DKPqvImy
+获取可重入锁 ^6ytEMycW
+出队 ^l2NbJYO2
+addFirst(E) ^AnYpLIqI
+入队 ^XXQcsjnZ
+addLast() ^o1nICsC5
+入队 ^pWdaHism
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 403, &amp;#34;versionNonce&amp;#34;: 7748506, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;DTr2poJZ37xwOwO4FxZJo&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -840, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 120, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1516086662, &amp;#34;groupIds&amp;#34;: [ &amp;#34;u7atYc3fmidYuMjuNON3N&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;id&amp;#34;: &amp;#34;-2g6OGlk7hYQtEUAXC1Sx&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;AnYpLIqI&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713595236029, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 187, &amp;#34;versionNonce&amp;#34;: 365978374, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;AnYpLIqI&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -384.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedBlockingQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedBlockingQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements LinkedBlockingQueue ^D34fOHsu
+队列为空时阻塞等待 ^h20THk0r
+Node(E) ^sMYGxJE3
+Node(E) ^dzTjrjdP
+Node(E) ^VUI5Z60Z
+put(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+take() ^nh2vkAQd
+获取 putLock 锁 ^UakMCz6o
+创建新节点Node(E) ^DKPqvImy
+获取 takeLock 锁 ^6ytEMycW
+入队 ^l2NbJYO2
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 388, &amp;#34;versionNonce&amp;#34;: 112834586, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;vP_ERt4u8krVa0dBq24Vs&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;TDH5S2yXg24AdrfqoYifX&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713594173825, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 162, &amp;#34;versionNonce&amp;#34;: 619769478, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -380.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedTransferQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LinkedTransferQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements LinkedTransferQueue ^D34fOHsu
+若队列不为空 直接获取队列头 ^h20THk0r
+Node(E) ^sMYGxJE3
+Node(E) ^dzTjrjdP
+null ^VUI5Z60Z
+put(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+take() ^nh2vkAQd
+若队列中存在null节点 则直接将数据填充到该节点中 并 notify() 该节点上的线程 ^UakMCz6o
+若队列中不存在null节点 则创建新节点Node(E) ^DKPqvImy
+若队列为空 在队列中留一个null节点 并使当前线程在该节点上 wait() ^6ytEMycW
+入队 ^l2NbJYO2
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 390, &amp;#34;versionNonce&amp;#34;: 1217081670, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;wduy2qz9TjLdjjih4Wl81&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;TDH5S2yXg24AdrfqoYifX&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713597181290, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 164, &amp;#34;versionNonce&amp;#34;: 1039134234, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -380.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LockSupport%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/LockSupport%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements unpark(线程01) ^QWKBDMwS
+线程99 ^Xc2Af7jL
+等待队列 ^o3ermnMd
+线程01 ^GytHnaMR
+线程02 ^SPn2RM5B
+线程03 ^bhN6YeJh
+线程99 ^n8Gr2kqr
+其他线程 ^BdecUV7R
+park() ^6dFzZh3z
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 339, &amp;#34;versionNonce&amp;#34;: 833884994, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;pUlmvZBzMHw0CjZaYNjYb&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;dotted&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -600, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 35, &amp;#34;seed&amp;#34;: 1467050306, &amp;#34;groupIds&amp;#34;: [ &amp;#34;fhswVm-AuLC_tz-hR18wl&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;Xc2Af7jL&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;Zm6inINLWYuI81dXY2jjc&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713079483472, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 139, &amp;#34;versionNonce&amp;#34;: 29047262, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;Xc2Af7jL&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -382.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Phaser%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Phaser%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 线程04 ^h20THk0r
+线程05 ^tbEhULnG
+线程06 ^SGofBPu4
+onAdvance(0,6) ^Zb9q2oU4
+onAdvance(1,4) ^qGKBcmhc
+onAdvance(2,2) ^kfGEuDS3
+线程01 ^vRrpNeXl
+线程02 ^HG0G6cbF
+线程03 ^MRrEqcwD
+阶段 1 ^nQra9M1O
+淘汰 2 ^HEKAR52s
+阶段 0 ^xOWRf3Re
+淘汰 2 ^dWN8Sk7P
+阶段 2 ^ZG1Xslm3
+淘汰 2 ^kXikYR0f
+bulkRegister(6) ^0NwC5jMh
+Phaser ^OatgPqAk
+arriveAndAwaitAdvance() ^otRnaNgu
+存活 6 ^wL74GZ4L
+存活 4 ^2SDGKOed
+存活 2 ^63rZCSIT
+全部线程 均被淘汰 ^YUzfTIRA</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Semaphore%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/Semaphore%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements Semaphore(2) ^OHmoAQUx
+信号 ^yJOL2WmJ
+信号 ^Iye16DQ4
+线程A ^w0WhlixR
+线程B ^5HWEnlMz
+线程C ^fUb3jR4e
+阻塞等待 ^NiLiiOvk
+acquire() 成功 ^tKZeca0k
+资源 ^ChAQgoxc
+线程A携带 信号访问 ^yAJsMghJ
+线程C携带 信号访问 ^BdEGC9Pl
+线程A结束 release() ^2W9JWVsh
+acquire() 成功 ^i5RlSNyp
+acquire() 失败 ^CncGKOQK
+acquire() 成功 ^7Zj0RbPr
+线程B携带 信号访问 ^0Vc1kzi5
+线程C等待中 ^dvTCWF2O
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34;, &amp;#34;version&amp;#34;: 594, &amp;#34;versionNonce&amp;#34;: 313298178, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;sLJcxu3RmGhCVS_IECqBn&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -300, &amp;#34;y&amp;#34;: -60, &amp;#34;strokeColor&amp;#34;: &amp;#34;#e03131&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffc9c9&amp;#34;, &amp;#34;width&amp;#34;: 200, &amp;#34;height&amp;#34;: 0, &amp;#34;seed&amp;#34;: 515843458, &amp;#34;groupIds&amp;#34;: [ &amp;#34;NAK_mEoTBp2YpUiggVe-m&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: { &amp;#34;type&amp;#34;: 2 }, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;CncGKOQK&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713077408450, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false, &amp;#34;startBinding&amp;#34;: { &amp;#34;elementId&amp;#34;: &amp;#34;ZmKaUmd0KaeAYvoFVkgCJ&amp;#34;, &amp;#34;focus&amp;#34;: -0.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/SynchronousQueue%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/SynchronousQueue%E5%8E%9F%E7%90%86/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements SynchronousQueue ^D34fOHsu
+仅当有人想要获取数据的时候 才会执行入队操作 ^sMYGxJE3
+put(E) ^a2QnPHwB
+出队 ^Su0qNSQf
+take() ^nh2vkAQd
+有人获取数据时入队 ^UakMCz6o
+入队 ^l2NbJYO2
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 390, &amp;#34;versionNonce&amp;#34;: 1282263322, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;NO8y5y4ZiKMrRBTv5uRHf&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -800, &amp;#34;strokeColor&amp;#34;: &amp;#34;#f08c00&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#ffec99&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1184870874, &amp;#34;groupIds&amp;#34;: [ &amp;#34;X_gBblqp8dhdG6JOFKu8R&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;TDH5S2yXg24AdrfqoYifX&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713596372312, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 164, &amp;#34;versionNonce&amp;#34;: 1359113606, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;a2QnPHwB&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -380.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ThreadLocal%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/ThreadLocal%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements ThreadLocal.ThreadLocalMap
+假设内存地址为 [0x99] ^sJlAYJH8
+Entry ^61mS3QQk
+0x100 ^Bi6FKzoO
+key ^HCWszNU2
+value ^Z9hW4R4y
+&amp;ldquo;hello&amp;rdquo; ^aHNeHRnt
+tl.set(&amp;ldquo;hello&amp;rdquo;) ^vunxpe2k
+tl.get() ^kTOHfOGL
+线程A ^vchDU4RM
+ThreadLocal tl = new ThreadLocal();
+假设内存地址为 [0x100] ^udoMXBCT
+ThreadLocal.ThreadLocalMap
+假设内存地址为 [0x33] ^GowV4Uvv
+Entry ^YIyd937r
+0x100 ^JrU54kEW
+key ^qIwVMhkO
+value ^eTysRJtU
+&amp;ldquo;world&amp;rdquo; ^MkIPGhL7
+tl.set(&amp;ldquo;hello&amp;rdquo;) ^oc9xpbMI
+tl.get() ^FcBBisVR
+线程B ^N2T47CFv
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E5%88%86%E6%AE%B5%E9%94%81%E5%8E%9F%E5%AD%90%E7%B1%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E5%88%86%E6%AE%B5%E9%94%81%E5%8E%9F%E5%AD%90%E7%B1%BB/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 线程A ^7JJ7ZOaT
+线程B ^FZmJWdXa
+线程C ^BNRsHARp
+compare ^LWLqec4W
+num+=3 ^Si60yojC
+LongAdder类 ^AmU4F3k2
+Base区 ^OeYDIsWk
+线程A在base区 执行 num+=3 ^XnsS0kTT
+第1段结果 ^j21ZRIUn
+3 ^OIm3FcYc
+cell[0] ^Tr8u4xyk
+cell[1] ^Nr3UmDTU
+线程B 对本cell中的long变量 执行 num++ ^GFa1IdfQ
+线程C 对本cell中的long变量 执行 num&amp;ndash; ^3dp2rwQz
+第2段结果 ^TRe3azcx
+1 ^z1d5TSnd
+第3段结果 ^dfQhEvHq
+-1 ^iMfKseQ6
+最终汇总结果 ^0VthUiIX
+3 ^XrVmbSic
+分段 汇总 ^2staYJcC
+num++ ^ySfXlIR2
+num&amp;ndash; ^Foivu7Jt</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 用于存放任务的 Queue队列 ^B9Oy7sBx
+用于存放线程的 HashSet集合 ^N8KB0MeI
+ThreadPoolExecutor线程池 ^q8dwWW4C
+ThreadPoolExecutor线程池 ^ocid2FUT
+用于存放任务的 Queue队列 ^Xbtfhlxl
+用于存放线程的 HashSet集合 ^wdqSlUO4
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 876, &amp;#34;versionNonce&amp;#34;: 1298515782, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;JaPXObNds2_ZV6PwQYlvM&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -200, &amp;#34;y&amp;#34;: -1200, &amp;#34;strokeColor&amp;#34;: &amp;#34;#2f9e44&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#b2f2bb&amp;#34;, &amp;#34;width&amp;#34;: 400, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 603310406, &amp;#34;groupIds&amp;#34;: [ &amp;#34;1SqlelWt2gR9l-26Gx5C-&amp;#34;, &amp;#34;LpDJ1POtts2qko5-m5Cch&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;ocid2FUT&amp;#34; } ], &amp;#34;updated&amp;#34;: 1713608886935, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 116, &amp;#34;versionNonce&amp;#34;: 2050078746, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;ocid2FUT&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 1, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -103.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements start() ^TGdM5GsN
+线程被选中 join() ^rLovs06r
+线程被挂起 yeild() ^JGLPabM5
+同步资源 已被上锁 ^kBKoZGja
+notify()，nofityAll() unpark()，interrupt() ^0U7nf4ds
+超时 interrupt() ^OxoOvoHI
+Running 运行态 ^OAmTugj1
+Ready 就绪态 ^8cW8Dwk7
+New
+初始态 ^DIv6HKr4
+Block
+阻塞态 ^dmycxkvy
+Time_Waiting
+计时等待态 ^Cpi0wsM3
+Waiting
+等待态 ^L4oYPRPg
+同步资源 已被解锁 ^Tbujkkju
+wait() join() park() ^mcGmB1Kf
+sleep(t)，wait(t) join(t)，parkNanos(t), parkUntil(t) ^KNsZcQtJ
+Terminated
+终止态 ^XCMowt1F
+线程任务结束 线程任务异常 ^FkDy38zs
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 运算器 ^L1ROTTTd
+控制器 ^yJeN0kfB
+寄存器 ^P7bYzL36
+缓存L1 ^oQ8B6hDn
+缓存L2 ^LJHXZPdf
+CPU核心-01 ^yxneW5vq
+缓存L3 ^5eWoTrex
+CPU核心-02 ^Ho9lDtzZ
+运算器 ^5MQxGl5U
+控制器 ^HEdfd7NP
+寄存器 ^tEjqKDsS
+缓存L1 ^6z2F9yqg
+缓存L2 ^zDnYCtCC
+内存 ^x3Q9m3wo
+IO-Bridge ^QsakQpyc
+系统 总线 ^9ZNUh10o
+访问 ^xlTxiZNA
+其他设备
+如USB/显卡/磁盘/网卡驱动等 ^fnnhO6kf
+IO总线 ^Uyz7F5ru
+内存总线 ^r72OwT6m
+高速缓存行 ^H2M9G2oe
+高速缓存行 ^oqVmqtGU
+高速缓存行 ^Vt7UviNu
+CPU ^gaRDG4Fl
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-7-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/excalidraw/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 进程A - 独享数据空间 ^PKGuwj75
+进程B - 独享数据空间 ^8Nqbmden
+线程A ^mvSYkr94
+线程B ^aIzTooU2
+切换 开销 小 ^IVOyiGJP
+争抢CPU资源，完成线程切换 ^Wkme7FgO
+线程C ^QlAGCMSk
+线程D ^S0PfMJb5
+切换 开销 小 ^dsbUNB0s
+争抢CPU资源，完成线程切换 ^oBI5r4ov
+切换 开销 大 ^flY4NEqL
+OS系统 ^U29PU3Bd
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 568, &amp;#34;versionNonce&amp;#34;: 393019210, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;1KF5Ai7pvAYL6ECz9wVTz&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 1, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -260, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1971c2&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#a5d8ff&amp;#34;, &amp;#34;width&amp;#34;: 900, &amp;#34;height&amp;#34;: 260, &amp;#34;seed&amp;#34;: 1684561271, &amp;#34;groupIds&amp;#34;: [ &amp;#34;BQsAisIiJ3gSXWm9Mj5ig&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [], &amp;#34;updated&amp;#34;: 1711617651321, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 546, &amp;#34;versionNonce&amp;#34;: 559739478, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;zXu_JDoRkH2yg29HGR0lr&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 1, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -300, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1971c2&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#a5d8ff&amp;#34;, &amp;#34;width&amp;#34;: 900, &amp;#34;height&amp;#34;: 40, &amp;#34;seed&amp;#34;: 1327361689, &amp;#34;groupIds&amp;#34;: [ &amp;#34;BQsAisIiJ3gSXWm9Mj5ig&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;U29PU3Bd&amp;#34; } ], &amp;#34;updated&amp;#34;: 1711617651321, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 58, &amp;#34;versionNonce&amp;#34;: 1692567050, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;U29PU3Bd&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: 16.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/draw/OSI%E5%88%86%E5%B1%82%E5%8D%8F%E8%AE%AE.excalidraw/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC1%E9%98%B6%E6%AE%B5-BASIC/JB1-9-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/draw/OSI%E5%88%86%E5%B1%82%E5%8D%8F%E8%AE%AE.excalidraw/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 应用层 ^jTskek4M
+传输层 ^pQxzPd3s
+赵四发送 &amp;ldquo;hello&amp;rdquo; ^HikCKVJP
+&amp;ldquo;hello&amp;rdquo; ^k7L2iUi5
+TCP头 ^ZV0rPciG
+网络层 ^gIEExIYH
+&amp;ldquo;hello&amp;rdquo; ^EYEqMBVd
+TCP头 ^6MJtw3da
+IP头 ^7VDSKI8y
+链路层 ^1bqp0k7r
+&amp;ldquo;hello&amp;rdquo; ^vj9LEMFk
+TCP头 ^r8b9NF66
+IP头 ^bxLBw9w1
+以太网头 ^pzSSTwKV
+刘能接收 &amp;ldquo;hello&amp;rdquo; ^U866PfTY
+&amp;ldquo;hello&amp;rdquo; ^tieO8laO
+TCP头 ^HibXhDJP
+&amp;ldquo;hello&amp;rdquo; ^f9wTbb47
+TCP头 ^r63dfMw8
+IP头 ^fN4wZ7fC
+&amp;ldquo;hello&amp;rdquo; ^AF6X9DiD
+TCP头 ^thl8FY4C
+IP头 ^Wq3Ggv8c
+以太网头 ^lJ5Phe33
+物理层
+以太网电缆 ^6ugeYIjU
+%%</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-1-Linux/draw/Drawing-2024-05-18-11.57.37.excalidraw/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-1-Linux/draw/Drawing-2024-05-18-11.57.37.excalidraw/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 能否访问 同一宿主机内 其他虚拟机 ^5CRLwAPA
+能否访问 局域网内 其他虚拟机 ^DNnA3piH
+能否访问 局域网内 其他物理主机 ^T2RTtK3g
+host-only 仅主机模式 ^e95GzUH1
+虚拟机和宿主机是否 必须在同一个网段 ^TJxFcS7i
+NAT模式 Network Address Translation ^UPwIvf21
+bridge 桥接模式 ^JSGSj7eV
+是否占用局域网中的 一个IP地址 ^a4QVZoZ2
+能否访问外网 ^22MzjxvT
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 279, &amp;#34;versionNonce&amp;#34;: 1742737789, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;Fvqul4WqTUeuJTEe53v9v&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: 100, &amp;#34;y&amp;#34;: 120, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1971c2&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#a5d8ff&amp;#34;, &amp;#34;width&amp;#34;: 200, &amp;#34;height&amp;#34;: 85, &amp;#34;seed&amp;#34;: 1017130771, &amp;#34;groupIds&amp;#34;: [ &amp;#34;jJ21_cqiiMs2kNPW_n1Ta&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;DNnA3piH&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;tFA-Sl24W-tK12FHzeIdW&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;s0-u3-16oxWNVA-WTBzAn&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;88nXI7nGdrQo30VIIDmYn&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1716006919879, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 111, &amp;#34;versionNonce&amp;#34;: 318869715, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;DNnA3piH&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: 150, &amp;#34;y&amp;#34;: 125, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1e1e1e&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;transparent&amp;#34;, &amp;#34;width&amp;#34;: 100, &amp;#34;height&amp;#34;: 75, &amp;#34;seed&amp;#34;: 802717, &amp;#34;groupIds&amp;#34;: [ &amp;#34;jJ21_cqiiMs2kNPW_n1Ta&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [], &amp;#34;updated&amp;#34;: 1716006919879, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false, &amp;#34;fontSize&amp;#34;: 20, &amp;#34;fontFamily&amp;#34;: 1, &amp;#34;text&amp;#34;: &amp;#34;能否访问\n局域网内\n其他虚拟机&amp;#34;, &amp;#34;rawText&amp;#34;: &amp;#34;能否访问\n局域网内\n其他虚拟机&amp;#34;, &amp;#34;textAlign&amp;#34;: &amp;#34;center&amp;#34;, &amp;#34;verticalAlign&amp;#34;: &amp;#34;middle&amp;#34;, &amp;#34;containerId&amp;#34;: &amp;#34;Fvqul4WqTUeuJTEe53v9v&amp;#34;, &amp;#34;originalText&amp;#34;: &amp;#34;能否访问\n局域网内\n其他虚拟机&amp;#34;, &amp;#34;lineHeight&amp;#34;: 1.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-9-JavaScript/res/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/Drawing-2024-06-29-10.48.32.excalidraw/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC2%E9%98%B6%E6%AE%B5-WEB/JB2-9-JavaScript/res/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8/Drawing-2024-06-29-10.48.32.excalidraw/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 6 0 0 ^p3dcROO4
+背景中的 僵尸区域
+宽度 400 ^k2UiMXXB
+背景图片 1400 ^0iVV8nWC
+背景中的 植物区域
+宽度 1000 ^dpwg8sAH
+1400 ^DU3rFy8j
+-400 ^crcz8rAG
+900 ^R6zChSNX
+600 ^9OO9H28Y
+0 ^8mSUwClU
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 761, &amp;#34;versionNonce&amp;#34;: 568927326, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;FrQQZox60fn1IWRJpVGLb&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -400, &amp;#34;y&amp;#34;: -200, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1971c2&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#a5d8ff&amp;#34;, &amp;#34;width&amp;#34;: 540, &amp;#34;height&amp;#34;: 200, &amp;#34;seed&amp;#34;: 2032023326, &amp;#34;groupIds&amp;#34;: [ &amp;#34;mmeSEfRvXZ_CGtWvr4yqG&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;dpwg8sAH&amp;#34; } ], &amp;#34;updated&amp;#34;: 1719630341625, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;id&amp;#34;: &amp;#34;dpwg8sAH&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;x&amp;#34;: -178.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/draw/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/draw/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 弃用 ^MJ3cOUij
+1 bit ^2JiYTSmT
+12 bit ^tUemv1K9
+同1毫秒内产生的不同ID的序号 （最多4096个） ^b11tIwIv
+机房ID （最多32个） ^wtq8HqUj
+5 bit ^MFMwHUHu
+机器ID （最多32个） ^5otvJCkT
+5 bit ^EpTxkA2E
+时间戳 （最多69年的时间） ^YCCUf4mG
+41 bit ^Dj4HfeuU
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 258, &amp;#34;versionNonce&amp;#34;: 1740471753, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;r7CF9ApcO29CP9rjNBFol&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 0.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/SOA%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/SOA%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 管 理 员 后 台 应 用 ^u3mbCz24
+用 户 前 台 应 用 ^LFZl3IJI
+客 户 端 ^7tSGCHyf
+订单查询模块 MVC代码 ^MHGUJM6x
+用户登录模块 MVC代码 ^sEtu7as2
+物流查询模块 MVC代码 ^LAZ8eSmM
+其他前台相关 MVC代码 ^JP5ocv7B
+商品管理模块 MVC代码 ^0V3Juf7P
+下单模块 MVC代码 ^wh1oKlS4
+用户登录模块 MVC代码 ^AVifcuNk
+商品查询模块 MVC代码 ^tiwoKyLa
+订单管理模块 MVC代码 ^UWCM3E8K
+其他后台相关 MVC代码 ^lqAt7ydO
+数 据 库 ^pDUIHVrZ
+用户管理模块 MVC代码 ^sv7BZgx1</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 管 理 员 后 台 应 用 ^u3mbCz24
+用 户 前 台 应 用 ^LFZl3IJI
+客 户 端 ^7tSGCHyf
+订单查询模块 MVC代码 ^MHGUJM6x
+用户登录模块 MVC代码 ^sEtu7as2
+物流查询模块 MVC代码 ^LAZ8eSmM
+其他前台相关 MVC代码 ^JP5ocv7B
+商品管理模块 MVC代码 ^0V3Juf7P
+下单模块 MVC代码 ^wh1oKlS4
+用户登录模块 MVC代码 ^AVifcuNk
+商品查询模块 MVC代码 ^tiwoKyLa
+订单管理模块 MVC代码 ^UWCM3E8K
+其他后台相关 MVC代码 ^lqAt7ydO
+数 据 库 ^pDUIHVrZ
+用户管理模块 MVC代码 ^sv7BZgx1</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%8D%95%E4%BD%93%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%8D%95%E4%BD%93%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 数 据 库 ^OkxLitGb
+客 户 端 ^Z1HiAO0L
+单 体 应 用 ^Q4QKnwZj
+其他模块 MVC代码 ^iaOmuBH7
+商品模块 MVC代码 ^rtR80Ajh
+用户模块 MVC代码 ^MTWnqTO2
+订单模块 MVC代码 ^Ak6Nay3M
+%%
+Drawing { &amp;#34;type&amp;#34;: &amp;#34;excalidraw&amp;#34;, &amp;#34;version&amp;#34;: 2, &amp;#34;source&amp;#34;: &amp;#34;https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.0.25&amp;#34;, &amp;#34;elements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;rectangle&amp;#34;, &amp;#34;version&amp;#34;: 275, &amp;#34;versionNonce&amp;#34;: 1096388276, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;9yHRFwb9iJxzrXp7D3Vbq&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 0, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -300, &amp;#34;y&amp;#34;: -300, &amp;#34;strokeColor&amp;#34;: &amp;#34;#1971c2&amp;#34;, &amp;#34;backgroundColor&amp;#34;: &amp;#34;#a5d8ff&amp;#34;, &amp;#34;width&amp;#34;: 40, &amp;#34;height&amp;#34;: 180, &amp;#34;seed&amp;#34;: 600128140, &amp;#34;groupIds&amp;#34;: [ &amp;#34;5qhFeQ-JjmD5n4S4evaEp&amp;#34; ], &amp;#34;frameId&amp;#34;: null, &amp;#34;roundness&amp;#34;: null, &amp;#34;boundElements&amp;#34;: [ { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;id&amp;#34;: &amp;#34;Z1HiAO0L&amp;#34; }, { &amp;#34;id&amp;#34;: &amp;#34;eehCW2ZZjyO2k4jCFfiYW&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;arrow&amp;#34; } ], &amp;#34;updated&amp;#34;: 1717064257625, &amp;#34;link&amp;#34;: null, &amp;#34;locked&amp;#34;: false }, { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;, &amp;#34;version&amp;#34;: 74, &amp;#34;versionNonce&amp;#34;: 1171449484, &amp;#34;isDeleted&amp;#34;: false, &amp;#34;id&amp;#34;: &amp;#34;Z1HiAO0L&amp;#34;, &amp;#34;fillStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;strokeWidth&amp;#34;: 2, &amp;#34;strokeStyle&amp;#34;: &amp;#34;solid&amp;#34;, &amp;#34;roughness&amp;#34;: 1, &amp;#34;opacity&amp;#34;: 100, &amp;#34;angle&amp;#34;: 0, &amp;#34;x&amp;#34;: -290, &amp;#34;y&amp;#34;: -247.</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%9E%82%E7%9B%B4%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%9E%82%E7%9B%B4%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements 管 理 员 后 台 应 用 ^u3mbCz24
+用 户 前 台 应 用 ^LFZl3IJI
+客 户 端 ^7tSGCHyf
+订单查询模块 MVC代码 ^MHGUJM6x
+用户登录模块 MVC代码 ^sEtu7as2
+物流查询模块 MVC代码 ^LAZ8eSmM
+其他前台相关 MVC代码 ^JP5ocv7B
+商品管理模块 MVC代码 ^0V3Juf7P
+下单模块 MVC代码 ^wh1oKlS4
+用户登录模块 MVC代码 ^AVifcuNk
+数 据 库 ^sA0S0UZb
+商品查询模块 MVC代码 ^tiwoKyLa
+订单管理模块 MVC代码 ^UWCM3E8K
+其他后台相关 MVC代码 ^lqAt7ydO
+数 据 库 ^pDUIHVrZ</description></item><item><title/><link>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-1-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/draw/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</guid><description>==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠==
+Text Elements Gateway 网关集群 ^2Mum5ZyF
+Seata 分布式事务 ^C95aIAk4
+Sentinel 流量卫兵 ^mSPDyIar
+Sleuth + Zipkin 链路追踪 ^XLR8E4td
+客户端 ^7Fr37Ouk
+^iv3WW2ID
+服务器集群 ^p5ESKXki
+用户微服务 ^OqgaKoJZ
+openfeign 远程调用 ^5VV3pDp7
+订单微服务 ^Knr3IWQw
+物流微服务 ^YjmYuKVB
+注册 ^NMl2PtN5
+拉取 配置信息 ^fNtxp7DT
+拉取 服务列表 ^Axwyo5If
+文件 存储 ^9M0gvo5A
+拉取 服务列表 ^HzardZ7R
+Redis集群 ^eto5Hlho
+MinIO集群 ^Qba1Zhek
+上传 配置信息 ^6V8oFSZZ
+数据 缓存 ^6GiXem6l
+MySQL集群 ^QQBip279</description></item></channel></rss>

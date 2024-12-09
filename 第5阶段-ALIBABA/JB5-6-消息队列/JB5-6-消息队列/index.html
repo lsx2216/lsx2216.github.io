@@ -1,0 +1,1252 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>JB5-6-消息队列</title>
+<meta name=description content="[!NOTE] Java道经第5卷 - 第6阶 - 消息队列 v5-6-alibaba-rocketmq &amp;amp; v5-6-alibaba-rabbitmq
+S01. MQ概念入门 E01. MQ相关基础概念 1. MQ基本概念 心法: 消息队列 MessageQueue，简称MQ
+当系统中出现生产和消费的速度或稳 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><meta property="og:type" content="website"><meta property="og:title" content="JB5-6-消息队列"><meta property="og:description" content="[!NOTE] Java道经第5卷 - 第6阶 - 消息队列 v5-6-alibaba-rocketmq &amp;amp; v5-6-alibaba-rabbitmq
+S01. MQ概念入门 E01. MQ相关基础概念 1. MQ基本概念 心法: 消息队列 MessageQueue，简称MQ
+当系统中出现生产和消费的速度或稳 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="JB5-6-消息队列"><meta name=twitter:description content="[!NOTE] Java道经第5卷 - 第6阶 - 消息队列 v5-6-alibaba-rocketmq &amp;amp; v5-6-alibaba-rabbitmq
+S01. MQ概念入门 E01. MQ相关基础概念 1. MQ基本概念 心法: 消息队列 MessageQueue，简称MQ
+当系统中出现生产和消费的速度或稳 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1>JB5-6-消息队列</h1></div><div class=post-content><blockquote><p>[!NOTE] Java道经第5卷 - 第6阶 - 消息队列
+v5-6-alibaba-rocketmq & v5-6-alibaba-rabbitmq</p></blockquote><h1 id=s01-mq概念入门>S01. MQ概念入门</h1><h2 id=e01-mq相关基础概念>E01. MQ相关基础概念</h2><h3 id=1-mq基本概念>1. MQ基本概念</h3><blockquote><p>心法: 消息队列 <code>MessageQueue</code>，简称MQ</p></blockquote><ul><li>当系统中出现生产和消费的速度或稳定性等因素不一致时，就需要使用MQ作为一个抽象的中间层技术，来弥合双方的差异。</li><li>MQ主要用于对微服务间通信进行解耦，对高并发请求进行削峰填谷，异步操作提高系统性能。</li></ul><table><thead><tr><th>关键词</th><th>中文</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td><code>Message</code></td><td>消息</td><td>两个应用间传递的数据单位</td><td>简单的文本字符串，复杂的Java对象等</td></tr><tr><td><code>MessageQueue</code></td><td>消息队列</td><td>在消息的传输过程中，保存消息的容器</td><td>RocketMQ，RabbitMQ等</td></tr></tbody></table><h3 id=2-mq四大特征>2. MQ四大特征</h3><blockquote><p>心法: 消息队列的四大特征</p></blockquote><table><thead><tr><th>特征</th><th>描述</th></tr></thead><tbody><tr><td>MQ消息不丢失</td><td>MQ采取 <code>PUT-GET-DELETE</code> 模式，仅在消息被完整处理后才会将其删除</td></tr><tr><td>MQ服务无关联</td><td>MQ下游服务崩溃，上游服务仍可继续PUT，等待下游服务恢复</td></tr><tr><td>MQ处理不重复</td><td>MQ中的一个消息仅被处理一次，被某个下游服务获取时会锁定</td></tr><tr><td>MQ处理可延时</td><td>MQ中的消息可以被延时处理，更加灵活</td></tr></tbody></table><h2 id=e02-mq的幂等性保证>E02. MQ的幂等性保证</h2><blockquote><p>心法: 所谓幂等性</p></blockquote><ul><li>若短时间内，一个方法被多次调用的结果和只调用一次的结果相同，则该方法具有幂等性。</li><li>常见请求类型中，<code>GET/DELETE/PUT</code> 请求都是幂等的，只有 <code>POST</code> 请求不幂等。</li></ul><h3 id=1-mq重复消费>1. MQ重复消费</h3><blockquote><p>心法: MQ的重复消费现象</p></blockquote><ul><li>无论那种MQ产品，当消费者消费完毕后，都会向消息队列发送一个确认消息：<ul><li>比如RabbitMQ的消费者在消费完成后，会向MQ发送一个 <code>ACK</code> 确认消息。</li><li>比如RocketMQ的消费者在消费完成后，会向MQ发送一个 <code>CONSUME_SUCCESS</code> 确认消息。</li></ul></li><li>若某个消费者A发送确认消息时出现网络故障，则可能发现重复消费情况：<ul><li>首先MQ因为消费者A超时而判定此次消费失败（但事实上消费者A已经消费成功了，只不过确认消息没发过来）。</li><li>然后MQ会将该消息分派给其他消费者B。</li><li>最终造成消费者A和消费者B重复消费。</li></ul></li><li>因此只要保证MQ的幂等性，就可以保证MQ的消息不被重复消费。</li></ul><h3 id=2-mq幂等性设计>2. MQ幂等性设计</h3><blockquote><p>心法: MQ的幂等性设计思路</p></blockquote><ul><li>为每个消息添加全局ID，即添加一个全局唯一标识，如 <code>msg0001</code> 等。</li><li>当某个消息被消费后，使用Redis等中间件记录该消息的消费情况：<ul><li>如 <code>msg0001 = "已消费"</code></li></ul></li><li>后续消费者在消费前，都要先去Redis中查询该消费是否存在记录：<ul><li>若不存在，则允许消费，并在Redis中添加 <code>msg0001 = "已消费"</code> 记录。</li><li>若已存在，则直接拒绝消费，以规避重复消费现象。</li></ul></li></ul><h2 id=e03-mq的可靠性保证>E03. MQ的可靠性保证</h2><blockquote><p>心法: 所谓可靠性</p></blockquote><ul><li>在MQ消息传输过程中，若部分消息发生丢失，表示可靠性低。</li></ul><h3 id=1-生产者弄丢消息>1. 生产者弄丢消息</h3><blockquote><p>心法: 避免生产者弄丢消息的方案</p></blockquote><ul><li>方案一: 使用事务机制:<ul><li>生产者投递消息前开启事务，若投递过程发生异常则回滚事务，无异常则提交事务。</li></ul></li><li>方案二: 使用确认机制:<ul><li>生产者投递消息后，MQ返回成功或失败的确认消息，失败时生产者重新投递。</li></ul></li><li>总结: 事务机制方案会导致MQ吞吐量下降，一般生产中建议使用确认机制方案。</li></ul><h3 id=2-mq弄丢消息>2. MQ弄丢消息</h3><blockquote><p>心法: 避免MQ弄丢消息的方案</p></blockquote><ul><li>开启MQ消息持久化，当消息持久化成功后，向生产者返回成功或失败的确认消息。</li><li>若生产者接收到持久化失败的确认消息，则重新投递。</li></ul><h3 id=3-消费者弄丢消息>3. 消费者弄丢消息</h3><blockquote><p>心法: 避免消费者弄丢消息的方案</p></blockquote><ul><li>将消费者的自动确认模式修改为手动确认模式。</li><li>此时当消费者接收到消息后，不再自动返回确认消息给MQ，即MQ暂时不会删除该消息。</li><li>当消费者处理完消息之后，再手动向MQ发送确认消息，此时MQ才删除该消息。</li><li>若处理消息的过程发生异常，则重新从MQ拉取消息进行处理。</li></ul><h1 id=s02-rocketmq>S02. RocketMQ</h1><blockquote><p>心法: <a href=https://rocketmq.apache.org/>RocketMQ</a></p></blockquote><ul><li>RocketMQ来自于阿里巴巴，常用于大型企业，阿里云也对 <a href=https://www.aliyun.com/product/rocketmq>RocketMQ产品</a> 提供了购买服务。</li></ul><table><thead><tr><th>项</th><th>描述</th></tr></thead><tbody><tr><td>特点</td><td>十万级单机吞吐量，毫秒级延迟，使用Java开发，源于但不遵守JMS规范。</td></tr><tr><td>优点</td><td>吞吐量高，性能好，支持消息持久化，消息0丢失，采用分布式架构，高可用性极强。</td></tr><tr><td>缺点</td><td>社区活跃度一般，源于JMS规范但不遵守JMS规范，没有提供官方管控台。</td></tr></tbody></table><h2 id=e01-工作流程概述>E01. 工作流程概述</h2><blockquote><p>心法: RocketMQ工作流程</p></blockquote><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image/RMQ%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE.png alt=RocketMQ工作流程图></p><h3 id=1-启动namesrv>1. 启动NameSrv</h3><blockquote><p>心法：<code>NameSrv</code> 服务相当于快递管理中心，用于心跳检测 <code>Broker</code> 集群节点和记录路由</p></blockquote><ol><li><code>Broker</code> 每 <code>30s</code> 给 <code>NameSrv</code> 上报一次自己的健康状态。</li><li><code>NameSrv</code> 每 <code>10s</code> 检测1次 <code>Broker</code> 的健康状态并踢出失联超过 <code>120s</code> 的节点。</li><li>生产/消费者每 <code>30s</code> 拉取一次 <code>NameSrv</code> 中记录的 <code>Broker</code> 集群的最新路由信息。</li></ol><h3 id=2-启动broker>2. 启动Broker</h3><blockquote><p>心法：<code>Broker</code> 服务相当于一个快递服务，如 <code>圆通/顺丰/韵达</code> 等，建议搭集群提高系统吞吐量</p></blockquote><ol><li><code>Broker</code> 中包含1或N个 <code>Topic</code> 消息主题:<ol><li><code>Topic</code> 相当收件地区，如 <code>黑龙江省哈尔滨市</code> 等。</li><li><code>Topic</code> 可以按照 <code>Tag</code> 标签进行更详细的分类，如 <code>香坊区xxx街道xx号</code> 等。</li></ol></li><li><code>Topic</code> 中包含1或N个 <code>MessageQueue</code> 消息队列:<ol><li><code>MessageQueue</code> 相当于收件方的快递收件箱，如 <code>丰巢箱</code> 等。</li></ol></li></ol><h3 id=3-producer投递消息>3. Producer投递消息</h3><blockquote><p>心法：<code>Producer</code> 生产者相当于寄件人，在创建时需要指定 <code>ProcucerGroup</code> 生产者组</p></blockquote><ol><li>寄件人连接到 <code>NameSrv</code> 快递管理中心服务并从中获取一个 <code>Broker</code> 快递服务。</li><li>寄件人创建 <code>Message</code> 快递包裹并指定详细的 <code>Topic:Tag</code> 收件地址。</li><li>寄件人向 <code>Broker</code> 快递服务投递包裹。</li><li>快递服务 <code>Broker</code> 回复确认消息给寄件人表示快递已收到。</li><li>快递服务 <code>Broker</code> 按一定的规则派件到指定的 <code>MessageQueue</code> 快递收件箱。</li></ol><h3 id=4-consumer接收消息>4. Consumer接收消息</h3><blockquote><p>心法：<code>Consumer</code> 消费者相当于收件人，在创建时需要指定 <code>ConsumerGroup</code> 生产者组</p></blockquote><ol><li>收件人连接到 <code>NameSrv</code> 快递管理中心服务并从中获取 <code>Broker</code> 快递服务。</li><li>收件人订阅并监听某些 <code>MessageQueue</code> 快递收件箱。</li><li>收件人轮流获取并消费该消息。</li><li>收件人回复确认消息给快递服务 <code>Broker</code> 表示快递已签收。</li><li>快递服务 <code>Broker</code> 将已签收的快递从 <code>MessageQueue</code> 快递收件箱中删除。</li></ol><h2 id=e02-搭建单机容器>E02. 搭建单机容器</h2><blockquote><p>武技: 在Docker中搭建RocketMQ容器</p></blockquote><h3 id=1-创建相关目录>1. 创建相关目录</h3><ol><li>创建RocketMQ相关目录:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建RocketMQ日志目录和数据目录</span>
+</span></span><span style=display:flex><span>mkdir -p /opt/rocketmq/logs;
+</span></span><span style=display:flex><span>mkdir -p /opt/rocketmq/store;
+</span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> /opt/rocketmq;
+</span></span></code></pre></div><h3 id=2-搭建namesrv容器>2. 搭建NameSrv容器</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像（二选一）</span>
+</span></span><span style=display:flex><span>docker pull foxiswho/rocketmq:4.8.0;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq:4.8.0;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行RMQNameSrv容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e &#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;`: 修改JDK参数</span>
+</span></span><span style=display:flex><span>docker run --name rmqnamesrv -dp 9876:9876 --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/rocketmq/logs:/home/rocketmq/logs <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq:4.8.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      sh mqnamesrv
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看RMQNameSrv容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs rmqnamesrv --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 开放RMQNameSrv容器端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>9876/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=3-搭建broker容器>3. 搭建Broker容器</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 创建并运行临时的RMQBroker容器: 该容器仅用于拷贝配置文件，用完即删</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e &#34;NAMESRV_ADDR=rmqnamesrv:9876&#34;`: 指定RMQNameSrv容器的端口</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e &#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;`: 修改JDK参数</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `sh mqbroker -c /home/rocketmq/rocketmq-4.8.0/conf/broker.conf`: 以指定配置文件启动容器</span>
+</span></span><span style=display:flex><span>docker run -d --name tmp -dp 10911:10911 --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;NAMESRV_ADDR=rmqnamesrv:9876&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq:4.8.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      sh mqbroker -c /home/rocketmq/rocketmq-4.8.0/conf/broker.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 拷贝RMQBroker容器的配置目录到虚拟机目录</span>
+</span></span><span style=display:flex><span>docker cp tmp:/home/rocketmq/rocketmq-4.8.0/conf /opt/rocketmq/conf
+</span></span><span style=display:flex><span>ll /opt/rocketmq/conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 强制删除临时容器</span>
+</span></span><span style=display:flex><span>docker rm -f tmp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行真正的RMQBroker容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e &#34;NAMESRV_ADDR=rmqnamesrv:9876&#34;`: 指定RMQNameSrv容器的端口</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e &#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;`: 指定Java配置</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `sh mqbroker -c /home/rocketmq/rocketmq-4.8.0/conf/broker.conf`: 以指定配置文件启动容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `autoCreateTopicEnable=true`: 自动创建Topic地址</span>
+</span></span><span style=display:flex><span>docker run -d --name rmqbroker -dp 10911:10911 --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;NAMESRV_ADDR=rmqnamesrv:9876&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/rocketmq/logs:/home/rocketmq/logs <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/rocketmq/store:/home/rocketmq/store <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -v /opt/rocketmq/conf:/home/rocketmq/rocketmq-4.8.0/conf <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq:4.8.0 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      sh mqbroker -c /home/rocketmq/rocketmq-4.8.0/conf/broker.conf <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      autoCreateTopicEnable<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看RMQBroker容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs rmqbroker --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 若RMQBroker容器启动报 `lsx: Name or mapper not known` 错误</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 则修改hosts文件，在 `127.0.0.1` 后的映射列表中添加主机名称如 lsx 并重启容器即可</span>
+</span></span><span style=display:flex><span>vim /etc/hosts
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久开放10911端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>10911/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><h3 id=4-修改broker主配>4. 修改Broker主配</h3><p><code>/opt/rocketmq/conf/broker.conf</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#a6e22e>brokerIP1</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>namesrvAddr</span><span style=color:#f92672>=</span><span style=color:#e6db74>192.168.40.77:9876</span>
+</span></span></code></pre></div><h3 id=5-搭建console容器>5. 搭建Console容器</h3><ol><li>搭建Console容器：即 RocketMQ 的管控台容器：<ol><li>如果报错，尝试同步虚拟机和主机的时间。</li></ol></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像（二选一）</span>
+</span></span><span style=display:flex><span>docker pull styletang/rocketmq-console-ng:latest;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq-console:latest;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行RMQConsole容器</span>
+</span></span><span style=display:flex><span>docker run --name rmqconsole -dp 12581:12581 --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e <span style=color:#e6db74>&#34;JAVA_OPTS=-Drocketmq.namesrv.addr=192.168.40.77:9876 -Dserver.port=12581 \
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      -Dcom.rocketmq.sendMessageWithVIPChannel=false&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -t registry.cn-hangzhou.aliyuncs.com/lsx/rocketmq-console:latest
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看RMQConsole容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs rmqconsole --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 永久开放12581端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>12581/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><ol start=2><li>在Windows机器上 <a href=http://192.168.40.77:12581>访问RocketMQ服务器</a></li></ol><h2 id=e03-生产消费模型>E03. 生产消费模型</h2><blockquote><p>武技: 创建 <code>v5-6-alibaba-mq/rocketmq</code> 子项目，用于测试RocketMQ的生产消费模型</p></blockquote><h3 id=1-添加三方依赖>1. 添加三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--rocketmq-spring-boot-starter--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.apache.rocketmq<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>rocketmq-spring-boot-starter<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>2.0.3<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-测试生产数据>2. 测试生产数据</h3><blockquote><p>武技：使用Junit模拟1个生产者生产消息并发送到Broker中</p></blockquote><ol><li>开发测试类 <code>ProducerTest</code> 模拟生产者：</li></ol><p><code>base.producerTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ProducerTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testProducer</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建一个生产者实例并纳入指定名称的生产者组，组名自动创建</span>
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 指定NameSrv地址，集群逗号分隔</span>
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 启动生产者</span>
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建10个消息实例并发送到Broker，主题和标签都可以自动创建</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> 0; i <span style=color:#f92672>&lt;</span> 10; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// 创建消息实例：指定主题，标签和内容  </span>
+</span></span><span style=display:flex><span>			<span style=color:#75715e>// org.apache.rocketmq.common.message.Message</span>
+</span></span><span style=display:flex><span>            String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>            String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;你好&#34;</span> <span style=color:#f92672>+</span> i).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>            Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 将消息同步发送到Broker中，10秒超时，返回SendResult实例</span>
+</span></span><span style=display:flex><span>            SendResult sendResult <span style=color:#f92672>=</span> producer.<span style=color:#a6e22e>send</span>(message, 10000);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;%d号消息[ID=%s]的发送状态为: %s\n&#34;</span>,
+</span></span><span style=display:flex><span>                    i,
+</span></span><span style=display:flex><span>                    sendResult.<span style=color:#a6e22e>getMsgId</span>(),
+</span></span><span style=display:flex><span>                    sendResult.<span style=color:#a6e22e>getSendStatus</span>());
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>在RMQ管控台查看消息：</li></ol><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image/RMQ%E7%AE%A1%E6%8E%A7%E5%8F%B0%E6%9F%A5%E7%9C%8B%E6%B6%88%E6%81%AF.png alt></p><h3 id=3-测试消费数据>3. 测试消费数据</h3><blockquote><p>武技：使用main方法模拟2个消费者轮流消费Broker中的消息</p></blockquote><ol><li>开发测试类 <code>ConsumerATest</code> 模拟消费者A：</li></ol><p><code>base.ConsumerATest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConsumerATest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 为了防止主线程退出，使用main替代Junit方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建一个消费者实例并纳入指定名称的消费者组，组名自动创建</span>
+</span></span><span style=display:flex><span>        DefaultMQPushConsumer consumer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQPushConsumer(<span style=color:#e6db74>&#34;test-consumer-group&#34;</span>);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 指定NameSrv地址，集群逗号分隔</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 消费者订阅主题：指定主题，标签和内容，标签: 支持 `||` 分隔和 `*` 全部</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>subscribe</span>(topic, tag);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 消费者设置监听</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>registerMessageListener</span>(
+</span></span><span style=display:flex><span>                (MessageListenerConcurrently) (messages, context) <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 消费</span>
+</span></span><span style=display:flex><span>                        messages.<span style=color:#a6e22e>forEach</span>(message <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>                            String msg <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(message.<span style=color:#a6e22e>getBody</span>());
+</span></span><span style=display:flex><span>                            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerA收到消息: &#34;</span> <span style=color:#f92672>+</span> msg);
+</span></span><span style=display:flex><span>                        });
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 返回消费成功</span>
+</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>return</span> ConsumeConcurrentlyStatus.<span style=color:#a6e22e>CONSUME_SUCCESS</span>;
+</span></span><span style=display:flex><span>                    } <span style=color:#66d9ef>catch</span> (Exception e) {
+</span></span><span style=display:flex><span>                        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerA消费失败: &#34;</span> <span style=color:#f92672>+</span> e);
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 稍后重新尝试</span>
+</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>return</span> ConsumeConcurrentlyStatus.<span style=color:#a6e22e>RECONSUME_LATER</span>;
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                });
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 启动消费者</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerA启动完毕，等待消费..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发测试类 <code>ConsumerBTest</code> 模拟消费者B：</li></ol><p><code>base.ConsumerATest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ConsumerBTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 为了防止主线程退出，使用main替代Junit方法 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建一个消费者实例并纳入指定名称的消费者组，组名自动创建</span>
+</span></span><span style=display:flex><span>        DefaultMQPushConsumer consumer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQPushConsumer(<span style=color:#e6db74>&#34;test-consumer-group&#34;</span>);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 指定NameSrv地址，集群逗号分隔</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 消费者订阅主题：指定主题，标签和内容，标签: 支持 `||` 分隔和 `*` 全部</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// org.apache.rocketmq.common.message.Message</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>subscribe</span>(topic, tag);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 消费者设置监听</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>registerMessageListener</span>(
+</span></span><span style=display:flex><span>                (MessageListenerConcurrently) (messages, context) <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 消费</span>
+</span></span><span style=display:flex><span>                        messages.<span style=color:#a6e22e>forEach</span>(message <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>                            String msg <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> String(message.<span style=color:#a6e22e>getBody</span>());
+</span></span><span style=display:flex><span>                            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerB收到消息: &#34;</span> <span style=color:#f92672>+</span> msg);
+</span></span><span style=display:flex><span>                        });
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 返回消费成功</span>
+</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>return</span> ConsumeConcurrentlyStatus.<span style=color:#a6e22e>CONSUME_SUCCESS</span>;
+</span></span><span style=display:flex><span>                    } <span style=color:#66d9ef>catch</span> (Exception e) {
+</span></span><span style=display:flex><span>                        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerB消费失败: &#34;</span> <span style=color:#f92672>+</span> e);
+</span></span><span style=display:flex><span>                        <span style=color:#75715e>// 稍后重新尝试</span>
+</span></span><span style=display:flex><span>                        <span style=color:#66d9ef>return</span> ConsumeConcurrentlyStatus.<span style=color:#a6e22e>RECONSUME_LATER</span>;
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                });
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 启动消费者</span>
+</span></span><span style=display:flex><span>        consumer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;ConsumerB启动完毕，等待消费..&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e04-消息队列类型>E04. 消息队列类型</h2><h3 id=1-同步随机消息>1. 同步随机消息</h3><ul><li>同步：生产者发出消息并成功接收到响应后，才会执行后续的任务。</li><li>随机：消息最终落入哪个MQ中是随机的。</li><li>场景：适用于重要通知，且对消费顺序无要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的同步随机消息</p></blockquote><p><code>type.SyncRandomTest -> send()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SyncRandomTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;同步随机消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 同步随机发送消息</span>
+</span></span><span style=display:flex><span>        SendResult sendResult <span style=color:#f92672>=</span> producer.<span style=color:#a6e22e>send</span>(message, 5000);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sendResult.<span style=color:#a6e22e>getMsgId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> sendResult.<span style=color:#a6e22e>getSendStatus</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=2-异步随机消息>2. 异步随机消息</h3><ul><li>异步：生产者发出消息后，无需等待响应，可直接执行后续的任务。</li><li>随机：消息最终落入哪个MQ中是随机的。</li><li>场景：适用于链路耗时长，对RT时间敏感，且对消费顺序无要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的异步随机消息</p></blockquote><p><code>type.AsyncRandomTest -> send()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AsyncRandomTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;异步随机消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 异步随机发送消息</span>
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>send</span>(message, <span style=color:#66d9ef>new</span> SendCallback() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 发送成功时的回调函数</span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onSuccess</span>(SendResult sendResult) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sendResult.<span style=color:#a6e22e>getMsgId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> sendResult.<span style=color:#a6e22e>getSendStatus</span>());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 发送失败时的回调函数</span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onException</span>(Throwable throwable) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(throwable.<span style=color:#a6e22e>getMessage</span>());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;如果我先输出，则表示是异步调用&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 阻止Junit提前运行完毕</span>
+</span></span><span style=display:flex><span>        TimeUnit.<span style=color:#a6e22e>SECONDS</span>.<span style=color:#a6e22e>sleep</span>(5L);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=3-单向随机消息>3. 单向随机消息</h3><ul><li>单向：生产者只负责发送消息，不接收任何响应。</li><li>随机：消息最终落入哪个MQ中是随机的。</li><li>场景：适用于耗时短，不重要，且对消费顺序无要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的单向随机消息</p></blockquote><p><code>type.OnewayRandomTest -> send()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OnewayRandomTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;单向随机消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 单向随机发送消息</span>
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>sendOneway</span>(message);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 阻止Junit提前运行完毕</span>
+</span></span><span style=display:flex><span>        TimeUnit.<span style=color:#a6e22e>SECONDS</span>.<span style=color:#a6e22e>sleep</span>(5L);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-同步顺序消息>4. 同步顺序消息</h3><ul><li>同步：生产者发出消息并成功接收到响应后，才会执行后续的任务。</li><li>顺序：生产者将消息发送到指定的MQ中。</li><li>场景：适用于重要通知且对消费顺序有要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的同步顺序消息</p></blockquote><p><code>type.SyncOrderTest -> send()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SyncOrderTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;同步顺序消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 同步顺序发送消息</span>
+</span></span><span style=display:flex><span>        MessageQueue messageQueue <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MessageQueue(topic, <span style=color:#e6db74>&#34;broker-a&#34;</span>, 2);
+</span></span><span style=display:flex><span>        SendResult sendResult <span style=color:#f92672>=</span> producer.<span style=color:#a6e22e>send</span>(message, messageQueue, 5000);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sendResult.<span style=color:#a6e22e>getMsgId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> sendResult.<span style=color:#a6e22e>getSendStatus</span>());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=5-异步顺序消息>5. 异步顺序消息</h3><ul><li>异步：生产者发出消息后，无需等待响应，可直接执行后续的任务。</li><li>顺序：生产者将消息发送到指定的MQ中。</li><li>场景：适用于链路耗时长，对RT时间敏感，且对消费顺序有要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的顺序顺序消息</p></blockquote><p><code>type.AsyncOrderTest-> send()</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AsyncOrderTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;异步顺序消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 异步顺序发送消息</span>
+</span></span><span style=display:flex><span>        MessageQueue messageQueue <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MessageQueue(topic, <span style=color:#e6db74>&#34;broker-a&#34;</span>, 2);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>send</span>(message, messageQueue, <span style=color:#66d9ef>new</span> SendCallback() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 发送成功时的回调函数</span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onSuccess</span>(SendResult sendResult) {
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sendResult.<span style=color:#a6e22e>getMsgId</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;: &#34;</span> <span style=color:#f92672>+</span> sendResult.<span style=color:#a6e22e>getSendStatus</span>());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 发送失败时的回调函数</span>
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onException</span>(Throwable throwable) {
+</span></span><span style=display:flex><span>                System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(throwable.<span style=color:#a6e22e>getMessage</span>());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 查看发送消息的结果</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;如果我先输出，则表示是异步调用&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 阻止Junit提前运行完毕</span>
+</span></span><span style=display:flex><span>        TimeUnit.<span style=color:#a6e22e>SECONDS</span>.<span style=color:#a6e22e>sleep</span>(5L);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=6-单向顺序消息>6. 单向顺序消息</h3><ul><li>单向：生产者只负责发送消息，不接收任何响应。</li><li>顺序：生产者将消息发送到指定的MQ中。</li><li>场景：适用于耗时短，不重要且对消费顺序有要求的场景。</li></ul><blockquote><p>武技：测试 RocketMQ 的单向顺序消息</p></blockquote><p>`type.OneWayOrderTest -> send()</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OnewayOrderTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>send</span>() {
+</span></span><span style=display:flex><span>        DefaultMQProducer producer <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> DefaultMQProducer(<span style=color:#e6db74>&#34;test-producer-group&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>setNamesrvAddr</span>(<span style=color:#e6db74>&#34;192.168.40.77:9876&#34;</span>);
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>start</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息实例：指定主题，标签和内容</span>
+</span></span><span style=display:flex><span>        String topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-topic&#34;</span>;
+</span></span><span style=display:flex><span>        String tag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;test-tag&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>byte</span><span style=color:#f92672>[]</span> content <span style=color:#f92672>=</span> (<span style=color:#e6db74>&#34;单向顺序消息&#34;</span>).<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>);
+</span></span><span style=display:flex><span>        Message message <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Message(topic, tag, content);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 单向顺序发送消息</span>
+</span></span><span style=display:flex><span>        MessageQueue messageQueue <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MessageQueue(topic, <span style=color:#e6db74>&#34;broker-a&#34;</span>, 2);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 单向随机发送消息</span>
+</span></span><span style=display:flex><span>        producer.<span style=color:#a6e22e>sendOneway</span>(message, messageQueue);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 阻止Junit提前运行完毕</span>
+</span></span><span style=display:flex><span>        TimeUnit.<span style=color:#a6e22e>SECONDS</span>.<span style=color:#a6e22e>sleep</span>(5L);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e05-开发生产服务>E05. 开发生产服务</h2><blockquote><p>心法：RocketMQTemplate</p></blockquote><ul><li>RocketMQ推荐使用 <code>o.a.r.s.c.RocketMQTemplate</code> 作为Java客户端类。</li></ul><table><thead><tr><th>常用API（地址格式为 <code>"topic:tag"</code>）</th><th>描述</th></tr></thead><tbody><tr><td><code>convertAndSend(</code> <code>"地址", "消息"</code><code>)</code></td><td>同步随机消息底层调用 <code>syncSend()</code> 方法</td></tr><tr><td><code>syncSend("地址", "消息")</code></td><td>同步随机消息</td></tr><tr><td><code>asyncSend(</code> <code>"地址", "消息", </code><code>new SendCallback(){}</code><code>)</code></td><td>异步随机消息成功时回调 <code>onSuccess()</code> 方法失败时回调 <code>onException()</code> 方法</td></tr><tr><td><code>sendOneWay("地址", "消息")</code></td><td>单向随机消息</td></tr><tr><td><code>syncSendOrderly(</code> <code>"地址", "消息", "xx"</code><code>)</code></td><td>同步顺序消息对p3进行hash取余以决定落入哪个MQ中p3参数的值随意</td></tr><tr><td><code>asyncSendOrderly(</code> <code>"地址", "消息", "xx", </code><code>new SendCallback(){}</code><code>)</code></td><td>异步顺序消息成功时回调 <code>onSuccess()</code> 方法失败时回调 <code>onException()</code> 方法对p3进行hash取余以决定落入哪个MQ中p3参数的值随意</td></tr><tr><td><code>sendOneWayOrderly(</code> <code>"地址", "消息", "xx"</code><code>)</code></td><td>单向顺序消息对p3进行hash取余以决定落入哪个MQ中p3参数的值随意</td></tr></tbody></table><blockquote><p>武技: 开发 <code>v5-6-alibaba-mq/rocketmq-order</code> 模拟 RocketMQ 生产者服务</p></blockquote><h3 id=1-添加三方依赖-1>1. 添加三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--rocketmq-spring-boot-starter--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.apache.rocketmq<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>rocketmq-spring-boot-starter<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>2.0.3<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项>2. 开发主配项</h3><ol><li>在 <code>rocketmq-order</code> 子项目中开发主配文件：</li></ol><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8210</span> <span style=color:#75715e># 端口号</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rocketmq-order</span> <span style=color:#75715e># 微服务名</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>rocketmq</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name-server</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>9876</span> <span style=color:#75715e># RocketMQ的NameSrv服务地址</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>producer</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>group</span>: <span style=color:#ae81ff>my-producer-group</span> <span style=color:#75715e># 生产者组名</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>send-message-timeout</span>: <span style=color:#ae81ff>10000</span> <span style=color:#75715e># 发送消息的超时时间</span>
+</span></span></code></pre></div><h3 id=3-开发启动类>3. 开发启动类</h3><ol><li>在 <code>rocketmq-order</code> 子项目中开发启动类：</li></ol><p><code>com.lsx.RocketMqOrderApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RocketMqOrderApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(RocketMqOrderApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发业务类>4. 开发业务类</h3><ol><li>在 <code>rocketmq-order</code> 子项目中开发业务接口：</li></ol><p><code>com.lsx.service.OrderService</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>OrderService</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/** 模拟添加订单：下单成功后向MQ发送一条消息，内容为OrderMessage实体类数据 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>在 <code>rocketmq-order</code> 子项目中实现业务接口：<ol><li>后续应把通用实体类 <code>OrderMessage</code> 放在 <code>common</code> 子模块中。</li></ol></li></ol><p><code>com.lsx.service.impl.OrderServiceImpl</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Service</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderServiceImpl</span> <span style=color:#66d9ef>implements</span> OrderService {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RocketMQTemplate rocketmqTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;下单成功！&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 组装RocketMQ消息数据</span>
+</span></span><span style=display:flex><span>        OrderMessage orderMessage <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> OrderMessage();
+</span></span><span style=display:flex><span>        orderMessage.<span style=color:#a6e22e>setUsername</span>(<span style=color:#e6db74>&#34;赵四&#34;</span>);
+</span></span><span style=display:flex><span>        orderMessage.<span style=color:#a6e22e>setPhone</span>(<span style=color:#e6db74>&#34;18210210122&#34;</span>);
+</span></span><span style=display:flex><span>        orderMessage.<span style=color:#a6e22e>setSn</span>(<span style=color:#e6db74>&#34;OD18169198681681684684&#34;</span>);
+</span></span><span style=display:flex><span>        orderMessage.<span style=color:#a6e22e>setTotalFee</span>(5321.<span style=color:#a6e22e>05</span>);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将RocketMQ消息数据发送到MQ中</span>
+</span></span><span style=display:flex><span>        rocketmqTemplate.<span style=color:#a6e22e>convertAndSend</span>(<span style=color:#e6db74>&#34;order-topic:order-tag&#34;</span>, orderMessage);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;向MQ发送订单成功消息！&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Data</span>  
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderMessage</span> <span style=color:#66d9ef>implements</span> Serializable {      
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>/** 订单编号 */</span>  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>private</span> String sn;  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>/** 订单总金额 */</span>  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>private</span> Double totalFee;  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>/** 下单用户的用户名 */</span>  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>private</span> String username;  
+</span></span><span style=display:flex><span>	    <span style=color:#75715e>/** 下单用户的手机号码 */</span>  
+</span></span><span style=display:flex><span>	    <span style=color:#66d9ef>private</span> String phone;  
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=5-测试生产消息>5. 测试生产消息</h3><ol><li>在 <code>rocketmq-order</code> 子项目中使用Junit生产消息：</li></ol><p><code>service.OrderServiceTest</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RunWith</span>(SpringRunner.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootTest</span>(classes <span style=color:#f92672>=</span> RocketMqOrderApp.<span style=color:#a6e22e>class</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderServiceTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> OrderService orderService;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>(){
+</span></span><span style=display:flex><span>        orderService.<span style=color:#a6e22e>insert</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e06-开发消费服务>E06. 开发消费服务</h2><blockquote><p>心法：RocketMQTemplate</p></blockquote><ul><li>RocketMQ推荐使用 <code>o.a.r.s.c.RocketMQTemplate</code> 作为Java客户端类。</li></ul><blockquote><p>武技: 开发 <code>v5-6-alibaba-mq/rocketmq-user</code> 模拟 RocketMQ 消费者服务</p></blockquote><h3 id=1-添加三方依赖-2>1. 添加三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-test--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-test<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--rocketmq-spring-boot-starter--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.apache.rocketmq<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>rocketmq-spring-boot-starter<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;version&gt;</span>2.0.3<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项-1>2. 开发主配项</h3><ol><li>在 <code>rocketmq-user</code> 子项目中开发主配文件：</li></ol><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8211</span> <span style=color:#75715e># 端口号</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rocketmq-user</span> <span style=color:#75715e># 微服务名</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>rocketmq</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name-server</span>: <span style=color:#ae81ff>192.168.40.77</span>:<span style=color:#ae81ff>9876</span> <span style=color:#75715e># RocketMQ的NameSrv服务地址</span>
+</span></span></code></pre></div><h3 id=3-开发启动类-1>3. 开发启动类</h3><ol><li>在 <code>rocketmq-user</code> 子项目中开发启动类：</li></ol><p><code>com.lsx.RocketMqUserApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RocketMqUserApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(RocketMqUserApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=4-开发监听类>4. 开发监听类</h3><ol><li>在 <code>rocketmq-user</code> 子项目中开发消费者类 `OrderMessageListener：<ol><li>需要标记 <code>@RocketMQMessageListener</code> 注解以声明为一个RocketMQ消费监听类。</li><li>需要实现 <code>RocketMQListener&lt;泛型></code> 接口: 泛型为具体消息的类型。</li><li>需要重写 <code>onMessage()</code> 方法: 该方法在Broker投递消息时触发并执行。</li></ol></li></ol><p><code>com.lsx.listen.OrderMessageListener</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.apache.rocketmq.spring.annotation.MessageModel;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RocketMQMessageListener</span>(
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 消费者组名</span>
+</span></span><span style=display:flex><span>        consumerGroup <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;my-consumer-group&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 监听的主题名</span>
+</span></span><span style=display:flex><span>        topic <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;order-topic&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 监听的标签名，默认为 `*` 表示监听全部标签</span>
+</span></span><span style=display:flex><span>        selectorExpression <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;order-tag&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 并发模式CONCURRENTLY: 同组消费者并发消费消息，默认值</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 顺序模式ORDERLY: 同组消费者按顺序依次消费消息</span>
+</span></span><span style=display:flex><span>        consumeMode <span style=color:#f92672>=</span> ConsumeMode.<span style=color:#a6e22e>CONCURRENTLY</span>,
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 集群模式CLUSTERING: 同组消费者平均分摊消费消息，每人只需消费部分消息，默认值</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 广播模式BROADCASTING: 同组消费者每人都要将全部消息消费一遍</span>
+</span></span><span style=display:flex><span>        messageModel <span style=color:#f92672>=</span> MessageModel.<span style=color:#a6e22e>CLUSTERING</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderMessageListener</span> <span style=color:#66d9ef>implements</span> RocketMQListener<span style=color:#f92672>&lt;</span>OrderMessage<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 该方法在Broker投递消息时触发并执行
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param orderMessage 消息内容
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>onMessage</span>(OrderMessage orderMessage) {
+</span></span><span style=display:flex><span>        String msgTemplate <span style=color:#f92672>=</span> String.<span style=color:#a6e22e>format</span>(
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;用户 [%s] 您好，您的订单 [%s] 已经创建成功，共 [%s] 元，请在30分钟内付款。&#34;</span>,
+</span></span><span style=display:flex><span>                orderMessage.<span style=color:#a6e22e>getUsername</span>(),
+</span></span><span style=display:flex><span>                orderMessage.<span style=color:#a6e22e>getSn</span>(),
+</span></span><span style=display:flex><span>                orderMessage.<span style=color:#a6e22e>getTotalFee</span>());
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 模拟发送短信</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;模拟向&#34;</span> <span style=color:#f92672>+</span> orderMessage.<span style=color:#a6e22e>getPhone</span>() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;发送短信: &#34;</span> <span style=color:#f92672>+</span> msgTemplate);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Data</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderMessage</span> <span style=color:#66d9ef>implements</span> Serializable {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 订单编号 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String sn;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 订单总金额 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> Double totalFee;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 下单用户的用户名 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String username;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 下单用户的手机号码 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> String phone;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>启动消费者类，查看是否接收到RocketMQ的消息。</li></ol><h1 id=s03-rabbitmq>S03. RabbitMQ</h1><blockquote><p>心法: 所谓AMQP协议</p></blockquote><ul><li>AMQP协议全称 <code>advanced message queuing protocol</code> 高级消息队列协议。</li><li>AMQP是由金融领域的软件专家们贡献的创意，而联合了通讯和软件方面的力量，一起打造出来的规范。</li><li>AMQP限定的是数据格式，只要遵守数据格式，Java客户端可以配合Python的服务端，即支持跨语言。</li><li>AMQP对比JMS，新增了 <code>Exchange</code> 交换机和 <code>binding</code> 绑定器的角色。</li><li>AMQP提供了点对点直连，广播，主题，请求头等消息模型，后三种可视为发布订阅模型的拓展。</li></ul><blockquote><p>心法: <a href=https://www.rabbitmq.com/>RabbitMQ</a></p></blockquote><ul><li>RabbitMQ来自于Rabbit科技有限公司，常用于中小型企业。</li></ul><table><thead><tr><th>项</th><th>描述</th></tr></thead><tbody><tr><td>特点</td><td>万级单机吞吐量，微秒级延迟，使用Erlang开发，实现AMQP高级消息队列协议。</td></tr><tr><td>优点</td><td>Erlang的并发能力强，性能较好，延迟低，社区活跃，文档齐全，使用者多。</td></tr><tr><td>缺点</td><td>Erlang源码难懂难学，采用主从架构，高可用性一般。</td></tr></tbody></table><h2 id=e01-工作流程概述-1>E01. 工作流程概述</h2><h3 id=1-启动broker>1. 启动Broker</h3><blockquote><p>心法：<code>Broker</code> 服务相当于一个快递服务，如 <code>圆通/顺丰/韵达</code> 等，建议搭集群提高系统吞吐量</p></blockquote><ul><li>启动前需要配置 <code>Exchange</code> 快递发件站类型，以决定最终的派件方式。</li><li>启动前需要配置 <code>MessageQueue</code> 收件箱大小和数量，以优化系统吞吐量。</li></ul><h3 id=2-producer投递消息>2. Producer投递消息</h3><blockquote><p>心法：<code>Producer</code> 生产者相当于寄件人，在创建时需要指定 <code>ProcucerGroup</code> 生产者组</p></blockquote><ul><li>寄件人需要连接到 <code>Broker</code> 快递服务并创建 <code>Message</code> 快递包裹。</li><li>寄件人向 <code>Exchange</code> 快递发件站投递包裹:<ul><li>快递发件站回复确认消息给发件人表示快递已收到。</li><li>快递发件站按一定的规则派件到指定的 <code>MessageQueue</code> 快递收件箱。</li></ul></li></ul><h3 id=3-consumer接收消息>3. Consumer接收消息</h3><blockquote><p>心法：<code>Consumer</code> 消费者相当于收件人，在创建时需要指定 <code>ConsumerGroup</code> 生产者组</p></blockquote><ul><li>收件人需要连接到 <code>Broker</code> 快递服务并监听某些 <code>MessageQueue</code> 快递收件箱。</li><li>收件人从 <code>MessageQueue</code> 快递收件箱获取消息:<ul><li>收件人回复确认消息给 <code>Broker</code> 快递服务表示快递已签收。</li><li>快递服务将已签收的快递从 <code>MessageQueue</code> 快递收件箱中删除。</li></ul></li></ul><h2 id=e02-搭建单机容器-1>E02. 搭建单机容器</h2><blockquote><p>武技: 在Docker中搭建RabbitMQ容器</p></blockquote><h3 id=1-创建运行容器>1. 创建运行容器</h3><ol><li>创建并运行 RabbitMQ 容器：<ol><li>格式为 <code>xxx-management</code> 的 RabbitMQ 镜像自带管控台。</li></ol></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># 拉取镜像</span>
+</span></span><span style=display:flex><span>docker pull rabbitmq:3.9.11-management;
+</span></span><span style=display:flex><span>docker pull registry.cn-hangzhou.aliyuncs.com/lsx/rabbitmq:3.9.11;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 创建并运行RabbitMQ容器</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e RABBITMQ_DEFAULT_USER=admin`: 管控台登陆账号</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># arg: `-e RABBITMQ_DEFAULT_PASS=admin`: 管控台登录密码</span>
+</span></span><span style=display:flex><span>docker run -d --name rabbitmq --network my-net <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -p 5672:5672 -p 15672:15672 -p 15692:15692 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e RABBITMQ_DEFAULT_USER<span style=color:#f92672>=</span>admin <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      -e RABBITMQ_DEFAULT_PASS<span style=color:#f92672>=</span>admin <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>      registry.cn-hangzhou.aliyuncs.com/lsx/rabbitmq:3.9.11;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看RabbitMQ容器</span>
+</span></span><span style=display:flex><span>docker ps --format <span style=color:#e6db74>&#34;{{.ID}}\t{{.Names}}\t{{.Ports}}&#34;</span>
+</span></span><span style=display:flex><span>docker logs rabbitmq --tail <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 访问RabbitMQ容器: 开放RabbitMQ服务端端口和管控台端口</span>
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>5672/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>15672/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --add-port<span style=color:#f92672>=</span>15692/tcp --permanent
+</span></span><span style=display:flex><span>firewall-cmd --reload
+</span></span></code></pre></div><ol start=2><li>在Windows机器上 <a href=http://192.168.40.77:15672>访问RocketMQ服务器</a>：使用 <code>admin/admin</code> 登录。</li></ol><h3 id=2-创建mq账号>2. 创建MQ账号</h3><ol><li>点击 <code>Admin</code> 选项卡：点击右侧的 <code>Users</code> 选项卡。</li><li>点击左下角 <code>Add a new user</code> 按钮：<ol><li>在 <code>Username</code> 输入 <code>lsx</code> 表示账号。</li><li>在 <code>Password</code> 输入 <code>lsx</code> 表示密码，确认密码同理。</li><li>在 <code>Tags</code> 输入 <code>administrator</code> 表示管理员权限。</li></ol></li><li>点击 <code>Add user</code> 按钮完成创建。</li></ol><h3 id=3-创建mq主机>3. 创建MQ主机</h3><ol><li>创建虚拟主机：<ol><li>点击 <code>Admin</code> 选项卡：点击右侧的 <code>Virtual Host</code> 选项卡。</li><li>点击展开 <code>Add a new virtual host</code> 栏。</li><li>在 <code>Name</code> 栏输入 <code>/myHost</code> 表示主机名，描述和标签选填。</li><li>点击 <code>Add virtual host</code> 按钮完成创建。</li></ol></li></ol><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image/RabbitMQ%E5%88%9B%E5%BB%BA%E4%B8%BB%E6%9C%BA-1.png alt></p><ol start=3><li>给用户配置主机的权限：<ol><li>点击 <code>Admin</code> 选项卡：点击右侧的 <code>Users</code> 选项卡。</li><li>点击展开 <code>Permissions</code> 栏。</li><li>下拉 <code>Virtual Host</code> 框，选择 <code>/myHost</code> 主机。</li><li>点击 <code>Set permission</code> 完成赋权。</li></ol></li></ol><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image/RabbitMQ%E5%88%9B%E5%BB%BA%E4%B8%BB%E6%9C%BA-2.png alt></p><h2 id=e03-搭建测试项目>E03. 搭建测试项目</h2><blockquote><p>武技: 创建 <code>v5-6-alibaba-mq/rabbitmq</code> 子项目，用于测试RabbitMQ的生产消费模型</p></blockquote><h3 id=1-添加三方依赖-3>1. 添加三方依赖</h3><p><code>pom.xml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--lombok--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.projectlombok<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>lombok<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--junit--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>junit<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>junit<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;scope&gt;</span>test<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-web--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-web<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--spring-boot-starter-amqp--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>	<span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-amqp<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id=2-开发主配项-2>2. 开发主配项</h3><p><code>classpath:application.yml</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>server</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>port</span>: <span style=color:#ae81ff>8212</span> <span style=color:#75715e># 项目端口号</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spring</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>application</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rabbitmq</span> <span style=color:#75715e># 项目名</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rabbitmq</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>host</span>: <span style=color:#ae81ff>192.168.40.77</span> <span style=color:#75715e># RabbitMQ服务端IP地址</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>port</span>: <span style=color:#ae81ff>5672</span> <span style=color:#75715e># RabbitMQ端口号</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>virtual-host</span>: <span style=color:#ae81ff>/myHost</span> <span style=color:#75715e># RabbitMQ主机</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>username</span>: <span style=color:#ae81ff>lsx</span> <span style=color:#75715e># RabbitMQ账号</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>password</span>: <span style=color:#ae81ff>lsx</span> <span style=color:#75715e># RabbitMQ密码</span>
+</span></span></code></pre></div><h3 id=3-开发启动类-2>3. 开发启动类</h3><p><code>com.lsx.RabbitMqApp</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@SpringBootApplication</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RabbitMqApp</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) {  
+</span></span><span style=display:flex><span>        SpringApplication.<span style=color:#a6e22e>run</span>(RabbitMqApp.<span style=color:#a6e22e>class</span>, args);  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=e04-消息队列类型-1>E04. 消息队列类型</h2><h3 id=1-direct直连模式>1. Direct直连模式</h3><blockquote><p>心法: RabbitMQ直连模式</p></blockquote><ul><li>RabbitMQ直连模式使用 <code>Direct Exchange</code> 交换机进行点对点发送消息。</li><li>该模式下，队列和交换机在绑定时需要指定一个字符串路由键，即每个队列都对应一个路由键。</li><li>当生产者向指定交换机发送消息时，需要指定一个路由键:<ul><li>然后交换机根据路由键精准匹配到某个队列。</li><li>最后交换机将消息转发到匹配成功的队列中。</li></ul></li></ul><blockquote><p>武技: 测试 RabbitMQ 直连模式</p></blockquote><ol><li>开发配置类：创建队列A和直连交换机，并根据路由键进行直接绑定：</li></ol><p><code>com.lsx.direct.DirectConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Binding;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Queue;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.rabbit.connection.ConnectionFactory;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DirectConfig</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitAdmin用来创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitAdmin rabbitAdmin;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理RabbitAdmin实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@ConditionalOnMissingBean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RabbitAdmin <span style=color:#a6e22e>rabbitAdmin</span>(ConnectionFactory connectionFactory) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建RabbitAdmin实例，并设置在项目启动时将该实例自动交给Spring管理</span>
+</span></span><span style=display:flex><span>        RabbitAdmin rabbitAdmin <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RabbitAdmin(connectionFactory);
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>setAutoStartup</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> rabbitAdmin;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [direct直连模式] 下的 [队列A] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>directQueueA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.direct.queue-a&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [direct直连模式] 下的 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> DirectExchange <span style=color:#a6e22e>directExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 交换机名，持久化，无消费者时不删除交换机</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> DirectExchange(<span style=color:#e6db74>&#34;lsx.direct.exchange&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列A] 绑定到指定 [交换机] 并设置 [路由键] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindDirectQueueA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(directQueueA())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(directExchange())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>with</span>(<span style=color:#e6db74>&#34;lsx.direct.routing-key&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Bean的后置处理器: 在项目启动后执行，自动创建队列和交换机*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(directQueueA());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(directExchange());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制器作为消息生产者，向交换机发送数据，发送数据时指定路由键：</li></ol><p><code>com.lsx.controller.DirectController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/rabbitmq/direct&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DirectController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitMQ推荐使用 `o.s.a.r.c.RabbitTemplate` 作为Java客户端 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitTemplate rabbitTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/send/{message}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>send</span>(<span style=color:#a6e22e>@PathVariable</span> String message) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 发送消息</span>
+</span></span><span style=display:flex><span>        rabbitTemplate.<span style=color:#a6e22e>convertAndSend</span>(
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;lsx.direct.exchange&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;lsx.direct.routing-key&#34;</span>,
+</span></span><span style=display:flex><span>                message);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;消息发送成功！&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8212/api/v1/rabbitmq/direct/send/hello-rabbitmq>访问控制器</a>：在管控台的 <code>Queue</code> 选项卡中可以查看消息：</li></ol><p><img src=/%E7%AC%AC5%E9%98%B6%E6%AE%B5-ALIBABA/JB5-6-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image/RabbitMQ%E6%B6%88%E6%81%AF%E6%9F%A5%E7%9C%8B.png alt></p><ol start=4><li>开发 <code>DirectListener</code> 类，监听 <code>lsx.direct.queue-a</code> 队列：</li></ol><p><code>com.lsx.listen.DirectListener</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.direct.queue-a&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DirectListener</span> {
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;DirectListener收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>启动项目，查看控制台是否成功消费到消息。</li></ol><h3 id=2-fanout广播模式>2. Fanout广播模式</h3><blockquote><p>心法: RabbitMQ广播模式，也称发布模式</p></blockquote><ul><li>RabbitMQ广播模式使用 <code>Fanout Exchange</code> 交换机进行点对面广播消息。</li><li>该模式下，队列和交换机在绑定时不需要指定路由键。</li><li>当生产者向指定交换机发送消息时，只需要指定一个空字符串作为路由键:<ul><li>然后交换机直接将消息广播到所有绑定在该交换机上的队列。</li></ul></li></ul><blockquote><p>武技: 测试 RabbitMQ 广播模式</p></blockquote><ol><li>开发配置类：创建队列A，队列B和直连交换机，并将两个队列与交换机进行绑定：</li></ol><p><code>com.lsx.direct.FanoutConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Binding;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Queue;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.rabbit.connection.ConnectionFactory;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FanoutConfig</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitAdmin用来创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitAdmin rabbitAdmin;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理RabbitAdmin实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@ConditionalOnMissingBean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RabbitAdmin <span style=color:#a6e22e>rabbitAdmin</span>(ConnectionFactory connectionFactory) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建RabbitAdmin实例，并设置在项目启动时将该实例自动交给Spring管理</span>
+</span></span><span style=display:flex><span>        RabbitAdmin rabbitAdmin <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RabbitAdmin(connectionFactory);
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>setAutoStartup</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> rabbitAdmin;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [fanout广播模式] 下的 [队列A] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>fanoutQueueA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.fanout.queue-a&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [fanout广播模式] 下的 [队列B] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>fanoutQueueB</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.fanout.queue-b&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [fanout广播模式] 下的 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> FanoutExchange <span style=color:#a6e22e>fanoutExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 交换机名，持久化，无消费者时不删除交换机</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> FanoutExchange(<span style=color:#e6db74>&#34;lsx.fanout.exchange&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列A] 绑定到指定 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindFanoutA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder.<span style=color:#a6e22e>bind</span>(fanoutQueueA()).<span style=color:#a6e22e>to</span>(fanoutExchange());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列B] 绑定到指定 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindFanoutB</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder.<span style=color:#a6e22e>bind</span>(fanoutQueueB()).<span style=color:#a6e22e>to</span>(fanoutExchange());
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Bean的后置处理器: 在项目启动后执行，自动创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(fanoutQueueA());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(fanoutQueueB());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(fanoutExchange());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制器作为消息生产者，向交换机发送消息，路由键设置为空串：</li></ol><p><code>com.lsx.controller.FanoutController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/rabbitmq/fanout&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FanoutController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitMQ推荐使用 `o.s.a.r.c.RabbitTemplate` 作为Java客户端 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitTemplate rabbitTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/send/{message}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>send</span>(String message) {
+</span></span><span style=display:flex><span>		String exchangeName <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lsx.fanout.exchange&#34;</span>;
+</span></span><span style=display:flex><span>		String routingKey <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 发送消息: 路由键先空着</span>
+</span></span><span style=display:flex><span>        rabbitTemplate.<span style=color:#a6e22e>convertAndSend</span>(exchangeName, routingKey, message);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;消息发送成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8212/api/v1/rabbitmq/fanout/send/hello-rabbitmq>访问控制器</a>：在管控台的 <code>Queue</code> 选项卡中可以查看消息。</li><li>开发 <code>FanoutListenerA</code> 类，监听 <code>lsx.fanout.queue-a</code> 队列：</li></ol><p><code>com.lsx.listen.FanoutListenerA</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.fanout.queue-a&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FanoutListenerA</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;FanoutListenerA收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发 <code>FanoutListenerB</code> 类，监听 <code>lsx.fanout.queue-b</code> 队列：</li></ol><p><code>com.lsx.listen.FanoutListenerB</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.fanout.queue-b&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FanoutListenerB</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;FanoutListenerB收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>启动项目，查看控制台是否成功消费到消息。</li></ol><h3 id=3-topic主题模式>3. Topic主题模式</h3><blockquote><p>心法: RabbitMQ主题模式</p></blockquote><ul><li>RabbitMQ主题模式使用 <code>Topic Exchange</code> 交换机，可视为通配符匹配版的广播模式。</li><li>该模式下，队列和交换机在绑定时，需要指定一个通配符版本的路由键:<ul><li>通配符 <code>*</code>: 用于只匹配1个词。</li><li>通配符 <code>#</code> : 用于匹配0或N个词。</li></ul></li><li>当生产者向指定交换机发送消息时，需要指定一个路由键:<ul><li>然后交换机根据路由键模糊匹配到某些队列。</li><li>最后交换机将消息转发到匹配成功的全部队列中。</li></ul></li></ul><blockquote><p>武技: 测试 RabbitMQ 主题模式</p></blockquote><ol><li>开发配置类：创建队列A，队列B和直连交换机，并根据路由键进行模糊绑定：</li></ol><p><code>com.lsx.direct.TopicConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Binding;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Queue;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.rabbit.connection.ConnectionFactory;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TopicConfig</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitAdmin用来创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitAdmin rabbitAdmin;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理RabbitAdmin实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@ConditionalOnMissingBean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RabbitAdmin <span style=color:#a6e22e>rabbitAdmin</span>(ConnectionFactory connectionFactory) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建RabbitAdmin实例，并设置在项目启动时将该实例自动交给Spring管理</span>
+</span></span><span style=display:flex><span>        RabbitAdmin rabbitAdmin <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RabbitAdmin(connectionFactory);
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>setAutoStartup</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> rabbitAdmin;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [topic主题模式] 下的 [队列A] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>topicQueueA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.topic.queue-a&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [topic主题模式] 下的 [队列B] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>topicQueueB</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.topic.queue-b&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [topic主题模式] 下的 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> TopicExchange <span style=color:#a6e22e>topicExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 交换机名，持久化，无消费者时不删除交换机</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> TopicExchange(<span style=color:#e6db74>&#34;lsx.topic.exchange&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列A] 绑定到指定 [交换机] 并指定 [带通配符的路由键] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindTopicA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/* 主题模式通配符 `*` 用来匹配1个单词，不能单独使用
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 比如将路由键设置为 `lsx.*`，那么:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.a` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.hello` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx` 时，消息发送失败。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.a.b` 时，消息发送失败。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(topicQueueA())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(topicExchange())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>with</span>(<span style=color:#e6db74>&#34;lsx.*&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列B] 绑定到指定 [交换机] 并指定 [带通配符的路由键] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindTopicB</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 主题模式通配符 `#` 用来匹配1个单词，不能单独使用
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 比如将路由键设置为 `lsx.#`，那么:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.a` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.hello` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = lsx.a.b` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(topicQueueB())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(topicExchange())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>with</span>(<span style=color:#e6db74>&#34;lsx.#&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Bean的后置处理器: 在项目启动后执行，自动创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(topicQueueA());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(topicQueueB());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(topicExchange());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制器作为消息生产者，向交换机发送数据，发送数据时指定路由键：</li></ol><p><code>com.lsx.controller.TopicController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/rabbitmq/topic&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TopicController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitMQ推荐使用 `o.s.a.r.c.RabbitTemplate` 作为Java客户端 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitTemplate rabbitTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/send/{message}/{routingKey}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>send</span>(String message, String routingKey) {
+</span></span><span style=display:flex><span>		String exchangeName <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lsx.topic.exchange&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>		<span style=color:#75715e>// 发送消息: 交换机名，路由键，消息</span>
+</span></span><span style=display:flex><span>        rabbitTemplate.<span style=color:#a6e22e>convertAndSend</span>(exchangeName, routingKey, message);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;消息发送成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8212/api/v1/rabbitmq/topic/send/hello-rabbitmq/lsx>访问控制器</a>：在管控台的 <code>Queue</code> 选项卡中可以查看消息。</li><li>开发 <code>TopicListenerA</code> 类，监听 <code>lsx.topic.queue-a</code> 队列：</li></ol><p><code>com.lsx.listen.TopicListenerA</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.topic.queue-a&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TopicListenerA</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;TopicListenerA收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发 <code>TopicListenerB</code> 类，监听 <code>lsx.topic.queue-b</code> 队列：</li></ol><p><code>com.lsx.listen.TopicListenerB</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.topic.queue-b&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TopicListenerB</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;TopicListenerB收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>启动项目，查看控制台是否成功消费到消息。</li></ol><h3 id=4-headers头部模式>4. Headers头部模式</h3><blockquote><p>心法: RabbitMQ头部模式，也称请求头模式</p></blockquote><ul><li>RabbitMQ请求头模式使用 <code>Headers Exchange</code> 交换机，可视为请求头匹配版的广播模式。</li><li>该模式下，队列和交换机在绑定时，需要指定多个路由键，并指定为全部匹配或部分匹配:<ul><li>全部匹配 <code>.whereAll().match()</code>: 全部路由键都匹配成功才视为成功。</li><li>部分匹配 <code>.whereAny().match()</code>: 部分路由键匹配成功就视为成功。</li></ul></li><li>当生产者向指定交换机发送消息时，需要指定一个JSON格式的路由键集合:<ul><li>然后交换机根据路由键组和匹配模式精准匹配到某些队列。</li><li>最后交换机将消息转发到匹配成功的全部队列中。</li></ul></li><li>该交换机用的相对没这么多。</li></ul><blockquote><p>武技: 测试 RabbitMQ 头部模式</p></blockquote><ol><li>开发配置类：创建队列A和直连交换机，并根据路由键进行直接绑定：</li></ol><p><code>com.lsx.direct.HeadersConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Binding;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Queue;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.rabbit.connection.ConnectionFactory;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HeadersConfig</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitAdmin用来创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitAdmin rabbitAdmin;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理RabbitAdmin实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@ConditionalOnMissingBean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RabbitAdmin <span style=color:#a6e22e>rabbitAdmin</span>(ConnectionFactory connectionFactory) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建RabbitAdmin实例，并设置在项目启动时将该实例自动交给Spring管理</span>
+</span></span><span style=display:flex><span>        RabbitAdmin rabbitAdmin <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RabbitAdmin(connectionFactory);
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>setAutoStartup</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> rabbitAdmin;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [headers请求头模式] 下的 [队列A] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>headersQueueA</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.headers.queue-a&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [headers请求头模式] 下的 [队列B] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>headersQueueB</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 队列名，持久化，非私有独占队列，无消费者时不删除队列</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.headers.queue-b&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [headers请求头模式] 下的 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> HeadersExchange <span style=color:#a6e22e>headersExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// args: 交换机名，持久化，无消费者时不删除交换机</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> HeadersExchange(<span style=color:#e6db74>&#34;lsx.headers.exchange&#34;</span>, <span style=color:#66d9ef>true</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列A] 绑定到指定 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindHeadersA</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置一个路由键集合</span>
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);
+</span></span><span style=display:flex><span>        map.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;a&#34;</span>, <span style=color:#e6db74>&#34;1&#34;</span>);
+</span></span><span style=display:flex><span>        map.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;b&#34;</span>, <span style=color:#e6db74>&#34;2&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/* 请求头模式 `whereAll()` 表示全部路由键都匹配成功时才视为成功
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 比如将路由键设置为如上的map集合，那么:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = {&#34;a&#34;: 1}` 时，消息发送失败。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = {&#34;a&#34;: 1, &#34;b&#34;,&#34; 2}` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(headersQueueA())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(headersExchange())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>whereAll</span>(map).<span style=color:#a6e22e>match</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [队列B] 绑定到指定 [交换机] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Binding <span style=color:#a6e22e>bindHeadersB</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置一个路由键集合</span>
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> map <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> HashMap<span style=color:#f92672>&lt;&gt;</span>(2);
+</span></span><span style=display:flex><span>        map.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;c&#34;</span>, <span style=color:#e6db74>&#34;3&#34;</span>);
+</span></span><span style=display:flex><span>        map.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;d&#34;</span>, <span style=color:#e6db74>&#34;4&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>/* 请求头模式 `whereAny()` 表示部分路由键匹配成功时就视为成功
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         * 比如将路由键设置为如上的map集合，那么:
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = {&#34;c&#34;: 3}` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         *   当 `?routingKey = {&#34;c&#34;: 3, &#34;d&#34;,&#34; 4}` 时，消息发送成功。
+</span></span></span><span style=display:flex><span><span style=color:#75715e>         */</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder.<span style=color:#a6e22e>bind</span>(headersQueueB())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(headersExchange())
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>whereAny</span>(map).<span style=color:#a6e22e>match</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Bean的后置处理器: 在项目启动后执行，自动创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName) {
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(headersQueueA());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(headersQueueB());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(headersExchange());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制器作为消息生产者，向交换机发送数据，发送数据时指定路由键：</li></ol><p><code>com.lsx.controller.HeadersController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/rabbitmq/headers&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HeadersController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitMQ推荐使用 `o.s.a.r.c.RabbitTemplate` 作为Java客户端 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitTemplate rabbitTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** routingKey 参数必须是一个JSON格式的字符串 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/send/{message}/{routingKey}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>send</span>(<span style=color:#a6e22e>@PathVariable</span> String message,
+</span></span><span style=display:flex><span>                       <span style=color:#a6e22e>@PathVariable</span> String routingKey) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将JSON格式的routingKey字符串转为Map类型</span>
+</span></span><span style=display:flex><span>        Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> routingKeyMap
+</span></span><span style=display:flex><span>                <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ObjectMapper().<span style=color:#a6e22e>readValue</span>(routingKey, Map.<span style=color:#a6e22e>class</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建消息属性实例：用于配置消息</span>
+</span></span><span style=display:flex><span>        MessageProperties messageProperties <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> MessageProperties();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置消息属性实持久化和字符编码</span>
+</span></span><span style=display:flex><span>        messageProperties.<span style=color:#a6e22e>setDeliveryMode</span>(MessageDeliveryMode.<span style=color:#a6e22e>PERSISTENT</span>);
+</span></span><span style=display:flex><span>        messageProperties.<span style=color:#a6e22e>setContentType</span>(<span style=color:#e6db74>&#34;UTF-8&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将Map类型的routingKey存放到请求头</span>
+</span></span><span style=display:flex><span>        messageProperties.<span style=color:#a6e22e>getHeaders</span>().<span style=color:#a6e22e>putAll</span>(routingKeyMap);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 发送消息，路由键先空着</span>
+</span></span><span style=display:flex><span>        rabbitTemplate.<span style=color:#a6e22e>convertAndSend</span>(<span style=color:#e6db74>&#34;lsx.headers.exchange&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>, 
+</span></span><span style=display:flex><span>	        <span style=color:#66d9ef>new</span> Message(message.<span style=color:#a6e22e>getBytes</span>(StandardCharsets.<span style=color:#a6e22e>UTF_8</span>), messageProperties));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;消息发送成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8212/api/v1/rabbitmq/headers/send/123/%7B%22a%22:%221%22,%22b%22:%222%22%7D>访问控制器</a>：在管控台的 <code>Queue</code> 选项卡中可以查看消息。</li><li>开发 <code>HeadersListenerA</code> 类，监听 <code>lsx.headers.queue-a</code> 队列：</li></ol><p><code>com.lsx.listen.HeadersListenerA</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HeadersListenerA</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 此模式下，注解必须放置在方法上，不要放在类上 */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.headers.queue-a&#34;</span>))  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(Message message) {  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;HeadersListenerA收到消息: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>new</span> String(message.<span style=color:#a6e22e>getBody</span>()));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=5><li>开发 <code>HeadersListenerB</code> 类，监听 <code>lsx.topic.queue-b</code> 队列：</li></ol><p>`com.lsx.listen.HeadersListenerB</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HeadersListenerB</span> {  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 此模式下，注解必须放置在方法上，不要放在类上 */</span>  
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.headers.queue-b&#34;</span>))  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(Message message) {  
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;HeadersListenerB收到消息: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#66d9ef>new</span> String(message.<span style=color:#a6e22e>getBody</span>()));  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>启动项目，查看控制台是否成功消费到消息。</li></ol><h3 id=5-延迟直连模式>5. 延迟直连模式</h3><blockquote><p>心法: 延迟队列设计思路</p></blockquote><ol><li>生产者向 <code>延迟交换机</code> 发送消息，并设置20秒内无人消费则视为消息超时：<ol><li>消息未超时：<code>延迟交换机</code> 根据 <code>延迟路由键</code> 转发消息到指定队列。</li><li>消息已超时：<code>延迟交换机</code> 自动将消息转发给 <code>超时交换机</code>。</li></ol></li><li><code>超时交换机</code> 根据 <code>超时路由键</code> 转发消息到 <code>超时队列</code>。</li><li>一直监听 <code>超时队列</code> 的消费者获取该消息并消费。</li></ol><blockquote><p>武技: 测试 RabbitMQ 延迟队列</p></blockquote><ol><li>开发配置类：创建延迟队列，超时队列，延迟交换机和超时交换机：<ol><li>根据路由键将延迟队列和延迟交换机绑定。</li><li>根据路由键将超时队列和超时交换机绑定。</li></ol></li></ol><p><code>com.lsx.direct.TtlConfig</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Binding;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.core.Queue;  
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> org.springframework.amqp.rabbit.connection.ConnectionFactory;  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Configuration</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TtlConfig</span> <span style=color:#66d9ef>implements</span> BeanPostProcessor {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitAdmin用来创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitAdmin rabbitAdmin;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理RabbitAdmin实例 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@ConditionalOnMissingBean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> RabbitAdmin <span style=color:#a6e22e>rabbitAdmin</span>(ConnectionFactory connectionFactory) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建RabbitAdmin实例，并设置在项目启动时将该实例自动交给Spring管理</span>
+</span></span><span style=display:flex><span>        RabbitAdmin rabbitAdmin <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RabbitAdmin(connectionFactory);
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>setAutoStartup</span>(<span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> rabbitAdmin;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [延迟交换机]：负责将未超时的消息转发到指定队列 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    DirectExchange <span style=color:#a6e22e>ttlExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> ExchangeBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>directExchange</span>(<span style=color:#e6db74>&#34;lsx.ttl.ttl-exchange&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>durable</span>(<span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>build</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [超时交换机]：负责将已超时的消息转发到超时队列 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    DirectExchange <span style=color:#a6e22e>timeoutExchange</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> ExchangeBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>directExchange</span>(<span style=color:#e6db74>&#34;lsx.ttl.timeout-exchange&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>durable</span>(<span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>build</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [延迟队列]：存放所有设置了超时，但还未超时的消息 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>ttlQueue</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> QueueBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>durable</span>(<span style=color:#e6db74>&#34;lsx.ttl.ttl-queue&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 消息超时后转发到 lsx.ttl.timeout-exchange 交换机</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>withArgument</span>(<span style=color:#e6db74>&#34;x-dead-letter-exchange&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;lsx.ttl.timeout-exchange&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 消息超时后转发到 lsx.ttl.timeout-exchange 交换机时指定的路由键</span>
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>withArgument</span>(<span style=color:#e6db74>&#34;x-dead-letter-routing-key&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;lsx.ttl.timeout-routing-key&#34;</span>)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>build</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 管理 [超时队列]：存放所有超时的消息 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Queue <span style=color:#a6e22e>timeoutQueue</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Queue(<span style=color:#e6db74>&#34;lsx.ttl.timeout-queue&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [超时队列] 绑定到 [超时交换机] 并指定 [超时路由键] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    Binding <span style=color:#a6e22e>timeoutBinding</span>(DirectExchange timeoutExchange, Queue timeoutQueue) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(timeoutQueue)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(timeoutExchange)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>with</span>(<span style=color:#e6db74>&#34;lsx.ttl.timeout-routing-key&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** 将 [延迟队列] 绑定到 [延迟交换机] 并指定 [延迟路由键] */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Bean</span>
+</span></span><span style=display:flex><span>    Binding <span style=color:#a6e22e>ttlBinding</span>(DirectExchange ttlExchange, Queue ttlQueue) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> BindingBuilder
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>bind</span>(ttlQueue)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>to</span>(ttlExchange)
+</span></span><span style=display:flex><span>                .<span style=color:#a6e22e>with</span>(<span style=color:#e6db74>&#34;lsx.ttl.ttl-routing-key&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** Bean的后置处理器: 在项目启动后执行，自动创建队列和交换机 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Override</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> Object <span style=color:#a6e22e>postProcessAfterInitialization</span>(Object bean, String beanName)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throws</span> BeansException {
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(timeoutQueue());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareQueue</span>(ttlQueue());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(timeoutExchange());
+</span></span><span style=display:flex><span>        rabbitAdmin.<span style=color:#a6e22e>declareExchange</span>(ttlExchange());
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>开发控制器作为消息生产者，向交换机发送数据，发送数据时指定路由键：</li></ol><p><code>com.lsx.controller.TtlController</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RestController</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/api/v1/rabbitmq/ttl&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TtlController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** RabbitMQ推荐使用 `o.s.a.r.c.RabbitTemplate` 作为Java客户端 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Autowired</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> RabbitTemplate rabbitTemplate;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@GetMapping</span>(<span style=color:#e6db74>&#34;/send/{message}&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>send</span>(<span style=color:#a6e22e>@PathVariable</span> String message) {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 延迟毫秒数</span>
+</span></span><span style=display:flex><span>        String delayTimes <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;10000&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 给延迟队列发送消息</span>
+</span></span><span style=display:flex><span>        rabbitTemplate.<span style=color:#a6e22e>convertAndSend</span>(
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;lsx.ttl.ttl-exchange&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;lsx.ttl.ttl-routing-key&#34;</span>,
+</span></span><span style=display:flex><span>                message,
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 给消息设置延迟毫秒值</span>
+</span></span><span style=display:flex><span>                msg <span style=color:#f92672>-&gt;</span> {
+</span></span><span style=display:flex><span>                    msg.<span style=color:#a6e22e>getMessageProperties</span>().<span style=color:#a6e22e>setExpiration</span>(delayTimes);
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>return</span> msg;
+</span></span><span style=display:flex><span>                });
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;ttl消息发送成功&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li><a href=http://localhost:8212/api/v1/rabbitmq/ttl/send/hello>访问控制器</a>：在管控台的 <code>Queue</code> 选项卡中可以查看消息。</li><li>开发 <code>TtlListener</code> 类，监听 <code>lsx.ttl.timeout-queue</code> 队列：</li></ol><p><code>com.lsx.listen.TtlListener</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Component</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RabbitListener</span>(queuesToDeclare <span style=color:#f92672>=</span> <span style=color:#a6e22e>@Queue</span>(<span style=color:#e6db74>&#34;lsx.ttl.timeout-queue&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TtlListener</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RabbitHandler</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>consume</span>(String message) {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;TtlListener收到消息: &#34;</span> <span style=color:#f92672>+</span> message);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=6><li>启动项目，查看控制台是否在10秒后，成功消费到消息。</li></ol></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>

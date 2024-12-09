@@ -1,0 +1,273 @@
+<!doctype html><html lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{--accent-color:#FF4D4D}</style><title>lsx2216</title>
+<meta name=description content="Servlet原生组件 心法: springboot支持原生的servlet组件，如servlet过滤器和servlet监听器等:
+开发原生servlet类 c.j.s.servlet.BeanServlet，无需添加注解。 开发原生过滤器类 c.j.s.servlet.filter.BeanFilter，无需添加注 …"><meta name=keywords content='blog,lsx2216,hugo'><meta property="og:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-SpringBoot/"><meta property="og:type" content="website"><meta property="og:title" content="lsx2216"><meta property="og:description" content="Servlet原生组件 心法: springboot支持原生的servlet组件，如servlet过滤器和servlet监听器等:
+开发原生servlet类 c.j.s.servlet.BeanServlet，无需添加注解。 开发原生过滤器类 c.j.s.servlet.filter.BeanFilter，无需添加注 …"><meta property="og:image" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta property="og:image:secure_url" content="https://lsx2216.netlify.app/assets/images/user.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="lsx2216"><meta name=twitter:description content="Servlet原生组件 心法: springboot支持原生的servlet组件，如servlet过滤器和servlet监听器等:
+开发原生servlet类 c.j.s.servlet.BeanServlet，无需添加注解。 开发原生过滤器类 c.j.s.servlet.filter.BeanFilter，无需添加注 …"><meta property="twitter:domain" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-SpringBoot/"><meta property="twitter:url" content="https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-SpringBoot/"><meta name=twitter:image content="https://lsx2216.netlify.app/assets/images/user.jpg"><link rel=canonical href=https://lsx2216.netlify.app/%E7%AC%AC3%E9%98%B6%E6%AE%B5-SSM/JB3-4-SpringBoot/frag/%E6%AE%8B%E5%8D%B7-SpringBoot/><link rel=stylesheet type=text/css href=/css/normalize.min.css media=print><link rel=stylesheet type=text/css href=/css/main.min.css><link id=dark-theme rel=stylesheet href=/css/dark.min.css><script src=/js/bundle.min.3eb19cb61dde9e37b9522867f3e024aeb68e26ab8e03252e46e365abcb19acf7.js integrity="sha256-PrGcth3enje5Uihn8+AkrraOJquOAyUuRuNlq8sZrPc="></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css integrity=sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js integrity=sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script>    <link rel="shortcut icon" href="/assets/images/user.jpg" type="image/x-icon">
+</head><body><script>setThemeByUserPref()</script><header class=header><nav class=header-nav><div class=avatar><a href=https://lsx2216.netlify.app/><img src=/assets/images/user.jpg alt=avatar></a></div><div class=nav-title><a class=nav-brand href=https://lsx2216.netlify.app/>lsx2216</a></div><div class=nav-links><div class=nav-link><a href=https://lsx2216.netlify.app/ aria-label><span data-feather=home></span> Home</a></div><div class=nav-link><a href=https://lsx2216.netlify.app/projects/ aria-label><span data-feather=code></span> Projects</a></div><div class=nav-link><a href=https://github.com aria-label=github><span data-feather=github></span></a></div><span class=nav-icons-divider></span><div class="nav-link dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a aria-hidden=true role=switch><span class=theme-toggle-icon data-feather=moon></span></a></div><div class=nav-link id=hamburger-menu-toggle><span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+<a aria-checked=false aria-labelledby=hamburger-menu-toggle id=hamburger-menu-toggle-target role=switch><span data-feather=menu></span></a></div><ul class="nav-hamburger-list visibility-hidden"><li class=nav-item><a href=https://lsx2216.netlify.app/><span data-feather=home></span> Home</a></li><li class=nav-item><a href=https://lsx2216.netlify.app/projects/><span data-feather=code></span> Projects</a></li><li class=nav-item><a href=https://github.com><span data-feather=github></span></a></li><li class="nav-item dark-theme-toggle"><span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+<a role=switch><span class=theme-toggle-icon data-feather=moon></span></a></li></ul></div></nav></header><main id=content><div class="post container"><div class=post-header-section><h1></h1></div><div class=post-content><h1 id=servlet原生组件>Servlet原生组件</h1><blockquote><p>心法: springboot支持原生的servlet组件，如servlet过滤器和servlet监听器等:</p></blockquote><ul><li>开发原生servlet类 <code>c.j.s.servlet.BeanServlet</code>，无需添加注解。</li><li>开发原生过滤器类 <code>c.j.s.servlet.filter.BeanFilter</code>，无需添加注解。</li><li>开发原生监听器类 <code>c.j.s.servlet.listener.BeanListener</code>，无需添加注解。</li><li>开发配置类 <code>c.j.s.servlet.BeanServletConfig</code>:<ul><li>IOC <code>o.s.b.w.s.ServletRegistrationBean</code> 类，利用构造传入servlet实例和路由。</li></ul></li><li>开发配置类 <code>c.j.s.servlet.filter.BeanFilterConfig</code>:<ul><li>IOC <code>o.s.b.w.s.FilterRegistrationBean</code> 过滤器链类。</li><li><code>filters.setFilter()</code>: 在过滤器链中加入自定义过滤器。</li><li><code>filters.addUrlPatterns()</code>: 在过滤器链中加入自定义过滤器拦截规则。</li></ul></li><li>开发配置类 <code>c.j.s.servlet.listener.BeanListenerConfig</code>:<ul><li>IOC <code>o.s.b.w.s.ServletListenerRegistrationBean</code> 监听器类，利用构造传入监听器实例。</li><li>每个监听对应一个 <code>@Bean</code>。</li></ul></li><li>psm测试: <code>controller/servlet/bean</code>。</li></ul><h2 id=注解配置方案>注解配置方案</h2><p>**流程: **</p><ul><li>开发原生servlet类 <code>c.j.s.servlet.ScanServlet</code>，标记 <code>@WebServlet</code>。</li><li>开发原生过滤器类 <code>c.j.s.servlet.filter.ScanFilter</code>，标记 <code>@WebFilter</code>。</li><li>开发原生监听器类 <code>c.j.s.servlet.listener.ScanListener</code>，标记 <code>@WebListener</code>。</li><li>在启动类中使用 <code>@ServletComponentScan</code> 扫描servlet类，过滤器类和监听器类所在包。</li><li>psm测试: <code>controller/servlet/scan</code>。</li></ul><h2 id=同时配置方案>同时配置方案</h2><p>**流程: **</p><ul><li>开发原生servlet类 <code>c.j.s.servlet.ContextServlet</code>，无需添加注解。</li><li>开发原生过滤器类 <code>c.j.s.servlet.filter.ContextFilter</code>，无需添加注解。</li><li>开发原生监听器类 <code>c.j.s.servlet.listener.ContextListener</code>，无需添加注解。</li><li>让启动类实现 <code>ServletContextInitializer</code> 接口并重写 <code>onStartup()</code>:<ul><li><code>context.addServlet().addMapping()</code>: 配置servlet类并设置路由。</li><li><code>context.addFilter().addMappingForUrlPatterns()</code>: 配置过滤器类并设置拦截规则。</li><li><code>context.addListener()</code>: 配置监听器类。</li></ul></li><li>psm测试: <code>controller/servlet/context</code>。</li></ul><h1 id=整合thymeleaf>整合Thymeleaf</h1><blockquote><p>心法: Thymeleaf</p></blockquote><ul><li>Thymeleaf是一种模版引擎，能处理HTML，XML，TEXT，JAVASCRIPT和CSS模板内容。</li><li>SpringBoot默认会顺序从一下四个目录 中寻找资源，有则直接返回，若都没有404:<ul><li><code>/META-INF/resources</code></li><li><code>classpath:/resources/</code></li><li><code>classpath:/static/</code></li><li><code>classpath:/public/</code></li></ul></li></ul><blockquote><p>武技: 整合Thymeleaf</p></blockquote><ol><li>添加三方依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--spring-boot-starter-thymeleaf--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>org.springframework.boot<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>spring-boot-starter-thymeleaf<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发主配文件:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-properties data-lang=properties><span style=display:flex><span><span style=color:#75715e>### 整合thymeleaf</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 默认静态资源加载位置</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.web.resources.static-locations</span><span style=color:#f92672>=</span><span style=color:#e6db74>\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  classpath:/META-INF/resources/,\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  classpath:/resources/,\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  classpath:/static/,\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  classpath:/public/,\
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  classpath:/templates/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 启用thymeleaf，默认true</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.thymeleaf.enabled</span><span style=color:#f92672>=</span><span style=color:#e6db74>true</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 关闭thymeleaf缓存，默认true</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.thymeleaf.cache</span><span style=color:#f92672>=</span><span style=color:#e6db74>false</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置thymeleaf响应路径前缀，默认 `classpath:/templates/`</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.thymeleaf.prefix</span><span style=color:#f92672>=</span><span style=color:#e6db74>classpath:/templates/</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置thymeleaf响应路径后缀，默认 `.html`</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.thymeleaf.suffix</span><span style=color:#f92672>=</span><span style=color:#e6db74>.html</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 配置thymeleaf编码，默认UTF-8</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>spring.thymeleaf.encoding</span><span style=color:#f92672>=</span><span style=color:#e6db74>UTF-8</span>
+</span></span></code></pre></div><ol start=2><li>开发控制方法 <code>ThymeleafController -> property()</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.controller;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Controller</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;/thymeleaf&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ThymeleafController</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@RequestMapping</span>(<span style=color:#e6db74>&#34;property&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>property</span>(Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> map, String name) {
+</span></span><span style=display:flex><span>        map.<span style=color:#a6e22e>put</span>(<span style=color:#e6db74>&#34;msg&#34;</span>, name);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 响应路径自动补充主配中thymeleaf的前后缀</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;thymeleaf-property&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=3><li>开发HTML页面 <code>/templates/thymeleaf-property.html</code>:<ul><li>在 <code>&lt;html></code> 中添加thymeleaf的命名空间: <code>xmlns:th="http://www.thymeleaf.org"</code>。</li><li>在HTML标签中使用<code> th:text="${msg }"</code> 可取出请求域中的值，该值支持 <code>+</code> 或 <code>|</code> 进行字符拼接。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span> <span style=color:#a6e22e>xmlns:th</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://www.thymeleaf.org&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;thymeleaf&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h1</span>&gt;thymeleaf!&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--从map中取出msg--&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>th:text</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;${msg }&#34;</span>&gt;&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--${msg}可以直接跟字符串使用加号拼接--&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>th:text</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#39;前置字符串内容: &#39; + ${msg } + &#39; :后置字符串内容&#39;&#34;</span>&gt;&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--${msg}可以在两个竖线（|）之内格式化输出--&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>th:text</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;|前置字符串内容: ${msg } :后置字符串内容|&#34;</span>&gt;&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><ol start=4><li>开发HTML友好页面 <code>classpath:public/error/4xx.html</code>:<ul><li>以自定义4xx状态的反馈页面，仅浏览器生效。</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;Title&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h1</span>&gt;&lt;<span style=color:#f92672>a</span>&gt;路径不存在，点我返回主页！&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><ol start=5><li>开发HTML友好页面 <code>classpath:public/error/5xx.html</code>:</li></ol><ul><li>以自定义5xx状态的反馈页面，仅浏览器生效。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;Title&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>h1</span>&gt;&lt;<span style=color:#f92672>a</span>&gt;服务器异常，点我返回主页！&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><h1 id=整合sse推送技术>整合SSE推送技术</h1><blockquote><p>心法: SSE（server-sent events）可以替代Ajax轮询，不断发送请求接收S端推送消息，学习成本低:</p></blockquote><ul><li>开发动作类 <code>c.j.s.sse.SseController</code>:<ul><li>动作方法路由中需指定 <code>produces="text/event-stream;charset=UTF-8"</code>:</li><li>动作方法必须标记 <code>@ResponseBody</code>，且 <code>return</code> 值使用 <code>data:</code> 前缀和 <code>\n\n</code> 后缀。</li></ul></li><li>开发页面 <code>classpath:/sse.html</code> 模拟B端: 需提前判断 <code>EventSource</code> 兼容性:<ul><li><code>new EventSource()</code>: 获取EventSource对象。</li><li><code>eventSource.onopen()</code>: 当B端连接到S端时触发。</li><li><code>eventSource.onmessage()</code>: B端收到消息推送时触发。</li></ul></li><li>cli测试: <code>sse.html</code></li></ul><h1 id=整合jsp>整合JSP</h1><blockquote><p>心法: jsp和thymeleaf默认情况下无法共存，需要一些额外的配置，所以我们在测试jsp的时候，需要删除thymeleaf的相关配置。</p></blockquote><ul><li>由于SpringBoot使用的内嵌的tomcat，而内嵌的tamcat是不支持jsp页面的，所有需要导入额外的包才能解决。</li><li>我和springBoot都并不建议使用jsp，如果真有需要知道jsp和thymeleaf共存的额外配置，还请自行查找。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--tomcat-embed-jasper--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>org.apache.tomcat.embed<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>tomcat-embed-jasper<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h1 id=httputil>HttpUtil</h1><ul><li>添加依赖:<ul><li><code>io.github.admin4j:http:0.4.5</code></li></ul></li></ul><blockquote><p>武技: 开发测试类 Get + @RequestParam + @ResponseBody</p></blockquote><pre tabindex=0><code>@SneakyThrows
+@Test
+public void testSelectByUserId() {
+    Result result = HttpRequest.get(&#34;http://localhost:5277/api/v1/cart/select-by-user-id&#34;)
+            .queryMap(&#34;user-id&#34;, &#34;1&#34;)
+            .header(&#34;token&#34;, &#34;&#34;)
+            .execute(Result.class);
+    System.out.println(result);
+}
+</code></pre><blockquote><p>武技: 开发测试类 POST + @RequestBody + @ResponseBody</p></blockquote><pre tabindex=0><code>@SneakyThrows
+@Test
+public void testInsertOrUpdate() {
+    Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
+    params.put(&#34;user-id&#34;, &#34;1&#34;);
+    params.put(&#34;video-id&#34;, &#34;2&#34;);
+    params.put(&#34;title&#34;, &#34;2号视频&#34;);
+    params.put(&#34;cover-image&#34;, &#34;2号封面&#34;);
+    params.put(&#34;author&#34;, &#34;2号作者&#34;);
+    params.put(&#34;price&#34;, 2222.22);
+    Result result = HttpRequest.post(&#34;http://localhost:5277/api/v1/cart/insert-or-update&#34;)
+            .body(params)
+            .header(&#34;token&#34;, &#34;&#34;)
+            .execute(Result.class);
+    System.out.println(result);
+}
+</code></pre><h1 id=resttemplate>RestTemplate</h1><blockquote><p>心法: <code>RestTemplate</code> 是spring3开始支持的，用来模拟客户端向服务端发送请求的工具，继承自 <code>InterceptingHttpAccessor</code> 并实现 定义了常见的如GET，POST等请求操作 <code>RestOperations</code> 接口:</p></blockquote><ul><li>开发动作类 <code>c.j.s.restTemplate.RestTemplateController</code>:<ul><li><code>@GetMapping</code> 相当于 <code>@RequestMapping(method = RequestMethod.GET)</code>。</li><li><code>@PostMapping</code> 相当于 <code>@RequestMapping(method = RequestMethod.POST)</code>。</li></ul></li><li>开发测试类: <code>c.j.s.RestTemplateTest</code>:<ul><li>使用 <code>new RestTemplate()</code> 实例化 <code>RestTemplate</code> 属性。</li></ul></li><li>单元测试GET请求: 使用 <code>restTemplate.getForObject()</code> 发送GET请求:<ul><li>param1: 请求URL，支持查询串和 <code>{}</code> 占位符两种方式传递请求参数。</li><li>param2: 响应数据类型，对应动作方法返回值。</li><li>param3: 可选，当URL使用占位符方式时可使用数组或Map结构进行赋值。</li><li>return: 返回响应数据，若使用 <code>getForEntity()</code> 则额外返回响应头，状态码等信息。</li></ul></li><li>单元测试POST请求: 使用 <code>restTemplate.postForObject()</code> 发送POST请求:<ul><li>param2: 请求体对象，不需要时注入null，建议使用 <code>LinkedMultiValueMap()</code> 结构。</li><li>其余参数同 <code>getForObject()</code>。</li><li>return: 返回响应数据，若使用 <code>postForEntity()</code> 则额外返回响应头，状态码等信息。</li></ul></li><li>单元测试重定向请求: 使用 <code>restTemplate.postForLocation()</code> 发送POST重定向请求:<ul><li>参数同 <code>postForObject()</code>，返回值是一个URI对象，没有 <code>getForLocation()</code>。</li></ul></li></ul><h1 id=整合阿里云oss头像上传>整合阿里云OSS头像上传</h1><ul><li><a href=https://www.aliyun.com/product/oss>阿里云对象存储OSS服务页面</a></li></ul><blockquote><p>武技: 注册并开通阿里云OSS存储服务</p></blockquote><ul><li>注册登录阿里云对象存储OSS服务页面。</li><li>点击 <code>立即开通</code> 以开通对象存储OSS服务。</li><li>点击Bucket列表，新建一个Bucket:<ul><li>选择华东1（杭州）地区，标准存储和公共读，其余默认。</li></ul></li><li>对焦右上角头像，选择AccessKey管理，生成自己的AccessKey并保存好。</li><li>点击对应Bucket进入管理界面，左侧目录的 <code>基础设置</code> 中的最后可以删除Bucket项。</li></ul><blockquote><p>武技: 在 <code>v2-lesson-user-background</code> 子项目中开发OSS文件上传工具类</p></blockquote><ol><li>添加三方依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--aliyun-sdk-oss--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.aliyun.oss<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>aliyun-sdk-oss<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;version&gt;</span>${oss}<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=2><li>开发工具类 <code>OssFileUtil</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OssFileUtil</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** OSS服务端点: 华东1（杭州）地区的端点地址 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String ENDPOINT <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;oss-cn-hangzhou.aliyuncs.com&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** OSS存储桶名 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String BUCKET_NAME <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;v2-lesson-bucket&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** OSS访问KEY */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String ACCESS_KEY_ID <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/** OSS访问密钥 */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String ACCESS_KEY_SECRET <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 将文件上传到阿里云对象存储OSS服务中，并返回最终文件的访问URL地址
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param multipartFile 文件实例
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param dir           上传目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 文件的访问URL地址
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SneakyThrows</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>upload</span>(MultipartFile multipartFile, String dir) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取文件名，检查文件是否存在</span>
+</span></span><span style=display:flex><span>        String originalFilename <span style=color:#f92672>=</span> OssFileUtil.<span style=color:#a6e22e>checkFileIsExists</span>(multipartFile);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 处理文件名</span>
+</span></span><span style=display:flex><span>        String fileName <span style=color:#f92672>=</span> OssFileUtil.<span style=color:#a6e22e>generateRandomFileName</span>(originalFilename);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建OSS客户端实例</span>
+</span></span><span style=display:flex><span>        OSS oss <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> OSSClientBuilder().<span style=color:#a6e22e>build</span>(ENDPOINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 上传文件</span>
+</span></span><span style=display:flex><span>        oss.<span style=color:#a6e22e>putObject</span>(BUCKET_NAME, dir <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> fileName, multipartFile.<span style=color:#a6e22e>getInputStream</span>());
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭OSS客户端实例，节省资源</span>
+</span></span><span style=display:flex><span>        oss.<span style=color:#a6e22e>shutdown</span>();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 返回文件的访问URL地址</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> ENDPOINT <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> BUCKET_NAME <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> dir <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> fileName;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 从阿里云对象存储OSS服务中删除指定文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param filename 文件名称
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param dir      上传目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>delete</span>(String filename, String dir) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (StringUtils.<span style=color:#a6e22e>isBlank</span>(filename)) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;待删除的文件file为空&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建OSS客户端实例</span>
+</span></span><span style=display:flex><span>        OSS oss <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> OSSClientBuilder().<span style=color:#a6e22e>build</span>(ENDPOINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 从OSS中删除文件</span>
+</span></span><span style=display:flex><span>        oss.<span style=color:#a6e22e>deleteObject</span>(BUCKET_NAME, dir <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span> <span style=color:#f92672>+</span> filename);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 关闭OSS客户端实例，节省资源</span>
+</span></span><span style=display:flex><span>        oss.<span style=color:#a6e22e>shutdown</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 检查待上传的原始文件以及原始文件名是否为空，不为空返回原始文件名，若为空直接抛异常
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param file 文件对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 原始文件名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>checkFileIsExists</span>(MultipartFile file) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (file.<span style=color:#a6e22e>isEmpty</span>()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;待上传的文件file为空&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 获取原始文件名</span>
+</span></span><span style=display:flex><span>        String originalFilename <span style=color:#f92672>=</span> file.<span style=color:#a6e22e>getOriginalFilename</span>();
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>null</span> <span style=color:#f92672>==</span> originalFilename) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> RuntimeException(<span style=color:#e6db74>&#34;待上传的原始文件名为空&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> originalFilename;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * 根据原始文件名生成一个随机文件名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @param originalFilename 原始文件名
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     * @return 随机文件名，由 &#34;UUID后10位 + 当前时间戳 + 原始文件后缀&#34; 组成
+</span></span></span><span style=display:flex><span><span style=color:#75715e>     */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>generateRandomFileName</span>(String originalFilename) {
+</span></span><span style=display:flex><span>        String fileSuffix <span style=color:#f92672>=</span> originalFilename.<span style=color:#a6e22e>substring</span>(originalFilename.<span style=color:#a6e22e>lastIndexOf</span>(<span style=color:#e6db74>&#34;.&#34;</span>));
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> UUID.<span style=color:#a6e22e>randomUUID</span>().<span style=color:#a6e22e>toString</span>().<span style=color:#a6e22e>substring</span>(26) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;-&#34;</span> <span style=color:#f92672>+</span> System.<span style=color:#a6e22e>currentTimeMillis</span>() <span style=color:#f92672>+</span> fileSuffix;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h1 id=容联云短信>容联云短信</h1><blockquote><p>心法: <a href=https://www.yuntongxun.com/>容联云短信</a></p></blockquote><ul><li>容联云是一家致力于为全球客户提供领先的智能通讯与营销科技服务的网站，容联云短信是旗下的一款产品。</li></ul><blockquote><p>心法: 开发容联云工具类</p></blockquote><ol><li>进入容联云官网:</li></ol><ul><li>在控制台查询赠送的账户余额，主账号的 <code>ACCOUNT SID/AUTH TOKEN/AppId</code> 登录信息。</li><li>点击左侧 <code>测试号码</code> 选项卡，添加用于测试的手机号码，未添加的号码无法进行测试。</li></ul><ol start=2><li>添加三方依赖:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;!--三方依赖--&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;dependencies&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--sms--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.cloopen<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>java-sms-sdk<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;version&gt;</span>1.0.3<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!--gson--&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;groupId&gt;</span>com.google.code.gson<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&lt;artifactId&gt;</span>gson<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ol start=3><li>封装容联云工具类 <code>SmsUtil</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.lsx.util;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SmsUtil</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**容联云服务IP地址，这里直接使用域名*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String SERVER_IP <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;app.cloopen.com&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**容联云服务端口号*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String SERVER_PORT <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;8883&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**账户的SID值*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String ACCOUNT_SID <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;8a216da881ad97540181ff8af60a1417&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**账户的Token值*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String ACCOUNT_TOKEN <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1d3edab2085c4498826759fc3f5afcd8&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>/**应用的ID值*/</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String APP_ID <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;8a216da881ad97540181ff8af6e9141e&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@SuppressWarnings</span>(<span style=color:#e6db74>&#34;all&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> Map<span style=color:#f92672>&lt;</span>String, Object<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>sendSms</span>(String phone, String msg) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 创建短信发送方SDK环境实例</span>
+</span></span><span style=display:flex><span>        CCPRestSmsSDK sdk <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> CCPRestSmsSDK();
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 填写 `app.cloopen.com` 服务器和 `8883` 端口，值是固定的</span>
+</span></span><span style=display:flex><span>        sdk.<span style=color:#a6e22e>init</span>(SERVER_IP, SERVER_PORT);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 填写主账号的ACCOUNT_SID和ACCOUNT_TOKEN值</span>
+</span></span><span style=display:flex><span>        sdk.<span style=color:#a6e22e>setAccount</span>(ACCOUNT_SID, ACCOUNT_TOKEN);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 填写主账号应用的APP_ID值</span>
+</span></span><span style=display:flex><span>        sdk.<span style=color:#a6e22e>setAppId</span>(APP_ID);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置响应数据类型</span>
+</span></span><span style=display:flex><span>        sdk.<span style=color:#a6e22e>setBodyType</span>(BodyType.<span style=color:#a6e22e>Type_JSON</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 设置发送短信的内容，短信模板会从该数组中获取值</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 1号模板内容: &#34;[云通讯] 您使用的是云通讯短信模板，您的验证码是data[0]，请于data[1]分钟内正确输入&#34;</span>
+</span></span><span style=display:flex><span>        String<span style=color:#f92672>[]</span> datas <span style=color:#f92672>=</span> {msg, <span style=color:#e6db74>&#34;5&#34;</span>};
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 发送短信，模板必须是数字，方法返回一个Map响应值，异常时返回错误码和错误信息</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> sdk.<span style=color:#a6e22e>sendTemplateSMS</span>(phone, <span style=color:#e6db74>&#34;1&#34;</span>, datas);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=4><li>开发测试类 <code>SmsUtilTest</code>:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> util;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/** @author lsx */</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SmsUtilTest</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testSendSms</span>() {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(SmsUtil.<span style=color:#a6e22e>sendSms</span>(<span style=color:#e6db74>&#34;18210210122&#34;</span>, <span style=color:#e6db74>&#34;5277&#34;</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><svg id="btt-button" class="arrow-logo" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" onclick="scrollToTop()" title="Go to top"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6.0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9.0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9.0L7 329.7c-9.4-9.4-9.4-24.6.0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"/></svg>
+<script>let backToTopButton=document.getElementById("btt-button");window.onscroll=function(){scrollFunction()};function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?backToTopButton.style.display="block":backToTopButton.style.display="none"}function scrollToTop(){window.scrollTo(0,0)}</script></div></main><footer class=footer><span>&copy; 2024 The Marauders</span>
+<span>Made with &#10084;&#65039; using <a target=_blank href=https://github.com/gokarna-theme/gokarna-hugo>Gokarna</a></span></footer></body></html>
